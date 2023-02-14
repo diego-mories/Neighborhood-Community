@@ -11,7 +11,7 @@
       <span class="input-group-text" id="basic-addon1">🔐</span>
       <b-form-input type="text" class="form-control" placeholder="Password"></b-form-input>
       </div>
-      <b-button variant="outline-primary" type="submit">Iniciar sesion</b-button>
+      <b-button variant="outline-primary" type="submit" @click="$router.push('loginOwner')">Iniciar sesion</b-button>
     </b-form-group>
   </b-form>
 </div>

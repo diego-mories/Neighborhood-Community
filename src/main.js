@@ -7,9 +7,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faTableTennisPaddleBall, faUser, faThumbTack, faBoxOpen } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons'
-library.add(faUserSecret, faTwitter, faInstagram, faFacebook)
+library.add(faUserSecret, faTwitter, faInstagram, faFacebook, faTableTennisPaddleBall, faUser, faThumbTack, faBoxOpen)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -17,6 +17,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 new Vue({
   el: '#app',
   router,
+  mode: 'history',
   components: { App },
   template: '<App/>'
 })

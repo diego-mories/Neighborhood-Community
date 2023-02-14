@@ -45,3 +45,40 @@
 #login-col-R{
     margin: auto;
 }
+
+.navBar {
+  background-color: #29738f;
+  border: none;
+  border-radius: 0;
+}
+
+.componentsNavBar{
+  text-align: center;
+  vertical-align: middle;
+  width: 20%;
+  margin: auto;
+  color: antiquewhite;
+}
+.componentsNavBar:hover{
+  color: #505050;
+  cursor:pointer;
+}
+.colHome {
+  width: 100%;
+}
+
+.bootstrap-btn {
+	display: inline-block;
+	color: #f1f1f1;
+	text-align: center;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	background-color: #7f6f62;
+}
+
+.bootstrap-btn:hover{
+  	background-color: #5c5047;
+}
