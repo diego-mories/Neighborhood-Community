@@ -1,7 +1,7 @@
 <template>
 <div class="login-container">
   <b-form>
-  <span class="title-login"><b>Neighborhood Community</b></span>
+  <span class="title-login"><img src="../assets/logo.png"></span>
   <b-form-group>
       <div class="input-group mb-3">
       <label class="label-login">Email</label>
@@ -24,4 +24,5 @@
 .title-login{
   font-family: sans-serif;
 }
+
 </style>

@@ -30,6 +30,5 @@ export default {
  .middle-page {
       top: 50%;
       left: 50%;
-      transform: translate(-10%, -20%);
     }
 </style>

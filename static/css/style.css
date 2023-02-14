@@ -1,15 +1,15 @@
 #app {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #000000;
     overflow-x: hidden;
     width: 100%;
-  }
+}
 .login-container{
-    margin: auto;
-    width:60%;
+    margin-left: 0;
+    width: 50%;
 }  
 .img-container{
     width: 100%;
@@ -20,9 +20,7 @@
         -moz-background-size: cover;
         -webkit-background-size: cover;
         -o-background-size: cover;
-    opacity: 75%; 
-    outline-color: #000000;
-    
+    opacity: 75%;   
 }
 .label-login{
   text-align: left;
@@ -31,25 +29,19 @@
   padding: 5px;
   margin: auto;
 }
-
 .form-input {
     width: 10px;
-    height: 40%;
+    height: 50%;
     align-items:center;
-  }
-
+}
 .logoApp{
   width: auto;
   height: auto;
   margin-top: 50%;
 }
-
 #login-col-L{
     margin-right: 20%;
-  }
+}
 #login-col-R{
-    margin-bottom: 5%;
-    margin-top: 18%;
-    margin-right: 10%;
-    margin-left: 0%;
-  }
+    margin: auto;
+}
