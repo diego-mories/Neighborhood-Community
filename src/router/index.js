@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // >> Views
 import Home from '../views/Home'
 import LoginOwner from '../views/LoginOwner'
+import BookingCourts from '../views/BookingCourts'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -23,6 +24,11 @@ export default new Router({
       path: '/loginOwner',
       name: 'LoginOwner',
       component: LoginOwner
+    },
+    {
+      path: '/bookingCourts',
+      name: 'BookingCourts',
+      component: BookingCourts
     }
   ]
 })

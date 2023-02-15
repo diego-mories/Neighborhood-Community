@@ -1,11 +1,11 @@
 <template>
 <div class="screen">
-  <div class="row" id="GridTop">
+  <div class="row" id="GridTop1">
     <NavBar></NavBar>
   </div>
-  <div class="row" id="GridBottom">
+  <div class="row" id="GridBottom1">
     <div class="col" id="GridBottomLeft">
-      <span id="logoLeft"><img src="../assets/logo.png"></span>
+      <span class="centerImage"><img src="../assets/logo.png"></span>
     </div>
     <div class="col" id="GridBottomRight">
       <div class="row" id="Graph">
@@ -33,13 +33,13 @@ export default {
 
 /* Distribution */
 
-#GridBottom{
+#GridBottom1{
   height: 94%;
   margin: 0;
   padding: 0;
 }
 
-#GridTop{
+#GridTop1{
   height: 6%;
 }
 
@@ -68,14 +68,5 @@ export default {
   margin: 0;
   padding: 0;
   background-color: rgb(246, 246, 246);
-}
-
-#logoLeft{
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 </style>

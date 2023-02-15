@@ -13,6 +13,7 @@
   width: 100%;
   height: 100%;
 }
+li {list-style:none;}
 
 /* FORM LOGIN */
 
@@ -27,6 +28,7 @@
 .navBar {
   background-color: #29738f;
   border: none;
+  display: flex;
 }
 .componentsNavBar{
   text-align: center;
@@ -54,4 +56,13 @@
 .bootstrap-btn:hover{
   transition: 0.5s;
   background-color: #5c5047;
+}
+
+.centerImage{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

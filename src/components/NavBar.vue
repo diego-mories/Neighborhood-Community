@@ -5,16 +5,22 @@
                 <button type="button" class="bootstrap-btn"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
             </div>
             <div class="componentsNavBar">
-                <span >Reservas </span>
-                <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
+                <router-link tag="li" active-class="active" to="/bookingCourts" exact>
+                    Reserva
+                    <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
+                </router-link>
             </div>
             <div class="componentsNavBar">
-                <span>Avisos </span>
-                <font-awesome-icon icon="fa-solid fa-thumbtack"/>
+                <router-link tag="li" active-class="active" to="/" exact>
+                    Avisos
+                    <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
+                </router-link>
             </div>
             <div class="componentsNavBar">
-                <span>Entregas </span>
-                <font-awesome-icon icon="fa-solid fa-box-open"/>
+                <router-link tag="li" active-class="active" to="/" exact>
+                    Entregas
+                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
+                </router-link>
             </div>
         </b-navbar>
     </div>
