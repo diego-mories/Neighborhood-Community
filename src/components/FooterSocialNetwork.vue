@@ -1,5 +1,5 @@
 <template>
-  <footer class="d-flex" style="color: white; background-color: #29738f; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+  <footer class="d-flex" style=" color: white; background-color: #29738f;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
     <div style="margin: auto;padding: auto;text-align: left;">
         © 2023 Copyright: Neighborhood Community
     </div>
@@ -28,7 +28,7 @@ export default {
 
 <style>
 .network{
-    margin: 10px;
-    padding: auto;
+    margin: 0px;
+    padding-left: 15px;
 }
 </style>

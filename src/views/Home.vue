@@ -1,14 +1,14 @@
 <template>
-  <div style="height: 100vh;">
-    <div class="row" style="height: 95vh;">
-      <div class="col" id="login-col-L">
-        <ColumnaImg></ColumnaImg>
-      </div>
-      <div class="col" id="login-col-R">
-        <LoginForm class="middle-page"></LoginForm>
-      </div>
+  <div style="height: 100%;">
+    <div class="row" style="height: 95%;">
+        <div class="col" id="login-col-L">
+          <ColumnaImg></ColumnaImg>
+        </div>
+        <div class="col" id="login-col-R">
+          <LoginForm class="middle-page"></LoginForm>
+        </div>
     </div>
-    <div class="row" style="height: 5vh;"><FooterSocial></FooterSocial></div>
+    <div class="row" style="height: 5%;"><FooterSocial></FooterSocial></div>
   </div>
 </template>
 
