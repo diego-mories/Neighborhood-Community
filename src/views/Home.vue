@@ -1,14 +1,14 @@
 <template>
-  <div style="height: 100%;">
-    <div class="row" style="height: 95%;">
+  <div class="screen">
+    <div class="row" id="GridTop">
         <div class="col" id="login-col-L">
           <ColumnaImg></ColumnaImg>
         </div>
         <div class="col" id="login-col-R">
-          <LoginForm class="middle-page"></LoginForm>
+          <LoginForm id="positionForm"></LoginForm>
         </div>
     </div>
-    <div class="row" style="height: 5%;"><FooterSocial></FooterSocial></div>
+    <div class="row" id="GridBottom"><FooterSocial></FooterSocial></div>
   </div>
 </template>
 
@@ -26,9 +26,34 @@ export default {
 </script>
 
 <style>
+#login-col-L{
+  margin: 0;
+  padding: 0;
+  max-width: 40%;
+}
+#login-col-R{
+  margin: 0;
+  padding: 0;
+  max-width: 60%;
+  align-items: center;
+}
+#GridTop{
+  height: 95%;
+  margin: 0;
+  padding: 0;
+}
 
- .middle-page {
-      top: 50%;
-      left: 50%;
-    }
+#GridBottom{
+  height: 5%;
+  margin: 0;
+  padding: 0;
+}
+#positionForm{
+  position: absolute;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 </style>
