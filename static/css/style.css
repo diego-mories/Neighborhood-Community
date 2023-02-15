@@ -8,18 +8,14 @@
     width: 100%;
     height: 100vh;
 }
-
-
-.img-container{
-    width: 100%;
-    height: 100%;
-    background-image: url('../images/comunidad.jpg');
-    background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-    opacity: 75%;   
+/* MAIN */
+.screen{
+  width: 100%;
+  height: 100%;
 }
+
+/* FORM LOGIN */
+
 .label-login{
   text-align: left;
   color: #000000 ;
@@ -27,12 +23,11 @@
   padding: 5px;
   margin: auto;
 }
-
+/* NAV BAR */
 .navBar {
   background-color: #29738f;
   border: none;
 }
-
 .componentsNavBar{
   text-align: center;
   vertical-align: middle;
@@ -44,15 +39,6 @@
   color: #fff;
   cursor:pointer;
 }
-
-.colHome {
-  width: 100%;
-}
-.rowHome {
-  width: 100%;
-  height: 100%;
-}
-
 .bootstrap-btn {
 	display: inline-block;
 	color: #f1f1f1;
@@ -68,8 +54,4 @@
 .bootstrap-btn:hover{
   transition: 0.5s;
   background-color: #5c5047;
-}
-.screen{
-  width: 100%;
-  height: 100%;
 }

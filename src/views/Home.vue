@@ -2,7 +2,7 @@
   <div class="screen">
     <div class="row" id="GridTop">
         <div class="col" id="login-col-L">
-          <ColumnaImg></ColumnaImg>
+          <div id="img-container"></div>
         </div>
         <div class="col" id="login-col-R">
           <LoginForm id="positionForm"></LoginForm>
@@ -14,29 +14,31 @@
 
 <script>
 import LoginForm from '../components/LoginForm.vue'
-import ColumnaImg from '../components/ColumnaImg.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
     LoginForm,
-    ColumnaImg,
     FooterSocial
   }
 }
 </script>
 
 <style>
+/* Distribution */
+
 #login-col-L{
   margin: 0;
   padding: 0;
   max-width: 40%;
 }
+
 #login-col-R{
   margin: 0;
   padding: 0;
   max-width: 60%;
   align-items: center;
 }
+
 #GridTop{
   height: 95%;
   margin: 0;
@@ -48,6 +50,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 #positionForm{
   position: absolute;
   width: 50%;
@@ -55,5 +58,17 @@ export default {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+/* Extra */
+#img-container{
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/comunidad.jpg');
+    background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+    opacity: 75%;
 }
 </style>

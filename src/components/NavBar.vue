@@ -27,11 +27,6 @@ export default {
 </script>
 
 <style>
-.profile{
-    margin: auto;
-    padding: auto;
-    border-radius: 25%;
-}
 #NavBar{
     width: 100%;
     height: 100%;
