@@ -5,7 +5,7 @@
   </div>
   <div class="row" id="grid-bottom-log-owner">
     <div class="col-6" id="full">
-      <span class="centerImage"><img src="../assets/logo.png"></span>
+      <img class="centerImage" src="../assets/logo.png">
     </div>
     <div class="col-6" id="full">
       <div class="row" id="graph-top">

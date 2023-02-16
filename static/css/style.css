@@ -8,7 +8,6 @@
     width: 100%;
     height: 100vh;
 }
-
 /* MAIN */
 .screen{
   width: 100%;
@@ -72,6 +71,14 @@ li {list-style:none;}
   margin: 0;
   padding: 0;
 }
+#full img{
+  filter: grayscale(1);
+  transition: all 300ms;
+}
+#full img:hover{
+  cursor: pointer;
+  filter: grayscale(0);
+}
 
 /* HOME */
 #col-R-home{
@@ -127,10 +134,44 @@ li {list-style:none;}
 }
 
 .centerImage{
-  margin: 0;
   position: absolute;
+  height:auto;
+  width: auto;
+  max-width: 70%;
+  max-height: 70%;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+ /* BOOKING COURTS*/
+ #title{
+  font-size:xx-large;
+}
+#title-booking{
+  height: 10%;
+  align-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+#back-icon{
+  height: 50%;
+  width: 50%;
+  color: #29738f;
+}
+#courts{
+  height: 90%;
+  margin: 0;
+  padding: 0;
+}
+#grid-top-booking{
+  height: 95%;
+  margin: 0;
+  padding: 0;
+}
+#grid-bottom-booking{
+  height: 5%;
+  margin: 0;
+  padding: 0;
 }

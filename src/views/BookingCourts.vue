@@ -1,37 +1,52 @@
 <template>
   <div class="screen">
-    <div class="row" id="grid">
-        <div class="col" id="gridTennis">
-            <div class="container"> <span class="centerImage"><img src="../assets/images/campi-da-padel.i6563-k0hncv-w600-l1-n1.png"></span></div>
+    <div class="row" id="grid-top-booking">
+      <div class="col-sm-5" id="full">
+        <div id="img-container-home"></div>
+      </div>
+      <div class="col-sm-7" id="full">
+        <div class="row" id="title-booking">
+          <div class="col-sm-1" id="full">
+            <router-link to="/loginOwner"><font-awesome-icon id="back-icon" icon="fa-solid fa-left-long"/></router-link>
+          </div>
+          <div class="col-sm-11" id="full">
+           <span id="title">Reserva de pistas</span>
+          </div>
         </div>
-        <div class="col" id="gridPaddle">
-            <span class="centerImage"><img src="../assets/images/CESPED_ISO.png"></span>
+        <div class="row" id="courts">
+          <div class="col-sm-6" id="full">
+            <router-link to="/tennisCourt"><img class="centerImage" src="../assets/images/tennis.png"></router-link>
+          </div>
+          <div class="col-sm-6" id ="full">
+            <router-link to="/paddleCourt"><img class="centerImage" src="../assets/images/paddle.png"></router-link>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="row" id="grid-bottom-booking">
+      <footer-social-network></footer-social-network>
     </div>
   </div>
 </template>
 
 <script>
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 export default {
-
+  components: {
+    FooterSocialNetwork
+  }
 }
 </script>
 
 <style>
-#grid{
+#img-container-home{
+    width: 100%;
     height: 100%;
-    width:100%;
-}
-
-#gridTennis{
-height: 100%;
-margin: 0%;
-padding: 0%;
-}
-
-#gridPaddle{
-height: 100%;
-margin: 0%;
-padding: 0%;
+    background-image: url('../assets/images/comunidad.jpg');
+    background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+    opacity: 75%;
 }
 </style>
