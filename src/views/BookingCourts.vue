@@ -22,11 +22,13 @@ export default {
     height: 100%;
     width:100%;
 }
+
 #gridTennis{
 height: 100%;
 margin: 0%;
 padding: 0%;
 }
+
 #gridPaddle{
 height: 100%;
 margin: 0%;

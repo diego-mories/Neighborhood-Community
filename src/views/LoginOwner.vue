@@ -1,16 +1,16 @@
 <template>
 <div class="screen">
-  <div class="row" id="GridTop1">
-    <NavBar></NavBar>
+  <div class="row" id="grid-top-log-owner">
+    <NavBar id="full"></NavBar>
   </div>
-  <div class="row" id="GridBottom1">
-    <div class="col" id="GridBottomLeft">
+  <div class="row" id="grid-bottom-log-owner">
+    <div class="col-6" id="full">
       <span class="centerImage"><img src="../assets/logo.png"></span>
     </div>
-    <div class="col" id="GridBottomRight">
-      <div class="row" id="Graph">
+    <div class="col-6" id="full">
+      <div class="row" id="graph-top">
       </div>
-      <div class="row" id="Graph2">
+      <div class="row" id="graph-bottom">
       </div>
     </div>
   </div>
@@ -25,48 +25,8 @@ export default {
     NavBar,
     Footer
   }
-
 }
 </script>
 
 <style>
-
-/* Distribution */
-
-#GridBottom1{
-  height: 94%;
-  margin: 0;
-  padding: 0;
-}
-
-#GridTop1{
-  height: 6%;
-}
-
-#GridBottomLeft{
-  margin: 0;
-  padding: 0;
-  width: 50%;
-}
-
-#GridBottomRight{
-  width: 50%;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(5, 133, 90);
-}
-
-#Graph{
-  height: 50%;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(52, 52, 52);
-}
-
-#Graph2{
-  height: 50%;
-  margin: 0;
-  padding: 0;
-  background-color: rgb(246, 246, 246);
-}
 </style>

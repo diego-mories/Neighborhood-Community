@@ -1,14 +1,14 @@
 <template>
   <div class="screen">
-    <div class="row" id="GridTop">
-        <div class="col" id="login-col-L">
-          <div id="img-container"></div>
+    <div class="row" id="grid-top-home">
+        <div class="col-sm-5" id="full">
+          <div id="img-container-home"></div>
         </div>
-        <div class="col" id="login-col-R">
-          <LoginForm id="positionForm"></LoginForm>
+        <div class="col-sm-7" id="col-R-home">
+          <LoginForm id="position-form-home"></LoginForm>
         </div>
     </div>
-    <div class="row" id="GridBottom"><FooterSocial></FooterSocial></div>
+    <div class="row" id="grid-bottom-home"><FooterSocial id="full"></FooterSocial></div>
   </div>
 </template>
 
@@ -24,44 +24,8 @@ export default {
 </script>
 
 <style>
-/* Distribution */
-
-#login-col-L{
-  margin: 0;
-  padding: 0;
-  max-width: 40%;
-}
-
-#login-col-R{
-  margin: 0;
-  padding: 0;
-  max-width: 60%;
-  align-items: center;
-}
-
-#GridTop{
-  height: 95%;
-  margin: 0;
-  padding: 0;
-}
-
-#GridBottom{
-  height: 5%;
-  margin: 0;
-  padding: 0;
-}
-
-#positionForm{
-  position: absolute;
-  width: 50%;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
 /* Extra */
-#img-container{
+#img-container-home{
     width: 100%;
     height: 100%;
     background-image: url('../assets/images/comunidad.jpg');
