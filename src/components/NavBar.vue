@@ -2,7 +2,7 @@
     <div class="row" id="NavBar">
         <b-navbar class="navBar" toggleable="lg" type="dark">
             <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')" ><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
@@ -11,13 +11,13 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/" exact>
+                <router-link tag="li" active-class="active" to="/notices" exact>
                     Avisos
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/" exact>
+                <router-link tag="li" active-class="active" to="/deliveries" exact>
                     Entregas
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
                 </router-link>

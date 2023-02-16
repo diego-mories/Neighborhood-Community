@@ -11,15 +11,13 @@
             <router-link to="/loginOwner"><font-awesome-icon class="back-icon" icon="fa-solid fa-left-long"/></router-link>
           </div>
           <div class="col-sm-11" id="full">
-           <span class="title"><b>Reserva de pistas</b></span>
+           <span class="title"><b>Tablón de anuncios</b></span>
           </div>
         </div>
         <div class="row" id="bottomR">
-          <div class="col-sm-6" id="full">
-            <router-link to="/tennisCourt"><img class="centerImage" src="../assets/images/tennis.png"></router-link>
-          </div>
-          <div class="col-sm-6" id ="full">
-            <router-link to="/paddleCourt"><img class="centerImage" src="../assets/images/paddle.png"></router-link>
+          <div class="col-sm-1" id="full"></div>
+          <div class="col-sm-11" id="full">
+            <span><img class="centerImage" src="../assets/images/18-Tablon-de-Anuncios.png"></span>
           </div>
         </div>
       </div>
