@@ -1,7 +1,5 @@
 <template>
-  <div class="screen">
-    <h1>PERFIL</h1>
-  </div>
+  <div></div>
 </template>
 
 <script>

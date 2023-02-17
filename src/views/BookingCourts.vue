@@ -1,7 +1,6 @@
 <template>
   <div class="screen">
-    <div class="row" id="grid-top">
-      <div class="col-sm-5" id="full">
+    <div class="row" id="grid-top">      <div class="col-sm-5" id="full">
         <div id="img-container-home">
         </div>
       </div>

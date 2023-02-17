@@ -1,6 +1,6 @@
 <template>
-    <div class="row" id="NavBar">
-        <b-navbar class="navBar" toggleable="lg" type="dark">
+        <div class="row" id="NavBar">
+        <navbar class="navBar" type="dark">
             <div class="componentsNavBar">
                 <button type="button" class="bootstrap-btn" @click="$router.push('/profile')" ><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
             </div>
@@ -22,7 +22,7 @@
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
                 </router-link>
             </div>
-        </b-navbar>
+        </navbar>
     </div>
 </template>
 
@@ -36,7 +36,5 @@ export default {
 #NavBar{
     width: 100%;
     height: 100%;
-    padding: 0%;
-    margin: 0%;
 }
 </style>

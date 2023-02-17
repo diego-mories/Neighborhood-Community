@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 #app {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    -webkit-font-smoothing: antialiased;
+    font-family: 'Rokkitt', serif;    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #000000;
@@ -14,8 +15,11 @@
   height: 100%;
 }
 
-li {list-style:none;}
+li {list-style:none; vertical-align: middle;}
 
+#input-form{
+  font-family: 'Raleway', sans-serif;
+}  
 /* -> Components <- */
 /* FOOTER */
 #footer-networks{
@@ -49,14 +53,20 @@ li {list-style:none;}
   background-color: #29738f;
   border: none;
   display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .componentsNavBar{
   text-align: center;
+  align-items: center;
   vertical-align: middle;
   width: 20%;
+  margin: auto;
   height: auto;
-  color: antiquewhite;
+  color: rgb(255, 255, 255);
 }
 
 .componentsNavBar:hover{
@@ -105,6 +115,7 @@ li {list-style:none;}
   width: 50%;
   color: #29738f;
 }
+.fa-left-long{filter:drop-shadow(3px 3px 3px #133744)}
 #grid-top{
   height: 95%;
   margin: 0;
@@ -125,6 +136,18 @@ li {list-style:none;}
 
 #bottomR{
   height: 90%;
+  margin: 0;
+  padding: 0;
+}
+
+#bottomR-middle{
+  align-content: center;
+  height: 60%;
+  margin: 0;
+  padding: 0;
+}
+#bottomR-bottom{
+  height: 30%;
   margin: 0;
   padding: 0;
 }
