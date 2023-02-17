@@ -1,5 +1,5 @@
 <template>
-<div id="containerForm">
+<div id="full">
   <b-form id="loginForm">
     <span><img src="../assets/logo.png"></span>
     <b-form-group>
