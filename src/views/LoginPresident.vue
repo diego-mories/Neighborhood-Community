@@ -1,9 +1,9 @@
 <template>
 <div class="screen">
-  <div class="row" id="grid-top-log-owner">
+  <div class="row" id="grid-top-log">
     <NavBar id="full"></NavBar>
   </div>
-  <div class="row" id="grid-bottom-log-owner">
+  <div class="row" id="grid-bottom-log">
     <div class="col-6" id="full">
       <img class="centerImage" src="../assets/logo.png">
     </div>

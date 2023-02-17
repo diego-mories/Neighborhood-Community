@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 #app {
     font-family: 'Rokkitt', serif;    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #000000;
@@ -16,10 +17,18 @@
 }
 
 li {list-style:none; vertical-align: middle;}
-
-#input-form{
-  font-family: 'Raleway', sans-serif;
-}  
+/* Extra */
+.centerImage{
+  position: absolute;
+  height:auto;
+  width: auto;
+  max-width: 70%;
+  max-height: 70%;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 /* -> Components <- */
 /* FOOTER */
 #footer-networks{
@@ -53,10 +62,6 @@ li {list-style:none; vertical-align: middle;}
   background-color: #29738f;
   border: none;
   display: flex;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 .componentsNavBar{
@@ -85,7 +90,7 @@ li {list-style:none; vertical-align: middle;}
 	border-radius: .25rem;
 	background-color: #7f6f62;
 }
-
+.fa-left-long{filter:drop-shadow(3px 3px 3px #133744)}
 .bootstrap-btn:hover{
   transition: 0.5s;
   background-color: #5c5047;
@@ -115,7 +120,6 @@ li {list-style:none; vertical-align: middle;}
   width: 50%;
   color: #29738f;
 }
-.fa-left-long{filter:drop-shadow(3px 3px 3px #133744)}
 #grid-top{
   height: 95%;
   margin: 0;
@@ -140,55 +144,39 @@ li {list-style:none; vertical-align: middle;}
   padding: 0;
 }
 
-#bottomR-middle{
-  align-content: center;
-  height: 60%;
-  margin: 0;
-  padding: 0;
-}
-#bottomR-bottom{
-  height: 30%;
-  margin: 0;
-  padding: 0;
-}
-
 
 /* HOME */
-#col-R-home{
-  margin: 0;
-  padding: 0;
-  align-items: center;
-}
 
 #grid-top-home{
   height: 95%;
   margin: 0;
   padding: 0;
 }
-
 #grid-bottom-home{
   height: 5%;
   margin: 0;
   padding: 0;
 }
 
-#position-form-home{
+.center-form{
   position: absolute;
   width: 50%;
   top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-
-/* LOGIN OWNER */
-#grid-bottom-log-owner{
+/* Login*/
+#grid-bottom-log{
   height: 94%;
   margin: 0;
   padding: 0;
 }
 
-#grid-top-log-owner{
+#grid-top-log{
   height: 6%;
 }
-
+/* LOGIN President */
 #graph-top{
   height: 50%;
   margin: 0;
@@ -203,14 +191,16 @@ li {list-style:none; vertical-align: middle;}
   background-color: rgb(246, 246, 246);
 }
 
-.centerImage{
-  position: absolute;
-  height:auto;
-  width: auto;
-  max-width: 70%;
-  max-height: 70%;
-  top: 50%;
-  left: 50%;
 
+/* Deliveries*/
+#bottomR-middle{
+  align-content: center;
+  height: 60%;
+  margin: 0;
+  padding: 0;
 }
-
+#bottomR-bottom{
+  height: 30%;
+  margin: 0;
+  padding: 0;
+}

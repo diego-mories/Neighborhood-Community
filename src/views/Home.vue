@@ -4,8 +4,8 @@
         <div class="col-sm-5" id="full">
           <div id="img-container-home"></div>
         </div>
-        <div class="col-sm-7" id="col-R-home">
-          <LoginForm id="position-form-home"></LoginForm>
+        <div class="col-sm-7" id="full">
+          <LoginForm class="center-form"></LoginForm>
         </div>
     </div>
     <div class="row" id="grid-bottom-home"><FooterSocial id="full"></FooterSocial></div>

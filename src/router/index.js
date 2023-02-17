@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // >> Views
 import Home from '../views/Home'
-import LoginOwner from '../views/LoginOwner'
+import LoginPresident from '../views/LoginPresident'
 import BookingCourts from '../views/BookingCourts'
 import TennisCourt from '../views/TennisCourt'
 import PaddleCourt from '../views/PaddleCourt'
@@ -26,9 +26,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/loginOwner',
-      name: 'LoginOwner',
-      component: LoginOwner
+      path: '/loginPresident',
+      name: 'LoginPresident',
+      component: LoginPresident
     },
     {
       path: '/bookingCourts',

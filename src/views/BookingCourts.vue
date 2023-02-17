@@ -1,13 +1,14 @@
 <template>
   <div class="screen">
-    <div class="row" id="grid-top">      <div class="col-sm-5" id="full">
+    <div class="row" id="grid-top">
+      <div class="col-sm-5" id="full">
         <div id="img-container-home">
         </div>
       </div>
       <div class="col-sm-7" id="full">
         <div class="row" id="topR">
           <div class="col-sm-1" id="full">
-            <router-link to="/loginOwner"><font-awesome-icon class="back-icon" icon="fa-solid fa-left-long"/></router-link>
+            <router-link to="/loginPresident"><font-awesome-icon class="back-icon" icon="fa-solid fa-left-long"/></router-link>
           </div>
           <div class="col-sm-11" id="full">
            <span class="title"><b>Reserva de pistas</b></span>
