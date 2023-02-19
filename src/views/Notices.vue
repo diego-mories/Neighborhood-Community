@@ -8,8 +8,7 @@
       <div class="col-sm-7" id="full">
         <div class="row" id="topR">
           <div class="col-sm-1" id="full">
-            <router-link to="/loginPresident"><font-awesome-icon class="back-icon" icon="fa-solid fa-left-long"/></router-link>
-          </div>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('loginPresident')">Volver</button>          </div>
           <div class="col-sm-11" id="full">
            <span class="title"><b>Tablón de anuncios</b></span>
           </div>

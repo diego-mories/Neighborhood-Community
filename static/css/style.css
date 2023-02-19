@@ -104,14 +104,14 @@ li {list-style:none; vertical-align: middle;}
   margin: 0;
   padding: 0;
 }
-#full img{
+/* #full img{
   filter: grayscale(1);
   transition: all 300ms;
 }
 #full img:hover{
   cursor: pointer;
   filter: grayscale(0);
-}
+} */
 .title{
   font-size:xx-large;
 }
@@ -119,6 +119,12 @@ li {list-style:none; vertical-align: middle;}
   height: 50%;
   width: 50%;
   color: #29738f;
+}
+.log-out-icon{
+  margin:5%;
+  height: 100%;
+  width: 100%;
+  color: #ffffff;
 }
 #grid-top{
   height: 95%;
@@ -204,3 +210,4 @@ li {list-style:none; vertical-align: middle;}
   margin: 0;
   padding: 0;
 }
+

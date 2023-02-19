@@ -1,0 +1,32 @@
+<template>
+  <div class="screen" id="full">
+    <div class="card p-5 center-form" id="full">
+        <div class="row d-flex">
+          <div class="col-sm-2 " id="full">
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('loginPresident')">Volver</button>
+            <img src="../assets/logo.png" style="margin-top:45%;">
+          </div>
+          <div class="col-sm-10" id="full"><h4>Diego Mories</h4>
+          <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
+        <div class="row justify-content-center" id="grid-bottom-profile full">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" id="profileButton">Cambiar contraseña</button></div>
+          <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" id="profileButton">Configuración de gastos</button></div>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+#profileImage{
+    margin: 8%;
+    width: 25%;
+}
+
+</style>

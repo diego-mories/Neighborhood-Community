@@ -2,11 +2,8 @@
     <div class="row" id="NavBar">
         <navbar class="navBar" toggleable="lg" type="dark">
             <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')" ><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
-            </div>
-            <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
-                    Reserva
+                    Reservas
                     <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
                 </router-link>
             </div>
@@ -21,6 +18,11 @@
                     Entregas
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
                 </router-link>
+            </div>
+            <div class="componentsNavBar">
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
+
+                <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
         </navbar>
     </div>
