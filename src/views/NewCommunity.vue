@@ -10,14 +10,14 @@
             <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/loginPresident')">Volver</button>
         </div>
         <div class="col-sm-11" id="full">
-            <span class="title"><b>Alta Usuario</b></span>
+            <span class="title"><b>Nueva Comunidad</b></span>
         </div>
       </div>
       <div class="row" id="bottomR">
         <div class="col-sm-1" id="full">
         </div>
         <div class="col-sm-11" id="full">
-          <RegisterUserForm class="center-form"></RegisterUserForm>
+            <NewCommunityForm class="center-form"></NewCommunityForm>
         </div>
         </div>
       </div>
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import RegisterUserForm from '../components/RegisterUserForm.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
+import NewCommunityForm from '../components/NewCommunityForm.vue'
 
 export default {
   components: {
-    RegisterUserForm,
-    FooterSocial
+    FooterSocial,
+    NewCommunityForm
   }
 
 }

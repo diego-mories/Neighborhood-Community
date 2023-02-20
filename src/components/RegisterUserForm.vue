@@ -16,11 +16,11 @@
             </div>
         </b-form-group>
         <b-dropdown id="dropdown-1" text="Seleccione el piso" class="m-md-2">
-                    <b-dropdown-item>2ºA</b-dropdown-item>
-                    <b-dropdown-item>2ºB</b-dropdown-item>
-                    <b-dropdown-item>3ºA</b-dropdown-item>
-                </b-dropdown>
-                <b-button variant="outline-primary" type="submit">Registrar</b-button>
+            <b-dropdown-item>2ºA</b-dropdown-item>
+            <b-dropdown-item>2ºB</b-dropdown-item>
+            <b-dropdown-item>3ºA</b-dropdown-item>
+        </b-dropdown>
+        <b-button variant="outline-primary" type="submit">Registrar</b-button>
     </b-form>
 </div>
 </template>

@@ -13,6 +13,7 @@ import ForgotPassword from '../views/ForgotPassword'
 import ChangePassword from '../views/ChangePassword'
 import ConfigurationExpenses from '../views/ConfigurationExpenses'
 import RegisterUser from '../views/RegisterUser'
+import NewCommunity from '../views/NewCommunity'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -83,6 +84,11 @@ export default new Router({
       path: '/registerUser',
       name: 'RegisterUser',
       component: RegisterUser
+    },
+    {
+      path: '/newCommunity',
+      name: 'NewCommunity',
+      component: NewCommunity
     }
   ]
 })

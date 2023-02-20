@@ -92,12 +92,12 @@ li {list-style:none; vertical-align: middle;}
 	font-size: 1rem;
 	line-height: 1.5;
 	border-radius: .25rem;
-	background-color: #7f6f62;
+	background-color: #b6621d;
 }
 .fa-left-long{filter:drop-shadow(3px 3px 3px #133744)}
 .bootstrap-btn:hover{
   transition: 0.5s;
-  background-color: #5c5047;
+  background-color: #d1854b;
 }
 
 
