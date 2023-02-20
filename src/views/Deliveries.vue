@@ -26,12 +26,13 @@
           </div>
         </div>
         <div class="row" id="bottomR-bottom">
+          <div class="col-sm-3" id="full"></div>
           <div class="col-sm-3" id="full">
-          </div>
-          <div class="col-sm-3" id="full">
-            <input type="checkbox" v-model="anyHour" name="anyHour"/>
-            <label for="anyHour">Cualquier hora</label>
             <b-time locale="en" @context="onContext" for="checkbox-1" :disabled="anyHour"></b-time>
+            <div class=" center-form mt-3">
+              <input class="m-2" type="checkbox" v-model="anyHour" name="anyHour"/>
+              <span for="anyHour">Cualquier hora</span>
+            </div>
           </div>
           <div class="col-sm-6" id="full">
             <b-button variant="outline-primary" type="submit">Añadir</b-button>

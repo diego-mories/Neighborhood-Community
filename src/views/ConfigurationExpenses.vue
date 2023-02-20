@@ -10,14 +10,14 @@
             <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/Profile')">Volver</button>
         </div>
         <div class="col-sm-11" id="full">
-            <span class="title"><b>Cambiar contraseña</b></span>
+            <span class="title"><b>Configuración gastos</b></span>
         </div>
       </div>
       <div class="row" id="bottomR">
         <div class="col-sm-1" id="full">
         </div>
         <div class="col-sm-11" id="full">
-          <ChangePasswordForm class="center-form"></ChangePasswordForm>
+            <ConfigurationExpensesForm class="center-form"></ConfigurationExpensesForm>
         </div>
         </div>
       </div>
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import ChangePasswordForm from '../components/ChangePasswordForm.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
+import ConfigurationExpensesForm from '../components/ConfigurationExpensesForm.vue'
 export default {
   components: {
-    ChangePasswordForm,
-    FooterSocial
+    FooterSocial,
+    ConfigurationExpensesForm
   }
 }
 </script>

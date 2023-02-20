@@ -11,6 +11,7 @@ import Deliveries from '../views/Deliveries'
 import Profile from '../views/Profile'
 import ForgotPassword from '../views/ForgotPassword'
 import ChangePassword from '../views/ChangePassword'
+import ConfigurationExpenses from '../views/ConfigurationExpenses'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -71,6 +72,11 @@ export default new Router({
       path: '/changePassword',
       name: 'ChangePassword',
       component: ChangePassword
+    },
+    {
+      path: '/configurationExpenses',
+      name: 'ConfigurationExpenses',
+      component: ConfigurationExpenses
     }
   ]
 })
