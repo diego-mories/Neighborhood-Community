@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div>
   <b-form>
     <span><img src="../assets/logo.png"></span>
     <b-form-group>

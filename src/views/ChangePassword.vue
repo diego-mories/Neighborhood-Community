@@ -1,5 +1,5 @@
 <template>
-<div class="screen">
+  <div class="screen">
   <div class="row" id="grid-top">
     <div class="col-sm-5" id="full">
       <div id="img-container-home"></div>
@@ -7,17 +7,17 @@
     <div class="col-sm-7" id="full">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/')">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/Profile')">Volver</button>
         </div>
         <div class="col-sm-11" id="full">
-          <span class="title"><b>Recuperar contraseña</b></span>
+            <span class="title"><b>Cambiar contraseña</b></span>
         </div>
       </div>
       <div class="row" id="bottomR">
         <div class="col-sm-1" id="full">
         </div>
         <div class="col-sm-11" id="full">
-          <ForgotPasswordForm class="center-form"></ForgotPasswordForm>
+          <ChangePasswordForm class="center-form"></ChangePasswordForm>
         </div>
         </div>
       </div>
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
+import ChangePasswordForm from '../components/ChangePasswordForm.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
-    ForgotPasswordForm,
+    ChangePasswordForm,
     FooterSocial
   }
 

@@ -10,6 +10,7 @@ import Notices from '../views/Notices'
 import Deliveries from '../views/Deliveries'
 import Profile from '../views/Profile'
 import ForgotPassword from '../views/ForgotPassword'
+import ChangePassword from '../views/ChangePassword'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -65,6 +66,11 @@ export default new Router({
       path: '/forgotPassword',
       name: 'ForgotPassword',
       component: ForgotPassword
+    },
+    {
+      path: '/changePassword',
+      name: 'ChangePassword',
+      component: ChangePassword
     }
   ]
 })
