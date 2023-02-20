@@ -1,39 +1,41 @@
 <template>
   <div class="screen">
     <div class="row" id="grid-top">
-      <div class="col-sm-5" id="full">
-        <div id="img-container-home">
+        <div class="col-sm-5" id="full">
+          <div id="img-container-home"></div>
         </div>
-      </div>
-      <div class="col-sm-7" id="full">
-        <div class="row" id="topR">
+        <div class="col-sm-7" id="full">
+            <div class="row" id="topR">
           <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('loginPresident')">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/')">Volver</button>
           </div>
           <div class="col-sm-11" id="full">
-           <span class="title"><b>Tablón de anuncios</b></span>
+           <span class="title"><b>Recuperar contraseña</b></span>
           </div>
         </div>
         <div class="row" id="bottomR">
           <div class="col-sm-1" id="full"></div>
           <div class="col-sm-11" id="full">
-            <span><img class="centerImage" src="../assets/images/18-Tablon-de-Anuncios.png"></span>
+            <ForgotPasswordForm class="center-form"></ForgotPasswordForm>
           </div>
         </div>
-      </div>
+        </div>
     </div>
-    <div class="row" id="grid-bottom">
-      <footer-social-network></footer-social-network>
+    <div class="row" id="grid-bottom-home">
+        <FooterSocial id="full"></FooterSocial>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
-import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
+import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
+import FooterSocial from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
-    FooterSocialNetwork
+    ForgotPasswordForm,
+    FooterSocial
   }
+
 }
 </script>
 

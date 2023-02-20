@@ -16,10 +16,10 @@
         </div>
         <div class="row" id="bottomR">
           <div class="col-sm-6" id="full">
-            <router-link to="/tennisCourt"><img class="centerImage" src="../assets/images/tennis.png"></router-link>
+            <router-link to="/tennisCourt"><img class="centerImage" src="../assets/images/tennis.png" id="courts"></router-link>
           </div>
           <div class="col-sm-6" id ="full">
-            <router-link to="/paddleCourt"><img class="centerImage" src="../assets/images/paddle.png"></router-link>
+            <router-link to="/paddleCourt"><img class="centerImage" src="../assets/images/paddle.png" id="courts"></router-link>
           </div>
         </div>
       </div>

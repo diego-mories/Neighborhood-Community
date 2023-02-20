@@ -1,6 +1,6 @@
 <template>
-<div id="containerForm">
-  <b-form id="loginForm">
+<div>
+  <b-form>
     <span><img src="../assets/logo.png"></span>
     <b-form-group>
       <div class="input-group mb-3">
@@ -12,6 +12,7 @@
         <b-form-input type="text" class="form-control" placeholder="Password"></b-form-input>
       </div>
         <b-button variant="outline-primary" type="submit" @click="$router.push('loginPresident')">Iniciar sesion</b-button>
+        <div class="input-group m-1"><router-link to="/forgotPassword"><label id="forgot-password"><u>¿Forgot Password?</u></label></router-link></div>
     </b-form-group>
   </b-form>
 </div>

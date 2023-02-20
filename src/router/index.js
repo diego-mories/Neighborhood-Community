@@ -9,6 +9,7 @@ import PaddleCourt from '../views/PaddleCourt'
 import Notices from '../views/Notices'
 import Deliveries from '../views/Deliveries'
 import Profile from '../views/Profile'
+import ForgotPassword from '../views/ForgotPassword'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -59,6 +60,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/forgotPassword',
+      name: 'ForgotPassword',
+      component: ForgotPassword
     }
   ]
 })
