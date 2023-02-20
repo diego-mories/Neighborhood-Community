@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-form>
-    <span><img src="../assets/images/community.png" height="50%" width="50%"></span>
+    <span><img class="w-50 h-50 mw-50 mh-50" src="../assets/images/community.png"></span>
         <b-form-group>
             <div class="input-group mb-3">
                 <label class="label-login">Nombre de la comunidad</label>
