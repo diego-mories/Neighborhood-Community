@@ -12,6 +12,7 @@ import Profile from '../views/Profile'
 import ForgotPassword from '../views/ForgotPassword'
 import ChangePassword from '../views/ChangePassword'
 import ConfigurationExpenses from '../views/ConfigurationExpenses'
+import RegisterUser from '../views/RegisterUser'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -77,6 +78,11 @@ export default new Router({
       path: '/configurationExpenses',
       name: 'ConfigurationExpenses',
       component: ConfigurationExpenses
+    },
+    {
+      path: '/registerUser',
+      name: 'RegisterUser',
+      component: RegisterUser
     }
   ]
 })

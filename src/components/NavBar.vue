@@ -20,8 +20,13 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="/registerUser" exact>
+                    Alta
+                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-user-alt"/>
+                </router-link>
+            </div>
+            <div class="componentsNavBar">
                 <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
-
                 <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
         </navbar>
