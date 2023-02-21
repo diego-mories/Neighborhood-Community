@@ -20,13 +20,26 @@
             <span><img class="center-form w-100 " src="../assets/images/tennis.png"></span>
           </div>
           <div class="col-sm-7 d-flex" id="full">
-            <b-table class=" center-form w-50" striped hover :items="items"></b-table>
+            <b-table class="center-form" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
+              <template #cell(S)="{ rowSelected }">
+                <template v-if="rowSelected">
+                  <span aria-hidden="true">&check;</span>
+                </template>
+                <template v-else>
+                  <span aria-hidden="true">&nbsp;</span>
+                </template>
+              </template>
+            </b-table>
           </div>
         </div>
         <div class="row" id="bottomR-bottom">
           <div class="col-sm-5" id="full"></div>
           <div class="col-sm-7" id="full">
             <b-button variant="outline-primary" type="submit">Reservar</b-button>
+            <p>
+              <br>
+              Selección:{{ selected }}
+            </p>
           </div>
         </div>
       </div>
@@ -45,17 +58,39 @@ export default {
   },
   data () {
     return {
+      fields: ['Ocupado', 'S', 'Hora_inicio', 'Hora_Fin'],
       items: [
-        {Hora_inicio: '9:00', Hora_Fin: '10:30'},
-        {Hora_inicio: '10:30', Hora_Fin: '12:00'},
-        {Hora_inicio: '12:00', Hora_Fin: '13:30'},
-        {Hora_inicio: '13:30', Hora_Fin: '15:00'},
-        {Hora_inicio: '15:00', Hora_Fin: '16:30'},
-        {Hora_inicio: '16:30', Hora_Fin: '18:00'},
-        {Hora_inicio: '18:00', Hora_Fin: '19:30'},
-        {Hora_inicio: '19:30', Hora_Fin: '21:00'},
-        {Hora_inicio: '21:00', Hora_Fin: '22:30'}
-      ]
+        {Ocupado: '❌', Hora_inicio: '9:00', Hora_Fin: '10:30', S: ''},
+        {Ocupado: '✅', Hora_inicio: '10:30', Hora_Fin: '12:00', S: ''},
+        {Ocupado: '❌', Hora_inicio: '12:00', Hora_Fin: '13:30', S: ''},
+        {Ocupado: '✅', Hora_inicio: '13:30', Hora_Fin: '15:00', S: ''},
+        {Ocupado: '❌', Hora_inicio: '15:00', Hora_Fin: '16:30', S: ''},
+        {Ocupado: '❌', Hora_inicio: '16:30', Hora_Fin: '18:00', S: ''},
+        {Ocupado: '✅', Hora_inicio: '18:00', Hora_Fin: '19:30', S: ''},
+        {Ocupado: '✅', Hora_inicio: '19:30', Hora_Fin: '21:00', S: ''},
+        {Ocupado: '✅', Hora_inicio: '21:00', Hora_Fin: '22:30', S: ''}
+      ],
+      selectMode: 'single',
+      selected: []
+    }
+  },
+  mounted () {
+    console.log('No se ha ejecutado nada todavía')
+    for (let e of this.items) {
+      if (e.Ocupado === '❌') { // Si esta ocupado, de
+        console.log(e)
+        e.Hora_Fin = '❌'
+        e.Hora_inicio = '❌'
+      }
+    }
+  },
+  methods: {
+    onRowSelected (items) {
+      this.selected = items
+      console.log(this.selected[0])
+      if (this.selected[0].Ocupado === '❌') {
+        // No se puede selccionar
+      }
     }
   }
 }
