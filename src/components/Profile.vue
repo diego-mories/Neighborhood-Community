@@ -3,7 +3,7 @@
     <div class="card p-5 center-form" id="full">
         <div class="row d-flex">
           <div class="col-sm-2 " id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('loginPresident')">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
             <img src="../assets/logo.png" style="margin-top:45%;">
           </div>
           <div class="col-sm-10" id="full"><h4>Diego Mories</h4>

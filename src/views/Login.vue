@@ -1,7 +1,8 @@
 <template>
 <div class="screen">
   <div class="row" id="grid-top-log">
-    <NavBar id="full"></NavBar>
+    <NavBarPresident id="full"></NavBarPresident>
+    <!-- <NavBarOwner id="full"></NavBarOwner> -->
   </div>
   <div class="row" id="grid-bottom-log">
     <div class="col-6" id="full">
@@ -18,11 +19,13 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue'
+import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarOwner from '../components/NavBarOwner.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
-    NavBar,
+    NavBarPresident,
+    NavBarOwner,
     Footer
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="NavBar">
-        <navbar class="navBar" toggleable="lg" type="dark">
+        <navbar class="navBarP" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
                     Reservas
@@ -26,7 +26,7 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories</button>
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories (P)</button>
                 <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
         </navbar>

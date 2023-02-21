@@ -62,11 +62,22 @@ li {list-style:none; vertical-align: middle;}
 }
 
 /* NAV BAR */
-.navBar {
-  background-color: #29738f;
+.navBarO {
+  background-color: #5394ac;
   border: none;
   display: flex;
 }
+.navBarA {
+  background-color: #011e29;
+  border: none;
+  display: flex;
+}
+.navBarP {
+  background-color: #175064;
+  border: none;
+  display: flex;
+}
+
 
 .componentsNavBar{
   text-align: center;
