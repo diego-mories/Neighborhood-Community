@@ -1,8 +1,8 @@
 <template>
 <div class="screen">
   <div class="row" id="grid-top-log">
-    <!-- <NavBarPresident id="full"></NavBarPresident> -->
-    <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman>
+    <NavBarPresident id="full"></NavBarPresident>
+    <!-- <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman> -->
     <!-- <NavBarOwner id="full"></NavBarOwner> -->
     <!-- <NavBarAdmin id="full"></NavBarAdmin> -->
   </div>
@@ -21,24 +21,26 @@
   <!-- Vista de admin -->
   <!--
   <div class="row" id="grid-bottom-log">
-    Añdimos tabla con datos de todas las comunidades
+    Añadimos tabla con datos de todas las comunidades
   </div> -->
   <!-- Vista de portero -->
   <!--
   <div class="row" id="grid-bottom-log">
-    Añdimos calendario de entregas para consultar
+    <div class="col-6" id="full">
+      <img class="centerImage" src="../assets/logo.png">
+    </div>
+    <div class="col-6" id="full">
+      Calendario para revisar las entregas de los propietarios
+    </div>
   </div> -->
   <!-- Vista de propietario -->
-  <!--
-  <div class="row" id="grid-bottom-log">
-    <div class="row" id="grid-bottom-log">
+  <!-- <div class="row" id="grid-bottom-log">
     <div class="col-6" id="full">
       <img class="centerImage" src="../assets/logo.png">
     </div>
     <div class="col-6" id="full">
       Grafica en medio de este lado actual del propietario
     </div>
-  </div>
   </div> -->
 </div>
 </template>
