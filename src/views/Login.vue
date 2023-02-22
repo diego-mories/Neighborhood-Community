@@ -1,7 +1,8 @@
 <template>
 <div class="screen">
   <div class="row" id="grid-top-log">
-    <NavBarPresident id="full"></NavBarPresident>
+    <!-- <NavBarPresident id="full"></NavBarPresident> -->
+    <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman>
     <!-- <NavBarOwner id="full"></NavBarOwner> -->
     <!-- <NavBarAdmin id="full"></NavBarAdmin> -->
   </div>
@@ -22,6 +23,11 @@
   <div class="row" id="grid-bottom-log">
     Añdimos tabla con datos de todas las comunidades
   </div> -->
+  <!-- Vista de portero -->
+  <!--
+  <div class="row" id="grid-bottom-log">
+    Añdimos calendario de entregas para consultar
+  </div> -->
   <!-- Vista de propietario -->
   <!--
   <div class="row" id="grid-bottom-log">
@@ -41,12 +47,14 @@
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import NavBarAdmin from '../components/NavBarAdmin.vue'
+import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
     NavBarPresident,
     NavBarOwner,
     NavBarAdmin,
+    NavBarBuildingDoorman,
     Footer
   }
 }

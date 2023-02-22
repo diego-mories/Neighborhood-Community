@@ -1,10 +1,10 @@
 <template>
     <div class="row" id="NavBar">
-        <navbar class="navBarA" toggleable="lg" type="dark">
+        <navbar class="navBarB" toggleable="lg" type="dark">
             <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/newCommunity" exact>
-                    Crear Comunidad
-                    <!-- ICON COMMUNITY --> <font-awesome-icon icon="fa-solid fa-group-arrows-rotate"/>
+                <router-link tag="li" active-class="active" to="/cameras" exact>
+                    Cámaras
+                    <!-- ICON VIDEO --> <font-awesome-icon icon="fa-solid fa-video"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">

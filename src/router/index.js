@@ -14,6 +14,7 @@ import ChangePassword from '../views/ChangePassword'
 import ConfigurationExpenses from '../views/ConfigurationExpenses'
 import RegisterUser from '../views/RegisterUser'
 import NewCommunity from '../views/NewCommunity'
+import Cameras from '../views/Cameras'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -89,6 +90,11 @@ export default new Router({
       path: '/newCommunity',
       name: 'NewCommunity',
       component: NewCommunity
+    },
+    {
+      path: '/cameras',
+      name: 'Cameras',
+      component: Cameras
     }
   ]
 })

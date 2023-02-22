@@ -62,18 +62,27 @@ li {list-style:none; vertical-align: middle;}
 }
 
 /* NAV BAR */
+/* Owner */
 .navBarO {
   background-color: #5394ac;
   border: none;
   display: flex;
 }
+/* Admin */
 .navBarA {
   background-color: #011e29;
   border: none;
   display: flex;
 }
+/* President */
 .navBarP {
   background-color: #175064;
+  border: none;
+  display: flex;
+}
+/* BuildingDoorman */
+.navBarB {
+  background-color: #024146f3;
   border: none;
   display: flex;
 }
