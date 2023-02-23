@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-form>
+  <b-form @submit.prevent="test">
     <span><img src="../assets/logo.png"></span>
     <b-form-group>
       <div class="input-group mb-3">
@@ -11,7 +11,7 @@
         <span class="input-group-text" id="basic-addon1">🔐</span>
         <b-form-input type="password" class="form-control" placeholder="Contraseña"></b-form-input>
       </div>
-        <b-button variant="outline-primary" type="submit" @click="test()">Iniciar sesion</b-button>
+        <b-button variant="outline-primary" type="submit">Iniciar sesion</b-button>
         <div class="input-group m-1"><router-link to="/forgotPassword"><label id="forgot-password"><u>¿Recuperar Contraseña?</u></label></router-link></div>
     </b-form-group>
   </b-form>
@@ -32,8 +32,9 @@ export default {
         Response => {
           if (Response.status === 200) {
             console.log('Ha funcionado el servicio exist')
+            console.log('¿Hay email? : ' + Response.data.exist)
           } else {
-            console.log('Tambien funciona')
+            console.log('Error en front')
           }
         },
         Error => {
