@@ -30,7 +30,7 @@
 
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
-import ConfigurationExpensesForm from '../components/Forms/ConfigurationExpensesForm.vue'
+import ConfigurationExpensesForm from '../components/ConfigurationExpensesForm.vue'
 export default {
   components: {
     FooterSocial,

@@ -29,7 +29,7 @@
 <script>
 
 import FooterSocial from '../components/FooterSocialNetwork.vue'
-import ConfigurationCommunityForm from '../components/Forms/ConfigurationCommunityForm.vue'
+import ConfigurationCommunityForm from '../components/ConfigurationCommunityForm.vue'
 export default {
   components: {
     FooterSocial,

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ForgotPasswordForm from '../components/Forms/ForgotPasswordForm.vue'
+import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 export default {
   components: {
