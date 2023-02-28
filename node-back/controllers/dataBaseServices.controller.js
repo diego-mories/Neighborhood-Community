@@ -102,23 +102,43 @@ exports.signIn = (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) { // El email no existe en la base de datos
-          return res.status(404).send({message: 'El email no existe en la base de datos'})
+          return res.status(200).send({message: 'El email no existe en la base de datos', OK: false})
         } else { // El email existe en la base de datos, comprobamos contraseñas 
           let passwordQuery = rowCount[0].password
            // console.log(rowCount[0])
           if (bycript.compareSync(userLogin.password, passwordQuery)){
             // console.log('La contraseña es correcta, coincide con el desencriptado')
-            return res.status(200).send({message: 'OK, contraseña correcta, nos logueamos', role: rowCount[0].role})
+            return res.status(200).send({message: 'OK, contraseña correcta, nos logueamos', tokenUser: rowCount[0].token, OK: true})
           } else {
-            return res.status(404).send({message: 'La contraseña no coincide'})
+            return res.status(200).send({message: 'La contraseña no coincide', OK: false})
            }
         }
        }
      })
-    
-
   }
   else {
-    return res.status(400).send({message: 'Bad request'})
+    return res.status(400).send({message: 'Bad request', OK: false})
   }
+}
+exports.searchRole = (req, res) => {
+  if (req.query.token != undefined ){
+    console.log(req.query.token)
+    let queryToken = 'SELECT * FROM users WHERE token=' + "'" + req.query.token + "'"
+    conexion.query(queryToken, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        if (rowCount.length === 0) { // No encontramos el token en la base de datos, FALLO
+          return res.status(400).send({message: 'No encontramos el token en la base de datos', OK: false})
+        } else {
+          console.log(rowCount[0])
+          return res.status(200).send({message: 'Encontramos el token en la base de datos, devolvemos el role', OK: true, roleUser:rowCount[0].role})
+        }
+
+      }
+    })
+  } else {
+    return res.status(400).send({message: 'Bad request', OK: false})
+  }
+
 }

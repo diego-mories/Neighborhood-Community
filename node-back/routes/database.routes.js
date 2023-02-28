@@ -12,5 +12,9 @@ module.exports = function (app) {
     app.post(
         '/api/dataBaseServices/signIn',
         controller.signIn
-    );
+    )
+    app.get(
+        '/api/dataBaseServices/searchRole',
+        controller.searchRole
+    )
 }
