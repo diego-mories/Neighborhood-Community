@@ -44,12 +44,10 @@ export default {
     //   )
     // }
     async signIn () {
-      console.log('Entramos al sigIn en la vista del front')
-      console.log('Enviamos al servicio los datos => email: ' + this.user.email + ' password: ' + this.user.password)
       Services.signIn(this.user).then(
         Response => {
           console.log('RESPUESTA DEL INCIO DE SESION')
-          console.log('Respuesta: ' + Response.data.message)
+          console.log('Respuesta: ' + Response.data.message + ' Role: ' + Response.data.role)
         },
         Error => {
           console.log('Error en el inicio de sesión')
