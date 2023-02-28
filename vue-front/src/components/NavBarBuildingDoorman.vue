@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="NavBar">
-        <navbar class="navBarB" toggleable="lg" type="dark">
+        <nav class="navBarB" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/cameras" exact>
                     Cámaras
@@ -10,7 +10,7 @@
             <div class="componentsNavBar">
                 <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
-        </navbar>
+        </nav>
     </div>
 </template>
 

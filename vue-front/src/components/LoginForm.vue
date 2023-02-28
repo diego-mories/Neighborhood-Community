@@ -24,6 +24,9 @@ export default {
   data: () => ({
     user: {}
   }),
+  props: {
+    role: ''
+  },
   methods: {
     // async test () {
     //   console.log('Metodo para comprobar que el correo esta en la base de datos con un usuario registrado')
@@ -48,6 +51,8 @@ export default {
         Response => {
           console.log('RESPUESTA DEL INCIO DE SESION')
           console.log('Respuesta: ' + Response.data.message + ' Role: ' + Response.data.role)
+          this.role = Response.data.role
+          return this.role
         },
         Error => {
           console.log('Error en el inicio de sesión')

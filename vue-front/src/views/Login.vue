@@ -1,10 +1,10 @@
 <template>
 <div class="screen">
   <div class="row" id="grid-top-log">
-    <NavBarPresident id="full"></NavBarPresident>
+    <!-- <NavBarPresident id="full"></NavBarPresident> -->
     <!-- <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman> -->
     <!-- <NavBarOwner id="full"></NavBarOwner> -->
-    <!-- <NavBarAdmin id="full"></NavBarAdmin> -->
+    <NavBarAdmin v-if="role === 4" id="full"></NavBarAdmin>
   </div>
   <!-- Vista de Presidente -->
   <div class="row" id="grid-bottom-log">
@@ -52,6 +52,9 @@ import NavBarAdmin from '../components/NavBarAdmin.vue'
 import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
 export default {
+  data: () => ({
+    role: 0
+  }),
   components: {
     NavBarPresident,
     NavBarOwner,

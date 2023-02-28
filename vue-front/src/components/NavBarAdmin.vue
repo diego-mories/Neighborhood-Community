@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="NavBar">
-        <navbar class="navBarA" toggleable="lg" type="dark">
+        <nav class="navBarA" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/newCommunity" exact>
                     Crear Comunidad
@@ -10,7 +10,7 @@
             <div class="componentsNavBar">
                 <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
-        </navbar>
+        </nav>
     </div>
 </template>
 

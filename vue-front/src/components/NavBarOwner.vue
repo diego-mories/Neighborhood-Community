@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="NavBar">
-        <navbar class="navBarO" toggleable="lg" type="dark">
+        <nav class="navBarO" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
                     Reservas
@@ -23,7 +23,7 @@
                 <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories (O)</button>
                 <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
-        </navbar>
+        </nav>
     </div>
 </template>
 
