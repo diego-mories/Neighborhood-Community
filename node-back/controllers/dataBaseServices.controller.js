@@ -1,9 +1,19 @@
 var mysql = require('mysql')
+const nodemailer = require('nodemailer')
 const random = require('string-random')
 const bycript = require('bcrypt')
 const dbConfig = require ('../config/db.config')
-const { user } = require('../config/db.config')
+const mailConfig = require ('../config/mail.config')
 
+// MAIL Config
+var mailTransporter = nodemailer.createTransport({
+  host: mailConfig.host,
+  service: mailConfig.service,
+  auth: {
+    user: mailConfig.auth.user,
+    pass: mailConfig.auth.pass
+  }
+})
 // DB Connection
 var conexion = mysql.createConnection({
   host: dbConfig.host,
@@ -50,6 +60,20 @@ exports.signUp = async (req, res) => {
             if (err) {
               throw err
             } else {
+              let mailOptions = {
+              from: '"Neighborhood Community" <neighborhoodcommunity2023@gmail.com>',
+                to: '' + data.email,
+                subject: 'Registro Correos',
+                text: 'Buenos dias ' + data.name + ', alta en la plataforma de forma correcta --> '
+              }
+              mailTransporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log("ERROR AL ENVIAR EL EMAIL!!!!!!", error)
+                } else {
+                  console.log('Email sent: ')
+                }
+                mailTransporter.close()
+              })
               res.status(200).send({message:'Email no encontrado en base de datos, REGISTRO OK'})            }
           })
         } else {
