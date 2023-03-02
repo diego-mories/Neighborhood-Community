@@ -27,7 +27,7 @@
             </div>
             <div class="componentsNavBar">
                 <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  Diego Mories (P)</button>
-                <router-link to="/" class="log-out-icon"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
+                <router-link to="/" class="log-out-icon" @click="deleteDataUserLogin"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
             </div>
         </nav>
     </div>
@@ -35,7 +35,16 @@
 
 <script>
 export default {
-
+  methods: {
+    deleteDataUserLogin () {
+      console.log('Borramos los datos del usuario logueado')
+      localStorage.removeItem('userLogin')
+      history.pushState(null, null, location.href)
+      history.back()
+      history.forward()
+      window.onpopstate = function () { history.go(1) }
+    }
+  }
 }
 </script>
 

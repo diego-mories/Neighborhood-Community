@@ -24,35 +24,20 @@ export default {
   data: () => ({
     user: {}
   }),
-  props: {
-    role: ''
-  },
   methods: {
-    // async test () {
-    //   console.log('Metodo para comprobar que el correo esta en la base de datos con un usuario registrado')
-    //   console.log(this.email)
-    //   Services.test(this.email).then(
-    //     Response => {
-    //       if (Response.status === 200) {
-    //         console.log('Ha funcionado el servicio exist')
-    //         console.log('¿Hay email? : ' + Response.data.exist)
-    //       } else {
-    //         console.log('Error en front')
-    //       }
-    //     },
-    //     Error => {
-    //       console.log('Ha fallado el test')
-    //       console.log(Error.response)
-    //     }
-    //   )
-    // }
     async signIn () {
       Services.signIn(this.user).then(
         Response => {
           console.log('RESPUESTA DEL INCIO DE SESION')
-          console.log('Respuesta: ' + Response.data.message + ' Role: ' + Response.data.role)
-          this.role = Response.data.role
-          return this.role
+          // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
+          if (Response.data.OK) {
+            console.log(Response.data.message)
+            localStorage.setItem('userLogin', JSON.stringify(Response.data.userLogin))
+            // Mandar a la vista tal cual la url
+            this.$router.push({ path: `/login` })
+          } else {
+            console.log(Response.data.message)
+          }
         },
         Error => {
           console.log('Error en el inicio de sesión')

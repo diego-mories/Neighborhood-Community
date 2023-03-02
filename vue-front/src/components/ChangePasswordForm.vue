@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-form>
-    <span><img src="../assets/logo.png"></span>
+    <span><img src="../assets/images/password.png" style="width:95px !important;height:105px !important;"></span>
     <b-form-group>
       <div class="input-group mb-3">
         <label class="label-login">Contraseña</label>

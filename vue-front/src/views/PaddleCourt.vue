@@ -1,10 +1,6 @@
 <template>
   <div class="screen">
-    <div class="row" id="grid-top">
-      <div class="col-sm-5" id="full">
-        <div id="img-container-home"></div>
-      </div>
-      <div class="col-sm-7" id="full">
+    <div cLass="row" id="grid-top">
         <div class="row" id="topR">
           <div class="col-sm-1" id="full">
               <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">Volver</button>
@@ -17,14 +13,13 @@
           <div class="col-sm-1" id="full">
           </div>
           <div class="col-sm-4" id="full">
-            <span><img class="center-form w-100 " src="../assets/images/paddle.png"></span>
+            <span><img class="center-form" src="../assets/images/paddle.png"></span>
           </div>
           <div class="col-sm-7 d-block" id="full">
             <b-table class="mr-5 ml-5 mt-2" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
             </b-table>
             <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
           </div>
-        </div>
         <div class="row" id="bottomR-bottom">
           <div class="col-sm-5" id="full">
           </div>

@@ -1,37 +1,32 @@
 <template>
   <div class="screen">
     <div class="row" id="grid-top">
-      <div class="col-sm-5" id="full">
-        <div id="img-container-home"></div>
+      <div class="row" id="topR">
+        <div class="col-sm-1" id="full">
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">Volver</button>
+        </div>
+        <div class="col-sm-11" id="full" >
+            <span class="title"><b> Pista de tenis</b></span>
+        </div>
       </div>
-      <div class="col-sm-7" id="full">
-        <div class="row" id="topR">
-          <div class="col-sm-1" id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">Volver</button>
-          </div>
-          <div class="col-sm-11" id="full" >
-              <span class="title"><b> Pista de tenis</b></span>
-          </div>
+      <div class="row" id="bottomR-middle">
+        <div class="col-sm-1" id="full">
         </div>
-        <div class="row" id="bottomR-middle">
-          <div class="col-sm-1" id="full">
-          </div>
-          <div class="col-sm-4" id="full">
-            <span><img class="center-form w-100 " src="../assets/images/tennis.png"></span>
-          </div>
-          <div class="col-sm-7 d-block" id="full">
-            <b-table class="mr-5 ml-5 mt-2" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
-            </b-table>
-            <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
-          </div>
+        <div class="col-sm-4" id="full">
+          <span><img class="center-form" src="../assets/images/tennis.png"></span>
         </div>
-        <div class="row" id="bottomR-bottom">
-          <div class="col-sm-5" id="full">
-          </div>
-          <div class="col-sm-7" id="full">
-            <b-button id="myBtn" variant="outline-primary" type="submit">Reservar</b-button>
-            <h3><span class="badge badge-danger" id="msg"></span></h3>
-          </div>
+        <div class="col-sm-7 d-block" id="full">
+          <b-table class="mr-5 ml-5 mt-2" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
+          </b-table>
+          <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
+        </div>
+      </div>
+      <div class="row" id="bottomR-bottom">
+        <div class="col-sm-5" id="full">
+        </div>
+        <div class="col-sm-7" id="full">
+          <b-button id="myBtn" variant="outline-primary" type="submit">Reservar</b-button>
+          <h3><span class="badge badge-danger" id="msg"></span></h3>
         </div>
       </div>
     </div>

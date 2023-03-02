@@ -18,30 +18,6 @@ conexion.connect((err, connection) => {
   }
 })
 
-// Testing y modelo de estructura de datos
-// exports.test = (req,res) => {
-//   if (req.query == undefined) {
-//     return res.status(400).send ({message: 'Peticion de test erronea'})
-//   } else {
-//     // Buscamos un email en la tabla users de la base de datos para ver que nos conectamos bien y hacemos un test de conexion con esto
-//     let emailURL = "'" + req.query.email + "'"
-//     let query = 'SELECT * FROM users WHERE email=' + emailURL
-//     conexion.query (query, 
-//       function (err, rowCount, rows) {
-//         if (err) {
-//           throw err
-//         } else {
-//           if (rowCount.length === 0) {
-//             res.status(200).send({message:'Email no encontrado en base de datos',exist: false})
-//           } else {
-//             res.status(200).send({message:'Email encontrado', exist: true})
-//           }
-//         }
-//       }
-//     )
-//   }   
-// }
-
 exports.signUp = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
     && req.body.email != undefined && req.body.password != undefined 
@@ -57,7 +33,9 @@ exports.signUp = async (req, res) => {
       community_id : "'" + data.community_id + "'",
       floor : "'" + data.flor + "'",
       door : "'" + data.door + "'",
-      token : "'" + random(15) + "'"
+      token_pass : "'" + random(15) + "'",
+      token_active : "'" + random(15) + "'",
+      is_active : "'" + "'"
     }
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
@@ -67,7 +45,7 @@ exports.signUp = async (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token + ')'
+          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ')'
           conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -105,10 +83,26 @@ exports.signIn = (req, res) => {
           return res.status(200).send({message: 'El email no existe en la base de datos', OK: false})
         } else { // El email existe en la base de datos, comprobamos contraseñas 
           let passwordQuery = rowCount[0].password
-           // console.log(rowCount[0])
+          console.log(rowCount[0])
           if (bycript.compareSync(userLogin.password, passwordQuery)){
             // console.log('La contraseña es correcta, coincide con el desencriptado')
-            return res.status(200).send({message: 'OK, contraseña correcta, nos logueamos', tokenUser: rowCount[0].token, OK: true})
+            return res.status(200).send(
+            {message: 'OK, contraseña correcta, nos logueamos', 
+            userLogin: {
+              id: rowCount[0].id,
+              name: rowCount[0].name,
+              surname: rowCount[0].surname,
+              email: rowCount[0].email,
+              password: rowCount[0].password,
+              role: rowCount[0].role,
+              community_id: rowCount[0].community_id,
+              floor: rowCount[0].floor,
+              door: rowCount[0].door,
+              tokenPass: rowCount[0].tokenPass,
+              tokenActive: rowCount[0].tokenActive,
+              is_active: rowCount[0].is_active
+            }, 
+            OK: true})
           } else {
             return res.status(200).send({message: 'La contraseña no coincide', OK: false})
            }
@@ -119,26 +113,4 @@ exports.signIn = (req, res) => {
   else {
     return res.status(400).send({message: 'Bad request', OK: false})
   }
-}
-exports.searchRole = (req, res) => {
-  if (req.query.token != undefined ){
-    console.log(req.query.token)
-    let queryToken = 'SELECT * FROM users WHERE token=' + "'" + req.query.token + "'"
-    conexion.query(queryToken, function (err, rowCount, rows) {
-      if (err) {
-        throw err
-      } else {
-        if (rowCount.length === 0) { // No encontramos el token en la base de datos, FALLO
-          return res.status(400).send({message: 'No encontramos el token en la base de datos', OK: false})
-        } else {
-          console.log(rowCount[0])
-          return res.status(200).send({message: 'Encontramos el token en la base de datos, devolvemos el role', OK: true, roleUser:rowCount[0].role})
-        }
-
-      }
-    })
-  } else {
-    return res.status(400).send({message: 'Bad request', OK: false})
-  }
-
 }

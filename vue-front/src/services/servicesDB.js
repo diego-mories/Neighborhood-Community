@@ -2,9 +2,6 @@ import http from '../http-common'
 const API_URL_PATH = 'dataBaseServices/'
 
 class Services {
-  // test (email) {
-  //   return http.get(API_URL_PATH + 'test?email=' + email)
-  // }
   signIn (user) {
     const body = {
       email: user.email,
@@ -22,7 +19,6 @@ class Services {
       community_id: user.community_id,
       floor: user.floor,
       door: user.door
-
     }
     return http.post(API_URL_PATH + 'signUp', body)
   }

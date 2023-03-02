@@ -1,7 +1,7 @@
 <template>
 <div>
     <b-form>
-    <span><img src="../assets/logo.png"></span>
+        <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
         <b-form-group>
             <div class="input-group mb-3">
                 <label class="label-login">Nombre</label>

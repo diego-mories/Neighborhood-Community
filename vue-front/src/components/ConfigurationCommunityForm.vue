@@ -1,7 +1,7 @@
 <template>
 <div>
     <b-form>
-    <span><img class="w-50 h-50 mw-50 mh-50" src="../assets/images/community.png"></span>
+    <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/community.png"></span>
     <div class="input-group mb-3 ">
         <select class="form-select" aria-label="Default select example">
         <option selected>¿Hay portero?</option>

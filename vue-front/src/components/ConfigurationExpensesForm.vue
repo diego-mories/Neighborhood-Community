@@ -1,7 +1,7 @@
 <template>
     <div>
     <b-form>
-      <span><img src="../assets/logo.png"></span>
+      <span><img src="../assets/images/gastos.png" style="width:195px !important;height:195px !important;"></span>
       <b-form-group>
         <div class="input-group mb-3">
           <label class="label-login">Gasto máximo</label>

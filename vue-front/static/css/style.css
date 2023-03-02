@@ -31,6 +31,47 @@ li {list-style:none; vertical-align: middle;}
   transform: translate(-50%, -50%);
 }
 /* -> Components <- */
+/* VIEWS CARDS */
+.cards{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  }
+/*President*/  
+.buttonHomeMenuP {
+    width: 100px;
+    height: 100px;
+    background-color: #175064 !important;
+    color: #ffffff !important;
+    font-size: 50px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center;
+}
+/*Owner*/  
+.buttonHomeMenuO {
+  width: 100px;
+  height: 100px;
+  background-color: #5394ac !important;
+  color: #ffffff !important;
+  font-size: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center;
+}
+/*Building Doorman*/  
+.buttonHomeMenuB {
+  width: 100px;
+  height: 100px;
+  background-color: #024146f3 !important;
+  color: #ffffff !important;
+  font-size: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center;
+}
+
 /* FOOTER */
 #footer-networks{
   color: white;
@@ -86,7 +127,6 @@ li {list-style:none; vertical-align: middle;}
   border: none;
   display: flex;
 }
-
 
 .componentsNavBar{
   text-align: center;

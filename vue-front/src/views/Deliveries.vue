@@ -1,42 +1,34 @@
 <template>
   <div class="screen">
     <div class="row" id="grid-top">
-      <div class="col-sm-5" id="full">
-        <div id="img-container-home">
+      <div class="row" id="topR">
+        <div class="col-sm-1" id="full">
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
+        </div>
+        <div class="col-sm-11" id="full">
+          <span class="title"><b>Entregas</b></span>
         </div>
       </div>
-      <div class="col-sm-7" id="full">
-        <div class="row" id="topR">
-          <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
-          </div>
-          <div class="col-sm-1" id="full">
-          </div>
-          <div class="col-sm-10" id="full">
-            <span class="title"><b>Entregas</b></span>
+      <div class="row" id="bottomR-middle">
+        <div class="col-sm-2" id="full">
+        </div>
+        <div class="col-sm-9" id="full">
+          <b-calendar block></b-calendar>
+        </div>
+        <div class="col-sm-1" id="full">
+        </div>
+      </div>
+      <div class="row" id="bottomR-bottom">
+        <div class="col-sm-3" id="full"></div>
+        <div class="col-sm-3" id="full">
+          <b-time locale="en" @context="onContext" for="checkbox-1" :disabled="anyHour"></b-time>
+          <div class=" center-form mt-3">
+            <input class="m-2" type="checkbox" v-model="anyHour" name="anyHour"/>
+            <span for="anyHour">Cualquier hora</span>
           </div>
         </div>
-        <div class="row" id="bottomR-middle">
-          <div class="col-sm-3" id="full">
-          </div>
-          <div class="col-sm-8" id="full">
-            <b-calendar block></b-calendar>
-          </div>
-          <div class="col-sm-1" id="full">
-          </div>
-        </div>
-        <div class="row" id="bottomR-bottom">
-          <div class="col-sm-3" id="full"></div>
-          <div class="col-sm-3" id="full">
-            <b-time locale="en" @context="onContext" for="checkbox-1" :disabled="anyHour"></b-time>
-            <div class=" center-form mt-3">
-              <input class="m-2" type="checkbox" v-model="anyHour" name="anyHour"/>
-              <span for="anyHour">Cualquier hora</span>
-            </div>
-          </div>
-          <div class="col-sm-6" id="full">
-            <b-button variant="outline-primary" type="submit">Añadir</b-button>
-          </div>
+        <div class="col-sm-6" id="full">
+          <b-button variant="outline-primary" type="submit">Añadir</b-button>
         </div>
       </div>
     </div>
