@@ -22,6 +22,12 @@ class Services {
     }
     return http.post(API_URL_PATH + 'signUp', body)
   }
+  activeUser (tokenActive) {
+    return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)
+  }
+  resetPassword (email) {
+    return http.get(API_URL_PATH + 'resetPassword?email=' + email)
+  }
 }
 
 export default new Services()

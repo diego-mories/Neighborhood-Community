@@ -3,10 +3,10 @@
     <div class="row" id="grid-top">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">Volver</button>
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">Volver</button>
         </div>
         <div class="col-sm-11" id="full">
-                <span class="title"><b>Cámaras</b></span>
+          <span class="title"><b>Cámaras</b></span>
         </div>
       </div>
       <div class="row" id="bottomR">

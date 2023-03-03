@@ -20,6 +20,7 @@
 
 <script>
 import Services from '../services/servicesDB'
+import swal from 'sweetalert'
 export default {
   data: () => ({
     user: {}
@@ -36,7 +37,11 @@ export default {
             // Mandar a la vista tal cual la url
             this.$router.push({ path: `/login` })
           } else {
-            console.log(Response.data.message)
+            swal({
+              title: Response.data.message,
+              icon: 'error',
+              button: 'OK'
+            })
           }
         },
         Error => {

@@ -9,4 +9,12 @@ module.exports = function (app) {
         '/api/dataBaseServices/signIn',
         controller.signIn
     )
+    app.get(
+        '/api/dataBaseServices/activeUser',
+        controller.activeUser
+    )
+    app.get(
+        '/api/dataBaseServices/resetPassword',
+        controller.resetPassword
+    )
 }
