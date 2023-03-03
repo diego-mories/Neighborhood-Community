@@ -8,7 +8,8 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <router-link to="/" class="log-out-icon" @click="deleteDataUserLogin"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></router-link>
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"><font-awesome-icon icon="fa-solid fa-user"/>  {{name + ' ' + surname}} (BD)</button>
+                <button type="button" class="bootstrap-btn" @click="deleteDataUserLogin()"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></button>
             </div>
         </nav>
     </div>
@@ -16,9 +17,19 @@
 
 <script>
 export default {
+  data: () => ({
+    name: '',
+    surname: ''
+  }),
+  created () {
+    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.name = dataUserLogin.name
+    this.surname = dataUserLogin.surname
+  },
   methods: {
     deleteDataUserLogin () {
       console.log('Borramos los datos del usuario logueado')
+      this.$router.push({ path: '/' })
       localStorage.removeItem('userLogin')
       history.pushState(null, null, location.href)
       history.back()

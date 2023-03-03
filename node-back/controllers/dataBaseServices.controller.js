@@ -62,7 +62,7 @@ exports.signUp = async (req, res) => {
               throw err
             } else {
               let mailOptions = {
-              from: '"Neighborhood Community" <neighborhoodcommunity2023@gmail.com>',
+                from: '"Neighborhood Community" ' +  mailConfig.auth.user,
                 to: '' + data.email,
                 subject: 'Bienvenido',
                 text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
@@ -199,7 +199,7 @@ exports.resetPassword = (req, res) => {
               throw err
             } else {
               let mailOptions = {
-                from: '"Neighborhood Community" <neighborhoodcommunity2023@gmail.com>',
+                  from: '"Neighborhood Community" ' +  mailConfig.auth.user,
                   to: '' + req.query.email,
                   subject: 'Recuperación de contraseña',
                   text: '¡Hola! ' + nameUser + ', hemos generado una contraseña aleatoria para iniciar sesión, una vez acceda a su perfil puede cambiarla, la contraseña es: ' + newPass 
