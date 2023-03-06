@@ -17,6 +17,7 @@ import NewCommunity from '../views/NewCommunity'
 import Cameras from '../views/Cameras'
 import ConfigurationCommunity from '../views/ConfigurationCommunity'
 import ActiveUser from '../views/ActiveUser'
+import Bills from '../views/Bills'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -107,6 +108,11 @@ export default new Router({
       path: '/activeUser/:tokenActive',
       name: 'ActiveUser',
       component: ActiveUser
+    },
+    {
+      path: '/bills',
+      name: 'Bills',
+      component: Bills
     }
   ]
 })

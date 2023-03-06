@@ -22,7 +22,13 @@
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/registerUser" exact>
                     Alta
-                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-user-alt"/>
+                    <!-- ICON NEW USER --> <font-awesome-icon icon="fa-solid fa-user-alt"/>
+                </router-link>
+            </div>
+            <div class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="/bills" exact>
+                    Cuentas
+                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
