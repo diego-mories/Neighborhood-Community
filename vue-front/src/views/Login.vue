@@ -40,6 +40,9 @@
   <div class="row" id="grid-bottom-log" v-if="role === 4">
     Añadimos tabla con datos de todas las comunidades
   </div>
+  <div class="row" id="grid-bottom">
+      <Footer></Footer>
+  </div>
 </div>
 </template>
 

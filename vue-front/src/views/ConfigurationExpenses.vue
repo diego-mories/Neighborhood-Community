@@ -1,5 +1,9 @@
 <template>
 <div class="screen">
+  <div class="row" id="grid-top-log">
+    <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+    <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
+  </div>
   <div class="row" id="grid-top">
     <div class="row" id="full">
       <div class="row" id="topR">
@@ -28,10 +32,21 @@
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import ConfigurationExpensesForm from '../components/ConfigurationExpensesForm.vue'
+import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarOwner from '../components/NavBarOwner.vue'
 export default {
+  data: () => ({
+    role: null
+  }),
   components: {
     FooterSocial,
-    ConfigurationExpensesForm
+    ConfigurationExpensesForm,
+    NavBarPresident,
+    NavBarOwner
+  },
+  created () {
+    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = dataUserLogin.role
   }
 }
 </script>

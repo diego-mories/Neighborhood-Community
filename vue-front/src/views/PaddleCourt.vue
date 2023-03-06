@@ -1,5 +1,9 @@
 <template>
   <div class="screen">
+    <div class="row" id="grid-top-log">
+      <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+      <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
+    </div>
     <div cLass="row" id="grid-top">
         <div class="row" id="topR">
           <div class="col-sm-1" id="full">
@@ -38,12 +42,17 @@
 
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
+import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarOwner from '../components/NavBarOwner.vue'
 export default {
   components: {
-    FooterSocial
+    FooterSocial,
+    NavBarPresident,
+    NavBarOwner
   },
   data () {
     return {
+      role: null,
       fields: ['Ocupado', 'Hora_inicio', 'Hora_Fin'],
       items: [
         {Ocupado: '❌', Hora_inicio: '9:00', Hora_Fin: '10:30'},
@@ -64,6 +73,10 @@ export default {
     document.getElementById('myBtn').hidden = true
     document.getElementById('msg').hidden = true
     document.getElementById('msg1').hidden = false
+  },
+  created () {
+    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = dataUserLogin.role
   },
   methods: {
     onRowSelected (items) {

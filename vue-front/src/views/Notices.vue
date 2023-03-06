@@ -1,5 +1,9 @@
 <template>
   <div class="screen">
+    <div class="row" id="grid-top-log">
+      <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+      <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
+    </div>
     <div class="row" id="grid-top">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
@@ -25,22 +29,25 @@
 
 <script>
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
+import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarOwner from '../components/NavBarOwner.vue'
 export default {
   components: {
-    FooterSocialNetwork
+    FooterSocialNetwork,
+    NavBarPresident,
+    NavBarOwner
+  },
+  created () {
+    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = dataUserLogin.role
+  },
+  data () {
+    return {
+      role: null
+    }
   }
 }
 </script>
 
 <style>
-#img-container-home{
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/images/comunidad.jpg');
-    background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-    opacity: 75%;
-}
 </style>

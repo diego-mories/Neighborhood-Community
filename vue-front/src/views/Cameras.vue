@@ -1,5 +1,8 @@
 <template>
   <div class="screen">
+    <div class="row" id="grid-top-log">
+      <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman>
+    </div>
     <div class="row" id="grid-top">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
@@ -24,10 +27,11 @@
 </template>
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
-
+import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
 export default {
   components: {
-    FooterSocial
+    FooterSocial,
+    NavBarBuildingDoorman
   }
 }
 </script>

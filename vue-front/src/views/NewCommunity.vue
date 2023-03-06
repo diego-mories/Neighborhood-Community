@@ -1,5 +1,8 @@
 <template>
 <div class="screen">
+  <div class="row" id="grid-top-log">
+    <NavBarAdmin id="full"></NavBarAdmin>
+  </div>
   <div class="row" id="grid-top">
     <div class="row" id="topR">
       <div class="col-sm-1" id="full">
@@ -26,11 +29,13 @@
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NewCommunityForm from '../components/NewCommunityForm.vue'
+import NavBarAdmin from '../components/NavBarAdmin.vue'
 
 export default {
   components: {
     FooterSocial,
-    NewCommunityForm
+    NewCommunityForm,
+    NavBarAdmin
   }
 
 }
