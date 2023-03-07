@@ -33,6 +33,7 @@ export default {
           // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
           if (Response.data.OK) {
             console.log(Response.data.message)
+            console.log(Response.data.userLogin.tokenPass)
             localStorage.setItem('userLogin', JSON.stringify(Response.data.userLogin))
             // Mandar a la vista tal cual la url
             this.$router.push({ path: `/login` })

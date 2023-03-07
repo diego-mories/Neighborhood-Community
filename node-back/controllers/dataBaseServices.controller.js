@@ -115,9 +115,10 @@ exports.signIn = (req, res) => {
             if (rowCount[0].is_active === 0){
              return res.status(200).send({message: 'El email y la contraseña son correctos pero es necesario activar la cuenta con el correo de bienvenida enviado', OK: false})
             } else {
+              console.log()
               return res.status(200).send(
                 {message: 'OK, contraseña correcta, nos logueamos', 
-                userLogin: {
+                  userLogin: {
                   id: rowCount[0].id,
                   name: rowCount[0].name,
                   surname: rowCount[0].surname,
@@ -127,8 +128,8 @@ exports.signIn = (req, res) => {
                   community_id: rowCount[0].community_id,
                   floor: rowCount[0].floor,
                   door: rowCount[0].door,
-                  tokenPass: rowCount[0].tokenPass,
-                  tokenActive: rowCount[0].tokenActive,
+                  tokenPass: rowCount[0].token_pass,
+                  tokenActive: rowCount[0].token_active,
                   is_active: rowCount[0].is_active
                 }, 
                 OK: true})
@@ -217,6 +218,27 @@ exports.resetPassword = (req, res) => {
             }
           })
         }
+      }
+    })
+  }
+}
+
+exports.changePassword = async (req, res) => {
+  let userPassword = req.body.userPass
+  let tokenPass = "'" + req.body.tokenPass + "'" 
+  let newPassword = req.body.password
+  let newPasswordHash = "'" + await bycript.hash(newPassword,12) + "'"
+  if (bycript.compareSync(newPassword, userPassword)){
+    res.status(200).send({message: 'La contraseña no puede ser la actual, elige otra distinta', OK: false})
+  } else {
+    let query = 'UPDATE users SET password = REPLACE (password,' + "'" + userPassword + "'" + ',' + newPasswordHash + ') WHERE token_pass=' + tokenPass
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        console.log('Antigua contraseña: ' + userPassword +' encriptada nueva: ' + newPasswordHash)
+        console.log('Nueva contraseña: ' + newPassword +' encriptada: ' + newPasswordHash)
+        res.status(200).send({message: 'Hemos actualizado la contraseña en la base de datos de manera correcta', OK: true})
       }
     })
   }

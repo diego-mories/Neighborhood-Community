@@ -17,4 +17,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )
+    app.post(
+        '/api/dataBaseServices/changePassword',
+        controller.changePassword
+    )
 }

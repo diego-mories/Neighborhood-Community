@@ -28,6 +28,14 @@ class Services {
   resetPassword (email) {
     return http.get(API_URL_PATH + 'resetPassword?email=' + email)
   }
+  changePassword (tokenPass, password, userPass) {
+    const body = {
+      tokenPass: tokenPass,
+      password: password,
+      userPass: userPass
+    }
+    return http.post(API_URL_PATH + 'changePassword', body)
+  }
 }
 
 export default new Services()
