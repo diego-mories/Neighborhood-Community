@@ -8,7 +8,7 @@
                 <span class="input-group-text" id="basic-addon1">🏡</span>
                 <b-form-input type="text" class="form-control" placeholder="Nombre comunidad"></b-form-input>
                 <label class="label-login">Email presidente</label>
-                <span class="input-group-text" id="basic-addon1">📧</span>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
                 <b-form-input type="text" class="form-control" placeholder="email@gmail.com"></b-form-input>
             </div>
         </b-form-group>

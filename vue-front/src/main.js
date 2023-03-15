@@ -18,7 +18,10 @@ import {
   faUserAlt,
   faGroupArrowsRotate,
   faVideo,
-  faFileZipper
+  faFileZipper,
+  faEnvelope,
+  faKey,
+  faMoneyBills
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faTwitter,
@@ -38,7 +41,10 @@ library.add(faUserSecret,
   faUserAlt,
   faGroupArrowsRotate,
   faVideo,
-  faFileZipper)
+  faFileZipper,
+  faEnvelope,
+  faKey,
+  faMoneyBills)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -34,5 +34,6 @@ export default {
         -webkit-background-size: cover;
         -o-background-size: cover;
     opacity: 75%;
+    box-shadow: 10px 0px 18px -8px rgba(140,140,140,1);
 }
 </style>

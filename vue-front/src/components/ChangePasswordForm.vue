@@ -5,10 +5,10 @@
     <b-form-group>
       <div class="input-group mb-3">
         <label class="label-login">Contraseña</label>
-        <span class="input-group-text" id="basic-addon1">🔐</span>
+        <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-key" /></span>
         <b-form-input type="password" class="form-control" placeholder="Contraseña" v-model="password"></b-form-input>
         <label class="label-login">Repetir contraseña</label>
-        <span class="input-group-text" id="basic-addon1">🔐</span>
+        <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-key" /></span>
         <b-form-input type="password" class="form-control" placeholder="Contraseña" v-model="passwordRepeat"></b-form-input>
       </div>
         <b-button variant="outline-primary" type="submit">Cambiar contraseña</b-button>

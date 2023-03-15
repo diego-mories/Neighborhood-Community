@@ -5,11 +5,11 @@
       <b-form-group>
         <div class="input-group mb-3">
           <label class="label-login">Gasto máximo</label>
-          <span class="input-group-text" id="basic-addon1">💶</span>
+          <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-money-bills" /></span>
           <b-form-input type="number" class="form-control" placeholder="Nuevo gasto máximo"></b-form-input>
           <b-form-input type="text" class="form-control" placeholder="70€" disabled></b-form-input>
           <label class="label-login">Gasto mínimo</label>
-          <span class="input-group-text" id="basic-addon1">💶</span>
+          <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-money-bills" /></span>
           <b-form-input type="number" class="form-control" placeholder="Nuevo gasto mínimo"></b-form-input>
           <b-form-input type="text" class="form-control" placeholder="50€" disabled></b-form-input>
         </div>

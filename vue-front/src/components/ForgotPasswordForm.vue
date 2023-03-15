@@ -5,7 +5,7 @@
     <b-form-group>
       <div class="input-group mb-3">
         <label class="label-login">Email</label>
-        <span class="input-group-text" id="basic-addon1">📧</span>
+        <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
         <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="email"></b-form-input>
       </div>
         <b-button variant="outline-primary" type="submit">Recuperar contraseña</b-button>

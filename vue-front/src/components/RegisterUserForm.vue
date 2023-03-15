@@ -5,13 +5,13 @@
         <b-form-group>
             <div class="input-group mb-3">
                 <label class="label-login">Nombre</label>
-                <span class="input-group-text" id="basic-addon1">🙋🏻‍♂️</span>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
                 <b-form-input type="text" class="form-control" placeholder="Nombre"></b-form-input>
                 <label class="label-login">Apellidos</label>
-                <span class="input-group-text" id="basic-addon1">🙋🏻‍♂️</span>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
                 <b-form-input type="text" class="form-control" placeholder="Apellidos"></b-form-input>
                 <label class="label-login">Email</label>
-                <span class="input-group-text" id="basic-addon1">📧</span>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
                 <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com"></b-form-input>
             </div>
         </b-form-group>
