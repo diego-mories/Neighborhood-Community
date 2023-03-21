@@ -4,7 +4,9 @@
     </div>
     <div class="row" id="grid-top">
       <div class="row" id="topR">
+        <div class="col-sm-12" id="full">
           <span class="title"><b>Configuración comunidad</b></span>
+        </div>
       </div>
       <div class="row" id="bottomR">
         <div class="col-sm-12" id="full">
