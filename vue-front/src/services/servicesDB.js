@@ -45,6 +45,12 @@ class Services {
     }
     return http.post(API_URL_PATH + 'newCommunity', body)
   }
+  firstTimeNew (id) {
+    const body = {
+      id: id
+    }
+    return http.put(API_URL_PATH + 'firstTimeNew', body)
+  }
 }
 
 export default new Services()

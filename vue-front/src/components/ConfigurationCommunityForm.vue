@@ -1,5 +1,6 @@
 <template>
 <div>
+    <b-button variant="outline-primary" type="submit" @click="cancelConf()">Cancelar configuración</b-button>
     <b-form>
     <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/community.png"></span>
     <div class="input-group mb-3 ">
@@ -23,14 +24,41 @@
         <input class="m-2" type="checkbox" id="cameras"/>
         <span class="d-flex align-items-center">¿Hay pista de tenis?</span>
     </div>
-    <b-button variant="outline-primary" type="submit" @click="$router.push('login')">Guardar configuración</b-button>
+    <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">Guardar configuración</b-button>
     </b-form>
   </div>
   </template>
 
 <script>
+import Services from '../services/servicesDB'
 export default {
+  methods: {
+    cancelConf () {
+      localStorage.removeItem('userLogin')
+      this.$router.push('/')
+      history.pushState(null, null, location.href)
+      history.back()
+      history.forward()
+      window.onpopstate = function () { history.go(1) }
+    },
+    saveConf () {
+      // Actualizamos en nuestro localStorage first_time a 0
+      let userLogin = JSON.parse(localStorage.getItem('userLogin'))
+      console.log(userLogin)
+      userLogin.first_time = 0
+      localStorage.removeItem('userLogin')
+      localStorage.setItem('userLogin', JSON.stringify(userLogin))
+      // Actualizamos en base de datos el first_time a 0
+      Services.firstTimeNew(userLogin.id).then(
+        Response => {
+          this.$router.push('/login')
+        },
+        Error => {
 
+        }
+      )
+    }
+  }
 }
 </script>
 

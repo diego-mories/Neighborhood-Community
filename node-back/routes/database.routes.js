@@ -25,4 +25,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/newCommunity',
         controller.newCommunity
     )
+    app.put(
+        '/api/dataBaseServices/firstTimeNew',
+        controller.firstTimeNew
+    )
 }

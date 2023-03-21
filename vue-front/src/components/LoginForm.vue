@@ -36,7 +36,11 @@ export default {
             // console.log(Response.data.userLogin.tokenPass)
             localStorage.setItem('userLogin', JSON.stringify(Response.data.userLogin))
             // Mandar a la vista tal cual la url
-            this.$router.push({ path: `/login` })
+            if (Response.data.userLogin.first_time === 1 && Response.data.userLogin.role === 1) {
+              this.$router.push({ path: `/configurationCommunity` })
+            } else {
+              this.$router.push({ path: `/login` })
+            }
           } else {
             swal({
               title: Response.data.message,

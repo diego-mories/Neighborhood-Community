@@ -51,8 +51,7 @@ exports.signUp = async (req, res) => {
     }
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
-    conexion.query (queryEmail, 
-    function (err, rowCount, rows) {
+    conexion.query (queryEmail, function (err, rowCount, rows) {
       if (err) {
         throw err
       } else {
@@ -107,17 +106,16 @@ exports.signIn = (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) { // El email no existe en la base de datos
-          return res.status(200).send({message: 'El email incorrecto', OK: false})
+          res.status(200).send({message: 'El email incorrecto', OK: false})
         } else { // El email existe en la base de datos, comprobamos contraseñas 
           let passwordQuery = rowCount[0].password
           // console.log(rowCount[0])
           if (bycript.compareSync(userLogin.password, passwordQuery)){
             // console.log('La contraseña es correcta, coincide con el desencriptado')
             if (rowCount[0].is_active === 0){
-             return res.status(200).send({message: 'El email y la contraseña son correctos pero es necesario activar la cuenta con el correo de bienvenida enviado', OK: false})
+              res.status(200).send({message: 'El email y la contraseña son correctos pero es necesario activar la cuenta con el correo de bienvenida enviado', OK: false})
             } else {
-              console.log()
-              return res.status(200).send(
+              res.status(200).send(
                 {message: 'OK, contraseña correcta, nos logueamos', 
                   userLogin: {
                   id: rowCount[0].id,
@@ -131,16 +129,17 @@ exports.signIn = (req, res) => {
                   door: rowCount[0].door,
                   tokenPass: rowCount[0].token_pass,
                   tokenActive: rowCount[0].token_active,
-                  is_active: rowCount[0].is_active
+                  is_active: rowCount[0].is_active,
+                  first_time: rowCount[0].first_time
                 }, 
                 OK: true})
             }
           } else {
-            return res.status(200).send({message: 'Contraseña incorrecta', OK: false})
-           }
+            res.status(200).send({message: 'Contraseña incorrecta', OK: false})
+          }
         }
-       }
-     })
+      }
+    })
   }
   else {
     return res.status(400).send({message: 'Bad request', OK: false})
@@ -205,7 +204,7 @@ exports.resetPassword = (req, res) => {
                   to: '' + req.query.email,
                   subject: 'Recuperación de contraseña',
                   text: '¡Hola! ' + nameUser + ', hemos generado una contraseña aleatoria para iniciar sesión, una vez acceda a su perfil puede cambiarla, la contraseña es: ' + newPass 
-                  + '. Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://localhost:8080' 
+                  + ' . Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://localhost:8080' 
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {
@@ -349,4 +348,17 @@ exports.newCommunity = async (req, res) => {
   } else {
     return res.status(400).send ({message: 'Error newCommunity en datos del body'})
   }
+}
+
+exports.firstTimeNew = (req, res) => {
+  let userId = req.body.id
+  let newFirtsTime =  "'" + 0 + "'"
+  let query = 'UPDATE users SET first_time=' + newFirtsTime + 'WHERE id=' + userId
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({message:'Actualizacion de first_time OK'})   
+    }
+  })
 }
