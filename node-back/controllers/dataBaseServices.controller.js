@@ -42,11 +42,12 @@ exports.signUp = async (req, res) => {
       password : "'" + await bycript.hash(data.password,12) + "'",
       role : "'" + data.role + "'",
       community_id : "'" + data.community_id + "'",
-      floor : "'" + data.flor + "'",
+      floor : "'" + data.floor + "'",
       door : "'" + data.door + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
-      is_active : "'" + "'"
+      is_active : "'" + 0 +  "'",
+      first_time : "'" + 0 + "'"
     }
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
@@ -56,7 +57,7 @@ exports.signUp = async (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ')'
+          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
           conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -241,5 +242,111 @@ exports.changePassword = async (req, res) => {
         res.status(200).send({message: 'Hemos actualizado la contraseña en la base de datos de manera correcta', OK: true})
       }
     })
+  }
+}
+exports.newCommunity = async (req, res) => {
+  if (req.body.email != undefined && req.body.name != undefined){
+    const community = {
+      email : "'" + req.body.email + "'",
+      nameC : "'" + req.body.nameC + "'",
+      name : "'" + req.body.name + "'",
+      surname : "'" + req.body.surname + "'",
+    } 
+    let password = random(15)
+    let tokenActive = random(15)
+    let user = {
+      name : community.name,
+      surname : community.surname,
+      email : community.email,
+      password : "'" + await bycript.hash(password,12) + "'",
+      role : "'" + 1 + "'",
+      community_id : "'" + 0 + "'",
+      floor : "'" + 0 + "'",
+      door : "'" + 0 + "'",
+      token_active : "'" + tokenActive + "'",
+      token_pass : "'" + random(15) + "'",
+      is_active : "'" + 0 + "'",
+      first_time : "'" + 1 + "'"
+    }
+    // Buscamos el email por si existe en la base de datos, si no existe, registramos
+    let query = 'SELECT * FROM users WHERE email=' + user.email
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        if (rowCount.length === 0) { // Email no existe, buscamos nombre de la comunidad
+          // Buscamos si el nombre de la comunidad existe
+          let query2 = 'SELECT * FROM community WHERE name=' + community.nameC
+          conexion.query(query2, function (err, rowCount, rows) { 
+              if (err) {
+                throw err
+              } else {
+                  if (rowCount.length === 0) { // Podemos hacer el registro correcto, no hay ninguna comunidad con ese nombre ni con ese email del preisdente
+                    let query3 = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +  ',' + user.first_time + ')'
+                    conexion.query(query3, function (err, rowCount, rows) {
+                      if (err) {
+                        throw err
+                      } else {
+                        let mailOptions = {
+                          from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+                          to: '' + req.body.email,
+                          subject: 'Bienvenido',
+                          text: '¡Qué alegría tenerte con nosotros! ' + user.name + 
+                          ' una vez actives tu cuenta, e inicie sesión con tu contraseña: ' + password + '. Podrás configurar tu comunidad a tu gusto la primera vez que inicies sesión, espero que disfrutes de los servicios aportados!!' + 
+                          ', nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+                        }
+                        mailTransporter.sendMail(mailOptions, function (error, info) {
+                          if (error) {
+                            console.log("Error email sent!", error)
+                          } else {
+                            console.log('Email sent: ')
+                          }
+                          mailTransporter.close()
+                        })
+                        // Registramos la nueva comunidad en la base de datos
+                        let query4 = 'INSERT INTO community (id, name) VALUES (NULL,' + community.nameC + ')'
+                        conexion.query(query4, function (err, rowCount, rows) {
+                          if (err) {
+                            throw err
+                          } else {
+                            // Obtenemos el id generado para esta comunidad y se lo actualizaremos al presidente 
+                            let query5 = 'SELECT * FROM community WHERE name=' + community.nameC
+                            conexion.query(query5, function (err, rowCount, rows) {
+                              if (err) {
+                                throw err
+                              } else {
+                                if (rowCount.length !== 0) {
+                                  // Encontramos la comunidad con ese nombre en la base de datos, obtenemos el id y lo actualizamos en la base de datos del usuario presidente
+                                  // console.log(rowCount[0])
+                                  let newId =  "'" +  rowCount[0].id + "'"
+                                  let query6 = 'UPDATE users SET community_id=' + newId + 'WHERE token_active=' + user.token_active
+                                  conexion.query(query6, function (err, rowCount, rows) {
+                                    if (err) {
+                                      throw err
+                                    } else {
+                                      res.status(200).send({message:'Actualizamos el id de comunidad del presidente y el registro de la nueva comunidad ha funcionado correctamente', OK: true})
+                                    }              
+                                  })
+                                } else {
+                                  res.status(200).send({message:'Error al actualizar el id de la comunidad del presidente, no encontramos comunidad con ese nombre', OK: false})
+                                }
+                              }              
+                            })
+                          }              
+                        })
+                      }
+                    })
+                  } else {
+                    res.status(200).send({message:'Email no encontrado en base de datos, REGISTRO Fallido, nombre de la comunidad ya existe elija otro distinto', OK: false})
+                  }
+              }
+          })
+        } else {
+          res.status(200).send({message:'Email encontrado, existe una persona con el email ya registrada anteriormente, elija otro distinto', OK: false})
+        }
+      }
+    })
+  } else {
+    return res.status(400).send ({message: 'Error newCommunity en datos del body'})
   }
 }

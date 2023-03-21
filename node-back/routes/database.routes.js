@@ -21,4 +21,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/changePassword',
         controller.changePassword
     )
+    app.post(
+        '/api/dataBaseServices/newCommunity',
+        controller.newCommunity
+    )
 }

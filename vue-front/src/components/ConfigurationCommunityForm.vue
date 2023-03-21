@@ -15,7 +15,7 @@
     </div>
     <div class="input-group mb-3 d-flex">
         <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Plantas"></b-form-input>
-        <b-form-input type="text" class="form-control w-5 mr-1" placeholder="Pisos"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Pisos"></b-form-input>
     </div>
     <div class="input-group mb-3 d-flex justify-content-center">
         <input class="m-2" type="checkbox" id="cameras"/>

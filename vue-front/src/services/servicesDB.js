@@ -36,6 +36,15 @@ class Services {
     }
     return http.post(API_URL_PATH + 'changePassword', body)
   }
+  newCommunity (community) {
+    const body = {
+      nameC: community.nameC,
+      email: community.email,
+      name: community.name,
+      surname: community.surname
+    }
+    return http.post(API_URL_PATH + 'newCommunity', body)
+  }
 }
 
 export default new Services()
