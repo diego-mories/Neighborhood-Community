@@ -47,7 +47,7 @@ exports.signUp = async (req, res) => {
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
-      first_time : "'" + 0 + "'"
+      first_time : "'" + 1 + "'"
     }
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
@@ -350,15 +350,47 @@ exports.newCommunity = async (req, res) => {
   }
 }
 
-exports.firstTimeNew = (req, res) => {
-  let userId = req.body.id
-  let newFirtsTime =  "'" + 0 + "'"
-  let query = 'UPDATE users SET first_time=' + newFirtsTime + 'WHERE id=' + userId
-  conexion.query(query, function (err, rowCount, rows) {
-    if (err) {
-      throw err
-    } else {
-      res.status(200).send({message:'Actualizacion de first_time OK'})   
-    }
-  })
+exports.confCommunity = (req, res) => {
+  if (req.body.id != undefined && req.body.community_id != undefined &&
+    req.body.paddle != undefined && req.body.tennis!= undefined &&
+    req.body.pool != undefined && req.body.doorman != undefined &&
+    req.body.cameras != undefined && req.body.myDoor != undefined &&
+    req.body.myFloor != undefined && req.body.floors != undefined &&
+    req.body.doors != undefined){
+      let data = {
+        id: "'" + req.body.id + "'" ,
+        community_id: "'" + req.body.community_id + "'" ,
+        paddle: "'" + req.body.paddle + "'" , 
+        tennis: "'" + req.body.tennis + "'" ,
+        pool: "'" + req.body.pool + "'" ,
+        doorman: "'" + req.body.doorman + "'" ,
+        cameras: "'" + req.body.cameras + "'" , 
+        myDoor: "'" + req.body.myDoor + "'" ,
+        myFloor: "'" + req.body.myFloor + "'" , 
+        floors: "'" + req.body.floors + "'" , 
+        doors: "'" + req.body.doors + "'"  
+      }
+      console.log(data)
+      let newFirtsTime =  "'" + 0 + "'"
+      // Si todos los datos estan bien, los metemos en la tabla de la comunidad
+      let query = 'UPDATE community SET has_paddle_court=' + data.paddle + ',has_tennis_court=' +  data.tennis + ',has_pool=' +  data.pool + ',has_cameras=' +  data.cameras + ',has_building_doorman=' +  data.doorman + ',floors=' +  data.floors + ',doors=' +  data.doors + 'WHERE id=' + data.community_id
+      conexion.query(query, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          // Actualizamos primera vez en el presidente para no tener que configurar mas veces la comunidad y su planta y puerta
+          let query2 = 'UPDATE users SET first_time=' + newFirtsTime + ',door=' +  data.myDoor + ',floor=' +  data.myFloor + 'WHERE id=' + data.id
+          conexion.query(query2, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } else {
+              res.status(200).send({message:'Datos de comunidad añadidos, y datos actualizados del presidente de la comunidad'})   
+            }
+          })
+          // res.status(200).send({message:'Actualizacion de first_time OK'})   
+        }
+      })
+  } else {
+    return res.status(400).send ({message: 'Error confCommunity en datos del body'})
+  }
 }

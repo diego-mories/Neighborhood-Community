@@ -45,11 +45,21 @@ class Services {
     }
     return http.post(API_URL_PATH + 'newCommunity', body)
   }
-  firstTimeNew (id) {
+  confCommunity (data) {
     const body = {
-      id: id
+      id: data.id,
+      community_id: data.community_id,
+      paddle: data.paddle,
+      tennis: data.tennis,
+      pool: data.pool,
+      doorman: data.paddle,
+      cameras: data.cameras,
+      myDoor: data.myDoor,
+      myFloor: data.myFloor,
+      floors: data.floors,
+      doors: data.doors
     }
-    return http.put(API_URL_PATH + 'firstTimeNew', body)
+    return http.put(API_URL_PATH + 'confCommunity', body)
   }
 }
 

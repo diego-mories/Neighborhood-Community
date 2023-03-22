@@ -6,7 +6,7 @@
     <div class="input-group mb-3 d-flex">
         <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
         <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Pisos" v-model="confCommunity.doors"></b-form-input>
-        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Mi planta" v-model="confCommunity.myFLoor"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Mi planta" v-model="confCommunity.myFloor"></b-form-input>
         <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Mi piso" v-model="confCommunity.myDoor"></b-form-input>
     </div>
     <div class="input-group mb-3 d-flex justify-content-center">
@@ -18,6 +18,8 @@
         <span class="d-flex align-items-center">¿Hay piscina?</span>
         <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.doorman"/>
         <span class="d-flex align-items-center">¿Hay portero?</span>
+        <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.cameras"/>
+        <span class="d-flex align-items-center">¿Hay cámaras?</span>
     </div>
     <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">Guardar configuración</b-button>
     <span>Checked names: {{ confCommunity }}</span>
@@ -27,13 +29,20 @@
 
 <script>
 import Services from '../services/servicesDB'
+import swal from 'sweetalert'
+
 export default {
   data: () => ({
     confCommunity: {
-      paddle: false,
-      tennis: false,
-      pool: false,
-      doorman: false
+      paddle: 0,
+      tennis: 0,
+      pool: 0,
+      doorman: 0,
+      cameras: 0,
+      doors: null,
+      floors: null,
+      myDoor: null,
+      myFloor: null
     }
   }
   ),
@@ -47,22 +56,56 @@ export default {
       window.onpopstate = function () { history.go(1) }
     },
     saveConf () {
-      // Actualizamos en nuestro localStorage first_time a 0
-      let userLogin = JSON.parse(localStorage.getItem('userLogin'))
-      console.log(this.confCommunity)
-      console.log(userLogin)
-      userLogin.first_time = 0
-      localStorage.removeItem('userLogin')
-      localStorage.setItem('userLogin', JSON.stringify(userLogin))
-      // Actualizamos en base de datos el first_time a 0
-      Services.firstTimeNew(userLogin.id).then(
-        Response => {
-          this.$router.push('/login')
-        },
-        Error => {
-          console.log('Error en cambio desde FRONT de first_time')
+      if (this.confCommunity.myDoor > this.confCommunity.Doors || this.confCommunity.myFloor > this.confCommunity.floors) {
+        swal({
+          title: 'No puede elegir una puerta o plantas no disponible en el rango de configuración elegido',
+          icon: 'error',
+          button: 'OK'
+        })
+      } else {
+        // Actualizamos en nuestro localStorage first_time a 0
+        let userLogin = JSON.parse(localStorage.getItem('userLogin'))
+        userLogin.first_time = 0
+        localStorage.removeItem('userLogin')
+        localStorage.setItem('userLogin', JSON.stringify(userLogin))
+        if (this.confCommunity.paddle) {
+          this.confCommunity.paddle = 1
         }
-      )
+        if (this.confCommunity.tennis) {
+          this.confCommunity.tennis = 1
+        }
+        if (this.confCommunity.pool) {
+          this.confCommunity.pool = 1
+        }
+        if (this.confCommunity.doorman) {
+          this.confCommunity.doorman = 1
+        }
+        if (this.confCommunity.cameras) {
+          this.confCommunity.cameras = 1
+        }
+        let data = {
+          id: userLogin.id,
+          community_id: userLogin.community_id,
+          paddle: this.confCommunity.paddle,
+          tennis: this.confCommunity.tennis,
+          pool: this.confCommunity.pool,
+          doorman: this.confCommunity.paddle,
+          cameras: this.confCommunity.cameras,
+          myDoor: this.confCommunity.myDoor,
+          myFloor: this.confCommunity.myFloor,
+          floors: this.confCommunity.floors,
+          doors: this.confCommunity.doors
+        }
+        // Actualizamos en base de datos el first_time a 0
+        Services.confCommunity(data).then(
+          Response => {
+            this.$router.push('/login')
+          },
+          Error => {
+            console.log('Error en cambio desde FRONT de first_time')
+          }
+        )
+      }
     }
   }
 }
