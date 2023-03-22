@@ -394,3 +394,47 @@ exports.confCommunity = (req, res) => {
     return res.status(400).send ({message: 'Error confCommunity en datos del body'})
   }
 }
+
+exports.insertRowsFD = (req,res) => {
+  if (req.body.community_id != undefined && req.body.floor != undefined && req.body.door != undefined){
+    // Añadimos la fila a la tabla doors and floors
+    let data = {
+      community_id: "'" + req.body.community_id + "'" ,
+      floor: "'" + req.body.floor + "'" ,
+      door: "'" + req.body.door + "'"
+    }
+    let query = 'INSERT INTO doors_floors (id, id_community, floor, door) VALUES (NULL,' + data.community_id + ',' + data.floor + ',' + data.door + ')'  
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        res.status(200).send({message:'Filas de tabla doors and floors añadidas correctamente'})   
+      }
+    })
+  } else {
+    return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
+  }
+}
+
+exports.uptadeFD = (req,res) => {
+  // console.log('SE EJECUTA' + req.body.id + req.body.myFloor)
+  if (req.body.id != undefined && req.body.myFloor != undefined && req.body.myDoor != undefined){
+    // Añadimos la fila a la tabla doors and floors
+    let data = {
+      id: "'" + req.body.id + "'" ,
+      myFloor: "'" + req.body.myFloor + "'" ,
+      myDoor: "'" + req.body.myDoor + "'"
+    }
+    // console.log(data)
+    let query = 'UPDATE doors_floors SET id_user=' + data.id + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        res.status(200).send({message:'Id del presidente en doors y floors actualizado'})   
+      }
+    })
+  } else {
+    return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
+  }
+}

@@ -29,4 +29,12 @@ module.exports = function (app) {
         '/api/dataBaseServices/confCommunity',
         controller.confCommunity
     )
+    app.put(
+        '/api/dataBaseServices/insertRowsFD',
+        controller.insertRowsFD
+    )
+    app.put(
+        '/api/dataBaseServices/uptadeFD',
+        controller.uptadeFD
+    )
 }
