@@ -61,6 +61,23 @@ class Services {
     }
     return http.put(API_URL_PATH + 'confCommunity', body)
   }
+  insertRowsFD (data) {
+    const body = {
+      community_id: data.community_id,
+      floor: data.floor,
+      door: data.door
+    }
+    return http.put(API_URL_PATH + 'insertRowsFD', body)
+  }
+  uptadeFD (data) {
+    const body = {
+      id: data.id,
+      myFloor: data.myFloor,
+      myDoor: data.myDoor,
+      community_id: data.community_id
+    }
+    return http.put(API_URL_PATH + 'uptadeFD', body)
+  }
 }
 
 export default new Services()

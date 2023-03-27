@@ -423,10 +423,12 @@ exports.uptadeFD = (req,res) => {
     let data = {
       id: "'" + req.body.id + "'" ,
       myFloor: "'" + req.body.myFloor + "'" ,
-      myDoor: "'" + req.body.myDoor + "'"
+      myDoor: "'" + req.body.myDoor + "'",
+      community_id: "'" + req.body.community_id + "'",
+      is_available: "'" + 0 + "'",
     }
     // console.log(data)
-    let query = 'UPDATE doors_floors SET id_user=' + data.id + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor
+    let query = 'UPDATE doors_floors SET id_user=' + data.id + ',is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND id_community=' + data.community_id
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
