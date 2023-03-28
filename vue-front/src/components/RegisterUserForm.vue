@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-form>
+    <b-form @submit.prevent="registerUser">
         <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
         <b-form-group>
             <div class="input-group">
@@ -33,11 +33,6 @@ export default {
       userLogin: null,
       selected: {},
       options: []
-    //   selectedD: null,
-    //   doors: '',
-    //   optionsD: [
-    //     { value: null, text: 'Selecciona la puerta a la que pertenece el propietario' }
-    //   ]
     }
   },
   methods: {
@@ -48,10 +43,8 @@ export default {
         Response => {
           this.floors_doors = Response.data.floors_doors
           for (let floorDoor of this.floors_doors) {
-            this.options.push({value: {f: floorDoor.floor, d: floorDoor.door}, text: 'Planta ' + floorDoor.floor + ' Piso ' + floorDoor.door})
-            // this.optionsD.push({value: floorDoor.door, text: 'Piso ' + floorDoor.door})
+            this.options.push({value: {f: floorDoor.floor, d: floorDoor.door}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door})
           }
-          // console.log(this.optionsD.length + this.optionsF.length)
         },
         Error => {
           console.log('Error al obtener informacion de los pisos y plantas disponibles')
@@ -59,7 +52,11 @@ export default {
       )
     },
     registerUser () {
-
+      console.log('Datos del registro del usuario')
+      this.newUser.floor = this.selected.f
+      this.newUser.door = this.selected.d
+      console.log(this.newUser)
+      Services.signUp(this.newUser).then()
     }
   },
   mounted () {

@@ -30,16 +30,16 @@ conexion.connect((err, connection) => {
 
 exports.signUp = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
-    && req.body.email != undefined && req.body.password != undefined 
-    && req.body.role != undefined && req.body.community_id != undefined 
+    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined 
     && req.body.floor != undefined && req.body.door != undefined){
     let data = req.body
+    let password = random(15)
     let tokenActive = random(15)
     let user = {
       name : "'" + data.name + "'",
       surname : "'" + data.surname + "'",
       email : "'" + data.email + "'",
-      password : "'" + await bycript.hash(data.password,12) + "'",
+      password : "'" + await bycript.hash(password,12) + "'",
       role : "'" + data.role + "'",
       community_id : "'" + data.community_id + "'",
       floor : "'" + data.floor + "'",
@@ -49,6 +49,7 @@ exports.signUp = async (req, res) => {
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
+    console.log(password)
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
     conexion.query (queryEmail, function (err, rowCount, rows) {
@@ -66,7 +67,7 @@ exports.signUp = async (req, res) => {
                 to: '' + data.email,
                 subject: 'Bienvenido',
                 text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-                ', nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+                ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
               }
               mailTransporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -414,7 +415,7 @@ exports.insertRowsFD = (req,res) => {
       floor: "'" + req.body.floor + "'" ,
       door: "'" + req.body.door + "'"
     }
-    let query = 'INSERT INTO doors_floors (id, id_community, floor, door) VALUES (NULL,' + data.community_id + ',' + data.floor + ',' + data.door + ')'  
+    let query = 'INSERT INTO doors_floors (id, community_id, floor, door) VALUES (NULL,' + data.community_id + ',' + data.floor + ',' + data.door + ')'  
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err

@@ -14,7 +14,6 @@ class Services {
       name: user.name,
       surname: user.surname,
       email: user.email,
-      password: user.password,
       role: user.role,
       community_id: user.community_id,
       floor: user.floor,
