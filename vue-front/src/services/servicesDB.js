@@ -81,6 +81,10 @@ class Services {
   searchDBCommunities () {
     return http.get(API_URL_PATH + 'searchDBCommunities')
   }
+  searchMyCommunity (communityId) {
+    // console.log(communityId)
+    return http.get(API_URL_PATH + 'searchMyCommunity?community_id=' + communityId)
+  }
 }
 
 export default new Services()
