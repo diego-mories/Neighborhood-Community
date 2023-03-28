@@ -78,6 +78,9 @@ class Services {
     }
     return http.put(API_URL_PATH + 'uptadeFD', body)
   }
+  searchDBCommunities () {
+    return http.get(API_URL_PATH + 'searchDBCommunities')
+  }
 }
 
 export default new Services()

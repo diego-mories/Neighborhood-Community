@@ -440,3 +440,14 @@ exports.uptadeFD = (req,res) => {
     return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
   }
 }
+
+exports.searchDBCommunities = (req, res) =>{
+  let query = 'SELECT * FROM community'
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({message:'Obtenemos datos de comunidades', communities: rowCount})   
+    }
+  })
+}

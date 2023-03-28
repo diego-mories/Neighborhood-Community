@@ -37,4 +37,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/uptadeFD',
         controller.uptadeFD
     )
+    app.get(
+        '/api/dataBaseServices/searchDBCommunities',
+        controller.searchDBCommunities
+    )
 }

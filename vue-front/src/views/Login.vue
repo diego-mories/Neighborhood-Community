@@ -38,7 +38,8 @@
   </div>
     <!-- Vista de admin -->
   <div class="row" id="grid-bottom-log" v-if="role === 4">
-    Añadimos tabla con datos de todas las comunidades
+    <b-table class="container m-0" :items="items" :fields="fields">
+    </b-table>
   </div>
   <div class="row" id="grid-bottom">
       <Footer></Footer>
@@ -55,10 +56,22 @@ import Footer from '../components/FooterSocialNetwork.vue'
 import ViewsCardsP from '../components/ViewsCardsP.vue'
 import ViewsCardsO from '../components/ViewsCardsO.vue'
 import ViewsCardsB from '../components/ViewsCardsB.vue'
-
+import Services from '../services/servicesDB'
 export default {
   data: () => ({
-    role: null
+    role: null,
+    fields: [
+      {key: 'name', label: 'Nombre'},
+      {key: 'floors', label: 'Plantas'},
+      {key: 'doors', label: 'Puertas'},
+      {key: 'paddle', label: 'Pista de Padel'},
+      {key: 'tennis', label: 'Pista de Tenis'},
+      {key: 'pool', label: 'Piscina'},
+      {key: 'doorman', label: 'Portero'},
+      {key: 'cameras', label: 'Camaras'}
+    ],
+    items: [],
+    communities: []
   }),
   components: {
     NavBarPresident,
@@ -70,9 +83,46 @@ export default {
     ViewsCardsB,
     Footer
   },
-  created () {
+  mounted () {
     let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = dataUserLogin.role
+    Services.searchDBCommunities().then(
+      Response => {
+        this.communities = Response.data.communities
+        for (let community of this.communities) {
+          if (community.has_paddle_court) {
+            community.has_paddle_court = '✅'
+          } else {
+            community.has_paddle_court = '❌'
+          }
+          if (community.has_tennis_court) {
+            community.has_tennis_court = '✅'
+          } else {
+            community.has_tennis_court = '❌'
+          }
+          if (community.has_pool) {
+            community.has_pool = '✅'
+          } else {
+            community.has_pool = '❌'
+          }
+          if (community.has_building_doorman) {
+            community.has_building_doorman = '✅'
+          } else {
+            community.has_building_doorman = '❌'
+          }
+          if (community.has_cameras) {
+            community.has_cameras = '✅'
+          } else {
+            community.has_cameras = '❌'
+          }
+          this.items.push({name: community.name, floors: community.floors, doors: community.doors, paddle: community.has_paddle_court, tennis: community.has_tennis_court, pool: community.has_pool, doorman: community.has_building_doorman, cameras: community.has_cameras})
+        }
+        console.log(this.items)
+      },
+      Error => {
+        console.log('Error al obtener informacion sobre la base de datos de las comunidades registradas en la plataforma')
+      }
+    )
   }
 }
 </script>
