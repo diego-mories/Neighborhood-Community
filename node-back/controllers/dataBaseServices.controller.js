@@ -76,7 +76,18 @@ exports.signUp = async (req, res) => {
                 }
                 mailTransporter.close()
               })
-              res.status(200).send({message:'Email no encontrado en base de datos, REGISTRO OK'})}
+              let is_available = "'" + 0 + "'"
+              let id = "'" + rowCount.insertId + "'"
+              // console.log(rowCount.insertId)
+              let query2 = 'UPDATE doors_floors SET id_user=' + id + ',is_available=' +  is_available + 'WHERE floor=' + user.floor + 'AND door=' + user.door + 'AND community_id=' + user.community_id
+              conexion.query(query2, function (err, rowCount, rows) {
+                if (err) {
+                  throw err
+                } else {
+                  res.status(200).send({message:'Id en doors y floors actualizado'})   
+                }
+              })
+            }
           })
         } else {
           res.status(404).send({message:'Email encontrado no se puede hacer el registro'})
@@ -370,7 +381,7 @@ exports.confCommunity = (req, res) => {
         floors: "'" + req.body.floors + "'" , 
         doors: "'" + req.body.doors + "'"  
       }
-      console.log(data)
+      // console.log(data)
       let newFirtsTime =  "'" + 0 + "'"
       // Si todos los datos estan bien, los metemos en la tabla de la comunidad
       let query = 'UPDATE community SET has_paddle_court=' + data.paddle + ',has_tennis_court=' +  data.tennis + ',has_pool=' +  data.pool + ',has_cameras=' +  data.cameras + ',has_building_doorman=' +  data.doorman + ',floors=' +  data.floors + ',doors=' +  data.doors + 'WHERE id=' + data.community_id
@@ -428,7 +439,7 @@ exports.uptadeFD = (req,res) => {
       is_available: "'" + 0 + "'",
     }
     // console.log(data)
-    let query = 'UPDATE doors_floors SET id_user=' + data.id + ',is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND id_community=' + data.community_id
+    let query = 'UPDATE doors_floors SET id_user=' + data.id + ',is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -448,6 +459,18 @@ exports.searchDBCommunities = (req, res) =>{
       throw err
     } else {
       res.status(200).send({message:'Obtenemos datos de comunidades', communities: rowCount})   
+    }
+  })
+}
+exports.searchMyCommunity = (req, res) =>{
+  let community_id = "'" + req.query.community_id + "'"
+  let is_available = "'" + 1 + "'"
+  let query = 'SELECT * FROM doors_floors WHERE community_id=' + community_id + 'AND is_available=' + is_available
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({message:'Obtenemos datos de puertas y plantas disponibles en las comunidades', floors_doors: rowCount})   
     }
   })
 }

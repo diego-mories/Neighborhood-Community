@@ -41,4 +41,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/searchDBCommunities',
         controller.searchDBCommunities
     )
+    app.get(
+        '/api/dataBaseServices/searchMyCommunity',
+        controller.searchMyCommunity
+    )
 }
