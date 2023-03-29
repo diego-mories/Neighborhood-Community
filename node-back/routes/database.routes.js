@@ -6,6 +6,10 @@ module.exports = function (app) {
         controller.signUp
     )
     app.post(
+        '/api/dataBaseServices/signUpDoorman',
+        controller.signUpDoorman
+    )
+    app.post(
         '/api/dataBaseServices/signIn',
         controller.signIn
     )
@@ -44,5 +48,9 @@ module.exports = function (app) {
     app.get(
         '/api/dataBaseServices/searchMyCommunity',
         controller.searchMyCommunity
+    )
+    app.get(
+        '/api/dataBaseServices/searchDoorman',
+        controller.searchDoorman
     )
 }

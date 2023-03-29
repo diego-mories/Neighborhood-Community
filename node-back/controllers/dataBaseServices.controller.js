@@ -49,7 +49,7 @@ exports.signUp = async (req, res) => {
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
-    console.log(password)
+    // console.log(password)
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
     conexion.query (queryEmail, function (err, rowCount, rows) {
@@ -73,25 +73,24 @@ exports.signUp = async (req, res) => {
                 if (error) {
                   console.log("Error email sent!", error)
                 } else {
-                  console.log('Email sent: ')
+                  // console.log('Email sent: ')
                 }
                 mailTransporter.close()
               })
               let is_available = "'" + 0 + "'"
               let id = "'" + rowCount.insertId + "'"
-              // console.log(rowCount.insertId)
               let query2 = 'UPDATE doors_floors SET id_user=' + id + ',is_available=' +  is_available + 'WHERE floor=' + user.floor + 'AND door=' + user.door + 'AND community_id=' + user.community_id
               conexion.query(query2, function (err, rowCount, rows) {
                 if (err) {
                   throw err
                 } else {
-                  res.status(200).send({message:'Id en doors y floors actualizado'})   
+                  res.status(200).send({message:'Id en doors y floors actualizado y registro del nuevo usuario en comunidad correcto'})   
                 }
               })
             }
           })
         } else {
-          res.status(404).send({message:'Email encontrado no se puede hacer el registro'})
+          res.status(404).send({message:'Email encontrado no se puede hacer el registro o fallo en el registro del usuario'})
         }
       }
     }
@@ -102,7 +101,73 @@ exports.signUp = async (req, res) => {
   }
 }
 
-
+exports.signUpDoorman = async (req, res) => {
+  if (req.body.name != undefined && req.body.surname != undefined 
+    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined 
+    && req.body.floor != undefined && req.body.door != undefined){
+    let data = req.body
+    let password = random(15)
+    let tokenActive = random(15)
+    let user = {
+      name : "'" + data.name + "'",
+      surname : "'" + data.surname + "'",
+      email : "'" + data.email + "'",
+      password : "'" + await bycript.hash(password,12) + "'",
+      role : "'" + data.role + "'",
+      community_id : "'" + data.community_id + "'",
+      floor : "'" + data.floor + "'",
+      door : "'" + data.door + "'",
+      token_active : "'" + tokenActive + "'",
+      token_pass : "'" + random(15) + "'",
+      is_active : "'" + 0 +  "'",
+      first_time : "'" + 1 + "'"
+    }
+    let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
+    // Tenemos que buscar que el email no exista ya en la base de datos
+    conexion.query (queryEmail, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } else {
+        if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
+          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
+          conexion.query(query, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } else {
+              let mailOptions = {
+                from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+                to: '' + data.email,
+                subject: 'Bienvenido',
+                text: '¡Qué alegría tenerte con nosotros eres el nuevo portero de la comunidad! ' + data.name + 
+                ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+              }
+              mailTransporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log("Error email sent!", error)
+                } else {
+                  // console.log('Email sent: ')
+                }
+                mailTransporter.close()
+              })
+              let doorman_active = "'" + 1 + "'"
+              let query2 = 'UPDATE community SET doorman_active=' + doorman_active + 'WHERE id=' + user.community_id
+              conexion.query(query2, function (err, rowCount, rows) {
+                if (err) {
+                  throw err
+                } else {
+                  res.status(200).send({message:'Portero registrado en comunidad de manera correcta'})   
+                }
+              })
+            }
+          })
+        } else {
+          res.status(404).send({message:'Email encontrado no se puede hacer el registro o fallo en el registro del usuario'})
+        }
+      }
+    }
+  )
+  }
+}
 
 // User login with response data to front 
 exports.signIn = (req, res) => {
@@ -222,7 +287,7 @@ exports.resetPassword = (req, res) => {
                   if (error) {
                     console.log("Error email sent!", error)
                   } else {
-                    console.log('Email sent: ')
+                    //console.log('Email sent: ')
                   }
                   mailTransporter.close()
                 })
@@ -310,7 +375,7 @@ exports.newCommunity = async (req, res) => {
                           if (error) {
                             console.log("Error email sent!", error)
                           } else {
-                            console.log('Email sent: ')
+                            // console.log('Email sent: ')
                           }
                           mailTransporter.close()
                         })
@@ -472,6 +537,24 @@ exports.searchMyCommunity = (req, res) =>{
       throw err
     } else {
       res.status(200).send({message:'Obtenemos datos de puertas y plantas disponibles en las comunidades', floors_doors: rowCount})   
+    }
+  })
+}
+exports.searchDoorman = (req, res) =>{
+  let community_id = "'" + req.query.community_id + "'"
+  let doorman_active = "'" + 0 + "'"
+  let has_doorman = "'" + 1 + "'"
+  let query = 'SELECT * FROM community WHERE id=' + community_id + 'AND doorman_active=' + doorman_active + 'AND has_building_doorman=' + has_doorman
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      // console.log(rowCount)
+      if (rowCount.length === 0) {
+        res.status(200).send({message:'No tenemos portero o el portero está activo en la comunidad', exist: false})
+      } else {
+        res.status(200).send({message:'Tenemos portero y no esta activo aun en la comunidad', exist: true})
+      }
     }
   })
 }

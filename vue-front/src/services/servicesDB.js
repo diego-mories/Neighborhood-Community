@@ -21,6 +21,18 @@ class Services {
     }
     return http.post(API_URL_PATH + 'signUp', body)
   }
+  signUpDoorman (user) {
+    const body = {
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+      role: user.role,
+      community_id: user.community_id,
+      floor: user.floor,
+      door: user.door
+    }
+    return http.post(API_URL_PATH + 'signUpDoorman', body)
+  }
   activeUser (tokenActive) {
     return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)
   }
@@ -83,6 +95,9 @@ class Services {
   searchMyCommunity (communityId) {
     // console.log(communityId)
     return http.get(API_URL_PATH + 'searchMyCommunity?community_id=' + communityId)
+  }
+  searchDoorman (communityId) {
+    return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)
   }
 }
 
