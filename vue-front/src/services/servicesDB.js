@@ -14,6 +14,7 @@ class Services {
       name: user.name,
       surname: user.surname,
       email: user.email,
+      phone: user.phone,
       role: user.role,
       community_id: user.community_id,
       floor: user.floor,
@@ -52,7 +53,8 @@ class Services {
       nameC: community.nameC,
       email: community.email,
       name: community.name,
-      surname: community.surname
+      surname: community.surname,
+      phone: community.phone
     }
     return http.post(API_URL_PATH + 'newCommunity', body)
   }

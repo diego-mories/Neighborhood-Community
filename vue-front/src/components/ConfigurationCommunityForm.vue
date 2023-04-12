@@ -4,10 +4,10 @@
     <b-form>
     <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/community.png"></span>
     <div class="input-group mb-3 d-flex">
-        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
-        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Pisos" v-model="confCommunity.doors"></b-form-input>
-        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Mi planta" v-model="confCommunity.myFloor"></b-form-input>
-        <b-form-input type="number" class="form-control w-5 mr-1" min="0" max="10" placeholder="Mi piso" v-model="confCommunity.myDoor"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Pisos" v-model="confCommunity.doors"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi planta" v-model="confCommunity.myFloor"></b-form-input>
+        <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi piso" v-model="confCommunity.myDoor"></b-form-input>
     </div>
     <div class="input-group mb-3 d-flex justify-content-center">
         <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.paddle"/>
@@ -22,7 +22,7 @@
         <span class="d-flex align-items-center">¿Hay cámaras?</span>
     </div>
     <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">Guardar configuración</b-button>
-    <span>Checked names: {{ confCommunity }}</span>
+    <!-- <span>Checked names: {{ confCommunity }}</span> -->
     </b-form>
 </div>
 </template>

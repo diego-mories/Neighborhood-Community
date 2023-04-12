@@ -39,6 +39,7 @@ exports.signUp = async (req, res) => {
       name : "'" + data.name + "'",
       surname : "'" + data.surname + "'",
       email : "'" + data.email + "'",
+      phone: "'" + data.phone + "'",
       password : "'" + await bycript.hash(password,12) + "'",
       role : "'" + data.role + "'",
       community_id : "'" + data.community_id + "'",
@@ -57,7 +58,7 @@ exports.signUp = async (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
+          let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
           conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -327,6 +328,7 @@ exports.newCommunity = async (req, res) => {
       nameC : "'" + req.body.nameC + "'",
       name : "'" + req.body.name + "'",
       surname : "'" + req.body.surname + "'",
+      phone: "'" + '+34 ' + req.body.phone + "'",
     } 
     let password = random(15)
     let tokenActive = random(15)
@@ -334,6 +336,7 @@ exports.newCommunity = async (req, res) => {
       name : community.name,
       surname : community.surname,
       email : community.email,
+      phone : community.phone,
       password : "'" + await bycript.hash(password,12) + "'",
       role : "'" + 1 + "'",
       community_id : "'" + 0 + "'",
@@ -358,7 +361,7 @@ exports.newCommunity = async (req, res) => {
                 throw err
               } else {
                   if (rowCount.length === 0) { // Podemos hacer el registro correcto, no hay ninguna comunidad con ese nombre ni con ese email del preisdente
-                    let query3 = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +  ',' + user.first_time + ')'
+                    let query3 = 'INSERT INTO users (id, name, surname, email, phone, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.phone + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +  ',' + user.first_time + ')'
                     conexion.query(query3, function (err, rowCount, rows) {
                       if (err) {
                         throw err

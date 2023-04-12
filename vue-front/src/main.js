@@ -21,14 +21,16 @@ import {
   faFileZipper,
   faEnvelope,
   faKey,
-  faMoneyBills
+  faMoneyBills,
+  faPhone
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faTwitter,
   faInstagram,
   faFacebook
 } from '@fortawesome/free-brands-svg-icons'
-library.add(faUserSecret,
+library.add(
+  faUserSecret,
   faTwitter,
   faInstagram,
   faFacebook,
@@ -44,10 +46,10 @@ library.add(faUserSecret,
   faFileZipper,
   faEnvelope,
   faKey,
-  faMoneyBills)
+  faMoneyBills,
+  faPhone)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

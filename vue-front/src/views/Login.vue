@@ -90,6 +90,10 @@ export default {
       Response => {
         this.communities = Response.data.communities
         for (let community of this.communities) {
+          if (community.floors === 0 && community.doors === 0) {
+            this.items.push({name: '☣️  Requiere configuración del presidente ☣️  (' + community.name + ')', floors: '🫙 ', doors: '🫙 ', paddle: '🫙 ', tennis: '🫙 ', pool: '🫙 ', doorman: '🫙 ', cameras: '🫙 '})
+            continue
+          }
           if (community.has_paddle_court) {
             community.has_paddle_court = '✅'
           } else {
