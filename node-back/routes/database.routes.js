@@ -10,8 +10,8 @@ module.exports = function (app) {
         controller.signUpDoorman
     )
     app.post(
-        '/api/dataBaseServices/signIn',
-        controller.signIn
+        '/api/dataBaseServices/login',
+        controller.login
     )
     app.get(
         '/api/dataBaseServices/activeUser',

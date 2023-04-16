@@ -57,7 +57,6 @@ export default {
   methods: {
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
-      // console.log(this.userLogin.community_id)
       Services.searchMyCommunity(this.userLogin.community_id).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
@@ -84,10 +83,8 @@ export default {
       )
     },
     registerUser () {
-      // console.log('Datos del registro del usuario')
       this.newUser.floor = this.selected.f
       this.newUser.door = this.selected.d
-      // console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {
           console.log(Response.data.message)
@@ -120,12 +117,6 @@ export default {
     this.newDoorman.community_id = this.userLogin.community_id
     this.newUser.role = 3 // Owner por defecto
     this.newDoorman.role = 2
-  },
-  created () {
   }
 }
 </script>
-
-<style>
-
-</style>

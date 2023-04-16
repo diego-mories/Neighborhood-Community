@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-form @submit.prevent="signIn">
+  <b-form @submit.prevent="login">
     <span><img src="../assets/logo.png"></span>
     <b-form-group>
       <div class="input-group mb-3">
@@ -26,8 +26,8 @@ export default {
     user: {}
   }),
   methods: {
-    async signIn () {
-      Services.signIn(this.user).then(
+    async login () {
+      Services.login(this.user).then(
         Response => {
           // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
           if (Response.data.OK) {

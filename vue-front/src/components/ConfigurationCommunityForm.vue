@@ -133,13 +133,8 @@ export default {
             exit()
           }
         )
-        // Actualizamos los datos en la fila correspondiente, metiendo el id del presidente en floors y doors y poniendo is_available a false
       }
     }
   }
 }
 </script>
-
-<style>
-
-</style>
