@@ -50,6 +50,11 @@ library.add(
   faPhone)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.filter('formatBill', function (value) {
+  if (value === 1) return '🔥'
+  if (value === 2) return '💡'
+  if (value === 3) return '💧'
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

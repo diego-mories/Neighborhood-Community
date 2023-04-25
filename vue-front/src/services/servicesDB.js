@@ -123,6 +123,15 @@ class Services {
     }
     return http.post(API_URL_PATH + 'createBill', body)
   }
+  // Find all debs user
+  findAllDebs (user) {
+    const body = {
+      community_id: user.community_id,
+      door: user.door,
+      floor: user.floor
+    }
+    return http.post(API_URL_PATH + 'findAllDebs', body)
+  }
 }
 
 export default new Services()

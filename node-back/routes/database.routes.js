@@ -57,4 +57,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/createBill',
         controller.createBill
     )
+    app.post(
+        '/api/dataBaseServices/findAllDebs',
+        controller.findAllDebs
+    )
 }

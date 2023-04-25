@@ -667,3 +667,31 @@ exports.createBill = (req, res) => {
     }
   })
 }
+
+exports.findAllDebs = (req, res) => {
+  let data = {
+    community_id: "'" + req.body.community_id + "'" , 
+    door: "'" + req.body.door + "'", 
+    floor:"'" +  req.body.floor + "'", 
+  }
+  let query = "SELECT * FROM doors_floors WHERE community_id= " + data.community_id + 'AND door=' + data.door + 'AND floor=' + data.floor
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let doors_floors_id = "'" + rowCount[0].id + "'"
+      let query2 = "SELECT * FROM debs WHERE door_floors_id= " + doors_floors_id + 'AND amount >' + "'" + 0 + "'"
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          console.log(rowCount)
+          let dataResponse = rowCount
+          console.log(dataResponse)
+          res.status(200).send({dataResponse})    
+        } 
+      })
+    } 
+  })
+
+}
