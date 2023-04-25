@@ -111,6 +111,7 @@ exports.signUp = async (req, res) => {
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
+    console.log(user)
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
     conexion.query (queryEmail, function (err, rowCount, rows) {
@@ -142,8 +143,8 @@ exports.signUp = async (req, res) => {
                 mailTransporter.close()
               })
               let is_available = "'" + 0 + "'"
-              let id = "'" + rowCount.insertId + "'"
-              let query2 = 'UPDATE doors_floors SET id_user=' + id + ',is_available=' +  is_available + 'WHERE floor=' + user.floor + 'AND door=' + user.door + 'AND community_id=' + user.community_id
+             
+              let query2 = 'UPDATE doors_floors SET is_available=' +  is_available + 'WHERE floor=' + user.floor + 'AND door=' + user.door + 'AND community_id=' + user.community_id
               conexion.query(query2, function (err, rowCount, rows) {
                 if (err) {
                   throw err
@@ -542,7 +543,7 @@ exports.uptadeFD = (req,res) => {
       community_id: "'" + req.body.community_id + "'",
       is_available: "'" + 0 + "'",
     }
-    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
+    let query = 'UPDATE doors_floors SET ' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err

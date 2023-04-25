@@ -85,13 +85,14 @@ export default {
     registerUser () {
       this.newUser.floor = this.selected.f
       this.newUser.door = this.selected.d
+      console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {
           console.log(Response.data.message)
           this.$router.push({ path: `/login` })
         },
         Error => {
-          console.log('Errror al registrar nuevo usuario en comunidad')
+          console.log('Errror al registrar nuevo usuario en comunidad' + Error.status)
         }
       )
     },
