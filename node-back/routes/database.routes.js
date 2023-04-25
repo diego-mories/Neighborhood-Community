@@ -53,4 +53,8 @@ module.exports = function (app) {
         '/api/dataBaseServices/searchDoorman',
         controller.searchDoorman
     )
+    app.post(
+        '/api/dataBaseServices/createBill',
+        controller.createBill
+    )
 }

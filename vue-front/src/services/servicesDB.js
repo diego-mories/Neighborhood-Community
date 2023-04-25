@@ -113,6 +113,16 @@ class Services {
   searchDoorman (communityId) {
     return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)
   }
+  // Create new Bill
+  createBill (data) {
+    const body = {
+      community_id: data.community_id,
+      date_p: data.date,
+      type: data.type,
+      amount: data.amount
+    }
+    return http.post(API_URL_PATH + 'createBill', body)
+  }
 }
 
 export default new Services()

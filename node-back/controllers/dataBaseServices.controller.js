@@ -600,3 +600,70 @@ exports.searchDoorman = (req, res) =>{
     }
   })
 }
+
+exports.createBill = (req, res) => {
+  console.log(req.body)
+  // Insertamos la fila en la tabla bills
+  var data = {
+    community_id: "'" + req.body.community_id + "'" ,
+    date_p: "'" + req.body.date_p + "'" ,
+    amount: "'" + req.body.amount + "'",
+    gas: "'" + 0 + "'",
+    light: "'" + 0 + "'", 
+    water: "'" + 0 + "'" 
+  }
+  let is_available = "'" + 0 + "'"
+  
+  if (req.body.type === '1') data.gas = "'" + 1 + "'" 
+  if (req.body.type === '2') data.light = "'" + 1 + "'"
+  if (req.body.type === '3') data.water = "'" + 1 + "'" 
+  let query = 'INSERT INTO bills (id, community_id,date_p,gas,light,water,amount) VALUES (NULL,' + data.community_id + ',' + data.date_p + ',' + data.gas + ',' + data.light + ',' + data.water + ',' + data.amount + ')'  
+  console.log(query)
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+     console.log('Cuenta añadida correctamente')
+     // Buscamos cuantas personas estan en la comunidad 
+     let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available
+     conexion.query(query2, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } 
+      else {
+        let numPersonas = rowCount.length
+        let amountPersona = req.body.amount / numPersonas
+          for (let persona of rowCount) {
+          // console.log('Añadimos la fila con el gasto de la persona con id floors: ' + persona.id + ' la cantidad de: ' + amountPersona + ' con puerta: ' + persona.door + ' y piso: ' + persona.floor) 
+            let type
+            if (req.body.type === '1') type = 1
+            if (req.body.type === '2') type = 2
+            if (req.body.type === '3') type = 3
+            let dataquery = {
+            doors_floors_id: "'" + persona.id + "'" ,
+            type_bill: "'" + type + "'" ,
+            is_spill:"'" +  0 + "'" ,
+            amount:"'" + amountPersona + "'" 
+            }
+            let query3 = 'INSERT INTO debs (id, door_floors_id,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
+            conexion.query(query3, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } else {
+              let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" +')'
+              conexion.query(query4, function (err, rowCount, rows) {
+                if (err) {
+                  throw err
+                } else {
+                  console.log('Cuentas, pagos y deudas añadidas correctamente')                  
+                } 
+                })
+            } 
+            })
+          }
+        }
+      })
+    }
+  })
+}
