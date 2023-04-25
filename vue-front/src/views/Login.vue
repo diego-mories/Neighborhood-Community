@@ -14,6 +14,7 @@
     <div class="col-6" id="full">
       <div class="row" id="graph-top">
         <div class="container">
+          <h3 class="mt-5 mb-0 pb-0">Gastos de la comunidad</h3>
           <b-table
           class="m-5"
           style="overflow-x:auto;"
@@ -173,4 +174,5 @@ export default {
 </script>
 
 <style>
+
 </style>
