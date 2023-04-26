@@ -61,6 +61,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs
     )
+    app.post(
+        '/api/dataBaseServices/findAllBills',
+        controller.findAllBills
+    )
     app.put(
         '/api/dataBaseServices/pay',
         controller.pay

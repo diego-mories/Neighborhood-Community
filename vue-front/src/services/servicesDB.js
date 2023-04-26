@@ -132,6 +132,12 @@ class Services {
     }
     return http.post(API_URL_PATH + 'findAllDebs', body)
   }
+  findAllBills (communityId) {
+    const body = {
+      community_id: communityId
+    }
+    return http.post(API_URL_PATH + 'findAllBills', body)
+  }
   pay (data) {
     const body = {
       deb_id: data.id,

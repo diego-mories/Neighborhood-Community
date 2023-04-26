@@ -608,16 +608,9 @@ exports.createBill = (req, res) => {
     community_id: "'" + req.body.community_id + "'" ,
     date_p: "'" + req.body.date_p + "'" ,
     amount: "'" + req.body.amount + "'",
-    gas: "'" + 0 + "'",
-    light: "'" + 0 + "'", 
-    water: "'" + 0 + "'" 
+    type_id:"'" + req.body.type + "'"
   }
-  let is_available = "'" + 0 + "'"
-  
-  if (req.body.type === '1') data.gas = "'" + 1 + "'" 
-  if (req.body.type === '2') data.light = "'" + 1 + "'"
-  if (req.body.type === '3') data.water = "'" + 1 + "'" 
-  let query = 'INSERT INTO bills (id, community_id,date_p,gas,light,water,amount) VALUES (NULL,' + data.community_id + ',' + data.date_p + ',' + data.gas + ',' + data.light + ',' + data.water + ',' + data.amount + ')'  
+  let query = 'INSERT INTO bills (id, community_id,date_p,type_id,amount) VALUES (NULL,' + data.community_id + ',' + data.date_p + ',' + data.type_id + ',' + data.amount + ')'  
   console.log(query)
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
@@ -626,6 +619,8 @@ exports.createBill = (req, res) => {
     else {
      // console.log('Cuenta añadida correctamente')
      // Buscamos cuantas personas estan en la comunidad 
+     let is_available = "'" + 0 + "'"
+
      let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available
      conexion.query(query2, function (err, rowCount, rows) {
       if (err) {
@@ -694,6 +689,22 @@ exports.findAllDebs = (req, res) => {
     } 
   })
 }
+
+exports.findAllBills = (req, res) => {
+  
+  let community_id = "'" + req.body.community_id + "'" 
+  let query = "SELECT * FROM bills WHERE community_id= " + community_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+          let dataResponse = rowCount
+          console.log(rowCount)
+          res.status(200).send({dataResponse})    
+        } 
+      })
+} 
+
 
 exports.pay = (req,res) => {
   let dataQuery = {

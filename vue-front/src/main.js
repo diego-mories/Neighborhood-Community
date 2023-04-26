@@ -64,6 +64,18 @@ Vue.filter('formatBill', function (value) {
   if (value === 2) return '💡'
   if (value === 3) return '💧'
 })
+// Vue.filter('gas', function (value) {
+//   if (value === 1) console.log(value)
+//   else return 'CACA'
+// })
+// Vue.filter('light', function (value) {
+//   if (value === 1) console.log(value)
+//   else return 'CACA'
+// })
+// Vue.filter('water', function (value) {
+//   if (value === 1) console.log(value)
+//   else return 'CACA'
+// })
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

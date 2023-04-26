@@ -39,11 +39,11 @@
           style="overflow-y:auto;height: 25vh !important;"
           ref="debsTable"
           id="debsTable"
-          :fields="headers"
-          :items="debs"
+          :fields="headers2"
+          :items="bills"
           responsive="sm">
-            <template #cell(type_bill)="data">
-              {{ data.item.type_bill | formatBill}}
+            <template #cell(type_id)="data">
+              {{ data.item.type_id  | formatBill}}
             </template>
           </b-table>
         </div>
@@ -74,8 +74,7 @@
           :fields="headers"
           :items="debs"
           responsive="sm">
-            <template #cell(type_bill)="data">
-              {{ data.item.type_bill | formatBill}}
+            <template #cell(type_bill)="">
             </template>
           </b-table>
       </div>
@@ -109,8 +108,14 @@ export default {
     headers: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
       { key: 'type_bill', label: 'Tipo de gasto' },
-      { key: 'date_p', label: 'Fecha' },
+      { key: 'date_p', sortable: true, label: 'Fecha' },
       { key: 'options', label: 'Pagar' }
+    ],
+    bills: [],
+    headers2: [
+      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
+      { key: 'type_id', label: 'Tipo de gasto' },
+      { key: 'date_p', sortable: true, label: 'Fecha' }
     ],
     fields: [
       {key: 'name', label: 'Nombre'},
@@ -140,28 +145,26 @@ export default {
   },
   methods: {
     openPay (row) {
-      console.log(row)
       this.$swal.fire({
         icon: 'success',
-        title: 'NEW STAFF!!',
-        text: 'Staff user created'
+        timer: 1500,
+        showConfirmButton: false,
+        title: 'Pago en curso...!!'
       }).then(() => {
         Services.pay(row).then(
           Response => {
-            console.log(Response)
             if (Response.status === 200) {
               this.$swal.fire({
                 icon: 'success',
-                title: 'NUEVO PAGO!!',
+                title: 'REALIZADO CORRECTAMENTE!!',
                 text: Response.data.message
               }).then(() => {
-                console.log('buscamos los datos de nuevo')
                 this.getData()
               })
             }
           },
           Error => {
-
+            console.log('Error al pagar')
           }
         )
       })
@@ -169,7 +172,7 @@ export default {
     getData () {
       let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.role = dataUserLogin.role
-      if (this.role === 1) {
+      if (this.role === 4) {
         Services.searchDBCommunities().then(
           Response => {
             this.communities = Response.data.communities
@@ -216,14 +219,15 @@ export default {
         door: dataUserLogin.door,
         floor: dataUserLogin.floor
       }
-      // console.log(data)
+      if (this.role === 1) {
+        Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+      }
       Services.findAllDebs(data).then(
         Response => {
           this.debs = Response.data.dataResponse
-          console.log(' se ejecuta')
         },
         Error => {
-
+          console.log('Error al buscar datos de deudas')
         }
       )
     }
