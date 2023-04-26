@@ -12,25 +12,41 @@
       <ViewsCardsP></ViewsCardsP>
     </div>
     <div class="col-6" id="full">
-      <div class="row" id="graph-top">
-        <div class="container">
-          <h3 class="mt-5 mb-0 pb-0">Gastos de la comunidad</h3>
+      <div class="container">
+          <h3 class="mt-5 mb-0 pb-0">Gastos propios</h3>
           <b-table
-          class="m-5"
-          style="overflow-x:auto;"
+          class="m-5 "
+          style="overflow-y:scroll; height: 25vh !important;"
           ref="debsTable"
           id="debsTable"
           :fields="headers"
           :items="debs"
           responsive="sm">
-          <template #cell(type_bill)="data">
-            {{ data.item.type_bill | formatBill}}
-          </template>
-        </b-table>
+            <template #cell(type_bill)="data">
+              {{ data.item.type_bill | formatBill}}
+            </template>
+            <template #cell(options)="data">
+              <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
+                <font-awesome-icon icon="fa-solid fa-money-check-alt" />
+              </b-button>
+            </template>
+          </b-table>
         </div>
-      </div>
-      <div class="row" id="graph-bottom">
-      </div>
+        <div class="container">
+          <h3 class=" mb-0 pb-0">Gastos comunidad</h3>
+          <b-table
+          class="m-5 "
+          style="overflow-y:scroll;height: 25vh !important;"
+          ref="debsTable"
+          id="debsTable"
+          :fields="headers"
+          :items="debs"
+          responsive="sm">
+            <template #cell(type_bill)="data">
+              {{ data.item.type_bill | formatBill}}
+            </template>
+          </b-table>
+        </div>
     </div>
   </div>
   <!-- Vista de portero -->
@@ -48,7 +64,21 @@
       <ViewsCardsO></ViewsCardsO>
     </div>
     <div class="col-6" id="full">
-      Grafica en medio de este lado actual del propietario
+      <div class="container">
+          <h3 class="mt-5 mb-0 pb-0">Gastos propios</h3>
+          <b-table
+          class="m-5 "
+          style="overflow-y:scroll; height: 60vh !important;"
+          ref="debsTable"
+          id="debsTable"
+          :fields="headers"
+          :items="debs"
+          responsive="sm">
+            <template #cell(type_bill)="data">
+              {{ data.item.type_bill | formatBill}}
+            </template>
+          </b-table>
+      </div>
     </div>
   </div>
     <!-- Vista de admin -->
@@ -79,6 +109,7 @@ export default {
     headers: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
       { key: 'type_bill', label: 'Tipo de gasto' },
+      { key: 'date_p', label: 'Fecha' },
       { key: 'options', label: 'Pagar' }
     ],
     fields: [
@@ -108,6 +139,25 @@ export default {
     this.getData()
   },
   methods: {
+    openPay (row) {
+      console.log(row)
+      this.$swal.fire({
+        title: 'Do you want to pay?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$swal.fire('Saved!', '', 'success')
+          // Servicio de marcar como pagado
+          // Recargar datos
+          this.getData()
+        } else if (result.isDenied) {
+          this.$swal.fire('Pay not saved', '', 'info')
+        }
+      })
+    },
     getData () {
       let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.role = dataUserLogin.role

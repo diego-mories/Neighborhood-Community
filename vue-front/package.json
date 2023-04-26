@@ -22,9 +22,11 @@
     "maz-ui": "^2.4.7",
     "swall": "^0.0.2",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.3",
     "vue": "^2.5.22",
     "vue-phone-number-input": "^1.12.13",
     "vue-router": "^3.0.1",
+    "vue-sweetalert2": "^5.0.5",
     "vue-tel-input": "^8.1.1",
     "vue-tel-input-fix": "^2.1.4"
   },

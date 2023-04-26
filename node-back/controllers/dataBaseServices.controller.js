@@ -624,7 +624,7 @@ exports.createBill = (req, res) => {
       throw err
     } 
     else {
-     console.log('Cuenta añadida correctamente')
+     // console.log('Cuenta añadida correctamente')
      // Buscamos cuantas personas estan en la comunidad 
      let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available
      conexion.query(query2, function (err, rowCount, rows) {
@@ -646,7 +646,7 @@ exports.createBill = (req, res) => {
             is_spill:"'" +  0 + "'" ,
             amount:"'" + amountPersona + "'" 
             }
-            let query3 = 'INSERT INTO debs (id, door_floors_id,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
+            let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
             conexion.query(query3, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -685,9 +685,9 @@ exports.findAllDebs = (req, res) => {
         if (err) {
           throw err
         } else {
-          console.log(rowCount)
+          // console.log(rowCount)
           let dataResponse = rowCount
-          console.log(dataResponse)
+          // console.log(dataResponse)
           res.status(200).send({dataResponse})    
         } 
       })

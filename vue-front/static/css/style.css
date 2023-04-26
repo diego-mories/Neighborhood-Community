@@ -273,11 +273,11 @@ li {list-style:none; vertical-align: middle;}
 /* LOGIN President */
 #graph-top{
   /* margin-top: 1%; */
-  height: 50%;
+  max-height: 50%;
 }
 
 #graph-bottom{
-  height: 50%;
+  max-height: 50%;
 }
 
 
@@ -301,6 +301,11 @@ li {list-style:none; vertical-align: middle;}
   display: table;
 
 }
+.container b-table {
+  overflow-y: scroll;
+  max-height: 12% !important;
+  height: 32vh !important;
+}
 .container th{
   padding-bottom: 1%;
   color: #ffffff;
@@ -320,7 +325,25 @@ li {list-style:none; vertical-align: middle;}
   background-color: #da690e;
   /* background: linear-gradient(222deg, #ea6d06 0%, #e8af80); */
 }
-
+.action-table{
+  font-size: 13px !important;
+  background-color: transparent !important;
+  color: black !important;
+  padding: 8px !important;
+}
+.trash {
+  color: rgb(0, 0, 0) !important;
+}
+.pen {
+  color: #043927 !important;
+}
+.action-table:hover{
+  font-size: 13px !important;
+  background-color: transparent !important;
+  opacity: 0.5 !important;
+  box-shadow: none !important;
+  padding: 8px !important;
+}
 
 .container tr:nth-child(even) {
   background-color: #d88542;
