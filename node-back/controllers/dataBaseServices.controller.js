@@ -693,5 +693,28 @@ exports.findAllDebs = (req, res) => {
       })
     } 
   })
+}
 
+exports.pay = (req,res) => {
+  let dataQuery = {
+    deb_id: "'" + req.body.deb_id + "'",
+    amount: "'" + req.body.amount + "'"
+  }
+  let query = 'UPDATE payments SET amount=' +  dataQuery.amount + 'WHERE deb_id=' + dataQuery.deb_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      console.log('Pago registrado, descontamos la deuda')
+      let newAmount = "'" + 0 + "'"
+      let query2 =  'UPDATE debs SET amount=' +  newAmount + 'WHERE id=' + dataQuery.deb_id
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          res.status(200).send({message:'Deuda quitada correctamente'})   
+        } 
+      })   
+    } 
+  })
 }

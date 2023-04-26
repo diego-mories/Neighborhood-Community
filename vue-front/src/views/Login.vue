@@ -16,7 +16,7 @@
           <h3 class="mt-5 mb-0 pb-0">Gastos propios</h3>
           <b-table
           class="m-5 "
-          style="overflow-y:scroll; height: 25vh !important;"
+          style="overflow-y:auto; height: 25vh !important;"
           ref="debsTable"
           id="debsTable"
           :fields="headers"
@@ -36,7 +36,7 @@
           <h3 class=" mb-0 pb-0">Gastos comunidad</h3>
           <b-table
           class="m-5 "
-          style="overflow-y:scroll;height: 25vh !important;"
+          style="overflow-y:auto;height: 25vh !important;"
           ref="debsTable"
           id="debsTable"
           :fields="headers"
@@ -142,20 +142,28 @@ export default {
     openPay (row) {
       console.log(row)
       this.$swal.fire({
-        title: 'Do you want to pay?',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText: `Don't save`
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$swal.fire('Saved!', '', 'success')
-          // Servicio de marcar como pagado
-          // Recargar datos
-          this.getData()
-        } else if (result.isDenied) {
-          this.$swal.fire('Pay not saved', '', 'info')
-        }
+        icon: 'success',
+        title: 'NEW STAFF!!',
+        text: 'Staff user created'
+      }).then(() => {
+        Services.pay(row).then(
+          Response => {
+            console.log(Response)
+            if (Response.status === 200) {
+              this.$swal.fire({
+                icon: 'success',
+                title: 'NUEVO PAGO!!',
+                text: Response.data.message
+              }).then(() => {
+                console.log('buscamos los datos de nuevo')
+                this.getData()
+              })
+            }
+          },
+          Error => {
+
+          }
+        )
       })
     },
     getData () {
@@ -212,7 +220,7 @@ export default {
       Services.findAllDebs(data).then(
         Response => {
           this.debs = Response.data.dataResponse
-          console.log(Response.data.dataResponse)
+          console.log(' se ejecuta')
         },
         Error => {
 

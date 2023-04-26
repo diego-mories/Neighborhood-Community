@@ -132,6 +132,14 @@ class Services {
     }
     return http.post(API_URL_PATH + 'findAllDebs', body)
   }
+  pay (data) {
+    const body = {
+      deb_id: data.id,
+      amount: data.amount
+    }
+    console.log(body)
+    return http.put(API_URL_PATH + 'pay', body)
+  }
 }
 
 export default new Services()
