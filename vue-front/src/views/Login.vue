@@ -13,7 +13,7 @@
     </div>
     <div class="col-6" id="full">
       <div class="container">
-          <h3 class="mt-5 mb-0 pb-0">Gastos propios</h3>
+          <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
           <b-table
           class="m-5 "
           style="overflow-y:auto; height: 25vh !important;"
@@ -21,7 +21,13 @@
           id="debsTable"
           :fields="headers"
           :items="debs"
-          responsive="sm">
+            responsive="sm">
+            <template #cell(date_p)="data">
+              {{ data.item.date_p | formatDate}}
+            </template>
+            <template #cell(amount)="data">
+              {{ data.item.amount | formatAmount}}
+            </template>
             <template #cell(type_bill)="data">
               {{ data.item.type_bill | formatBill}}
             </template>
@@ -33,7 +39,7 @@
           </b-table>
         </div>
         <div class="container">
-          <h3 class=" mb-0 pb-0">Gastos comunidad</h3>
+          <h3 class=" mb-0 pb-0">GASTOS COMUNIDAD</h3>
           <b-table
           class="m-5 "
           style="overflow-y:auto;height: 25vh !important;"
@@ -42,9 +48,15 @@
           :fields="headers2"
           :items="bills"
           responsive="sm">
-            <template #cell(type_id)="data">
-              {{ data.item.type_id  | formatBill}}
-            </template>
+          <template #cell(date_p)="data">
+              {{ data.item.date_p | formatDate}}
+          </template>
+          <template #cell(amount)="data">
+              {{ data.item.amount | formatAmount}}
+          </template>
+          <template #cell(type_id)="data">
+            {{ data.item.type_id  | formatBill}}
+          </template>
           </b-table>
         </div>
     </div>
@@ -65,16 +77,28 @@
     </div>
     <div class="col-6" id="full">
       <div class="container">
-          <h3 class="mt-5 mb-0 pb-0">Gastos propios</h3>
+          <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
           <b-table
           class="m-5 "
-          style="overflow-y:scroll; height: 60vh !important;"
+          style="overflow-y:auto; height: 60vh !important;"
           ref="debsTable"
           id="debsTable"
           :fields="headers"
           :items="debs"
           responsive="sm">
-            <template #cell(type_bill)="">
+          <template #cell(date_p)="data">
+              {{ data.item.date_p | formatDate}}
+          </template>
+          <template #cell(amount)="data">
+              {{ data.item.amount | formatAmount}}
+            </template>
+          <template #cell(type_bill)="data">
+              {{ data.item.type_bill | formatBill}}
+          </template>
+          <template #cell(options)="data">
+              <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
+                <font-awesome-icon icon="fa-solid fa-money-check-alt" />
+              </b-button>
             </template>
           </b-table>
       </div>

@@ -10,7 +10,6 @@
         <div class="row justify-content-center" id="grid-bottom-profile full">
           <div class="col-sm-2"></div>
           <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">Cambiar contraseña</button></div>
-          <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('configurationExpenses')"  id="profileButton">Configuración de gastos</button></div>
         </div>
     </div>
   </div>

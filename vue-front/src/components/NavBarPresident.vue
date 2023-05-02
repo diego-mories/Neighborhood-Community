@@ -3,31 +3,43 @@
         <nav class="navBarP" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
-                    Reservas
+                    RESERVA PISTAS
                     <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/notices" exact>
-                    Avisos
+                    CREAR AVISO
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/deliveries" exact>
-                    Entregas
-                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
+                    ENVIAR TICKETS
+                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/registerUser" exact>
-                    Alta
+                    ALTA USUARIOS
                     <!-- ICON NEW USER --> <font-awesome-icon icon="fa-solid fa-user-alt"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bills" exact>
-                    Cuentas
+                    SUBIR CUENTAS
+                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket"/>
+                </router-link>
+            </div>
+            <div class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="#" exact>
+                    SUBIR DERRAMAS
+                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-invoice"/>
+                </router-link>
+            </div>
+            <div class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="#" exact>
+                    MIS GASTOS
                     <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
                 </router-link>
             </div>

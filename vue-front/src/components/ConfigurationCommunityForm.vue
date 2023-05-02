@@ -4,6 +4,7 @@
     <b-form>
     <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/community.png"></span>
     <div class="input-group mb-3 d-flex">
+        <b-form-input type="text"   class="form-control w-5 mr-1" placeholder="Name" v-model="confCommunity.nameC"></b-form-input>
         <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
         <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Pisos" v-model="confCommunity.doors"></b-form-input>
         <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi planta" v-model="confCommunity.myFloor"></b-form-input>
@@ -21,6 +22,16 @@
         <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.cameras"/>
         <span class="d-flex align-items-center">¿Hay cámaras?</span>
     </div>
+    <div class="input-group mb-3 d-flex">
+      <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+      <b-form-input type="email" class="form-control" placeholder="email@gmail.com" v-model="user.email"></b-form-input>
+      <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+      <b-form-input type="text" class="form-control" placeholder="Nombre presidente" v-model="user.name"></b-form-input>
+      <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+      <b-form-input type="text" class="form-control" placeholder="Apellidos presidente" v-model="user.surname"></b-form-input>
+      <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+      <b-form-input type="tel" class="form-control" placeholder="XXX-XX-XX-XX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}" v-model="user.phone"></b-form-input>
+    </div>
     <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">Guardar configuración</b-button>
     <!-- <span>Checked names: {{ confCommunity }}</span> -->
     </b-form>
@@ -28,11 +39,10 @@
 </template>
 
 <script>
-import { exit } from 'shelljs'
 import Services from '../services/servicesDB'
 import swal from 'sweetalert'
 
-export default {
+export default{
   data: () => ({
     confCommunity: {
       paddle: 0,
@@ -44,7 +54,8 @@ export default {
       floors: null,
       myDoor: null,
       myFloor: null
-    }
+    },
+    user: {}
   }
   ),
   methods: {
@@ -65,10 +76,9 @@ export default {
         })
       } else {
         // Actualizamos en nuestro localStorage first_time a 0
-        let userLogin = JSON.parse(localStorage.getItem('userLogin'))
-        userLogin.first_time = 0
-        localStorage.removeItem('userLogin')
-        localStorage.setItem('userLogin', JSON.stringify(userLogin))
+        // let userLogin = JSON.parse(localStorage.getItem('userLogin'))
+        // localStorage.removeItem('userLogin')
+        // localStorage.setItem('userLogin', JSON.stringify(userLogin))
         if (this.confCommunity.paddle) {
           this.confCommunity.paddle = 1
         }
@@ -85,8 +95,7 @@ export default {
           this.confCommunity.cameras = 1
         }
         let data = {
-          id: userLogin.id,
-          community_id: userLogin.community_id,
+          nameC: this.confCommunity.nameC,
           paddle: this.confCommunity.paddle,
           tennis: this.confCommunity.tennis,
           pool: this.confCommunity.pool,
@@ -97,20 +106,20 @@ export default {
           floors: this.confCommunity.floors,
           doors: this.confCommunity.doors
         }
-        // Actualizamos en base de datos el first_time a 0
-        Services.confCommunity(data).then(
+        // Damos de alta una nueva comunidad, registramos las viviendas que existen
+        Services.newCommunity(data).then(
           Response => {
-            // Si todo va bien en el registro de la configuración de la comunidad (Meter datos de la comunidad y actualizar datos del presidente de su puerta y piso), llamamos de forma anidada a la creacion de datos en la tabla de doors_floors y asignamos la puerta y planta del presidente configurado
             for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
               for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
                 // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
                 let dataFD = {
-                  community_id: data.community_id,
+                  community_id: Response.data.community_id,
                   floor: iteratorF,
                   door: iteratorD
                 }
                 Services.insertRowsFD(dataFD).then(
                   Response => {
+                    console.log('Fila añadida a doors_floors')
                   },
                   Error => {
                     console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
@@ -118,21 +127,77 @@ export default {
                 )
               }
             }
-            Services.uptadeFD(data).then(
+            this.user.community_id = Response.data.community_id
+            this.user.role = 1
+            Services.signUp(this.user).then(
               Response => {
-
+                this.user.id = Response.data.user_id
+                this.user.myDoor = this.confCommunity.myDoor
+                this.user.myFloor = this.confCommunity.myFloor
+                console.log(this.user)
+                Services.uptadeFD(this.user).then(
+                  Response => {
+                    console.log('Presidente registrado correctamente')
+                  },
+                  Error => {
+                    console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+                  }
+                )
               },
               Error => {
-                console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+
               }
             )
-            this.$router.push('/login')
-          },
-          Error => {
-            console.log('Error en cambio desde FRONT de confCommunity')
-            exit()
           }
         )
+        // Damos de alta al nuevo presidente en la plataforma
+        // Services.signUp(this.user).then()
+        // Actualizamos la vivienda del presidente
+        // Services.uptadeFD(data).then(
+        //   Response => {
+        //     console.log('Presidente registrado correctamente')
+        //   },
+        //   Error => {
+        //     console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+        //   }
+        // )
+
+        // Actualizamos en base de datos el first_time a 0
+        // Services.newCommunity(data).then(
+        //   Response => {
+        //     // Si todo va bien en el registro de la configuración de la comunidad (Meter datos de la comunidad y actualizar datos del presidente de su puerta y piso), llamamos de forma anidada a la creacion de datos en la tabla de doors_floors y asignamos la puerta y planta del presidente configurado
+        //     for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
+        //       for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
+        //         // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
+        //         let dataFD = {
+        //           community_id: data.community_id,
+        //           floor: iteratorF,
+        //           door: iteratorD
+        //         }
+        //         Services.insertRowsFD(dataFD).then(
+        //           Response => {
+        //           },
+        //           Error => {
+        //             console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+        //           }
+        //         )
+        //       }
+        //     }
+        //     Services.uptadeFD(data).then(
+        //       Response => {
+
+        //       },
+        //       Error => {
+        //         console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+        //       }
+        //     )
+        //     this.$router.push('/login')
+        //   },
+        //   Error => {
+        //     console.log('Error en cambio desde FRONT de confCommunity')
+        //     exit()
+        //   }
+        // )
       }
     }
   }

@@ -13,6 +13,9 @@
                 <label class="label-login">Email</label>
                 <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
                 <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="newUser.email"></b-form-input>
+                <label class="label-login">Teléfono</label>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+                <b-form-input type="tel" class="form-control" placeholder="XXX-XX-XX-XX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}" v-model="newUser.phone"></b-form-input>
             </div>
         </b-form-group>
         <div class="input-group mb-3 d-flex justify-content-center">
@@ -85,6 +88,7 @@ export default {
     registerUser () {
       this.newUser.floor = this.selected.f
       this.newUser.door = this.selected.d
+      this.newUser.phone = '+34 ' + this.newUser.phone
       console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {

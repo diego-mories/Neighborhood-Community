@@ -84,15 +84,9 @@ exports.login = (req, res) => {
   }
 }
 
-
-
-
-
-
 exports.signUp = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
-    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined 
-    && req.body.floor != undefined && req.body.door != undefined) {
+    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined ) {
     let data = req.body
     let password = random(15)
     let tokenActive = random(15)
@@ -104,64 +98,36 @@ exports.signUp = async (req, res) => {
       password : "'" + await bycript.hash(password,12) + "'",
       role : "'" + data.role + "'",
       community_id : "'" + data.community_id + "'",
-      floor : "'" + data.floor + "'",
-      door : "'" + data.door + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
-    console.log(user)
-    let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
-    // Tenemos que buscar que el email no exista ya en la base de datos
-    conexion.query (queryEmail, function (err, rowCount, rows) {
+    let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
+    conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
       } 
       else {
-        if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
-          conexion.query(query, function (err, rowCount, rows) {
-            if (err) {
-              throw err
-            } 
-            else {
-              let mailOptions = {
-                from: '"Neighborhood Community" ' +  mailConfig.auth.user,
-                to: '' + data.email,
-                subject: 'Bienvenido',
-                text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-                ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
-              }
-              mailTransporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                  console.log("Error email sent!", error)
-                } 
-                else {
-                  // console.log('Email sent: ')
-                }
-                mailTransporter.close()
-              })
-              let is_available = "'" + 0 + "'"
-             
-              let query2 = 'UPDATE doors_floors SET is_available=' +  is_available + 'WHERE floor=' + user.floor + 'AND door=' + user.door + 'AND community_id=' + user.community_id
-              conexion.query(query2, function (err, rowCount, rows) {
-                if (err) {
-                  throw err
-                } 
-                else {
-                  res.status(200).send({message:'Id en doors y floors actualizado y registro del nuevo usuario en comunidad correcto'})   
-                }
-              })
-            }
-          })
-        } 
-        else {
-          res.status(404).send({message:'Email encontrado no se puede hacer el registro o fallo en el registro del usuario'})
+        let mailOptions = {
+          from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+          to: '' + data.email,
+          subject: 'Bienvenido',
+          text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
+          ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
         }
+        mailTransporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log("Error email sent!", error)
+          } 
+          else {
+            console.log('Email sent: ')
+          }
+          mailTransporter.close()
+        })
+        return res.status(200).send({user_id: rowCount.insertId})
       }
-    }
-  )
+    }) 
   }
   else {
     return res.status(400).send({message: 'Bad request'})
@@ -347,122 +313,58 @@ exports.changePassword = async (req, res) => {
   }
 }
 exports.newCommunity = async (req, res) => {
-  if (req.body.email != undefined && req.body.name != undefined){
+  
     const community = {
-      email : "'" + req.body.email + "'",
       nameC : "'" + req.body.nameC + "'",
-      name : "'" + req.body.name + "'",
-      surname : "'" + req.body.surname + "'",
-      phone: "'" + '+34 ' + req.body.phone + "'",
+      paddle: "'" + req.body.paddle + "'" , 
+      tennis: "'" + req.body.tennis + "'" ,
+      pool: "'" + req.body.pool + "'" ,
+      doorman: "'" + req.body.doorman + "'" ,
+      cameras: "'" + req.body.cameras + "'" , 
+      myDoor: "'" + req.body.myDoor + "'" ,
+      myFloor: "'" + req.body.myFloor + "'" , 
+      floors: "'" + req.body.floors + "'" , 
+      doors: "'" + req.body.doors + "'"  
     } 
     let password = random(15)
     let tokenActive = random(15)
     let user = {
-      name : community.name,
-      surname : community.surname,
-      email : community.email,
-      phone : community.phone,
+      name : "'" + req.body.name + "'",
+      surname : "'" + req.body.surname + "'",
+      email : "'" + req.body.email + "'",
+      phone : "'" + '+34 ' + req.body.phone + "'",
       password : "'" + await bycript.hash(password,12) + "'",
       role : "'" + 1 + "'",
-      community_id : "'" + 0 + "'",
-      floor : "'" + 0 + "'",
-      door : "'" + 0 + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 + "'",
       first_time : "'" + 1 + "'"
     }
-    // Buscamos el email por si existe en la base de datos, si no existe, registramos
-    let query = 'SELECT * FROM users WHERE email=' + user.email
-    conexion.query(query, function (err, rowCount, rows) {
+    // Buscamos si el nombre de la comunidad existe
+    let query = 'SELECT * FROM community WHERE name=' + community.nameC
+    conexion.query(query, function (err, rowCount, rows) { 
       if (err) {
         throw err
       } 
       else {
-        if (rowCount.length === 0) { // Email no existe, buscamos nombre de la comunidad
-          // Buscamos si el nombre de la comunidad existe
-          let query2 = 'SELECT * FROM community WHERE name=' + community.nameC
-          conexion.query(query2, function (err, rowCount, rows) { 
-              if (err) {
-                throw err
-              } 
-              else {
-                  if (rowCount.length === 0) { // Podemos hacer el registro correcto, no hay ninguna comunidad con ese nombre ni con ese email del preisdente
-                    let query3 = 'INSERT INTO users (id, name, surname, email, phone, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.phone + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +  ',' + user.first_time + ')'
-                    conexion.query(query3, function (err, rowCount, rows) {
-                      if (err) {
-                        throw err
-                      } else {
-                        let mailOptions = {
-                          from: '"Neighborhood Community" ' +  mailConfig.auth.user,
-                          to: '' + req.body.email,
-                          subject: 'Bienvenido',
-                          text: '¡Qué alegría tenerte con nosotros! ' + user.name + 
-                          ' una vez actives tu cuenta, e inicie sesión con tu contraseña: ' + password + '. Podrás configurar tu comunidad a tu gusto la primera vez que inicies sesión, espero que disfrutes de los servicios aportados!!' + 
-                          ', nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
-                        }
-                        mailTransporter.sendMail(mailOptions, function (error, info) {
-                          if (error) {
-                            console.log("Error email sent!", error)
-                          } 
-                          else {
-                            // console.log('Email sent: ')
-                          }
-                          mailTransporter.close()
-                        })
-                        // Registramos la nueva comunidad en la base de datos
-                        let query4 = 'INSERT INTO community (id, name) VALUES (NULL,' + community.nameC + ')'
-                        conexion.query(query4, function (err, rowCount, rows) {
-                          if (err) {
-                            throw err
-                          } 
-                          else {
-                            // Obtenemos el id generado para esta comunidad y se lo actualizaremos al presidente 
-                            let query5 = 'SELECT * FROM community WHERE name=' + community.nameC
-                            conexion.query(query5, function (err, rowCount, rows) {
-                              if (err) {
-                                throw err
-                              } else {
-                                if (rowCount.length !== 0) {
-                                  // Encontramos la comunidad con ese nombre en la base de datos, obtenemos el id y lo actualizamos en la base de datos del usuario presidente
-                                  let newId =  "'" +  rowCount[0].id + "'"
-                                  let query6 = 'UPDATE users SET community_id=' + newId + 'WHERE token_active=' + user.token_active
-                                  conexion.query(query6, function (err, rowCount, rows) {
-                                    if (err) {
-                                      throw err
-                                    }
-                                    else {
-                                      res.status(200).send({message:'Actualizamos el id de comunidad del presidente y el registro de la nueva comunidad ha funcionado correctamente', OK: true})
-                                    }              
-                                  })
-                                } 
-                                else {
-                                  res.status(200).send({message:'Error al actualizar el id de la comunidad del presidente, no encontramos comunidad con ese nombre', OK: false})
-                                }
-                              }              
-                            })
-                          }              
-                        })
-                      }
-                    })
-                  } 
-                  else {
-                    res.status(200).send({message:'Email no encontrado en base de datos, REGISTRO Fallido, nombre de la comunidad ya existe elija otro distinto', OK: false})
-                  }
-              }
+        if (rowCount.length === 0){
+          let query2 = 'INSERT INTO community (id, name, has_paddle_court, has_tennis_court, has_pool, has_cameras, has_building_doorman, floors, doors) VALUES (NULL,' + community.nameC + ','+ community.paddle + ',' +  community.tennis + ',' +  community.pool + ',' +  community.cameras + ',' +  community.doorman + ',' +  community.floors + ',' +  community.doors + ')'
+          conexion.query(query2, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            }  
+            else {
+              res.status(200).send({community_id:rowCount.insertId})   
+            }
           })
-        } 
-        else {
-          res.status(200).send({message:'Email encontrado, existe una persona con el email ya registrada anteriormente, elija otro distinto', OK: false})
+        } else {
+          console.log('Error al crear una comunidad con el mismo nombre ')
         }
+        
       }
     })
   } 
-else {
-    return res.status(400).send ({message: 'Error newCommunity en datos del body'})
-  }
-}
-
+       
 exports.confCommunity = (req, res) => {
   if (req.body.id != undefined && req.body.community_id != undefined &&
     req.body.paddle != undefined && req.body.tennis!= undefined &&
@@ -534,7 +436,6 @@ exports.insertRowsFD = (req,res) => {
 }
 
 exports.uptadeFD = (req,res) => {
-  if (req.body.id != undefined && req.body.myFloor != undefined && req.body.myDoor != undefined){
     // Añadimos la fila a la tabla doors and floors
     let data = {
       id: "'" + req.body.id + "'" ,
@@ -543,7 +444,8 @@ exports.uptadeFD = (req,res) => {
       community_id: "'" + req.body.community_id + "'",
       is_available: "'" + 0 + "'",
     }
-    let query = 'UPDATE doors_floors SET ' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
+    console.log(data)
+    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -553,10 +455,6 @@ exports.uptadeFD = (req,res) => {
       }
     })
   } 
-  else {
-    return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
-  }
-}
 
 exports.searchDBCommunities = (req, res) =>{
   let query = 'SELECT * FROM community'

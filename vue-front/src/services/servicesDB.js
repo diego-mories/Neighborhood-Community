@@ -15,12 +15,10 @@ class Services {
     const body = {
       name: user.name,
       surname: user.surname,
+      community_id: user.community_id,
       email: user.email,
       phone: user.phone,
-      role: user.role,
-      community_id: user.community_id,
-      floor: user.floor,
-      door: user.door
+      role: user.role
     }
     return http.post(API_URL_PATH + 'signUp', body)
   }
@@ -55,13 +53,18 @@ class Services {
     return http.post(API_URL_PATH + 'changePassword', body)
   }
   // Regsiter new comminity
-  newCommunity (community) {
+  newCommunity (data) {
     const body = {
-      nameC: community.nameC,
-      email: community.email,
-      name: community.name,
-      surname: community.surname,
-      phone: community.phone
+      nameC: data.nameC,
+      paddle: data.paddle,
+      tennis: data.tennis,
+      pool: data.pool,
+      doorman: data.paddle,
+      cameras: data.cameras,
+      myDoor: data.myDoor,
+      myFloor: data.myFloor,
+      floors: data.floors,
+      doors: data.doors
     }
     return http.post(API_URL_PATH + 'newCommunity', body)
   }

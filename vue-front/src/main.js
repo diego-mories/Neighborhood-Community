@@ -11,6 +11,9 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
+  faArrowUpFromBracket,
+  faFileInvoice,
+  faTicket,
   faMoneyCheckAlt,
   faUserSecret,
   faTableTennisPaddleBall,
@@ -35,6 +38,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import BootstrapVue from 'bootstrap-vue'
 library.add(
+  faArrowUpFromBracket,
+  faFileInvoice,
+  faTicket,
   faMoneyCheckAlt,
   faUserSecret,
   faTwitter,
@@ -63,6 +69,27 @@ Vue.filter('formatBill', function (value) {
   if (value === 1) return '🔥'
   if (value === 2) return '💡'
   if (value === 3) return '💧'
+})
+Vue.filter('formatAmount', function (value) {
+  return value + ' €'
+})
+Vue.filter('formatDate', function (value) {
+  var fecha = value.split('-')
+  var año = fecha[0]
+  var mes = fecha[1]
+  if (mes === '01') mes = 'Enero'
+  if (mes === '02') mes = 'Febrero'
+  if (mes === '03') mes = 'Marzo'
+  if (mes === '04') mes = 'Abril'
+  if (mes === '05') mes = 'Mayo'
+  if (mes === '06') mes = 'Junio'
+  if (mes === '07') mes = 'Julio'
+  if (mes === '08') mes = 'Agosto'
+  if (mes === '09') mes = 'Septiembre'
+  if (mes === '10') mes = 'Octubre'
+  if (mes === '11') mes = 'Noviembre'
+  if (mes === '12') mes = 'Diciembre'
+  return mes + ' (' + año + ')'
 })
 // Vue.filter('gas', function (value) {
 //   if (value === 1) console.log(value)
