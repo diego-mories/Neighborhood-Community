@@ -22,6 +22,10 @@ module.exports = function (app) {
         controller.searchCommunity
     )
     app.get(
+        '/api/dataBaseServices/searchDF',
+        controller.searchDF
+    )
+    app.get(
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )

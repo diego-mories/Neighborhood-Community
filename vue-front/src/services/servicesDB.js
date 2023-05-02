@@ -117,6 +117,9 @@ class Services {
   searchMyCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchMyCommunity?community_id=' + communityId)
   }
+  searchDF (userId) {
+    return http.get(API_URL_PATH + 'searchMyCommunity?user_id=' + userId)
+  }
   // Search if community has doorman and not registered
   searchDoorman (communityId) {
     return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)

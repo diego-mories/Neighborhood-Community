@@ -27,6 +27,7 @@ conexion.connect((err, connection) => {
     return
   }
 })
+
 exports.searchCommunity = (req, res) => {
   let user_id = "'" + req.query.user_id + "'"
   let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
@@ -36,8 +37,23 @@ exports.searchCommunity = (req, res) => {
       throw err
     } 
     else {
-      if (rowCount.length > 0) {
+      if (rowCount.length >= 0) {
         res.status(200).send({rowCount})
+      }
+    }
+  })
+}
+exports.searchDF = (req, res) => {
+  let user_id = "'" + req.query.user_id + "'"
+  let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
+  console.log(query)
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      if (rowCount.length > 0) {
+        res.status(200).send({rowCount, floors_doors: rowCount})
       }
     }
   })
