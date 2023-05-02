@@ -164,7 +164,7 @@ export default {
     ViewsCardsB,
     Footer
   },
-  mounted () {
+  created () {
     this.getData()
   },
   methods: {
@@ -238,22 +238,22 @@ export default {
           }
         )
       }
-      let data = {
-        community_id: dataUserLogin.community_id,
-        door: dataUserLogin.door,
-        floor: dataUserLogin.floor
-      }
-      if (this.role === 1) {
-        Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
-      }
-      Services.findAllDebs(data).then(
-        Response => {
-          this.debs = Response.data.dataResponse
-        },
-        Error => {
-          console.log('Error al buscar datos de deudas')
-        }
-      )
+      // let data = {
+      //   community_id: dataUserLogin.community_id,
+      //   door: dataUserLogin.door,
+      //   floor: dataUserLogin.floor
+      // }
+      // if (this.role === 1) {
+      //   Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+      // }
+      // Services.findAllDebs(data).then(
+      //   Response => {
+      //     this.debs = Response.data.dataResponse
+      //   },
+      //   Error => {
+      //     console.log('Error al buscar datos de deudas')
+      //   }
+      // )
     }
   }
 }

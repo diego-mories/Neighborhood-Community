@@ -18,6 +18,10 @@ module.exports = function (app) {
         controller.activeUser
     )
     app.get(
+        '/api/dataBaseServices/searchCommunity',
+        controller.searchCommunity
+    )
+    app.get(
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )

@@ -26,6 +26,10 @@ class Services {
   activeUser (tokenActive) {
     return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)
   }
+  // Search community_id
+  searchCommunity (id) {
+    return http.get(API_URL_PATH + 'searchCommunity?user_id=' + id)
+  }
   // Register doorman, if exist
   signUpDoorman (user) {
     const body = {
@@ -102,6 +106,7 @@ class Services {
       myDoor: data.myDoor,
       community_id: data.community_id
     }
+    console.log(body)
     return http.put(API_URL_PATH + 'uptadeFD', body)
   }
   // Search communities data to admin

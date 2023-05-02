@@ -27,9 +27,22 @@ conexion.connect((err, connection) => {
     return
   }
 })
+exports.searchCommunity = (req, res) => {
+  let user_id = "'" + req.query.user_id + "'"
+  let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
+  console.log(query)
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      if (rowCount.length > 0) {
+        res.status(200).send({rowCount})
+      }
+    }
+  })
+}
 
-
-// User login with response data to front 
 exports.login = (req, res) => {
   if (req.body.email != undefined && req.body.password != undefined) {
     const userLogin = {
@@ -67,7 +80,6 @@ exports.login = (req, res) => {
                   tokenPass: rowCount[0].token_pass,
                   tokenActive: rowCount[0].token_active,
                   is_active: rowCount[0].is_active,
-                  first_time: rowCount[0].first_time
                 }, 
                 OK: true})
             }
@@ -83,6 +95,58 @@ exports.login = (req, res) => {
     return res.status(400).send({message: 'Bad request', OK: false})
   }
 }
+
+exports.newCommunity = async (req, res) => {
+  const community = {
+    nameC : "'" + req.body.nameC + "'",
+    paddle: "'" + req.body.paddle + "'" , 
+    tennis: "'" + req.body.tennis + "'" ,
+    pool: "'" + req.body.pool + "'" ,
+    doorman: "'" + req.body.doorman + "'" ,
+    cameras: "'" + req.body.cameras + "'" , 
+    myDoor: "'" + req.body.myDoor + "'" ,
+    myFloor: "'" + req.body.myFloor + "'" , 
+    floors: "'" + req.body.floors + "'" , 
+    doors: "'" + req.body.doors + "'"  
+  } 
+  let password = random(15)
+  let tokenActive = random(15)
+  let user = {
+    name : "'" + req.body.name + "'",
+    surname : "'" + req.body.surname + "'",
+    email : "'" + req.body.email + "'",
+    phone : "'" + '+34 ' + req.body.phone + "'",
+    password : "'" + await bycript.hash(password,12) + "'",
+    role : "'" + 1 + "'",
+    token_active : "'" + tokenActive + "'",
+    token_pass : "'" + random(15) + "'",
+    is_active : "'" + 0 + "'",
+    
+  }
+  // Buscamos si el nombre de la comunidad existe
+  let query = 'SELECT * FROM community WHERE name=' + community.nameC
+  conexion.query(query, function (err, rowCount, rows) { 
+    if (err) {
+      throw err
+    } 
+    else {
+      if (rowCount.length === 0){
+        let query2 = 'INSERT INTO community (id, name, has_paddle_court, has_tennis_court, has_pool, has_cameras, has_building_doorman, floors, doors) VALUES (NULL,' + community.nameC + ','+ community.paddle + ',' +  community.tennis + ',' +  community.pool + ',' +  community.cameras + ',' +  community.doorman + ',' +  community.floors + ',' +  community.doors + ')'
+        conexion.query(query2, function (err, rowCount, rows) {
+          if (err) {
+            throw err
+          }  
+          else {
+            res.status(200).send({community_id:rowCount.insertId})   
+          }
+        })
+      } else {
+        console.log('Error al crear una comunidad con el mismo nombre ')
+      }
+      
+    }
+  })
+} 
 
 exports.signUp = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
@@ -101,9 +165,8 @@ exports.signUp = async (req, res) => {
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
-      first_time : "'" + 1 + "'"
     }
-    let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
+    let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -130,9 +193,56 @@ exports.signUp = async (req, res) => {
     }) 
   }
   else {
-    return res.status(400).send({message: 'Bad request'})
+    return res.status(400).send({message: 'Bad request SingUp'})
   }
 }
+
+exports.insertRowsFD = (req,res) => {
+  if (req.body.community_id != undefined && req.body.floor != undefined && req.body.door != undefined){
+    // Añadimos la fila a la tabla doors and floors
+    let data = {
+      community_id: "'" + req.body.community_id + "'" ,
+      floor: "'" + req.body.floor + "'" ,
+      door: "'" + req.body.door + "'"
+    }
+    let query = 'INSERT INTO doors_floors (id, community_id, floor, door) VALUES (NULL,' + data.community_id + ',' + data.floor + ',' + data.door + ')'  
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } 
+      else {
+        res.status(200).send({message:'Filas de tabla doors and floors añadidas correctamente'})   
+      }
+    })
+  } 
+  else {
+    return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
+  }
+}
+
+exports.uptadeFD = (req,res) => {
+    // Añadimos la fila a la tabla doors and floors
+    let data = {
+      id: "'" + req.body.id + "'" ,
+      myFloor: "'" + req.body.myFloor + "'" ,
+      myDoor: "'" + req.body.myDoor + "'",
+      community_id: "'" + req.body.community_id + "'",
+      is_available: "'" + 0 + "'",
+    }
+    console.log(data)
+    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
+    conexion.query(query, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } 
+      else {
+        res.status(200).send({message:'Id del presidente en doors y floors actualizado'})   
+      }
+    })
+} 
+
+
+
 
 exports.signUpDoorman = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
@@ -163,7 +273,7 @@ exports.signUpDoorman = async (req, res) => {
       } 
       else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active, first_time) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ',' + user.first_time + ')'
+          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ')'
           conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -208,7 +318,7 @@ exports.signUpDoorman = async (req, res) => {
 }
 // Active user
 exports.activeUser = (req, res) => {
-  if(req.query == undefined){
+  if (req.query == undefined){
     return res.status(400).send ({message: 'Peticion de emailExist erronea'})
   } 
   else {
@@ -312,149 +422,53 @@ exports.changePassword = async (req, res) => {
     })
   }
 }
-exports.newCommunity = async (req, res) => {
-  
-    const community = {
-      nameC : "'" + req.body.nameC + "'",
-      paddle: "'" + req.body.paddle + "'" , 
-      tennis: "'" + req.body.tennis + "'" ,
-      pool: "'" + req.body.pool + "'" ,
-      doorman: "'" + req.body.doorman + "'" ,
-      cameras: "'" + req.body.cameras + "'" , 
-      myDoor: "'" + req.body.myDoor + "'" ,
-      myFloor: "'" + req.body.myFloor + "'" , 
-      floors: "'" + req.body.floors + "'" , 
-      doors: "'" + req.body.doors + "'"  
-    } 
-    let password = random(15)
-    let tokenActive = random(15)
-    let user = {
-      name : "'" + req.body.name + "'",
-      surname : "'" + req.body.surname + "'",
-      email : "'" + req.body.email + "'",
-      phone : "'" + '+34 ' + req.body.phone + "'",
-      password : "'" + await bycript.hash(password,12) + "'",
-      role : "'" + 1 + "'",
-      token_active : "'" + tokenActive + "'",
-      token_pass : "'" + random(15) + "'",
-      is_active : "'" + 0 + "'",
-      first_time : "'" + 1 + "'"
-    }
-    // Buscamos si el nombre de la comunidad existe
-    let query = 'SELECT * FROM community WHERE name=' + community.nameC
-    conexion.query(query, function (err, rowCount, rows) { 
-      if (err) {
-        throw err
-      } 
-      else {
-        if (rowCount.length === 0){
-          let query2 = 'INSERT INTO community (id, name, has_paddle_court, has_tennis_court, has_pool, has_cameras, has_building_doorman, floors, doors) VALUES (NULL,' + community.nameC + ','+ community.paddle + ',' +  community.tennis + ',' +  community.pool + ',' +  community.cameras + ',' +  community.doorman + ',' +  community.floors + ',' +  community.doors + ')'
-          conexion.query(query2, function (err, rowCount, rows) {
-            if (err) {
-              throw err
-            }  
-            else {
-              res.status(200).send({community_id:rowCount.insertId})   
-            }
-          })
-        } else {
-          console.log('Error al crear una comunidad con el mismo nombre ')
-        }
-        
-      }
-    })
-  } 
-       
+     
 exports.confCommunity = (req, res) => {
-  if (req.body.id != undefined && req.body.community_id != undefined &&
-    req.body.paddle != undefined && req.body.tennis!= undefined &&
-    req.body.pool != undefined && req.body.doorman != undefined &&
-    req.body.cameras != undefined && req.body.myDoor != undefined &&
-    req.body.myFloor != undefined && req.body.floors != undefined &&
-    req.body.doors != undefined){
-      let data = {
-        id: "'" + req.body.id + "'" ,
-        community_id: "'" + req.body.community_id + "'" ,
-        paddle: "'" + req.body.paddle + "'" , 
-        tennis: "'" + req.body.tennis + "'" ,
-        pool: "'" + req.body.pool + "'" ,
-        doorman: "'" + req.body.doorman + "'" ,
-        cameras: "'" + req.body.cameras + "'" , 
-        myDoor: "'" + req.body.myDoor + "'" ,
-        myFloor: "'" + req.body.myFloor + "'" , 
-        floors: "'" + req.body.floors + "'" , 
-        doors: "'" + req.body.doors + "'"  
-      }
-      let newFirtsTime =  "'" + 0 + "'"
-      // Si todos los datos estan bien, los metemos en la tabla de la comunidad
-      let query = 'UPDATE community SET has_paddle_court=' + data.paddle + ',has_tennis_court=' +  data.tennis + ',has_pool=' +  data.pool + ',has_cameras=' +  data.cameras + ',has_building_doorman=' +  data.doorman + ',floors=' +  data.floors + ',doors=' +  data.doors + 'WHERE id=' + data.community_id
-      conexion.query(query, function (err, rowCount, rows) {
-        if (err) {
-          throw err
-        } 
-        else {
-          // Actualizamos primera vez en el presidente para no tener que configurar mas veces la comunidad y su planta y puerta
-          let query2 = 'UPDATE users SET first_time=' + newFirtsTime + ',door=' +  data.myDoor + ',floor=' +  data.myFloor + 'WHERE id=' + data.id
-          conexion.query(query2, function (err, rowCount, rows) {
-            if (err) {
-              throw err
-            } 
-            else {
-              res.status(200).send({message:'Datos de comunidad añadidos, y datos actualizados del presidente de la comunidad'})   
-            }
-          })
-          // res.status(200).send({message:'Actualizacion de first_time OK'})   
-        }
-      })
-  } 
-  else {
-    return res.status(400).send ({message: 'Error confCommunity en datos del body'})
-  }
+//   if (req.body.id != undefined && req.body.community_id != undefined &&
+//     req.body.paddle != undefined && req.body.tennis!= undefined &&
+//     req.body.pool != undefined && req.body.doorman != undefined &&
+//     req.body.cameras != undefined && req.body.myDoor != undefined &&
+//     req.body.myFloor != undefined && req.body.floors != undefined &&
+//     req.body.doors != undefined){
+//       let data = {
+//         id: "'" + req.body.id + "'" ,
+//         community_id: "'" + req.body.community_id + "'" ,
+//         paddle: "'" + req.body.paddle + "'" , 
+//         tennis: "'" + req.body.tennis + "'" ,
+//         pool: "'" + req.body.pool + "'" ,
+//         doorman: "'" + req.body.doorman + "'" ,
+//         cameras: "'" + req.body.cameras + "'" , 
+//         myDoor: "'" + req.body.myDoor + "'" ,
+//         myFloor: "'" + req.body.myFloor + "'" , 
+//         floors: "'" + req.body.floors + "'" , 
+//         doors: "'" + req.body.doors + "'"  
+//       }
+//       let newFirtsTime =  "'" + 0 + "'"
+//       // Si todos los datos estan bien, los metemos en la tabla de la comunidad
+//       let query = 'UPDATE community SET has_paddle_court=' + data.paddle + ',has_tennis_court=' +  data.tennis + ',has_pool=' +  data.pool + ',has_cameras=' +  data.cameras + ',has_building_doorman=' +  data.doorman + ',floors=' +  data.floors + ',doors=' +  data.doors + 'WHERE id=' + data.community_id
+//       conexion.query(query, function (err, rowCount, rows) {
+//         if (err) {
+//           throw err
+//         } 
+//         else {
+//           // Actualizamos primera vez en el presidente para no tener que configurar mas veces la comunidad y su planta y puerta
+//           let query2 = 'UPDATE users SET first_time=' + newFirtsTime + ',door=' +  data.myDoor + ',floor=' +  data.myFloor + 'WHERE id=' + data.id
+//           conexion.query(query2, function (err, rowCount, rows) {
+//             if (err) {
+//               throw err
+//             } 
+//             else {
+//               res.status(200).send({message:'Datos de comunidad añadidos, y datos actualizados del presidente de la comunidad'})   
+//             }
+//           })
+//           // res.status(200).send({message:'Actualizacion de first_time OK'})   
+//         }
+//       })
+//   } 
+//   else {
+//     return res.status(400).send ({message: 'Error confCommunity en datos del body'})
+//   }
 }
-
-exports.insertRowsFD = (req,res) => {
-  if (req.body.community_id != undefined && req.body.floor != undefined && req.body.door != undefined){
-    // Añadimos la fila a la tabla doors and floors
-    let data = {
-      community_id: "'" + req.body.community_id + "'" ,
-      floor: "'" + req.body.floor + "'" ,
-      door: "'" + req.body.door + "'"
-    }
-    let query = 'INSERT INTO doors_floors (id, community_id, floor, door) VALUES (NULL,' + data.community_id + ',' + data.floor + ',' + data.door + ')'  
-    conexion.query(query, function (err, rowCount, rows) {
-      if (err) {
-        throw err
-      } 
-      else {
-        res.status(200).send({message:'Filas de tabla doors and floors añadidas correctamente'})   
-      }
-    })
-  } 
-  else {
-    return res.status(400).send ({message: 'Error insertRowsFD en datos del body'})
-  }
-}
-
-exports.uptadeFD = (req,res) => {
-    // Añadimos la fila a la tabla doors and floors
-    let data = {
-      id: "'" + req.body.id + "'" ,
-      myFloor: "'" + req.body.myFloor + "'" ,
-      myDoor: "'" + req.body.myDoor + "'",
-      community_id: "'" + req.body.community_id + "'",
-      is_available: "'" + 0 + "'",
-    }
-    console.log(data)
-    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
-    conexion.query(query, function (err, rowCount, rows) {
-      if (err) {
-        throw err
-      } 
-      else {
-        res.status(200).send({message:'Id del presidente en doors y floors actualizado'})   
-      }
-    })
-  } 
 
 exports.searchDBCommunities = (req, res) =>{
   let query = 'SELECT * FROM community'

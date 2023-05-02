@@ -50,12 +50,22 @@ export default {
   data () {
     return {
       newUser: {},
+      dfUser: {},
       newDoorman: {},
       userLogin: null,
       selected: {},
       options: [],
       formDoorman: 0
     }
+  },
+  created () {
+    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.searchMyCommunity()
+    this.searchDoorman()
+    this.dfUser.community_id = this.userLogin.community_id
+    this.newUser.community_id = this.userLogin.community_id
+    this.newUser.role = 3 // Owner por defecto
+    this.newDoorman.role = 2
   },
   methods: {
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
@@ -86,14 +96,22 @@ export default {
       )
     },
     registerUser () {
-      this.newUser.floor = this.selected.f
-      this.newUser.door = this.selected.d
+      this.dfUser.myFloor = this.selected.f
+      this.dfUser.myDoor = this.selected.d
       this.newUser.phone = '+34 ' + this.newUser.phone
-      console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {
-          console.log(Response.data.message)
-          this.$router.push({ path: `/login` })
+          this.dfUser.id = Response.data.user_id
+          console.log(this.dfUser)
+          Services.uptadeFD(this.dfUser).then(
+            Response => {
+              console.log('OK' + this.dfUser.community_id)
+              this.$router.push({ path: `/login` })
+            },
+            Error => {
+              console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
+            }
+          )
         },
         Error => {
           console.log('Errror al registrar nuevo usuario en comunidad' + Error.status)
@@ -113,15 +131,6 @@ export default {
         }
       )
     }
-  },
-  mounted () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.searchMyCommunity()
-    this.searchDoorman()
-    this.newUser.community_id = this.userLogin.community_id
-    this.newDoorman.community_id = this.userLogin.community_id
-    this.newUser.role = 3 // Owner por defecto
-    this.newDoorman.role = 2
   }
 }
 </script>

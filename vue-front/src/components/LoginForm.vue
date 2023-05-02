@@ -23,21 +23,25 @@ import Services from '../services/servicesDB'
 import swal from 'sweetalert'
 export default {
   data: () => ({
-    user: {}
+    user: {},
+    local: {}
   }),
   methods: {
     async login () {
+      console.log(this.user)
       Services.login(this.user).then(
         Response => {
           // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
           if (Response.data.OK) {
-            localStorage.setItem('userLogin', JSON.stringify(Response.data.userLogin))
-            // Mandar a la vista tal cual la url
-            if (Response.data.userLogin.first_time === 1 && Response.data.userLogin.role === 1) {
-              this.$router.push({ path: `/configurationCommunity` })
-            } else {
-              this.$router.push({ path: `/login` })
-            }
+            this.local = Response.data.userLogin
+            Services.searchCommunity(Response.data.userLogin.id).then(
+              Response => {
+                console.log(Response.data)
+                this.local.community_id = Response.data.rowCount[0].community_id
+                localStorage.setItem('userLogin', JSON.stringify(this.local))
+                this.$router.push({ path: `/login` })
+              }
+            )
           } else {
             swal({
               title: Response.data.message,

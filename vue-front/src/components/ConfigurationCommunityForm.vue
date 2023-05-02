@@ -150,54 +150,6 @@ export default{
             )
           }
         )
-        // Damos de alta al nuevo presidente en la plataforma
-        // Services.signUp(this.user).then()
-        // Actualizamos la vivienda del presidente
-        // Services.uptadeFD(data).then(
-        //   Response => {
-        //     console.log('Presidente registrado correctamente')
-        //   },
-        //   Error => {
-        //     console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
-        //   }
-        // )
-
-        // Actualizamos en base de datos el first_time a 0
-        // Services.newCommunity(data).then(
-        //   Response => {
-        //     // Si todo va bien en el registro de la configuración de la comunidad (Meter datos de la comunidad y actualizar datos del presidente de su puerta y piso), llamamos de forma anidada a la creacion de datos en la tabla de doors_floors y asignamos la puerta y planta del presidente configurado
-        //     for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
-        //       for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
-        //         // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
-        //         let dataFD = {
-        //           community_id: data.community_id,
-        //           floor: iteratorF,
-        //           door: iteratorD
-        //         }
-        //         Services.insertRowsFD(dataFD).then(
-        //           Response => {
-        //           },
-        //           Error => {
-        //             console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
-        //           }
-        //         )
-        //       }
-        //     }
-        //     Services.uptadeFD(data).then(
-        //       Response => {
-
-        //       },
-        //       Error => {
-        //         console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
-        //       }
-        //     )
-        //     this.$router.push('/login')
-        //   },
-        //   Error => {
-        //     console.log('Error en cambio desde FRONT de confCommunity')
-        //     exit()
-        //   }
-        // )
       }
     }
   }
