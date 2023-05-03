@@ -89,6 +89,7 @@ export default {
       this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.searchMyCommunity()
       this.searchDoorman()
+      this.options1 = []
       this.searchOwners()
       this.dfUser.community_id = this.userLogin.community_id
       this.newUser.community_id = this.userLogin.community_id
@@ -208,7 +209,6 @@ export default {
       }
       Services.uptadeFD(data).then(
         Response => {
-          console.log('OK' + this.dfUser.community_id)
           this.$router.push({ path: `/login` })
         },
         Error => {
