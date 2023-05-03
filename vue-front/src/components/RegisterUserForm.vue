@@ -1,7 +1,10 @@
 <template>
 <div>
-    <b-form v-if="!formDoorman" @submit.prevent="registerUser">
+    <b-form v-if="!formDoorman && !addHouse" @submit.prevent="registerUser">
         <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
+        <div>
+          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona con cuenta existente en otra vivienda</b-button>
+        </div>
         <b-form-group>
             <div class="input-group">
                 <label class="label-login">Nombre</label>
@@ -41,6 +44,21 @@
         </b-form-group>
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
     </b-form>
+    <b-form v-if="addHouse">
+      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
+      <div>
+        <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona sin cuenta existente</b-button>
+      </div>
+      <div class="input-group mb-3 d-flex justify-content-center">
+        <label class="label-login">Selecciona planta y piso</label>
+        <b-form-select class="ml-3 mr-3 " v-model="selected" :options="options"></b-form-select>
+      </div>
+      <div class="input-group mb-3 d-flex justify-content-center">
+        <label class="label-login">Selecciona el propietario</label>
+        <b-form-select class="ml-3 mr-3 " v-model="selected1" :options="options1"></b-form-select>
+      </div>
+      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar casa al propietario</b-button>
+    </b-form>
 </div>
 </template>
 <!-- <b-button v-if="formDoorman" class="mt-3" variant="outline-primary" type="submit">Registrar Portero en comunidad</b-button> -->
@@ -55,19 +73,28 @@ export default {
       userLogin: null,
       selected: {},
       options: [],
-      formDoorman: 0
+      selected1: {},
+      options1: [],
+      formDoorman: false,
+      addHouse: false,
+      ownersFD: [],
+      arrayIds: []
     }
   },
   created () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.searchMyCommunity()
-    this.searchDoorman()
-    this.dfUser.community_id = this.userLogin.community_id
-    this.newUser.community_id = this.userLogin.community_id
-    this.newUser.role = 3 // Owner por defecto
-    this.newDoorman.role = 2
+    this.getData()
   },
   methods: {
+    getData () {
+      this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+      this.searchMyCommunity()
+      this.searchDoorman()
+      this.searchOwners()
+      this.dfUser.community_id = this.userLogin.community_id
+      this.newUser.community_id = this.userLogin.community_id
+      this.newUser.role = 3 // Owner por defecto
+      this.newDoorman.role = 2
+    },
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
       Services.searchMyCommunity(this.userLogin.community_id).then(
@@ -79,6 +106,33 @@ export default {
         },
         Error => {
           console.log('Error al obtener informacion de los pisos y plantas disponibles')
+        }
+      )
+    },
+    searchOwners () {
+      Services.searchOwnersDF(this.userLogin.community_id).then(
+        Response => {
+          this.ownersFD = Response.data.rowCount
+          for (let owner of this.ownersFD) {
+            this.arrayIds.push(owner.user_id)
+          }
+          let copyIds = this.arrayIds.filter((item, index) => {
+            return this.arrayIds.indexOf(item) === index
+          })
+          for (let id of copyIds) {
+            Services.findOne(id).then(
+              Response => {
+                console.log(Response.data.rowCount[0].id)
+                this.options1.push(
+                  {value: {id: Response.data.rowCount[0].id}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'}
+                )
+              },
+              Error => {
+              }
+            )
+          }
+        },
+        Error => {
         }
       )
     },
@@ -102,7 +156,6 @@ export default {
       Services.signUp(this.newUser).then(
         Response => {
           this.dfUser.id = Response.data.user_id
-          console.log(this.dfUser)
           Services.uptadeFD(this.dfUser).then(
             Response => {
               console.log('OK' + this.dfUser.community_id)
@@ -114,7 +167,17 @@ export default {
           )
         },
         Error => {
-          console.log('Errror al registrar nuevo usuario en comunidad' + Error.status)
+          if (Error.response.status === 404) {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: Error.response.data.message + ' seleccione la opción de alta de una vivienda con una cuenta existente, para asociar una vivienda a un propietario con una o más viviendas en propiedad'
+            }).then(() => {
+              this.newUser = {}
+              this.selected = {}
+              this.getData()
+            })
+          }
         }
       )
     },
@@ -128,6 +191,28 @@ export default {
         },
         Error => {
           console.log('Errror al registrar nuevo portero en comunidad')
+        }
+      )
+    },
+    changeAddHouse () {
+      this.addHouse = !this.addHouse
+      this.newUser = {}
+      this.selected = {}
+    },
+    addHouseOwner () {
+      let data = {
+        id: this.selected1.id,
+        myFloor: this.selected.f,
+        myDoor: this.selected.d,
+        community_id: this.userLogin.community_id
+      }
+      Services.uptadeFD(data).then(
+        Response => {
+          console.log('OK' + this.dfUser.community_id)
+          this.$router.push({ path: `/login` })
+        },
+        Error => {
+          console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
         }
       )
     }

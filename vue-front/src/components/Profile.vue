@@ -26,7 +26,6 @@ export default {
     this.name = dataUserLogin.name
     this.surname = dataUserLogin.surname
   }
-
 }
 </script>
 

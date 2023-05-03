@@ -30,6 +30,13 @@ class Services {
   searchCommunity (id) {
     return http.get(API_URL_PATH + 'searchCommunity?user_id=' + id)
   }
+  // Search community_id
+  searchOwnersDF (communityId) {
+    return http.get(API_URL_PATH + 'searchOwnersDF?community_id=' + communityId)
+  }
+  findOne (id) {
+    return http.get(API_URL_PATH + 'findOne?user_id=' + id)
+  }
   // Register doorman, if exist
   signUpDoorman (user) {
     const body = {

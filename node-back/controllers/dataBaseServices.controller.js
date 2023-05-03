@@ -46,7 +46,6 @@ exports.searchCommunity = (req, res) => {
 exports.searchDF = (req, res) => {
   let user_id = "'" + req.query.user_id + "'"
   let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
-  console.log(query)
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err
@@ -182,31 +181,43 @@ exports.signUp = async (req, res) => {
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
     }
-    let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
-    conexion.query(query, function (err, rowCount, rows) {
+    let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
+    // Tenemos que buscar que el email no exista ya en la base de datos
+    conexion.query (queryEmail, function (err, rowCount, rows) {
       if (err) {
         throw err
-      } 
-      else {
-        let mailOptions = {
-          from: '"Neighborhood Community" ' +  mailConfig.auth.user,
-          to: '' + data.email,
-          subject: 'Bienvenido',
-          text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-          ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+      } else {
+        if (rowCount.length === 0) {
+          let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
+          conexion.query(query, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } 
+            else {
+              let mailOptions = {
+                from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+                to: '' + data.email,
+                subject: 'Bienvenido',
+                text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
+                ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+              }
+              mailTransporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log("Error email sent!", error)
+                } 
+                else {
+                  console.log('Email sent: ')
+                }
+                mailTransporter.close()
+              })
+              return res.status(200).send({user_id: rowCount.insertId})
+            }
+          }) 
+        } else {
+          return res.status(404).send({message: 'Email existe en la base de datos'})
         }
-        mailTransporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log("Error email sent!", error)
-          } 
-          else {
-            console.log('Email sent: ')
-          }
-          mailTransporter.close()
-        })
-        return res.status(200).send({user_id: rowCount.insertId})
       }
-    }) 
+    })
   }
   else {
     return res.status(400).send({message: 'Bad request SingUp'})
@@ -256,8 +267,29 @@ exports.uptadeFD = (req,res) => {
       }
     })
 } 
+exports.searchOwnersDF = (req, res) => {
+  let community_id = "'" + req.query.community_id + "'"
+  let is_available = "'" + 0 + "'"
+  let query = 'SELECT * FROM doors_floors WHERE community_id=' + community_id + 'AND is_available= ' + is_available
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({rowCount}) 
+    } 
+  })
+}
 
-
+exports.findOne = (req, res) => {
+  let query = 'SELECT * FROM users WHERE id=' + "'" + req.query.user_id + "'"
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({rowCount}) 
+    } 
+  })
+}
 
 
 exports.signUpDoorman = async (req, res) => {

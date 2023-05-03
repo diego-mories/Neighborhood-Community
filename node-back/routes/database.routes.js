@@ -26,6 +26,14 @@ module.exports = function (app) {
         controller.searchDF
     )
     app.get(
+        '/api/dataBaseServices/searchOwnersDF',
+        controller.searchOwnersDF
+    )
+    app.get(
+        '/api/dataBaseServices/findOne',
+        controller.findOne
+    )
+    app.get(
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )
