@@ -1,6 +1,7 @@
 <template>
 <div>
-    <b-form v-if="!formDoorman && !addHouse" @submit.prevent="registerUser">
+  <template v-if="!formDoorman && !addHouse">
+    <b-form @submit.prevent="registerUser">
         <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
         <div>
           <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona con cuenta existente en otra vivienda</b-button>
@@ -27,7 +28,9 @@
         </div>
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar</b-button>
     </b-form>
-    <b-form v-if="formDoorman" @submit.prevent="registerDoorman">
+  </template>
+  <template v-else-if="formDoorman">
+    <b-form  @submit.prevent="registerDoorman">
         <span><img src="../assets/images/doorman.png" class="w-25 h-25 mw-25 mh-25"></span>
         <b-form-group>
             <div class="input-group">
@@ -44,7 +47,9 @@
         </b-form-group>
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
     </b-form>
-    <b-form v-if="addHouse">
+  </template>
+  <template v-else-if="addHouse">
+    <b-form >
       <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
       <div>
         <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona sin cuenta existente</b-button>
@@ -59,6 +64,8 @@
       </div>
       <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar casa al propietario</b-button>
     </b-form>
+  </template>
+
 </div>
 </template>
 <!-- <b-button v-if="formDoorman" class="mt-3" variant="outline-primary" type="submit">Registrar Portero en comunidad</b-button> -->
@@ -81,7 +88,7 @@ export default {
       arrayIds: []
     }
   },
-  created () {
+  mounted () {
     this.getData()
   },
   methods: {
@@ -142,7 +149,7 @@ export default {
         Response => {
           console.log(Response.data.message)
           if (Response.data.exist) {
-            this.formDoorman = 1
+            this.formDoorman = true
           }
         },
         Error => {
@@ -154,9 +161,12 @@ export default {
       this.dfUser.myFloor = this.selected.f
       this.dfUser.myDoor = this.selected.d
       this.newUser.phone = '+34 ' + this.newUser.phone
+      console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {
           this.dfUser.id = Response.data.user_id
+          console.log(this.newUser)
+
           Services.uptadeFD(this.dfUser).then(
             Response => {
               console.log('OK' + this.dfUser.community_id)
@@ -183,17 +193,16 @@ export default {
       )
     },
     registerDoorman () {
-      this.newDoorman.floor = 0
-      this.newDoorman.door = 0
-      Services.signUpDoorman(this.newDoorman).then(
-        Response => {
-          console.log(Response.data.message)
-          this.$router.push({ path: `/login` })
-        },
-        Error => {
-          console.log('Errror al registrar nuevo portero en comunidad')
-        }
-      )
+      console.log(this.newDoorman)
+      // Services.signUpDoorman(this.newDoorman).then(
+      //   Response => {
+      //     console.log(Response.data.message)
+      //     this.$router.push({ path: `/login` })
+      //   },
+      //   Error => {
+      //     console.log('Errror al registrar nuevo portero en comunidad')
+      //   }
+      // )
     },
     changeAddHouse () {
       this.addHouse = !this.addHouse

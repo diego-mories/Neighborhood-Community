@@ -50,31 +50,39 @@ export default {
           // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
           if (Response.data.OK) {
             this.local = Response.data.userLogin
-            console.log(Response.data.userLogin)
             if (this.local.role === 4) {
               localStorage.setItem('userLogin', JSON.stringify(this.local))
               this.$router.push({ path: `/login` })
             } else {
-              Services.searchCommunity(Response.data.userLogin.id).then(
-                Response => {
-                  console.log(Response.data)
-                  if (Response.data.rowCount.length >= 1) {
-                    console.log('Tenemos mas de una casa')
-                    this.houses = true
-                    this.floors_doors = Response.data.rowCount
-                    for (let floorDoor of this.floors_doors) {
-                      this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door})
-                    }
-                    this.local.community_id = Response.data.rowCount[0].community_id
-                  } else {
-                    this.local.floor = Response.data.rowCount[0].floor
-                    this.local.door = Response.data.rowCount[0].door
+              if (this.local.role === 2) {
+                console.log(this.local)
+                Services.searchCommunity(this.local.id).then(
+                  Response => {
                     this.local.community_id = Response.data.rowCount[0].community_id
                     localStorage.setItem('userLogin', JSON.stringify(this.local))
                     this.$router.push({ path: `/login` })
+                  })
+              } else {
+                Services.searchCommunity(Response.data.userLogin.id).then(
+                  Response => {
+                    if (Response.data.rowCount.length > 1) {
+                      console.log('Tenemos mas de una casa')
+                      this.houses = true
+                      this.floors_doors = Response.data.rowCount
+                      for (let floorDoor of this.floors_doors) {
+                        this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door})
+                      }
+                      this.local.community_id = Response.data.rowCount[0].community_id
+                    } else {
+                      this.local.floor = Response.data.rowCount[0].floor
+                      this.local.door = Response.data.rowCount[0].door
+                      this.local.community_id = Response.data.rowCount[0].community_id
+                      localStorage.setItem('userLogin', JSON.stringify(this.local))
+                      this.$router.push({ path: `/login` })
+                    }
                   }
-                }
-              )
+                )
+              }
             }
           } else {
             swal({
