@@ -279,21 +279,31 @@ export default {
                   // Registramos este id en doors floors en esta misma comunidad.
                   Services.uptadeFD(data).then(
                     Response => {
-                      console.log('Alta de persona en otra comunidad en la nuestra de forma correcta como propietario')
+                      this.$swal.fire({
+                        icon: 'success',
+                        text: 'Alta de persona de otra comunidad en la nuestra de forma correcta como propietario'
+                      })
                     },
                     Error => {
-                      console.log()
                     }
                   )
                 } else {
-                  console.log('Existe una persona registrada con este correo en esta comunidad, cambie de formulario')
+                  this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Existe una persona registrada con este correo en esta comunidad, cambie de formulario'
+                  })
                 }
               },
               Error => {}
 
             )
           } else {
-            console.log('Email no existente en la base de datos')
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Email no existente en la base de datos, registre un usuario no existente por favor'
+            })
           }
         },
         Error => {
