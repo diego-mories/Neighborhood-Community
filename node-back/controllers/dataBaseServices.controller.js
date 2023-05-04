@@ -178,7 +178,7 @@ exports.newCommunity = async (req, res) => {
 
 exports.signUp = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
-    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined ) {
+    && req.body.email != undefined  && req.body.community_id != undefined ) {
     let data = req.body
     let password = random(15)
     let tokenActive = random(15)
@@ -188,7 +188,6 @@ exports.signUp = async (req, res) => {
       email : "'" + data.email + "'",
       phone: "'" + data.phone + "'",
       password : "'" + await bycript.hash(password,12) + "'",
-      role : "'" + data.role + "'",
       community_id : "'" + data.community_id + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
@@ -201,7 +200,7 @@ exports.signUp = async (req, res) => {
         throw err
       } else {
         if (rowCount.length === 0) {
-          let query = 'INSERT INTO users (id, name, surname, email, phone, password, role, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password + ',' + user.role + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
+          let query = 'INSERT INTO users (id, name, surname, email, phone, password, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password +  ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
           conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -227,7 +226,7 @@ exports.signUp = async (req, res) => {
             }
           }) 
         } else {
-          return res.status(404).send({message: 'Email existe en la base de datos'})
+          return res.status(404).send({message: 'Existe otra cuenta con este email, ya sea en esta comunidad o en otra, seleccione (Registrar vivienda a un usuario existente de esta comunidad) o (Registrar vivienda a un usuario existente de otra comunidad)'})
         }
       }
     })
@@ -266,11 +265,12 @@ exports.uptadeFD = (req,res) => {
       id: "'" + req.body.id + "'" ,
       myFloor: "'" + req.body.myFloor + "'" ,
       myDoor: "'" + req.body.myDoor + "'",
+      role_id: "'" + req.body.role_id + "'",
       community_id: "'" + req.body.community_id + "'",
       is_available: "'" + 0 + "'",
     }
-    console.log(data)
-    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',' + 'is_available=' +  data.is_available + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
+    let query = 'UPDATE doors_floors SET user_id=' + data.id + ',' + 'is_available=' +  data.is_available + ',role_id=' + data.role_id + 'WHERE floor=' + data.myFloor + 'AND door=' + data.myDoor + 'AND community_id=' + data.community_id
+    console.log(query)
     conexion.query(query, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -303,7 +303,32 @@ exports.findOne = (req, res) => {
     } 
   })
 }
-
+exports.findOneEmail = (req, res) => {
+  let query = 'SELECT * FROM users WHERE email=' + "'" + req.query.email + "'"
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({rowCount}) 
+    } 
+  })
+}
+ exports.searchDFExist = (req,res) => {
+  console.log(req.query)
+  let data = {
+    user_id: "'" + req.query.user_id + "'",
+    community_id: "'" + req.query.community_id + "'",
+  }
+  let query = 'SELECT * FROM doors_floors WHERE user_id=' + data.user_id + 'AND community_id=' + data.community_id
+  console.log(query)
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({rowCount}) 
+    } 
+  })
+ }
 
 exports.signUpDoorman = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 

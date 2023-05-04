@@ -34,6 +34,14 @@ module.exports = function (app) {
         controller.findOne
     )
     app.get(
+        '/api/dataBaseServices/findOneEmail',
+        controller.findOneEmail
+    )
+    app.get(
+        '/api/dataBaseServices/searchDFExist',
+        controller.searchDFExist
+    )
+    app.get(
         '/api/dataBaseServices/searchNameCommunity',
         controller.searchNameCommunity
     )

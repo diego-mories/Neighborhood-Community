@@ -37,8 +37,16 @@ class Services {
   searchNameCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchNameCommunity?community_id=' + communityId)
   }
+  searchDFExist (data) {
+    let userId = data.id
+    let communityId = data.community_id
+    return http.get(API_URL_PATH + 'searchDFExist?community_id=' + communityId + '&user_id=' + userId)
+  }
   findOne (id) {
     return http.get(API_URL_PATH + 'findOne?user_id=' + id)
+  }
+  findOneEmail (email) {
+    return http.get(API_URL_PATH + 'findOneEmail?email=' + email)
   }
   // Register doorman, if exist
   signUpDoorman (user) {
@@ -73,7 +81,7 @@ class Services {
       paddle: data.paddle,
       tennis: data.tennis,
       pool: data.pool,
-      doorman: data.paddle,
+      doorman: data.doorman,
       cameras: data.cameras,
       myDoor: data.myDoor,
       myFloor: data.myFloor,
@@ -114,6 +122,7 @@ class Services {
       id: data.id,
       myFloor: data.myFloor,
       myDoor: data.myDoor,
+      role_id: data.role_id,
       community_id: data.community_id
     }
     console.log(body)

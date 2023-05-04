@@ -238,23 +238,24 @@ export default {
             console.log('Error al obtener informacion sobre la base de datos de las comunidades registradas en la plataforma')
           }
         )
-      }
-      let data = {
-        community_id: this.dataUserLogin.community_id,
-        door: this.dataUserLogin.door,
-        floor: this.dataUserLogin.floor
-      }
-      if (this.role === 1) {
-        Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
-      }
-      Services.findAllDebs(data).then(
-        Response => {
-          this.debs = Response.data.dataResponse
-        },
-        Error => {
-          console.log('Error al buscar datos de deudas')
+      } else {
+        let data = {
+          community_id: this.dataUserLogin.community_id,
+          door: this.dataUserLogin.door,
+          floor: this.dataUserLogin.floor
         }
-      )
+        if (this.role === 1) {
+          Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+        }
+        Services.findAllDebs(data).then(
+          Response => {
+            this.debs = Response.data.dataResponse
+          },
+          Error => {
+            console.log('Error al buscar datos de deudas')
+          }
+        )
+      }
     }
   }
 }

@@ -1,10 +1,11 @@
 <template>
 <div>
-  <template v-if="!formDoorman && !addHouse">
+  <template v-if="!formDoorman && !addHouse && !addHouseOtherC ">
     <b-form @submit.prevent="registerUser">
         <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
-        <div>
-          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona con cuenta existente en otra vivienda</b-button>
+        <div class="row">
+          <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouse()">Registrar vivienda a un usuario existente de esta comunidad</b-button></div>
+          <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouseOtherC()">Registrar vivienda a un usuario existente de otra comunidad</b-button></div>
         </div>
         <b-form-group>
             <div class="input-group">
@@ -48,11 +49,11 @@
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
     </b-form>
   </template>
-  <template v-else-if="addHouse">
+  <template v-else-if="addHouse && !addHouseOtherC">
     <b-form >
       <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
       <div>
-        <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddHouse()">Registrar persona sin cuenta existente</b-button>
+        <b-button class="mt-3" variant="outline-primary" @click.prevent="cancelChangeAddHouse()">Registrar persona sin cuenta existente</b-button>
       </div>
       <div class="input-group mb-3 d-flex justify-content-center">
         <label class="label-login">Selecciona planta y piso</label>
@@ -62,7 +63,23 @@
         <label class="label-login">Selecciona el propietario</label>
         <b-form-select class="ml-3 mr-3 " v-model="selected1" :options="options1"></b-form-select>
       </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar casa al propietario</b-button>
+      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar</b-button>
+    </b-form>
+  </template>
+  <template v-else-if="!addHouse && addHouseOtherC">
+    <b-form >
+      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
+      <div>
+        <b-button class="mt-3" variant="outline-primary" @click.prevent="cancelChangeAddHouseOtherC()">Registrar persona sin cuenta existente</b-button>
+      </div>
+      <div class="input-group mb-3 d-flex justify-content-center">
+        <label class="label-login">Selecciona planta y piso</label>
+        <b-form-select class="ml-3 mr-3 " v-model="selected" :options="options"></b-form-select>
+        <label class="label-login">Email</label>
+        <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+        <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="owner.email"></b-form-input>
+      </div>
+      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwnerOtherC()">Registrar</b-button>
     </b-form>
   </template>
 
@@ -76,6 +93,7 @@ export default {
     return {
       newUser: {},
       dfUser: {},
+      owner: {},
       newDoorman: {},
       userLogin: null,
       selected: {},
@@ -84,6 +102,7 @@ export default {
       options1: [],
       formDoorman: false,
       addHouse: false,
+      addHouseOtherC: false,
       ownersFD: [],
       arrayIds: []
     }
@@ -100,8 +119,8 @@ export default {
       this.searchOwners()
       this.dfUser.community_id = this.userLogin.community_id
       this.newUser.community_id = this.userLogin.community_id
-      this.newUser.role = 3 // Owner por defecto
-      this.newDoorman.role = 2
+      this.newUser.role_id = 3 // Owner por defecto
+      this.newDoorman.role_id = 2
     },
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
@@ -130,7 +149,6 @@ export default {
           for (let id of copyIds) {
             Services.findOne(id).then(
               Response => {
-                console.log(Response.data.rowCount[0].id)
                 this.options1.push(
                   {value: {id: Response.data.rowCount[0].id}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'}
                 )
@@ -147,7 +165,6 @@ export default {
     searchDoorman () {
       Services.searchDoorman(this.userLogin.community_id).then(
         Response => {
-          console.log(Response.data.message)
           if (Response.data.exist) {
             this.formDoorman = true
           }
@@ -164,6 +181,7 @@ export default {
       Services.signUp(this.newUser).then(
         Response => {
           this.dfUser.id = Response.data.user_id
+          this.dfUser.role_id = 3
           Services.uptadeFD(this.dfUser).then(
             Response => {
               console.log('OK' + this.dfUser.community_id)
@@ -179,10 +197,11 @@ export default {
             this.$swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: Error.response.data.message + ' seleccione la opción de alta de una vivienda con una cuenta existente, para asociar una vivienda a un propietario con una o más viviendas en propiedad'
+              text: Error.response.data.message
             }).then(() => {
               this.newUser = {}
               this.selected = {}
+              this.options = []
               this.getData()
             })
           }
@@ -202,17 +221,36 @@ export default {
       // )
     },
     changeAddHouse () {
-      this.addHouse = !this.addHouse
+      this.addHouse = true
+      this.newUser = {}
+      this.selected = {}
+    },
+    cancelChangeAddHouse () {
+      this.addHouse = false
+      this.newUser = {}
+      this.selected = {}
+    },
+    changeAddHouseOtherC () {
+      this.addHouseOtherC = true
+      this.newUser = {}
+      this.selected = {}
+    },
+    cancelChangeAddHouseOtherC () {
+      this.addHouseOtherC = false
       this.newUser = {}
       this.selected = {}
     },
     addHouseOwner () {
+      console.log(this.newUser)
+      this.newUser.role_id = 3 // Owner por defecto
       let data = {
         id: this.selected1.id,
         myFloor: this.selected.f,
         myDoor: this.selected.d,
+        role_id: this.newUser.role_id,
         community_id: this.userLogin.community_id
       }
+      console.log(data)
       Services.uptadeFD(data).then(
         Response => {
           this.$router.push({ path: `/login` })
@@ -221,6 +259,48 @@ export default {
           console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
         }
       )
+    },
+    addHouseOwnerOtherC () {
+      let data = {
+        myFloor: this.selected.f,
+        myDoor: this.selected.d,
+        email: this.owner.email,
+        community_id: this.userLogin.community_id,
+        role_id: 3
+      }
+      Services.findOneEmail(data.email).then(
+        Response => {
+          if (Response.data.rowCount.length > 0) {
+            data.id = Response.data.rowCount[0].id
+            // Buscamos si existe algun usuario con este id en esta misma comunidad
+            Services.searchDFExist(data).then(
+              Response => {
+                if (Response.data.rowCount.length === 0) {
+                  // Registramos este id en doors floors en esta misma comunidad.
+                  Services.uptadeFD(data).then(
+                    Response => {
+                      console.log('Alta de persona en otra comunidad en la nuestra de forma correcta como propietario')
+                    },
+                    Error => {
+                      console.log()
+                    }
+                  )
+                } else {
+                  console.log('Existe una persona registrada con este correo en esta comunidad, cambie de formulario')
+                }
+              },
+              Error => {}
+
+            )
+          } else {
+            console.log('Email no existente en la base de datos')
+          }
+        },
+        Error => {
+        }
+      )
+      // Buscamos el email, si esta entre los usuarios devolvemos el id, con el id buscamos si con el id de la comunidad y id hay alguna cuenta, si es asi, sacamos mensaje de que existe una cuenta en esta comunidad con ese correo, vuelva al formulario de registrar a una persona con cuenta en esta comunidad
+      // sino, registramos el id y el role 2, en esta comunidad en doors_floors
     }
   }
 }

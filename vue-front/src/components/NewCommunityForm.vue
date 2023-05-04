@@ -98,7 +98,7 @@ export default {
           paddle: this.confCommunity.paddle,
           tennis: this.confCommunity.tennis,
           pool: this.confCommunity.pool,
-          doorman: this.confCommunity.paddle,
+          doorman: this.confCommunity.doorman,
           cameras: this.confCommunity.cameras,
           myDoor: this.confCommunity.myDoor,
           myFloor: this.confCommunity.myFloor,
@@ -127,13 +127,12 @@ export default {
               }
             }
             this.user.community_id = Response.data.community_id
-            this.user.role = 1
+            this.user.role_id = 1 // President
             Services.signUp(this.user).then(
               Response => {
                 this.user.id = Response.data.user_id
                 this.user.myDoor = this.confCommunity.myDoor
                 this.user.myFloor = this.confCommunity.myFloor
-                console.log(this.user)
                 Services.uptadeFD(this.user).then(
                   Response => {
                     this.$swal.fire({
