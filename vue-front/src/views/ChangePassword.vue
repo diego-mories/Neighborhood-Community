@@ -4,7 +4,7 @@
     <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
     <NavBarBuildingDoorman v-if="role === 2" id="full"></NavBarBuildingDoorman>
     <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
-    <NavBarAdmin v-if="role === 4" id="full"></NavBarAdmin>
+    <NavBarAdmin v-if="this.dataUserLogin.is_admin" id="full"></NavBarAdmin>
   </div>
   <div class="row" id="grid-top">
     <div class="row" id="topR">
@@ -38,11 +38,12 @@ import NavBarAdmin from '../components/NavBarAdmin.vue'
 import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
 export default {
   data: () => ({
+    dataUserLogin: {},
     role: null
   }),
   created () {
-    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.role = dataUserLogin.role
+    this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.dataUserLogin.role_id
   },
   components: {
     NavBarPresident,

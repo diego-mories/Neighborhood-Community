@@ -43,6 +43,20 @@ exports.searchCommunity = (req, res) => {
     }
   })
 }
+exports.searchNameCommunity = (req, res) => {
+  let community_id = "'" + req.query.community_id + "'"
+  let query = 'SELECT * FROM community WHERE id=' + community_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      if (rowCount.length >= 0) {
+        res.status(200).send({rowCount})
+      }
+    }
+  })
+}
 exports.searchDF = (req, res) => {
   let user_id = "'" + req.query.user_id + "'"
   let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
@@ -93,6 +107,7 @@ exports.login = (req, res) => {
                   tokenPass: rowCount[0].token_pass,
                   tokenActive: rowCount[0].token_active,
                   is_active: rowCount[0].is_active,
+                  is_admin: rowCount[0].is_admin,
                 }, 
                 OK: true})
             }

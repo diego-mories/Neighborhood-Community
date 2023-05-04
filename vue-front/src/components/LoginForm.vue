@@ -43,46 +43,39 @@ export default {
     selected: {},
     optionss: []
   }),
+
   methods: {
+    filterRole (value) {
+      if (value === 1) return 'PRESIDENTE'
+      if (value === 2) return 'PORTERO'
+      if (value === 3) return 'PROPIETARIO'
+    },
     async login () {
       Services.login(this.user).then(
         Response => {
           // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
           if (Response.data.OK) {
             this.local = Response.data.userLogin
-            if (this.local.role === 4) {
+            if (this.local.is_admin) {
               localStorage.setItem('userLogin', JSON.stringify(this.local))
               this.$router.push({ path: `/login` })
             } else {
-              if (this.local.role === 2) {
-                console.log(this.local)
-                Services.searchCommunity(this.local.id).then(
-                  Response => {
-                    this.local.community_id = Response.data.rowCount[0].community_id
-                    localStorage.setItem('userLogin', JSON.stringify(this.local))
-                    this.$router.push({ path: `/login` })
-                  })
-              } else {
-                Services.searchCommunity(Response.data.userLogin.id).then(
-                  Response => {
-                    if (Response.data.rowCount.length > 1) {
-                      console.log('Tenemos mas de una casa')
-                      this.houses = true
-                      this.floors_doors = Response.data.rowCount
-                      for (let floorDoor of this.floors_doors) {
-                        this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door})
-                      }
-                      this.local.community_id = Response.data.rowCount[0].community_id
-                    } else {
-                      this.local.floor = Response.data.rowCount[0].floor
-                      this.local.door = Response.data.rowCount[0].door
-                      this.local.community_id = Response.data.rowCount[0].community_id
-                      localStorage.setItem('userLogin', JSON.stringify(this.local))
-                      this.$router.push({ path: `/login` })
-                    }
+              Services.searchCommunity(Response.data.userLogin.id).then(
+                Response => {
+                  this.houses = true
+                  this.floors_doors = Response.data.rowCount
+                  for (let floorDoor of this.floors_doors) {
+                    // BUSCAR NOMBRE COMUNIDAD
+                    Services.searchNameCommunity(floorDoor.community_id).then(
+                      Response => {
+                        this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door, role: floorDoor.role_id, nameC: Response.data.rowCount[0].name, idC: Response.data.rowCount[0].id}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door + ' (' + this.filterRole(floorDoor.role_id) + ')' + ' COMUNIDAD: ' + Response.data.rowCount[0].name})
+                      },
+                      Error => { console.log(Error) }
+                    )
                   }
-                )
-              }
+                }
+              )
+              // }
             }
           } else {
             swal({
@@ -93,11 +86,13 @@ export default {
           }
         },
         Error => {
-          console.log('Error en el inicio de sesión')
+          console.log('Error en el inicio de sesión ' + Error)
         }
       )
     },
     goLogin () {
+      this.local.community_id = this.selected.idC
+      this.local.role_id = this.selected.role
       this.local.floor = this.selected.floor
       this.local.door = this.selected.door
       localStorage.setItem('userLogin', JSON.stringify(this.local))

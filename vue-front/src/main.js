@@ -70,6 +70,7 @@ Vue.filter('formatBill', function (value) {
   if (value === 2) return '💡'
   if (value === 3) return '💧'
 })
+
 Vue.filter('formatAmount', function (value) {
   return value + ' €'
 })

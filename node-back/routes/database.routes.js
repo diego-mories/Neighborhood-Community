@@ -34,6 +34,10 @@ module.exports = function (app) {
         controller.findOne
     )
     app.get(
+        '/api/dataBaseServices/searchNameCommunity',
+        controller.searchNameCommunity
+    )
+    app.get(
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )

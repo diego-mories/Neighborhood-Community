@@ -161,12 +161,9 @@ export default {
       this.dfUser.myFloor = this.selected.f
       this.dfUser.myDoor = this.selected.d
       this.newUser.phone = '+34 ' + this.newUser.phone
-      console.log(this.newUser)
       Services.signUp(this.newUser).then(
         Response => {
           this.dfUser.id = Response.data.user_id
-          console.log(this.newUser)
-
           Services.uptadeFD(this.dfUser).then(
             Response => {
               console.log('OK' + this.dfUser.community_id)

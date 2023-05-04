@@ -4,7 +4,7 @@
     <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
     <NavBarBuildingDoorman v-if="role === 2" id="full"></NavBarBuildingDoorman>
     <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
-    <NavBarAdmin v-if="role === 4" id="full"></NavBarAdmin>
+    <NavBarAdmin v-if="this.dataUserLogin.is_admin" id="full"></NavBarAdmin>
   </div>
   <!-- Vista de Presidente -->
   <div class="row" id="grid-bottom-log" v-if="role === 1">
@@ -105,7 +105,7 @@
     </div>
   </div>
     <!-- Vista de admin -->
-  <div class="row" id="grid-bottom-log" v-if="role === 4">
+  <div class="row" id="grid-bottom-log" v-if="this.dataUserLogin.is_admin">
     <b-table class="container m-0" :items="items" :fields="fields">
     </b-table>
   </div>
@@ -128,6 +128,7 @@ import Services from '../services/servicesDB'
 export default {
   data: () => ({
     role: null,
+    dataUserLogin: {},
     debs: [],
     headers: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
@@ -194,9 +195,9 @@ export default {
       })
     },
     getData () {
-      let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
-      this.role = dataUserLogin.role
-      if (this.role === 4) {
+      this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+      this.role = this.dataUserLogin.role_id
+      if (this.dataUserLogin.is_admin) {
         Services.searchDBCommunities().then(
           Response => {
             this.communities = Response.data.communities
@@ -238,22 +239,22 @@ export default {
           }
         )
       }
-      // let data = {
-      //   community_id: dataUserLogin.community_id,
-      //   door: dataUserLogin.door,
-      //   floor: dataUserLogin.floor
-      // }
-      // if (this.role === 1) {
-      //   Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
-      // }
-      // Services.findAllDebs(data).then(
-      //   Response => {
-      //     this.debs = Response.data.dataResponse
-      //   },
-      //   Error => {
-      //     console.log('Error al buscar datos de deudas')
-      //   }
-      // )
+      let data = {
+        community_id: this.dataUserLogin.community_id,
+        door: this.dataUserLogin.door,
+        floor: this.dataUserLogin.floor
+      }
+      if (this.role === 1) {
+        Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+      }
+      Services.findAllDebs(data).then(
+        Response => {
+          this.debs = Response.data.dataResponse
+        },
+        Error => {
+          console.log('Error al buscar datos de deudas')
+        }
+      )
     }
   }
 }

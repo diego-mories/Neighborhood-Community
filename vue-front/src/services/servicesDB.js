@@ -34,6 +34,9 @@ class Services {
   searchOwnersDF (communityId) {
     return http.get(API_URL_PATH + 'searchOwnersDF?community_id=' + communityId)
   }
+  searchNameCommunity (communityId) {
+    return http.get(API_URL_PATH + 'searchNameCommunity?community_id=' + communityId)
+  }
   findOne (id) {
     return http.get(API_URL_PATH + 'findOne?user_id=' + id)
   }
