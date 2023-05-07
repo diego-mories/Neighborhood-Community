@@ -332,8 +332,7 @@ exports.findOneEmail = (req, res) => {
 
 exports.signUpDoorman = async (req, res) => {
   if (req.body.name != undefined && req.body.surname != undefined 
-    && req.body.email != undefined && req.body.role != undefined && req.body.community_id != undefined 
-    && req.body.floor != undefined && req.body.door != undefined){
+    && req.body.email != undefined && req.body.role_id != undefined && req.body.community_id != undefined){
     let data = req.body
     let password = random(15)
     let tokenActive = random(15)
@@ -342,25 +341,26 @@ exports.signUpDoorman = async (req, res) => {
       surname : "'" + data.surname + "'",
       email : "'" + data.email + "'",
       password : "'" + await bycript.hash(password,12) + "'",
-      role : "'" + data.role + "'",
+      role_id : "'" + data.role_id + "'",
+      phone : "'" + data.phone + "'",
       community_id : "'" + data.community_id + "'",
-      floor : "'" + data.floor + "'",
-      door : "'" + data.door + "'",
+      floor : "'" + 0 + "'",
+      door : "'" + 0 + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
+    console.log(user)
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
     conexion.query (queryEmail, function (err, rowCount, rows) {
       if (err) {
         throw err
-      } 
-      else {
+      } else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
-          let query = 'INSERT INTO users (id, name, surname, email, password, role, community_id, floor, door, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ',' + user.password + ',' + user.role + ',' + user.community_id + ',' + user.floor + ',' + user.door + ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active + ')'
-          conexion.query(query, function (err, rowCount, rows) {
+            let query = 'INSERT INTO users (id, name, surname, email, phone, password, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password +  ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
+            conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
             } 
@@ -381,14 +381,23 @@ exports.signUpDoorman = async (req, res) => {
                 }
                 mailTransporter.close()
               })
-              let doorman_active = "'" + 1 + "'"
-              let query2 = 'UPDATE community SET doorman_active=' + doorman_active + 'WHERE id=' + user.community_id
-              conexion.query(query2, function (err, rowCount, rows) {
+              let is_available = "'" + 0 + "'"
+              let query3 = 'INSERT INTO doors_floors (id, community_id, user_id, role_id, floor, door,  is_available) VALUES (NULL,' + user.community_id + ',' + rowCount.insertId + ',' + user.role_id + ',' + user.floor + ',' + user.door + ',' + user.is_available + ')'  
+              conexion.query(query3, function (err, rowCount, rows) {
                 if (err) {
                   throw err
                 } 
                 else {
-                  res.status(200).send({message:'Portero registrado en comunidad de manera correcta'})   
+                  let doorman_active = "'" + 1 + "'"
+                  let query2 = 'UPDATE community SET doorman_active=' + doorman_active + 'WHERE id=' + user.community_id
+                  conexion.query(query2, function (err, rowCount, rows) {
+                    if (err) {
+                      throw err
+                    } 
+                    else {
+                      res.status(200).send({message:'Portero registrado en comunidad de manera correcta'})   
+                    }
+                  })
                 }
               })
             }

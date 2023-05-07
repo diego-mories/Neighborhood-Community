@@ -54,11 +54,11 @@ class Services {
       name: user.name,
       surname: user.surname,
       email: user.email,
-      role: user.role,
-      community_id: user.community_id,
-      floor: user.floor,
-      door: user.door
+      phone: user.phone,
+      role_id: user.role_id,
+      community_id: user.community_id
     }
+    console.log(body)
     return http.post(API_URL_PATH + 'signUpDoorman', body)
   }
   // Reset password user

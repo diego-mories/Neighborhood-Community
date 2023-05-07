@@ -41,6 +41,9 @@
                 <label class="label-login">Apellidos portero</label>
                 <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
                 <b-form-input type="text" class="form-control" placeholder="Apellidos" v-model="newDoorman.surname"></b-form-input>
+                <label class="label-login">Teléfono</label>
+                <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+                <b-form-input type="tel" class="form-control" placeholder="XXX-XX-XX-XX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}" v-model="newDoorman.phone"></b-form-input>
                 <label class="label-login">Email portero</label>
                 <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
                 <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="newDoorman.email"></b-form-input>
@@ -119,8 +122,9 @@ export default {
       this.searchOwners()
       this.dfUser.community_id = this.userLogin.community_id
       this.newUser.community_id = this.userLogin.community_id
+      this.newDoorman.community_id = this.userLogin.community_id
       this.newUser.role_id = 3 // Owner por defecto
-      this.newDoorman.role_id = 2
+      this.newDoorman.role_id = 2 // Doorman
     },
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
@@ -210,15 +214,15 @@ export default {
     },
     registerDoorman () {
       console.log(this.newDoorman)
-      // Services.signUpDoorman(this.newDoorman).then(
-      //   Response => {
-      //     console.log(Response.data.message)
-      //     this.$router.push({ path: `/login` })
-      //   },
-      //   Error => {
-      //     console.log('Errror al registrar nuevo portero en comunidad')
-      //   }
-      // )
+      Services.signUpDoorman(this.newDoorman).then(
+        Response => {
+          console.log(Response.data.message)
+          this.$router.push({ path: `/login` })
+        },
+        Error => {
+          console.log('Errror al registrar nuevo portero en comunidad')
+        }
+      )
     },
     changeAddHouse () {
       this.addHouse = true
