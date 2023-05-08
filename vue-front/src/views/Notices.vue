@@ -31,7 +31,7 @@
           </div>
           <div class="input-group mb-3 d-flex justify-content-center">
             <b-form-group>
-                <b-button class="m-3" variant="outline-primary" type="submit">Enviar acta por correo eletrínco a vecinos</b-button>
+                <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">Enviar acta por correo eletrínco a vecinos</b-button>
                 <b-button class="m-3" variant="outline-primary" type="submit" @click="printDiv()">Imprimir acta</b-button>
             </b-form-group>
           </div>
@@ -48,6 +48,7 @@
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
+import servicesDB from '../services/servicesDB'
 export default {
   components: {
     FooterSocialNetwork,
@@ -57,16 +58,37 @@ export default {
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
+    console.log(this.dataUserLogin)
+    this.getData()
   },
   data () {
     return {
       role: null,
       date: null,
       orderDay: null,
-      dataUserLogin: {}
+      dataUserLogin: {},
+      arrayPeople: [],
+      Ids: [],
+      copyArrayIds: []
     }
   },
   methods: {
+    getData () {
+      servicesDB.searchOwnersDF(this.dataUserLogin.community_id).then(
+        Response => {
+          this.arrayPeople = Response.data.rowCount
+          for (let id of this.arrayPeople) {
+            this.Ids.push(id.user_id)
+          }
+          this.copyArrayIds = this.Ids.filter((item, index) => {
+            return this.Ids.indexOf(item) === index
+          })
+        },
+        Error => {
+
+        }
+      )
+    },
     printDiv () {
       const text = '<p><em>COMUNIDAD DE PROPIETARIOS DE VIVIENDAS</em></p><br><p style="text-align:center"><strong>CONVOCATORIA A JUNTA GENERAL ORDINARIA </strong></p><br>'
       const text2 = '<p>Estimados Señores:</p><br><p> De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, quetendrá lugar el próximo día <span class="Blank Short">  ' + this.date + '</span> , con arreglo al siguiente:</p>'
@@ -81,6 +103,17 @@ export default {
       a.document.write('</body></html>')
       a.document.close()
       a.print()
+    },
+    sendNotice () {
+      for (let id of this.copyArrayIds) {
+        servicesDB.sendNotice(id, this.date, this.orderDay).then(
+          Response => {
+            console.log(Response.data.rowCount[0].email)
+          },
+          Error => {
+          }
+        )
+      }
     }
   }
 }

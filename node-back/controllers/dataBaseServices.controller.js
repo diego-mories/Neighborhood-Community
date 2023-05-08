@@ -321,6 +321,39 @@ exports.searchOwnersDF = (req, res) => {
     } 
   })
 }
+exports.sendNotice = (req, res) => {
+  console.log(req.body.user_id)
+  let data = {
+    user_id: "'" + req.body.user_id + "'",
+    date: "'" + req.body.date + "'",
+    orderDay: "'" + req.body.orderDay + "'",
+  }
+  let query = 'SELECT * FROM users WHERE id=' + data.user_id
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let email = rowCount[0].email
+      let mailOptions = {
+        from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+        to: '' + email,
+        subject: 'JUNTA DE VECINOS: ' + req.body.date,
+        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo '     
+      }
+      mailTransporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log("Error email sent!", error)
+        } 
+        else {
+          console.log('Email sent: ')
+        }
+        mailTransporter.close()
+      })
+      return res.status(200).send({user_id: rowCount.insertId})
+    } 
+  })
+
+}
 
 exports.findOne = (req, res) => {
   let query = 'SELECT * FROM users WHERE id=' + "'" + req.query.user_id + "'"

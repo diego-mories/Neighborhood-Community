@@ -61,6 +61,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/updateFDDoorman',
         controller.updateFDDoorman
     )
+    app.post(
+        '/api/dataBaseServices/sendNotice',
+        controller.sendNotice
+    )
     app.put(
         '/api/dataBaseServices/confCommunity',
         controller.confCommunity

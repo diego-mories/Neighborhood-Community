@@ -37,6 +37,14 @@ class Services {
   searchNameCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchNameCommunity?community_id=' + communityId)
   }
+  sendNotice (id, date, orderDay) {
+    const body = {
+      user_id: id,
+      date: date,
+      orderDay: orderDay
+    }
+    return http.post(API_URL_PATH + 'sendNotice', body)
+  }
   searchDFExist (data) {
     let userId = data.id
     let communityId = data.community_id
