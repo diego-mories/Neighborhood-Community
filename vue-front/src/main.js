@@ -11,6 +11,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
+  faCalendar,
   faArrowUpFromBracket,
   faFileInvoice,
   faTicket,
@@ -38,6 +39,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import BootstrapVue from 'bootstrap-vue'
 library.add(
+  faCalendar,
   faArrowUpFromBracket,
   faFileInvoice,
   faTicket,
