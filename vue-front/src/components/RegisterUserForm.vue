@@ -30,9 +30,12 @@
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar</b-button>
     </b-form>
   </template>
-  <template v-else-if="formDoorman">
+  <template v-else-if="formDoorman && !addDoormanExist">
     <b-form  @submit.prevent="registerDoorman">
         <span><img src="../assets/images/doorman.png" class="w-25 h-25 mw-25 mh-25"></span>
+        <div>
+          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddDoorman()">Registrar portero con cuenta existente en la plataforma</b-button>
+        </div>
         <b-form-group>
             <div class="input-group">
                 <label class="label-login">Nombre portero</label>
@@ -47,6 +50,22 @@
                 <label class="label-login">Email portero</label>
                 <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
                 <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="newDoorman.email"></b-form-input>
+            </div>
+        </b-form-group>
+        <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
+    </b-form>
+  </template>
+  <template v-else-if="formDoorman && addDoormanExist">
+    <b-form  @submit.prevent="registerDoormanOtherC">
+        <span><img src="../assets/images/doorman.png" class="w-25 h-25 mw-25 mh-25"></span>
+        <div>
+          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddDoorman()">Registrar portero sin cuenta existente</b-button>
+        </div>
+        <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Email portero</label>
+              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+              <b-form-input type="text" class="form-control" placeholder="your-email@gmail.com" v-model="newDoorman.email"></b-form-input>
             </div>
         </b-form-group>
         <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
@@ -106,11 +125,15 @@ export default {
       formDoorman: false,
       addHouse: false,
       addHouseOtherC: false,
+      addDoormanExist: false,
       ownersFD: [],
       arrayIds: []
     }
   },
-  mounted () {
+  beforeMount () {
+    this.searchDoorman()
+  },
+  created () {
     this.getData()
   },
   methods: {
@@ -213,14 +236,72 @@ export default {
       )
     },
     registerDoorman () {
-      console.log(this.newDoorman)
       Services.signUpDoorman(this.newDoorman).then(
         Response => {
-          console.log(Response.data.message)
-          this.$router.push({ path: `/login` })
+          this.$swal.fire({
+            icon: 'success',
+            title: 'Oops...',
+            text: 'Nuevo portero dado de alta en la comunidad correctamente'
+          }).then(() => {
+            this.$router.push({ path: `/login` })
+          })
         },
         Error => {
-          console.log('Errror al registrar nuevo portero en comunidad')
+          if (Error.response.status === 404) {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: Error.response.data.message
+            }).then(() => {
+              this.newDoorman = {}
+              this.getData()
+            })
+          }
+        }
+      )
+    },
+    registerDoormanOtherC () {
+      Services.findOneEmail(this.newDoorman.email).then(
+        Response => {
+          if (Response.data.rowCount.length > 0) {
+            let data = {
+              id: Response.data.rowCount[0].id,
+              community_id: this.newDoorman.community_id,
+              role_id: this.newDoorman.role_id
+            }
+            Services.updateFDDoorman(data).then(
+              Response => {
+                this.$swal.fire({
+                  icon: 'success',
+                  title: 'Oops...',
+                  text: 'Nuevo portero dado de alta en la comunidad correctamente'
+                }).then(() => {
+                  this.$router.push({ path: `/login` })
+                })
+              },
+              Error => {
+                if (Error.response.status === 404) {
+                  this.$swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Fallo en el registro del portero con una cuenta existente'
+                  }).then(() => {
+                    this.newDoorman = {}
+                    this.getData()
+                  })
+                }
+              }
+            )
+          } else {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Email no existente en la base de datos, registre un usuario no existente por favor para el nuevo portero de la comunidad'
+            })
+          }
+        },
+        Error => {
+
         }
       )
     },
@@ -315,6 +396,9 @@ export default {
       )
       // Buscamos el email, si esta entre los usuarios devolvemos el id, con el id buscamos si con el id de la comunidad y id hay alguna cuenta, si es asi, sacamos mensaje de que existe una cuenta en esta comunidad con ese correo, vuelva al formulario de registrar a una persona con cuenta en esta comunidad
       // sino, registramos el id y el role 2, en esta comunidad en doors_floors
+    },
+    changeAddDoorman () {
+      this.addDoormanExist = !this.addDoormanExist
     }
   }
 }

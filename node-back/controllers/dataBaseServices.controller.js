@@ -259,6 +259,35 @@ exports.insertRowsFD = (req,res) => {
   }
 }
 
+exports.updateFDDoorman = (req,res) => {
+  // Añadimos la fila a la tabla doors and floors
+  let data = {
+    user_id: "'" + req.body.user_id + "'" ,
+    myFloor: "'" + 0 + "'" ,
+    myDoor: "'" + 0 + "'",
+    role_id: "'" + req.body.role_id + "'",
+    community_id: "'" + req.body.community_id + "'",
+    is_available: "'" + 0 + "'",
+  }
+  let query = 'INSERT INTO doors_floors (community_id,user_id, role_id, floor, door, is_available) VALUES (' + data.community_id + ',' + data.user_id + ',' + data.role_id + ',' + data.myFloor + ',' + data.myDoor + ',' + data.is_available + ')'  
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      let doorman_active = "'" + 1 + "'"
+      let query2 = 'UPDATE community SET doorman_active=' + doorman_active + 'WHERE id=' + data.community_id
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } 
+        else {
+          res.status(200).send({message:'Portero registrado en comunidad de manera correcta'})   
+        }
+      })
+    }
+  })
+} 
 exports.uptadeFD = (req,res) => {
     // Añadimos la fila a la tabla doors and floors
     let data = {
@@ -305,10 +334,12 @@ exports.findOne = (req, res) => {
 }
 exports.findOneEmail = (req, res) => {
   let query = 'SELECT * FROM users WHERE email=' + "'" + req.query.email + "'"
+  console.log(query)
   conexion.query (query, function (err, rowCount, rows) {
     if (err) {
       throw err
     } else {
+      console.log(rowCount)
       res.status(200).send({rowCount}) 
     } 
   })
@@ -351,7 +382,6 @@ exports.signUpDoorman = async (req, res) => {
       is_active : "'" + 0 +  "'",
       first_time : "'" + 1 + "'"
     }
-    console.log(user)
     let queryEmail = 'SELECT * FROM users WHERE email=' + user.email
     // Tenemos que buscar que el email no exista ya en la base de datos
     conexion.query (queryEmail, function (err, rowCount, rows) {
@@ -404,7 +434,7 @@ exports.signUpDoorman = async (req, res) => {
           })
         } 
         else {
-          res.status(404).send({message:'Email encontrado no se puede hacer el registro o fallo en el registro del usuario'})
+          res.status(404).send({message:'El email ya está registrado en la plataforma, por favor cambie de formulario para dar de alta al portero'})
         }
       }
     }

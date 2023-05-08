@@ -57,6 +57,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/newCommunity',
         controller.newCommunity
     )
+    app.post(
+        '/api/dataBaseServices/updateFDDoorman',
+        controller.updateFDDoorman
+    )
     app.put(
         '/api/dataBaseServices/confCommunity',
         controller.confCommunity

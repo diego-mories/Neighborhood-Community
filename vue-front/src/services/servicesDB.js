@@ -125,8 +125,15 @@ class Services {
       role_id: data.role_id,
       community_id: data.community_id
     }
-    console.log(body)
     return http.put(API_URL_PATH + 'uptadeFD', body)
+  }
+  updateFDDoorman (data) {
+    const body = {
+      user_id: data.id,
+      community_id: data.community_id,
+      role_id: data.role_id
+    }
+    return http.post(API_URL_PATH + 'updateFDDoorman', body)
   }
   // Search communities data to admin
   searchDBCommunities () {
