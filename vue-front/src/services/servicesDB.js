@@ -66,7 +66,6 @@ class Services {
       role_id: user.role_id,
       community_id: user.community_id
     }
-    console.log(body)
     return http.post(API_URL_PATH + 'signUpDoorman', body)
   }
   // Reset password user

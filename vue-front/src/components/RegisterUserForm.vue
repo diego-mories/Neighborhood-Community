@@ -240,7 +240,7 @@ export default {
         Response => {
           this.$swal.fire({
             icon: 'success',
-            title: 'Oops...',
+            title: 'OK.',
             text: 'Nuevo portero dado de alta en la comunidad correctamente'
           }).then(() => {
             this.$router.push({ path: `/login` })

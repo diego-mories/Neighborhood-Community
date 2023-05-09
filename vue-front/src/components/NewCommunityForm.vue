@@ -9,7 +9,9 @@
             </div>
             <div class="input-group mb-3 d-flex">
               <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
-              <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Pisos" v-model="confCommunity.doors"></b-form-input>
+              <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Puertas" v-model="confCommunity.doors"></b-form-input>
+              <input class="m-2" type="checkbox" id="cameras" value="1" v-model="letters"/>
+              <span class="d-flex align-items-center">¿Puertas con letras? (1=A 2=A,B 3=A,B,C 4=A,B,C,D 5=A,B,C,D,E)</span>
             </div>
         </b-form-group>
         <b-form-group>
@@ -43,7 +45,8 @@
           </div>
           <div class="input-group mb-3 d-flex">
             <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi planta" v-model="confCommunity.myFloor"></b-form-input>
-            <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi piso" v-model="confCommunity.myDoor"></b-form-input>
+            <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Mi puerta" v-model="confCommunity.myDoor"></b-form-input>
+            <span v-if ="letters" class="m-auto">(1=A 2=B 3=C 4=D 5=E)</span>
           </div>
         </b-form-group>
         <b-button variant="outline-primary" type="submit">Crear comunidad</b-button>
@@ -67,9 +70,25 @@ export default {
       myDoor: null,
       myFloor: null
     },
+    letters: false,
     user: {}
   }),
   methods: {
+    formatDoor (value) {
+      if (value === '1' || value === 1) return 'A'
+      if (value === '2' || value === 2) return 'B'
+      if (value === '3' || value === 3) return 'C'
+      if (value === '4' || value === 4) return 'D'
+      if (value === '5' || value === 5) return 'E'
+      if (value === '6' || value === 6) return 'F'
+      if (value === '7' || value === 7) return 'G'
+      if (value === '8' || value === 8) return 'H'
+    },
+    test () {
+      console.log(this.formatDoor(1))
+      console.log(this.formatDoor(2))
+      console.log(this.formatDoor(3))
+    },
     newCommunity () {
       if (this.confCommunity.myDoor > this.confCommunity.Doors || this.confCommunity.myFloor > this.confCommunity.floors) {
         swal({
@@ -111,19 +130,35 @@ export default {
             for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
               for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
                 // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
-                let dataFD = {
-                  community_id: Response.data.community_id,
-                  floor: iteratorF,
-                  door: iteratorD
-                }
-                Services.insertRowsFD(dataFD).then(
-                  Response => {
-                    console.log('Fila añadida a doors_floors')
-                  },
-                  Error => {
-                    console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                if (this.letters) {
+                  let dataFD = {
+                    community_id: Response.data.community_id,
+                    floor: iteratorF,
+                    door: this.formatDoor(iteratorD)
                   }
-                )
+                  Services.insertRowsFD(dataFD).then(
+                    Response => {
+                      console.log('Fila añadida a doors_floors')
+                    },
+                    Error => {
+                      console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                    }
+                  )
+                } else {
+                  let dataFD = {
+                    community_id: Response.data.community_id,
+                    floor: iteratorF,
+                    door: iteratorD
+                  }
+                  Services.insertRowsFD(dataFD).then(
+                    Response => {
+                      console.log('Fila añadida a doors_floors')
+                    },
+                    Error => {
+                      console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                    }
+                  )
+                }
               }
             }
             this.user.community_id = Response.data.community_id
@@ -131,8 +166,14 @@ export default {
             Services.signUp(this.user).then(
               Response => {
                 this.user.id = Response.data.user_id
-                this.user.myDoor = this.confCommunity.myDoor
-                this.user.myFloor = this.confCommunity.myFloor
+                if (this.letters) {
+                  this.user.myDoor = this.formatDoor(this.confCommunity.myDoor)
+                  this.user.myFloor = this.confCommunity.myFloor
+                } else {
+                  this.user.myDoor = this.confCommunity.myDoor
+                  this.user.myFloor = this.confCommunity.myFloor
+                }
+                console.log(this.user)
                 Services.uptadeFD(this.user).then(
                   Response => {
                     this.$swal.fire({

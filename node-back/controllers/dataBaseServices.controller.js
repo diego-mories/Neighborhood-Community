@@ -264,7 +264,7 @@ exports.updateFDDoorman = (req,res) => {
   let data = {
     user_id: "'" + req.body.user_id + "'" ,
     myFloor: "'" + 0 + "'" ,
-    myDoor: "'" + 0 + "'",
+    myDoor: "'" + 'PORTERIA' + "'",
     role_id: "'" + req.body.role_id + "'",
     community_id: "'" + req.body.community_id + "'",
     is_available: "'" + 0 + "'",
