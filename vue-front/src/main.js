@@ -79,6 +79,12 @@ Vue.filter('formatBill', function (value) {
   if (value === 3) return '💧'
   if (value === 0) return 'DERRAMA'
 })
+Vue.filter('formatBillP', function (value) {
+  if (value === 1) return 'GAS'
+  if (value === 2) return 'LUZ'
+  if (value === 3) return 'AGUA'
+  if (value === 0) return 'DERRAMA'
+})
 Vue.filter('formatDescription', function (value) {
   if (value === '' || value === null) return '-------'
   else return value

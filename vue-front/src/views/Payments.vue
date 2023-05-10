@@ -17,7 +17,6 @@
                 </div>
                 <div class="col-sm-11" id="full">
                     <div class="container">
-                        <div class="container" id="tableee">
                             <b-table
                             class="m-5 "
                             style="overflow-y:auto; height: 60vh !important;"
@@ -39,11 +38,10 @@
                                 {{ data.item.amount | formatAmount}}
                                 </template>
                             <template #cell(type_bill)="data">
-                                {{ data.item.type_bill | formatBill}}
+                                {{ data.item.type_bill | formatBillP}}
                             </template>
                             </b-table>
-                        </div>
-                        <b-button @click="print()">IMPRIMIR PAGOS</b-button>
+                        <b-button @click="downloadPDFWithjsPDF()">IMPRIMIR PAGOS</b-button>
                     </div>
                 </div>
             </div>
@@ -83,10 +81,15 @@
                 </div>
             </div> -->
 <script>
+
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
 import Services from '../services/servicesDB'
+// eslint-disable-next-line no-unused-vars
+// import hml2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 export default {
   data: () => ({
     role: null,
@@ -94,12 +97,11 @@ export default {
     dataUserLogin: {},
     payments: [],
     headers: [
-      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
+      { key: 'amount', label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
       { key: 'type_bill', label: 'Tipo de gasto' },
-      { key: 'is_spill', label: 'Tipo de gasto' },
       { key: 'description', label: 'Descripción' },
-      { key: 'd_payment', sortable: true, label: 'Fecha de pago' },
-      { key: 'd_deb', sortable: true, label: 'Fecha de deuda' }
+      { key: 'd_payment', label: 'Fecha de pago' },
+      { key: 'd_deb', label: 'Fecha de deuda' }
     ]
   }),
   components: {
@@ -127,15 +129,15 @@ export default {
         )
       }
     },
-    print () {
-      var contenido = document.getElementById('tableee').innerHTML
-      var contenidoOriginal = document.body.innerHTML
-
-      document.body.innerHTML = contenido
-
-      window.print()
-
-      document.body.innerHTML = contenidoOriginal
+    downloadPDFWithjsPDF () {
+      // eslint-disable-next-line new-cap
+      const doc = new jsPDF()
+      const $ = require('jquery')
+      // Lo declaramos globalmente
+      window.$ = $
+      // eslint-disable-next-line new-cap
+      autoTable(doc, { html: '#payTable' })
+      doc.save('table.pdf')
     }
   }
 }

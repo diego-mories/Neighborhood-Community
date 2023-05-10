@@ -867,7 +867,7 @@ exports.findAllBills = (req, res) => {
 } 
 exports.findPayment = (req, res) => {
   let deb_id = "'" + req.query.deb_id + "'"
-  let query = 'SELECT * FROM payments WHERE deb_id=' + deb_id
+  let query = 'SELECT * FROM payments WHERE deb_id=' + deb_id +'AND amount>' + "'" + 0 + "'"
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err
