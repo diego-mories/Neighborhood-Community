@@ -326,6 +326,7 @@ exports.sendNotice = (req, res) => {
   let data = {
     user_id: "'" + req.body.user_id + "'",
     date: "'" + req.body.date + "'",
+    hour: "'" + req.body.hour + "'",
     orderDay: "'" + req.body.orderDay + "'",
   }
   let query = 'SELECT * FROM users WHERE id=' + data.user_id
@@ -338,7 +339,7 @@ exports.sendNotice = (req, res) => {
         from: '"Neighborhood Community" ' +  mailConfig.auth.user,
         to: '' + email,
         subject: 'JUNTA DE VECINOS: ' + req.body.date,
-        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo '     
+        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', a las: ' + req.body.hour + ' cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo '     
       }
       mailTransporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -400,6 +401,7 @@ exports.signUpDoorman = async (req, res) => {
     let data = req.body
     let password = random(15)
     let tokenActive = random(15)
+    console.log(data)
     let user = {
       name : "'" + data.name + "'",
       surname : "'" + data.surname + "'",
@@ -409,7 +411,7 @@ exports.signUpDoorman = async (req, res) => {
       phone : "'" + data.phone + "'",
       community_id : "'" + data.community_id + "'",
       floor : "'" + 0 + "'",
-      door : "'" + 0 + "'",
+      door : "'" + 'PORTERIA' + "'",
       token_active : "'" + tokenActive + "'",
       token_pass : "'" + random(15) + "'",
       is_active : "'" + 0 +  "'",
@@ -423,6 +425,7 @@ exports.signUpDoorman = async (req, res) => {
       } else {
         if (rowCount.length === 0) { // Email no existe, registramos en la base de datos
             let query = 'INSERT INTO users (id, name, surname, email, phone, password, token_pass, token_active, is_active) VALUES (NULL,' + user.name + ',' + user.surname + ',' + user.email + ','  + user.phone + ','+ user.password +  ',' + user.token_pass + ',' + user.token_active + ',' + user.is_active +')'
+            
             conexion.query(query, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -445,7 +448,7 @@ exports.signUpDoorman = async (req, res) => {
                 mailTransporter.close()
               })
               let is_available = "'" + 0 + "'"
-              let query3 = 'INSERT INTO doors_floors (id, community_id, user_id, role_id, floor, door,  is_available) VALUES (NULL,' + user.community_id + ',' + rowCount.insertId + ',' + user.role_id + ',' + user.floor + ',' + user.door + ',' + user.is_available + ')'  
+              let query3 = 'INSERT INTO doors_floors (id, community_id, user_id, role_id, floor, door,  is_available) VALUES (NULL,' + user.community_id + ',' + rowCount.insertId + ',' + user.role_id + ',' + user.floor + ',' + user.door + ',' + is_available + ')'  
               conexion.query(query3, function (err, rowCount, rows) {
                 if (err) {
                   throw err
@@ -689,9 +692,11 @@ exports.createBill = (req, res) => {
     else {
      // console.log('Cuenta añadida correctamente')
      // Buscamos cuantas personas estan en la comunidad 
+     let string = 'PORTERIA'
      let is_available = "'" + 0 + "'"
+     let porteria = "'" + string + "'"
 
-     let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available
+     let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available + 'AND door<>' + porteria
      conexion.query(query2, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -731,6 +736,66 @@ exports.createBill = (req, res) => {
       })
     }
   })
+}
+exports.createSpill = (req, res) => {
+  console.log(req.body)
+  // // Insertamos la fila en la tabla bills
+  var data = {
+    community_id: "'" + req.body.community_id + "'" ,
+    description: "'" + req.body.description + "'" ,
+    date_p: "'" + req.body.date_p + "'" ,
+    amount: "'" + req.body.amount + "'",
+  }
+  let query = 'INSERT INTO spill_of_money (id, community_id,amount,description) VALUES (NULL,' + data.community_id + ',' + data.amount + ',' + data.description + ')'  
+  console.log(query)
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+     // console.log('Cuenta añadida correctamente')
+     // Buscamos cuantas personas estan en la comunidad 
+     let string = 'PORTERIA'
+     let is_available = "'" + 0 + "'"
+     let porteria = "'" + string + "'"
+
+     let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available + 'AND door<>' + porteria
+     console.log(query2)
+     conexion.query(query2, function (err, rowCount, rows) {
+      if (err) {
+        throw err
+      } 
+      else {
+        let numPersonas = rowCount.length
+        let amountPersona = req.body.amount / numPersonas
+          for (let persona of rowCount) {
+          console.log('Añadimos la fila con el gasto de la persona con id floors de la derrama: ' + persona.id + ' la cantidad de: ' + amountPersona + ' con puerta: ' + persona.door + ' y piso: ' + persona.floor) 
+          let dataquery = {
+          doors_floors_id: "'" + persona.id + "'" ,
+          type_bill: "'" + 'NULL' + "'" ,
+          is_spill:"'" +  1 + "'" ,
+          amount:"'" + amountPersona + "'" 
+          }
+        let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
+        conexion.query(query3, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" +')'
+          conexion.query(query4, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } else {
+              return res.status(200)               
+            } 
+            })
+        } 
+        })
+      }
+    }
+  })
+}
+})
 }
 
 exports.findAllDebs = (req, res) => {

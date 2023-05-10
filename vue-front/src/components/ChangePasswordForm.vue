@@ -36,7 +36,6 @@ export default {
           button: 'OK'
         })
       } else {
-        console.log(this.tokenPass + ' FRONT')
         Services.changePassword(this.tokenPass, this.password, this.userPass).then(
           Response => {
             if (Response.data.OK) {
@@ -44,6 +43,8 @@ export default {
                 title: Response.data.message,
                 icon: 'success',
                 button: 'OK'
+              }).then(() => {
+                this.$router.push('/login')
               })
             } else {
               swal({

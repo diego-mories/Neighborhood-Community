@@ -11,7 +11,7 @@
             <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/notices" exact>
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
             </router-link>
-            <p>AVISOS</p>
+            <p> CONVOCATORIAS</p>
         </b-col>
         <b-col class="col-lg-2 col-md-10 col-sm-10 align-items: center" id="full">
             <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/deliveries" exact>
@@ -34,7 +34,7 @@
             <p>SUBIR CUENTAS</p>
         </b-col>
         <b-col class="col-lg-2 col-md-10 col-sm-10 align-items: center" id="full">
-            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/#" exact>
+            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/spills" exact>
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-file-invoice"/>
             </router-link>
             <p>SUBIR DERRAMAS</p>

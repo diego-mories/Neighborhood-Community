@@ -18,6 +18,7 @@ import Cameras from '../views/Cameras'
 import ConfigurationCommunity from '../views/ConfigurationCommunity'
 import ActiveUser from '../views/ActiveUser'
 import Bills from '../views/Bills'
+import Spills from '../views/Spills'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -43,6 +44,11 @@ export default new Router({
       path: '/bookingCourts',
       name: 'BookingCourts',
       component: BookingCourts
+    },
+    {
+      path: '/spills',
+      name: 'Spills',
+      component: Spills
     },
     {
       path: '/tennisCourt',

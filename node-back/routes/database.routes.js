@@ -94,6 +94,10 @@ module.exports = function (app) {
         controller.createBill
     )
     app.post(
+        '/api/dataBaseServices/createSpill',
+        controller.createSpill
+    )
+    app.post(
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs
     )

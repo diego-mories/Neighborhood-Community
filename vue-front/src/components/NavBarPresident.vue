@@ -9,7 +9,7 @@
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/notices" exact>
-                    CREAR AVISO
+                    CREAR CONVOCATORIA
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>
@@ -32,7 +32,7 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="#" exact>
+                <router-link tag="li" active-class="active" to="/spills" exact>
                     SUBIR DERRAMAS
                     <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-invoice"/>
                 </router-link>

@@ -55,8 +55,9 @@
 </template>
 
 <script>
-import Services from '../services/servicesDB'
+// import Services from '../services/servicesDB'
 import swal from 'sweetalert'
+import servicesDB from '../services/servicesDB'
 export default {
   data: () => ({
     confCommunity: {
@@ -83,11 +84,6 @@ export default {
       if (value === '6' || value === 6) return 'F'
       if (value === '7' || value === 7) return 'G'
       if (value === '8' || value === 8) return 'H'
-    },
-    test () {
-      console.log(this.formatDoor(1))
-      console.log(this.formatDoor(2))
-      console.log(this.formatDoor(3))
     },
     newCommunity () {
       if (this.confCommunity.myDoor > this.confCommunity.Doors || this.confCommunity.myFloor > this.confCommunity.floors) {
@@ -124,75 +120,84 @@ export default {
           floors: this.confCommunity.floors,
           doors: this.confCommunity.doors
         }
-        // Damos de alta una nueva comunidad, registramos las viviendas que existen
-        Services.newCommunity(data).then(
+        servicesDB.findOneEmail(this.user.email).then(
           Response => {
-            for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
-              for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
-                // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
-                if (this.letters) {
-                  let dataFD = {
-                    community_id: Response.data.community_id,
-                    floor: iteratorF,
-                    door: this.formatDoor(iteratorD)
-                  }
-                  Services.insertRowsFD(dataFD).then(
-                    Response => {
-                      console.log('Fila añadida a doors_floors')
-                    },
-                    Error => {
-                      console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+            if (Response.data.rowCount.length === 0) {
+              servicesDB.newCommunity(data).then(
+                Response => {
+                  for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
+                    for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
+                      // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
+                      if (this.letters) {
+                        let dataFD = {
+                          community_id: Response.data.community_id,
+                          floor: iteratorF,
+                          door: this.formatDoor(iteratorD)
+                        }
+                        servicesDB.insertRowsFD(dataFD).then(
+                          Response => {
+                            console.log('Fila añadida a doors_floors')
+                          },
+                          Error => {
+                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                          }
+                        )
+                      } else {
+                        let dataFD = {
+                          community_id: Response.data.community_id,
+                          floor: iteratorF,
+                          door: iteratorD
+                        }
+                        servicesDB.insertRowsFD(dataFD).then(
+                          Response => {
+                            console.log('Fila añadida a doors_floors')
+                          },
+                          Error => {
+                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                          }
+                        )
+                      }
                     }
-                  )
-                } else {
-                  let dataFD = {
-                    community_id: Response.data.community_id,
-                    floor: iteratorF,
-                    door: iteratorD
                   }
-                  Services.insertRowsFD(dataFD).then(
+                  this.user.community_id = Response.data.community_id
+                  this.user.role_id = 1 // President
+                  servicesDB.signUp(this.user).then(
                     Response => {
-                      console.log('Fila añadida a doors_floors')
+                      this.user.id = Response.data.user_id
+                      if (this.letters) {
+                        this.user.myDoor = this.formatDoor(this.confCommunity.myDoor)
+                        this.user.myFloor = this.confCommunity.myFloor
+                      } else {
+                        this.user.myDoor = this.confCommunity.myDoor
+                        this.user.myFloor = this.confCommunity.myFloor
+                      }
+                      servicesDB.uptadeFD(this.user).then(
+                        Response => {
+                          this.$swal.fire({
+                            icon: 'success',
+                            title: 'Nueva comunidad creada correctamente!!',
+                            text: Response.data.message
+                          }).then(() => {
+                            this.$router.push('/login')
+                          })
+                        },
+                        Error => {
+                          console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+                        }
+                      )
                     },
                     Error => {
-                      console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
                     }
                   )
                 }
-              }
+              )
+            } else {
+              this.$swal.fire({
+                icon: 'error',
+                title: 'Correo registrado en la plataforma, introduzca otro!!',
+                text: Response.data.message
+              })
             }
-            this.user.community_id = Response.data.community_id
-            this.user.role_id = 1 // President
-            Services.signUp(this.user).then(
-              Response => {
-                this.user.id = Response.data.user_id
-                if (this.letters) {
-                  this.user.myDoor = this.formatDoor(this.confCommunity.myDoor)
-                  this.user.myFloor = this.confCommunity.myFloor
-                } else {
-                  this.user.myDoor = this.confCommunity.myDoor
-                  this.user.myFloor = this.confCommunity.myFloor
-                }
-                console.log(this.user)
-                Services.uptadeFD(this.user).then(
-                  Response => {
-                    this.$swal.fire({
-                      icon: 'success',
-                      title: 'Nueva comunidad creada correctamente!!',
-                      text: Response.data.message
-                    }).then(() => {
-                      this.$router.push('/login')
-                    })
-                  },
-                  Error => {
-                    console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
-                  }
-                )
-              },
-              Error => {
-                console.log('Error en Registro')
-              }
-            )
           }
         )
       }

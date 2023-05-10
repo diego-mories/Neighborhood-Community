@@ -1,9 +1,9 @@
 <template>
   <div class="screen">
     <div class="row" id="grid-top-log">
-      <!-- <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+      <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
       <NavBarBuildingDoorman v-if="role === 2" id="full"></NavBarBuildingDoorman>
-      <NavBarOwner v-if="role === 3" id="full"></NavBarOwner> -->
+      <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
       <NavBarAdmin v-if="this.dataUserLogin.is_admin" id="full"></NavBarAdmin>
     </div>
     <div class="row" id="grid-top">
@@ -33,9 +33,11 @@ export default {
   },
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.dataUserLogin.role_id
   },
   data: () => ({
-    dataUserLogin: {}
+    dataUserLogin: {},
+    role: null
   })
 }
 </script>

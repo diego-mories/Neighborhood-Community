@@ -9,7 +9,7 @@
           <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
         </div>
         <div class="col-sm-11" id="full">
-          <span class="title"><b>Crear Aviso</b></span>
+          <span class="title"><b>Convocatoria de juntas</b></span>
         </div>
       </div>
       <div class="row" id="bottomR">
@@ -20,18 +20,21 @@
           <div class="input-group mb-3 d-flex justify-content-center">
             <b-form-group>
                 <div class="input-group">
-                    <label class="label-login">Ordem del día</label>
+                    <label class="label-login">Orden del día</label>
                     <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
                     <b-form-input type="text" class="form-control" placeholder="Orden del día" v-model="orderDay"></b-form-input>
                     <label class="label-login">Fecha</label>
                     <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
                     <b-form-input type="date" class="form-control" v-model="date"></b-form-input>
+                    <label class="label-login">Hora</label>
+                    <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
+                    <b-form-input type="time" class="form-control" v-model="hour"></b-form-input>
                 </div>
             </b-form-group>
           </div>
           <div class="input-group mb-3 d-flex justify-content-center">
             <b-form-group>
-                <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">Enviar acta por correo eletrínco a vecinos</b-button>
+                <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">Enviar acta por correo eletrónico a vecinos</b-button>
                 <b-button class="m-3" variant="outline-primary" type="submit" @click="printDiv()">Imprimir acta</b-button>
             </b-form-group>
           </div>
@@ -58,13 +61,13 @@ export default {
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
-    console.log(this.dataUserLogin)
     this.getData()
   },
   data () {
     return {
       role: null,
       date: null,
+      hour: null,
       orderDay: null,
       dataUserLogin: {},
       arrayPeople: [],
@@ -91,7 +94,7 @@ export default {
     },
     printDiv () {
       const text = '<p><em>COMUNIDAD DE PROPIETARIOS DE VIVIENDAS</em></p><br><p style="text-align:center"><strong>CONVOCATORIA A JUNTA GENERAL ORDINARIA </strong></p><br>'
-      const text2 = '<p>Estimados Señores:</p><br><p> De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, quetendrá lugar el próximo día <span class="Blank Short">  ' + this.date + '</span> , con arreglo al siguiente:</p>'
+      const text2 = '<p>Estimados Señores:</p><br><p> De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, quetendrá lugar el próximo día <span class="Blank Short">  ' + this.date + '</span>, a las: ' + this.hour + ' con arreglo al siguiente:</p>'
       const text3 = '<p style="text-align:center">ORDEN DEL DÍA</p><p>- ' + this.orderDay + '</p>'
       const text4 = '<p style="text-align:center">Fdo. <br></p><p style="text-align:center"> ' + this.dataUserLogin.name + ' ' + this.dataUserLogin.surname + '   </p><br><br><br><br>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<br><br>'
       var a = window.open('', '', 'height=1000, width=1000')
@@ -106,11 +109,17 @@ export default {
     },
     sendNotice () {
       for (let id of this.copyArrayIds) {
-        servicesDB.sendNotice(id, this.date, this.orderDay).then(
+        servicesDB.sendNotice(id, this.date, this.hour, this.orderDay).then(
           Response => {
-            console.log(Response.data.rowCount[0].email)
+            this.$swal.fire({
+              icon: 'success',
+              title: 'Emails enviados!!'
+            }).then(() => {
+              this.$router.push('/login')
+            })
           },
           Error => {
+            console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
           }
         )
       }

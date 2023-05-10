@@ -37,10 +37,11 @@ class Services {
   searchNameCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchNameCommunity?community_id=' + communityId)
   }
-  sendNotice (id, date, orderDay) {
+  sendNotice (id, date, hour, orderDay) {
     const body = {
       user_id: id,
       date: date,
+      hour: hour,
       orderDay: orderDay
     }
     return http.post(API_URL_PATH + 'sendNotice', body)
@@ -166,6 +167,16 @@ class Services {
       amount: data.amount
     }
     return http.post(API_URL_PATH + 'createBill', body)
+  }
+  // Create new Spill
+  createSpill (data) {
+    const body = {
+      community_id: data.community_id,
+      description: data.description,
+      date_p: data.date,
+      amount: data.amount
+    }
+    return http.post(API_URL_PATH + 'createSpill', body)
   }
   // Find all debs user
   findAllDebs (user) {

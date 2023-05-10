@@ -236,6 +236,7 @@ export default {
       )
     },
     registerDoorman () {
+      console.log(this.newDoorman)
       Services.signUpDoorman(this.newDoorman).then(
         Response => {
           this.$swal.fire({
@@ -273,7 +274,7 @@ export default {
               Response => {
                 this.$swal.fire({
                   icon: 'success',
-                  title: 'Oops...',
+                  title: 'OK.',
                   text: 'Nuevo portero dado de alta en la comunidad correctamente'
                 }).then(() => {
                   this.$router.push({ path: `/login` })
@@ -367,6 +368,8 @@ export default {
                       this.$swal.fire({
                         icon: 'success',
                         text: 'Alta de persona de otra comunidad en la nuestra de forma correcta como propietario'
+                      }).then(() => {
+                        this.$router.push({ path: `/login` })
                       })
                     },
                     Error => {
