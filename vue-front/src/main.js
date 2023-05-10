@@ -7,7 +7,7 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
-
+import moment from 'moment'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -67,12 +67,22 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueSweetalert2)
 Vue.use(BootstrapVue)
 
+Vue.filter('formatDateP', function (value) {
+  if (value) {
+    return moment(String(value)).format('MM/DD/YYYY HH:mm')
+  }
+})
+
 Vue.filter('formatBill', function (value) {
   if (value === 1) return '🔥'
   if (value === 2) return '💡'
   if (value === 3) return '💧'
+  if (value === 0) return 'DERRAMA'
 })
-
+Vue.filter('formatDescription', function (value) {
+  if (value === '' || value === null) return '-------'
+  else return value
+})
 Vue.filter('formatAmount', function (value) {
   return value + ' €'
 })
@@ -94,18 +104,7 @@ Vue.filter('formatDate', function (value) {
   if (mes === '12') mes = 'Diciembre'
   return mes + ' (' + año + ')'
 })
-// Vue.filter('gas', function (value) {
-//   if (value === 1) console.log(value)
-//   else return 'CACA'
-// })
-// Vue.filter('light', function (value) {
-//   if (value === 1) console.log(value)
-//   else return 'CACA'
-// })
-// Vue.filter('water', function (value) {
-//   if (value === 1) console.log(value)
-//   else return 'CACA'
-// })
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

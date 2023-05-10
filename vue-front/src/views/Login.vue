@@ -25,6 +25,9 @@
             <template #cell(date_p)="data">
               {{ data.item.date_p | formatDate}}
             </template>
+            <template #cell(description)="data">
+              {{ data.item.description | formatDescription}}
+            </template>
             <template #cell(amount)="data">
               {{ data.item.amount | formatAmount}}
             </template>
@@ -39,7 +42,7 @@
           </b-table>
         </div>
         <div class="container">
-          <h3 class=" mb-0 pb-0">GASTOS COMUNIDAD</h3>
+          <h3 class=" mb-0 pb-0">GASTOS ORDINARIOS COMUNIDAD</h3>
           <b-table
           class="m-5 "
           style="overflow-y:auto;height: 25vh !important;"
@@ -133,6 +136,7 @@ export default {
     headers: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
       { key: 'type_bill', label: 'Tipo de gasto' },
+      { key: 'description', label: 'Descripción' },
       { key: 'date_p', sortable: true, label: 'Fecha' },
       { key: 'options', label: 'Pagar' }
     ],
@@ -167,6 +171,7 @@ export default {
   },
   created () {
     this.getData()
+    console.log(this.debs, 'aui')
   },
   methods: {
     openPay (row) {

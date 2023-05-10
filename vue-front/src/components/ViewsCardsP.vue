@@ -43,7 +43,7 @@
             <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/bills" exact>
                     <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
             </router-link>
-            <p>GASTOS</p>
+            <p>PAGOS</p>
         </b-col>
     </b-row>
 </div>

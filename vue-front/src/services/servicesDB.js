@@ -57,6 +57,7 @@ class Services {
   findOneEmail (email) {
     return http.get(API_URL_PATH + 'findOneEmail?email=' + email)
   }
+
   // Register doorman, if exist
   signUpDoorman (user) {
     const body = {
@@ -186,6 +187,17 @@ class Services {
       floor: user.floor
     }
     return http.post(API_URL_PATH + 'findAllDebs', body)
+  }
+  findPayment (id) {
+    return http.get(API_URL_PATH + 'findPayment?deb_id=' + id)
+  }
+  findAllDebsAllIds (user) {
+    const body = {
+      community_id: user.community_id,
+      door: user.door,
+      floor: user.floor
+    }
+    return http.post(API_URL_PATH + 'findAllDebsAllIds', body)
   }
   findAllBills (communityId) {
     const body = {

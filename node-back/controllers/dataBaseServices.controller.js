@@ -4,7 +4,6 @@ const random = require('string-random')
 const bycript = require('bcrypt')
 const dbConfig = require ('../config/db.config')
 const mailConfig = require ('../config/mail.config')
-
 // MAIL Config
 var mailTransporter = nodemailer.createTransport({
   host: mailConfig.host,
@@ -721,7 +720,7 @@ exports.createBill = (req, res) => {
             if (err) {
               throw err
             } else {
-              let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" +')'
+              let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount,d_deb) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" +  ',' + data.date_p + ')'
               conexion.query(query4, function (err, rowCount, rows) {
                 if (err) {
                   throw err
@@ -776,12 +775,12 @@ exports.createSpill = (req, res) => {
           is_spill:"'" +  1 + "'" ,
           amount:"'" + amountPersona + "'" 
           }
-        let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
+        let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount, description) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount + ',' + data.description +')'  
         conexion.query(query3, function (err, rowCount, rows) {
         if (err) {
           throw err
         } else {
-          let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" +')'
+          let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount, description, d_deb) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" + ',' + data.description  + ',' + data.date_p +')'
           conexion.query(query4, function (err, rowCount, rows) {
             if (err) {
               throw err
@@ -824,9 +823,37 @@ exports.findAllDebs = (req, res) => {
     } 
   })
 }
+exports.findAllDebsAllIds = (req, res) => {
+  let data = {
+    community_id: "'" + req.body.community_id + "'" , 
+    door: "'" + req.body.door + "'", 
+    floor:"'" +  req.body.floor + "'", 
+  }
+  let query = "SELECT * FROM doors_floors WHERE community_id= " + data.community_id + 'AND door=' + data.door + 'AND floor=' + data.floor
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let doors_floors_id = "'" + rowCount[0].id + "'"
+      let query2 = "SELECT * FROM debs WHERE door_floors_id= " + doors_floors_id
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          // console.log(rowCount)
+          let dataResponse = []
+          for (let row of rowCount) {
+            dataResponse.push(row.id)
+          }
+          console.log(dataResponse)
+          res.status(200).send({dataResponse})    
+        } 
+      })
+    } 
+  })
+}
 
 exports.findAllBills = (req, res) => {
-  
   let community_id = "'" + req.body.community_id + "'" 
   let query = "SELECT * FROM bills WHERE community_id= " + community_id
   conexion.query(query, function (err, rowCount, rows) {
@@ -834,19 +861,30 @@ exports.findAllBills = (req, res) => {
       throw err
     } else {
           let dataResponse = rowCount
-          console.log(rowCount)
           res.status(200).send({dataResponse})    
         } 
-      })
+  })
 } 
-
+exports.findPayment = (req, res) => {
+  let deb_id = "'" + req.query.deb_id + "'"
+  let query = 'SELECT * FROM payments WHERE deb_id=' + deb_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send(rowCount)    
+    } 
+  })
+}
 
 exports.pay = (req,res) => {
+  let now = new Date()
   let dataQuery = {
     deb_id: "'" + req.body.deb_id + "'",
-    amount: "'" + req.body.amount + "'"
+    amount: "'" + req.body.amount + "'",
+    d_payment: "'" + now + "'"
   }
-  let query = 'UPDATE payments SET amount=' +  dataQuery.amount + 'WHERE deb_id=' + dataQuery.deb_id
+  let query = 'UPDATE payments SET amount=' +  dataQuery.amount + ', d_payment= ' + dataQuery.d_payment + 'WHERE deb_id=' + dataQuery.deb_id
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err

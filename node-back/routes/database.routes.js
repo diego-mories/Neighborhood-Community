@@ -89,6 +89,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/searchDoorman',
         controller.searchDoorman
     )
+    app.get(
+        '/api/dataBaseServices/findPayment',
+        controller.findPayment
+    )
     app.post(
         '/api/dataBaseServices/createBill',
         controller.createBill
@@ -100,6 +104,10 @@ module.exports = function (app) {
     app.post(
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs
+    )
+    app.post(
+        '/api/dataBaseServices/findAllDebsAllIds',
+        controller.findAllDebsAllIds
     )
     app.post(
         '/api/dataBaseServices/findAllBills',

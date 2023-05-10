@@ -39,7 +39,7 @@
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="#" exact>
-                    MIS GASTOS
+                    MIS PAGOS
                     <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
                 </router-link>
             </div>

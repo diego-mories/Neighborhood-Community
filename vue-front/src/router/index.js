@@ -19,6 +19,7 @@ import ConfigurationCommunity from '../views/ConfigurationCommunity'
 import ActiveUser from '../views/ActiveUser'
 import Bills from '../views/Bills'
 import Spills from '../views/Spills'
+import Payments from '../views/Payments'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -69,6 +70,11 @@ export default new Router({
       path: '/deliveries',
       name: 'Deliveries',
       component: Deliveries
+    },
+    {
+      path: '/payments',
+      name: 'Payments',
+      component: Payments
     },
     {
       path: '/profile',
