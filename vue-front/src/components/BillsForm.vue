@@ -59,7 +59,14 @@ export default {
       if (this.dataForm.type !== null && this.dataForm.date !== null && this.dataForm.amount !== null) {
         servicesDB.createBill(this.dataForm).then(
           Response => {
-
+            if (Response.status === 200) {
+              this.$swal.fire({
+                icon: 'success',
+                text: 'Cuenta añadida correctamente'
+              }).then(() => {
+                this.$router.push({ path: `/login` })
+              })
+            }
           },
           Error => {
           }

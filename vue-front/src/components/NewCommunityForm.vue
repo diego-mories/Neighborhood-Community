@@ -9,7 +9,7 @@
             </div>
             <div class="input-group mb-3 d-flex">
               <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Plantas" v-model="confCommunity.floors"></b-form-input>
-              <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Puertas" v-model="confCommunity.doors"></b-form-input>
+              <b-form-input type="number" class="form-control w-5 mr-1" min="1" max="10" placeholder="Puertas por planta" v-model="confCommunity.doors"></b-form-input>
               <input class="m-2" type="checkbox" id="cameras" value="1" v-model="letters"/>
               <span class="d-flex align-items-center">¿Puertas con letras? (1=A 2=A,B 3=A,B,C 4=A,B,C,D 5=A,B,C,D,E)</span>
             </div>
@@ -175,8 +175,7 @@ export default {
                         Response => {
                           this.$swal.fire({
                             icon: 'success',
-                            title: 'Nueva comunidad creada correctamente!!',
-                            text: Response.data.message
+                            title: 'Nueva comunidad creada correctamente!!'
                           }).then(() => {
                             this.$router.push('/login')
                           })
@@ -189,13 +188,18 @@ export default {
                     Error => {
                     }
                   )
+                },
+                Error => {
+                  this.$swal.fire({
+                    icon: 'error',
+                    text: Error.data
+                  })
                 }
               )
             } else {
               this.$swal.fire({
                 icon: 'error',
-                title: 'Correo registrado en la plataforma, introduzca otro!!',
-                text: Response.data.message
+                text: 'Email ya existente en la plataforma'
               })
             }
           }

@@ -35,8 +35,8 @@
                             {{ data.item.description | formatDescription}}
                             </template>
                             <template #cell(amount)="data">
-                                {{ data.item.amount | formatAmount}}
-                                </template>
+                              {{ data.item.amount | formatAmount}}
+                              </template>
                             <template #cell(type_bill)="data">
                                 {{ data.item.type_bill | formatBillP}}
                             </template>
@@ -130,6 +130,7 @@ export default {
       }
     },
     downloadPDFWithjsPDF () {
+      const fecha = new Date()
       // eslint-disable-next-line new-cap
       const doc = new jsPDF()
       const $ = require('jquery')
@@ -137,7 +138,7 @@ export default {
       window.$ = $
       // eslint-disable-next-line new-cap
       autoTable(doc, { html: '#payTable' })
-      doc.save('table.pdf')
+      doc.save('Pagos-' + fecha.toLocaleDateString() + '.pdf')
     }
   }
 }

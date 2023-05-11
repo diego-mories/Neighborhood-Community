@@ -168,7 +168,7 @@ exports.newCommunity = async (req, res) => {
           }
         })
       } else {
-        console.log('Error al crear una comunidad con el mismo nombre ')
+        res.status(404).send('Error al crear una comunidad con el mismo nombre ')   
       }
       
     }
@@ -210,7 +210,7 @@ exports.signUp = async (req, res) => {
                 to: '' + data.email,
                 subject: 'Bienvenido',
                 text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-                ', tu contraseña inicial de inicio de sesión es: ' + password + ' nuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+                ', tu contraseña inicial de inicio de sesión es: ' + password + '\nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
               }
               mailTransporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -725,19 +725,19 @@ exports.createBill = (req, res) => {
                 if (err) {
                   throw err
                 } else {
-                  console.log('Cuentas, pagos y deudas añadidas correctamente')                  
-                } 
+                  console.log('OK')
+                  } 
                 })
             } 
             })
           }
+          res.status(200).send({message:'Cuenta añadida'})
         }
       })
     }
   })
 }
 exports.createSpill = (req, res) => {
-  console.log(req.body)
   // // Insertamos la fila en la tabla bills
   var data = {
     community_id: "'" + req.body.community_id + "'" ,
@@ -746,7 +746,6 @@ exports.createSpill = (req, res) => {
     amount: "'" + req.body.amount + "'",
   }
   let query = 'INSERT INTO spill_of_money (id, community_id,amount,description) VALUES (NULL,' + data.community_id + ',' + data.amount + ',' + data.description + ')'  
-  console.log(query)
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err
@@ -759,7 +758,6 @@ exports.createSpill = (req, res) => {
      let porteria = "'" + string + "'"
 
      let query2 = 'SELECT * FROM doors_floors WHERE community_id=' + data.community_id + 'AND is_available= ' + is_available + 'AND door<>' + porteria
-     console.log(query2)
      conexion.query(query2, function (err, rowCount, rows) {
       if (err) {
         throw err
@@ -768,7 +766,8 @@ exports.createSpill = (req, res) => {
         let numPersonas = rowCount.length
         let amountPersona = req.body.amount / numPersonas
           for (let persona of rowCount) {
-          console.log('Añadimos la fila con el gasto de la persona con id floors de la derrama: ' + persona.id + ' la cantidad de: ' + amountPersona + ' con puerta: ' + persona.door + ' y piso: ' + persona.floor) 
+            console.log('AQUI' + persona)
+          // console.log('Añadimos la fila con el gasto de la persona con id floors de la derrama: ' + persona.id + ' la cantidad de: ' + amountPersona + ' con puerta: ' + persona.door + ' y piso: ' + persona.floor) 
           let dataquery = {
           doors_floors_id: "'" + persona.id + "'" ,
           type_bill: "'" + 'NULL' + "'" ,
@@ -785,12 +784,13 @@ exports.createSpill = (req, res) => {
             if (err) {
               throw err
             } else {
-              return res.status(200)               
+              console.log('ok')   
             } 
             })
         } 
         })
       }
+      res.status(200).send({message:'Derrama añadida'})
     }
   })
 }

@@ -40,7 +40,7 @@
             <p>SUBIR DERRAMAS</p>
         </b-col>
         <b-col class="col-lg-2 col-md-10 col-sm-10" id="full">
-            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/bills" exact>
+            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/payments" exact>
                     <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
             </router-link>
             <p>PAGOS</p>

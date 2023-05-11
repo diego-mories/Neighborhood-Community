@@ -30,12 +30,14 @@ export default {
     save () {
       servicesDB.createSpill(this.dataForm).then(
         Response => {
-          this.$swal.fire({
-            icon: 'success',
-            text: 'Derrama añadida correctamente'
-          }).then(() => {
-            this.$router.push({ path: `/login` })
-          })
+          if (Response.status === 200) {
+            this.$swal.fire({
+              icon: 'success',
+              text: 'Derrama añadida correctamente'
+            }).then(() => {
+              this.$router.push({ path: `/login` })
+            })
+          }
         },
         Error => {
         }
