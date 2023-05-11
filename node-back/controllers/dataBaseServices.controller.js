@@ -542,7 +542,7 @@ exports.resetPassword = (req, res) => {
                   to: '' + req.query.email,
                   subject: 'Recuperación de contraseña',
                   text: '¡Hola! ' + nameUser + ', hemos generado una contraseña aleatoria para iniciar sesión, una vez acceda a su perfil puede cambiarla, la contraseña es: ' + newPass 
-                  + ' . Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://localhost:8080' 
+                  + ' \n Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://localhost:8080' 
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {

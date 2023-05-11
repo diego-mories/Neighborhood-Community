@@ -171,7 +171,6 @@ export default {
   },
   created () {
     this.getData()
-    console.log(this.debs, 'aui')
   },
   methods: {
     openPay (row) {

@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import moment from 'moment'
+import VeeValidate, { Validator } from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
@@ -67,6 +68,14 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueSweetalert2)
 Vue.use(BootstrapVue)
 
+Vue.use(VeeValidate, {
+  // This is the default
+  inject: true,
+  // Important to name this something other than 'fields'
+  fieldsBagName: 'veeFields',
+  // This is not required but avoids possible naming conflicts
+  errorBagName: 'veeErrors'
+})
 Vue.filter('formatDateP', function (value) {
   if (value) {
     return moment(String(value)).format('MM/DD/YYYY HH:mm')
@@ -110,7 +119,6 @@ Vue.filter('formatDate', function (value) {
   if (mes === '12') mes = 'Diciembre'
   return mes + ' (' + año + ')'
 })
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
