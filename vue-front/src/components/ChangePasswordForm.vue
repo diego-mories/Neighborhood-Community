@@ -6,10 +6,36 @@
       <div class="input-group mb-3">
         <label class="label-login">Contraseña</label>
         <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-key" /></span>
-        <b-form-input type="password" class="form-control" placeholder="Contraseña" v-model="password"></b-form-input>
+        <b-form-input
+          v-model="password"
+          id="input-password"
+          name="input-password"
+          v-validate="{ required: true}"
+          type="password"
+          class="form-control"
+          aria-describedby="input-password-live-feedback"
+          placeholder="Contraseña"
+          :state="validateState('input-password')"
+        ></b-form-input>
+        <b-form-invalid-feedback id="input-password" class="msgE">
+            {{ veeErrors.first('input-password')?'Contraseña no puede estar vacía':'' }}
+        </b-form-invalid-feedback>
         <label class="label-login">Repetir contraseña</label>
         <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-key" /></span>
-        <b-form-input type="password" class="form-control" placeholder="Contraseña" v-model="passwordRepeat"></b-form-input>
+        <b-form-input
+          v-model="passwordRepeat"
+          id="input-passwordRepeat"
+          name="input-passwordRepeat"
+          v-validate="{ required: true}"
+          type="password"
+          class="form-control"
+          aria-describedby="input-passwordRepeat-live-feedback"
+          placeholder="Repetir contraseña"
+          :state="validateState('input-passwordRepeat')"
+        ></b-form-input>
+        <b-form-invalid-feedback id="input-passwordRepeat" class="msgE">
+            {{ veeErrors.first('input-passwordRepeat')?'Contraseña no puede estar vacía':'' }}
+        </b-form-invalid-feedback>
       </div>
         <b-button variant="outline-primary" type="submit">Cambiar contraseña</b-button>
     </b-form-group>
@@ -29,7 +55,11 @@ export default {
   }),
   methods: {
     changePass () {
-      if (this.password !== this.passwordRepeat) {
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return 
+        }
+        if (this.password !== this.passwordRepeat) {
         swal({
           title: 'Las contraseñas no coinciden',
           icon: 'error',
@@ -59,6 +89,17 @@ export default {
           }
         )
       }
+
+      })
+    },
+    validateState (ref) {
+      if (
+        this.veeFields[ref] &&
+        (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+      ) {
+        return !this.veeErrors.has(ref)
+      }
+      return null
     }
   },
   created () {
