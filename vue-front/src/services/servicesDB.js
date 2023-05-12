@@ -192,6 +192,10 @@ class Services {
     }
     return http.post(API_URL_PATH + 'createSpill', body)
   }
+  
+  deleteDP (user) {
+    return http.delete(API_URL_PATH + 'deleteDP?community_id=' + user.community_id + '&door=' + user.door + '&floor=' + user.floor )
+  }
   // Find all debs user
   findAllDebs (user) {
     const body = {
@@ -225,6 +229,14 @@ class Services {
     }
     console.log(body)
     return http.put(API_URL_PATH + 'pay', body)
+  }
+  deleteOH (data) {
+    const body = {
+      community_id: data.community_id,
+      door: data.door,
+      floor: data.floor
+    }
+    return http.put(API_URL_PATH + 'deleteOH', body)
   }
 }
 

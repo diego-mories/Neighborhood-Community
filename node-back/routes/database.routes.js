@@ -113,6 +113,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs
     )
+    app.delete(
+        '/api/dataBaseServices/deleteDP',
+        controller.deleteDP
+    )
     app.post(
         '/api/dataBaseServices/findAllDebsAllIds',
         controller.findAllDebsAllIds
@@ -125,4 +129,9 @@ module.exports = function (app) {
         '/api/dataBaseServices/pay',
         controller.pay
     )
+    app.put(
+        '/api/dataBaseServices/deleteOH',
+        controller.deleteOH
+    )
+    
 }

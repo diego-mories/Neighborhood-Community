@@ -728,7 +728,6 @@ exports.createBill = (req, res) => {
     type_id:"'" + req.body.type + "'"
   }
   let query = 'INSERT INTO bills (id, community_id,date_p,type_id,amount) VALUES (NULL,' + data.community_id + ',' + data.date_p + ',' + data.type_id + ',' + data.amount + ')'  
-  console.log(query)
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err
@@ -783,7 +782,6 @@ exports.createBill = (req, res) => {
   })
 }
 exports.createSpill = (req, res) => {
-  console.log('Entramos')
   // // Insertamos la fila en la tabla bills
   var data = {
     community_id: "'" + req.body.community_id + "'" ,
@@ -865,6 +863,68 @@ exports.findAllDebs = (req, res) => {
         } 
       })
     } 
+  })
+}
+exports.deleteDP = (req, res) => {
+  let data = {
+    community_id: "'" + req.query.community_id + "'" , 
+    door: "'" + req.query.door + "'", 
+    floor:"'" +  req.query.floor + "'", 
+  }
+  console.log(data)
+  let query = "SELECT * FROM doors_floors WHERE community_id= " + data.community_id + 'AND door=' + data.door + 'AND floor=' + data.floor
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      var doors_floors_id = "'" + rowCount[0].id + "'"
+      let query2 = "SELECT * FROM debs WHERE door_floors_id= " + doors_floors_id
+      console.log(query2)
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } else {
+          let arrayDebs = rowCount
+          for (let deb of arrayDebs){
+            let query3 = "DELETE  FROM payments WHERE deb_id=" + "'" + deb.id + "'"
+            console.log(query3)
+            conexion.query(query3, function (err, rowCount, rows) {
+              if (err) {
+                throw err
+              } else {
+                console.log('Pago eliminado con id:' + deb.id)
+              }
+            })
+          } 
+          let query4 = "DELETE  FROM debs WHERE door_floors_id= " + doors_floors_id
+          console.log(query4)
+          conexion.query(query4, function (err, rowCount, rows) {
+            if (err) {
+              throw err
+            } else {
+              res.status(200).send({message:'Registros borrados'})    
+            }
+          })
+        } 
+      })
+    } 
+  })
+}
+exports.deleteOH = (req, res) => {
+  let data = {
+    community_id: "'" + req.body.community_id + "'" , 
+    door: "'" + req.body.door + "'", 
+    floor:"'" +  req.body.floor + "'", 
+  }
+  let query = "UPDATE doors_floors SET user_id=" + "'" + null + "'"  + ", is_available= " + "'" + 1 + "'"  + "WHERE community_id= " + data.community_id + 'AND door=' + data.door + 'AND floor=' + data.floor
+  console.log(query)
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      console.log('Funciona')
+      res.status(200).send({message:'Usuario eliminado de la vivienda'})    
+    }
   })
 }
 exports.findAllDebsAllIds = (req, res) => {

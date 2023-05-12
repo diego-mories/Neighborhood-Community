@@ -150,14 +150,17 @@ export default {
       })
     },  
     deleteOwner() {
-      let data = {
+      this.$validator.validateAll(['input-house2']).then(result => {
+        if (!result) {
+          return
+        }
+        var data = {
         community_id: this.userLogin.community_id,
         door: this.selected1.d,
         floor: this.selected1.f
       }
       Services.findAllDebs(data).then(
         Response => {
-          // console.log(Response.data.dataResponse)
           if (Response.data.dataResponse.length > 0) {
             this.$swal.fire({
               icon: 'error',
@@ -168,13 +171,42 @@ export default {
               this.$validator.reset()
             })
           } else {
-            console.log('No tenemos deudas no podemos eliminar')
+            Services.deleteDP(data).then(
+              Response => {
+                // Services.deleteOHouse(data.floor,data.floor).then()
+                if(Response.status === 200) {
+                  this.$swal.fire({
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    title: 'Registros de deudas y pagos eliminados del propietario, desasignando casa...!!'
+                  }).then(() => {
+                    console.log('DELETEOH')
+                    Services.deleteOH(data).then(
+                      Response => {
+                        this.$swal.fire({
+                          icon: 'success',
+                          title: 'Vivienda libre de cargos y de propietario!!',
+                          showConfirmButton: false,
+                          timer: 2500
+                        }).then(()=> {this.$router.push({ path: '/login' })})
+                      },
+                      Error => {
+
+                      }
+                    )
+                  })
+                }
+              },
+              Error=> {
+
+              })
           }
         },
         Error => {
           console.log('Error al buscar datos de deudas')
-        }
-      )
+      })
+      })
     },
     validateState (ref) {
       if (
