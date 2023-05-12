@@ -19,7 +19,7 @@
       <div class="card p-5 center-form" id="full">
         <div class="row d-flex">
           <div class="col-sm-2 " id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">Volver</button>
           </div>
           <div class="col-sm-10" id="full"><h4>Designación de presidente</h4>
           <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     searchMyCommunity2 () {
-      console.log(this.userLogin.community_id)
       Services.searchMyCommunity2(this.userLogin.community_id, this.userLogin.floor,this.userLogin.door).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
@@ -81,14 +80,16 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion de los pisos y plantas disponibles')
+          console.log('Error al obtener informacion de los pisos y plantas ocupadas para la designación')
         }
       )
     },
     changePresident () {
-      console.log(this.userLogin)
-      console.log(this.selected)
-      let data = {
+      this.$validator.validateAll(['input-house']).then(result => {
+        if (!result) {
+          return
+        }
+        let data = {
         floorNew: this.selected.f,
         doorNew: this.selected.d,
         floorP: this.userLogin.floor,
@@ -111,9 +112,9 @@ export default {
           }
         },
         Error => {
-
-        }
-      )
+          console.log('Error en la designación')
+        })
+      })
     },  
     validateState (ref) {
       if (
