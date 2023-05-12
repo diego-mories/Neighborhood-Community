@@ -121,11 +121,11 @@
               v-model="user.phone"
               id="input-user-phone"
               name="input-user-phone"
-              v-validate="{ required: true}"
-              type="tel"
+              v-validate="{ required: true, digits:9}"
+              type="number"              
               class="form-control"
               aria-describedby="input-user-phone-live-feedback"
-              placeholder="XXX-XX-XX-XX"
+              placeholder="Teléfono (9 dígitos)"
               :state="validateState('input-user-phone')"
             ></b-form-input>
             <b-form-invalid-feedback id="input-user-phone" class="msgE2">
@@ -152,7 +152,7 @@
               v-model="confCommunity.myDoor"
               id="input-community-myDoor"
               name="input-community-myDoor"
-              v-validate="{ required: true, min_value:1,max_value: confCommunity.Doors}"
+              v-validate="{ required: true, min_value:1,max_value: confCommunity.doors}"
               type="number"
               min="1" max="10"
               class="form-control w-5 mr-1"

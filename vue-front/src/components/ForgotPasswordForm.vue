@@ -53,6 +53,8 @@ export default {
                 title: Response.data.message,
                 icon: 'success',
                 button: 'OK'
+              }).then(() => {
+                this.$router.push('/')
               })
             }
           },

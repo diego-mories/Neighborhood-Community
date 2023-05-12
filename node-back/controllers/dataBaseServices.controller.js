@@ -276,6 +276,7 @@ exports.updateFDDoorman = (req,res) => {
     else {
       let doorman_active = "'" + 1 + "'"
       let query2 = 'UPDATE community SET doorman_active=' + doorman_active + 'WHERE id=' + data.community_id
+      console.log(query2)
       conexion.query(query2, function (err, rowCount, rows) {
         if (err) {
           throw err

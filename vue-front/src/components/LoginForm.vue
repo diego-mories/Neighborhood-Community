@@ -92,7 +92,7 @@ export default {
     async login () {
       this.$validator.validateAll(['input-user-password', 'input-user-email']).then(result => {
         if (!result) {
-          return 
+          return
         } else {
           Services.login(this.user).then(
             Response => {
