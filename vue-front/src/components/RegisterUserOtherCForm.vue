@@ -1,4 +1,4 @@
-<template v-else-if="!addHouse && addHouseOtherC">
+<template>
     <b-form >
       <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
       <div class="input-group mb-3 d-flex justify-content-center">

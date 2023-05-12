@@ -9,7 +9,7 @@
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/notices" exact>
-                    CREAR CONVOCATORIA
+                    CONVOCATORIAS
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>

@@ -4,17 +4,50 @@
       <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/bill.png"></span>
           <b-form-group>
             <div class="input-group mb-3">
-              <select v-model="selected" class="form-select mx-auto mt-5" aria-label="Default select example" id="lang">
+              <b-form-select
+                v-model="selected"
+                id="input-house2"
+                name="input-house2"
+                v-validate="{ required: true}"
+                :state="validateState('input-house2')"
+                aria-describedby="input-house2-live-feedback">
                 <option value="null">Tipo de factura</option>
                 <option value="1">Gas 🔥</option>
                 <option value="2">Luz 💡</option>
                 <option value="3">Agua 💧</option>
-              </select>
+              </b-form-select>
+              <b-form-invalid-feedback id="input-house2" class="msgE">
+              {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
+              </b-form-invalid-feedback>                
             </div>
             <div class="input-group mb-3 align-items-center">
-              <b-form-input type="number" class="form-control w-5 mr-3" min="0" placeholder="Cantidad" v-model="dataForm.amount" required></b-form-input>
-              <input type="month" id="start" v-model="dataForm.date" required>
-              <span class="validity m-0 p-0"></span>
+              <b-form-input
+                v-model="dataForm.amount"
+                id="input-dataForm-amount"
+                name="input-dataForm-amount"
+                v-validate="{ required: true }"
+                type="number"
+                class="form-control mr-3"
+                aria-describedby="input-dataForm-amount-live-feedback"
+                placeholder="Cantidad"
+                :state="validateState('input-dataForm-amount')"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-dataForm-amount" class="msgE2">
+                {{ veeErrors.first('input-dataForm-amount')?'Campo obligatorio':'' }}
+              </b-form-invalid-feedback>
+              <b-form-input
+                v-model="dataForm.date"
+                id="input-dataForm-date"
+                name="input-dataForm-date"
+                v-validate="{ required: true }"
+                type="month"
+                class="form-control mr-3"
+                aria-describedby="input-dataForm-date-live-feedback"
+                :state="validateState('input-dataForm-date')"
+              ></b-form-input>
+              <b-form-invalid-feedback id="input-dataForm-date" class="msgE2">
+                {{ veeErrors.first('input-dataForm-date')?'Campo obligatorio':'' }}
+              </b-form-invalid-feedback>
             </div>
           </b-form-group>
           <b-button variant="outline-primary" type="submit" @click.stop.prevent="save()">Guardar</b-button>
@@ -35,28 +68,7 @@ export default {
   methods: {
     save () {
       this.dataForm.type = this.selected
-      if (this.dataForm.type === null) {
-        swal({
-          title: 'Selecciona antes el tipo de gasto porfavor',
-          icon: 'error',
-          button: 'OK'
-        })
-      }
-      if (this.dataForm.amount === null) {
-        swal({
-          title: 'Introduce una cantidad por favor',
-          icon: 'error',
-          button: 'OK'
-        })
-      }
-      if (this.dataForm.date === null) {
-        swal({
-          title: 'Introduce una fecha por favor',
-          icon: 'error',
-          button: 'OK'
-        })
-      }
-      if (this.dataForm.type !== null && this.dataForm.date !== null && this.dataForm.amount !== null) {
+      
         servicesDB.createBill(this.dataForm).then(
           Response => {
             if (Response.status === 200) {
@@ -69,12 +81,19 @@ export default {
             }
           },
           Error => {
-          }
-        )
+          })
+    },
+    validateState (ref) {
+      if (
+        this.veeFields[ref] &&
+        (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+      ) {
+        return !this.veeErrors.has(ref)
       }
+      return null
     }
   },
-  mounted () {
+  created () {
     this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.dataForm.community_id = this.userLogin.community_id
   }

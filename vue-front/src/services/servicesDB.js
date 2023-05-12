@@ -152,12 +152,25 @@ class Services {
   searchMyCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchMyCommunity?community_id=' + communityId)
   }
-  searchDF (userId) {
-    return http.get(API_URL_PATH + 'searchMyCommunity?user_id=' + userId)
+  searchMyCommunity2 (communityId,floor,door) {
+    return http.get(API_URL_PATH + 'searchMyCommunity2?community_id=' + communityId + '&floor=' + floor + '&door=' + door)
   }
+  // searchDF (userId) {
+  //   return http.get(API_URL_PATH + 'searchMyCommunity?user_id=' + userId)
+  // }
   // Search if community has doorman and not registered
   searchDoorman (communityId) {
     return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)
+  }
+  updatePresident(data) {
+    const body = {
+      floorNew: data.floorNew,
+      doorNew: data.doorNew,
+      floorP: data.floorP,
+      doorP: data.doorP
+    }
+    return http.post(API_URL_PATH + 'updatePresident', body)
+
   }
   // Create new Bill
   createBill (data) {

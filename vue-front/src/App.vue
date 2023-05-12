@@ -19,4 +19,7 @@ export default {
   display: none !important;
   margin-top: 0%;
 }
+.bootstrap-btn {
+  font-size: 0.8rem;
+}
 </style>

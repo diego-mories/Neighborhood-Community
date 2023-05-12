@@ -56,20 +56,20 @@ exports.searchNameCommunity = (req, res) => {
     }
   })
 }
-exports.searchDF = (req, res) => {
-  let user_id = "'" + req.query.user_id + "'"
-  let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
-  conexion.query(query, function (err, rowCount, rows) {
-    if (err) {
-      throw err
-    } 
-    else {
-      if (rowCount.length > 0) {
-        res.status(200).send({rowCount, floors_doors: rowCount})
-      }
-    }
-  })
-}
+// exports.searchDF = (req, res) => {
+//   let user_id = "'" + req.query.user_id + "'"
+//   let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id
+//   conexion.query(query, function (err, rowCount, rows) {
+//     if (err) {
+//       throw err
+//     } 
+//     else {
+//       if (rowCount.length > 0) {
+//         res.status(200).send({rowCount, floors_doors: rowCount})
+//       }
+//     }
+//   })
+// }
 
 exports.login = (req, res) => {
   if (req.body.email != undefined && req.body.password != undefined) {
@@ -652,6 +652,51 @@ exports.searchMyCommunity = (req, res) =>{
     } 
     else {
       res.status(200).send({message:'Obtenemos datos de puertas y plantas disponibles en las comunidades', floors_doors: rowCount})   
+    }
+  })
+}
+exports.searchMyCommunity2 = (req, res) => {
+  let community_id = "'" + req.query.community_id + "'"
+  let myFloor = "'" + req.query.floor + "'"
+  let myDoor = "'" + req.query.door + "'"
+  let string = 'PORTERIA'
+  let is_available = "'" + 0 + "'"
+  let porteria = "'" + string + "'"
+  let query = 'SELECT * FROM doors_floors WHERE community_id=' + community_id + 'AND is_available=' + is_available + 'AND door<>' + porteria  + ' EXCEPT SELECT * from doors_floors WHERE community_id=' + community_id + 'AND is_available=' + is_available + 'AND door=' + myDoor + 'AND floor=' + myFloor
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      res.status(200).send({message:'Obtenemos datos de puertas y plantas disponibles en las comunidades', floors_doors: rowCount})   
+    }
+  })
+}
+exports.updatePresident = (req, res) => {
+  console.log(req.body)
+  let dataQuery = {
+    floorNew: "'" + req.body.floorNew + "'",
+    doorNew: "'" + req.body.doorNew + "'",
+    floorP: "'" + req.body.floorP + "'",
+    doorP: "'" + req.body.doorP + "'",
+    newPresidentRole: "'" + 1 + "'",
+    newRole: "'" + 3 + "'"
+  }
+  let query = 'UPDATE doors_floors SET role_id=' +  dataQuery.newPresidentRole + 'WHERE floor=' + dataQuery.floorNew + 'AND door=' + dataQuery.doorNew
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      let query2 = 'UPDATE doors_floors SET role_id=' +  dataQuery.newRole + 'WHERE floor=' + dataQuery.floorP + 'AND door=' + dataQuery.doorP
+      conexion.query(query2, function (err, rowCount, rows) {
+        if (err) {
+          throw err
+        } 
+        else {
+          res.status(200).send({message:'Designación correcta'})
+        }
+      })
     }
   })
 }

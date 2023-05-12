@@ -21,10 +21,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/searchCommunity',
         controller.searchCommunity
     )
-    app.get(
-        '/api/dataBaseServices/searchDF',
-        controller.searchDF
-    )
+    // app.get(
+    //     '/api/dataBaseServices/searchDF',
+    //     controller.searchDF
+    // )
     app.get(
         '/api/dataBaseServices/searchOwnersDF',
         controller.searchOwnersDF
@@ -86,6 +86,10 @@ module.exports = function (app) {
         controller.searchMyCommunity
     )
     app.get(
+        '/api/dataBaseServices/searchMyCommunity2',
+        controller.searchMyCommunity2
+    )
+    app.get(
         '/api/dataBaseServices/searchDoorman',
         controller.searchDoorman
     )
@@ -98,8 +102,12 @@ module.exports = function (app) {
         controller.createBill
     )
     app.post(
-        '/api/dataBaseServices/createSpill',
-        controller.createSpill
+        '/api/dataBaseServices/createBill',
+        controller.createBill
+    )
+    app.post(
+        '/api/dataBaseServices/updatePresident',
+        controller.updatePresident
     )
     app.post(
         '/api/dataBaseServices/findAllDebs',
