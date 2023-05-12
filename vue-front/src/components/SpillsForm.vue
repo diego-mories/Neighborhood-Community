@@ -69,6 +69,7 @@ export default {
         if (!result) {
           return 
         }
+        console.log(this.dataForm)
         servicesDB.createSpill(this.dataForm).then(
         Response => {
           if (Response.status === 200) {

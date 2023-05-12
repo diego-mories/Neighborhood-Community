@@ -385,7 +385,6 @@ exports.findOneEmail = (req, res) => {
     community_id: "'" + req.query.community_id + "'",
   }
   let query = 'SELECT * FROM doors_floors WHERE user_id=' + data.user_id + 'AND community_id=' + data.community_id
-  console.log(query)
   conexion.query (query, function (err, rowCount, rows) {
     if (err) {
       throw err
@@ -784,6 +783,7 @@ exports.createBill = (req, res) => {
   })
 }
 exports.createSpill = (req, res) => {
+  console.log('Entramos')
   // // Insertamos la fila en la tabla bills
   var data = {
     community_id: "'" + req.body.community_id + "'" ,
@@ -860,9 +860,7 @@ exports.findAllDebs = (req, res) => {
         if (err) {
           throw err
         } else {
-          // console.log(rowCount)
           let dataResponse = rowCount
-          // console.log(dataResponse)
           res.status(200).send({dataResponse})    
         } 
       })

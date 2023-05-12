@@ -13,6 +13,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/login',
         controller.login
     )
+    app.post(
+        '/api/dataBaseServices/createSpill',
+        controller.createSpill
+    )
     app.get(
         '/api/dataBaseServices/activeUser',
         controller.activeUser
@@ -21,10 +25,6 @@ module.exports = function (app) {
         '/api/dataBaseServices/searchCommunity',
         controller.searchCommunity
     )
-    // app.get(
-    //     '/api/dataBaseServices/searchDF',
-    //     controller.searchDF
-    // )
     app.get(
         '/api/dataBaseServices/searchOwnersDF',
         controller.searchOwnersDF
