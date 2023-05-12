@@ -109,28 +109,29 @@ export default {
         if (!result) {
           return
         }
-            this.newUser.role_id = 3 // Owner por defecto
-            let data = {
-                id: this.selected1.id,
-                myFloor: this.selected.f,
-                myDoor: this.selected.d,
-                role_id: this.newUser.role_id,
-                community_id: this.userLogin.community_id
+          this.newUser.role_id = 3 // Owner por defecto
+          let data = {
+              id: this.selected1.id,
+              myFloor: this.selected.f,
+              myDoor: this.selected.d,
+              role_id: this.newUser.role_id,
+              community_id: this.userLogin.community_id
+          }
+          Services.uptadeFD(data).then(
+          Response => {
+            if (Response.status === 200 || Response.status === 204) {
+              this.$swal.fire({
+              icon: 'success',
+              title: 'Nuevo propietario registrado en la comunidad',
+              }).then(() => {
+              this.$router.push({ path: `/login` })
+              })
             }
-            Services.uptadeFD(data).then(
-            Response => {
-            this.$swal.fire({
-                icon: 'success',
-                title: 'Nuevo propietario registrado en la comunidad',
-                text: Error.response.data.message
-                }).then(() => {
-                this.$router.push({ path: `/login` })
-                })
-            },
-            Error => {
-            console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
-            })
-        })
+          },
+          Error => {
+          console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
+          })
+      })
     },
     validateState (ref) {
       if (

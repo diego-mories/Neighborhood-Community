@@ -42,14 +42,14 @@ export default {
           button: 'OK'
         })
       }
-      if (this.dataForm.amount == null) {
+      if (this.dataForm.amount === null) {
         swal({
           title: 'Introduce una cantidad por favor',
           icon: 'error',
           button: 'OK'
         })
       }
-      if (this.dataForm.date == null) {
+      if (this.dataForm.date === null) {
         swal({
           title: 'Introduce una fecha por favor',
           icon: 'error',

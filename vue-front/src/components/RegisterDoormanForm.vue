@@ -9,7 +9,7 @@
                   v-model="newDoorman.name"
                   id="input-newDoorman-name"
                   name="input-newDoorman-name"
-                  v-validate="{required: true, alpha: true}"
+                  v-validate="{required: true, alpha_spaces: true}"
                   class="form-control"
                   aria-describedby="input-newDoorman-name-live-feedback"
                   placeholder="Nombre"

@@ -305,7 +305,7 @@ exports.uptadeFD = (req,res) => {
         throw err
       } 
       else {
-        res.status(200).send({message:'Id del presidente en doors y floors actualizado'})   
+        res.status(200).send({message:' actualizado'})   
       }
     })
 } 

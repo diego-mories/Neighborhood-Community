@@ -10,7 +10,7 @@
                 v-model="newUser.name"
                 id="input-newUser-name"
                 name="input-newUser-name"
-                v-validate="{required: true, alpha: true}"
+                v-validate="{required: true, alpha_spaces: true}"
                 class="form-control"
                 aria-describedby="input-newUser-name-live-feedback"
                 placeholder="Nombre"
@@ -149,25 +149,30 @@ export default {
         }
         this.dfUser.myFloor = this.selected.f
         this.dfUser.myDoor = this.selected.d
-        this.newUser.phone = '+34 ' + this.newUser.phone
+        this.newUser.phone = this.newUser.phone
         Services.signUp(this.newUser).then(
           Response => {
-            this.dfUser.id = Response.data.user_id
-            this.dfUser.role_id = 3
-            Services.uptadeFD(this.dfUser).then(
-              Response => {
-                this.$swal.fire({
-                icon: 'success',
-                title: 'Nuevo propietario registrado en la comunidad',
-                text: Error.response.data.message
-              }).then(() => {
-                this.$router.push({ path: `/login` })
-              })
-              },
-              Error => {
-                console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
-              }
-            )
+            if (Response.status === 200) {
+              console.log('Ahora')
+              this.dfUser.id = Response.data.user_id
+              this.dfUser.role_id = 3
+              Services.uptadeFD(this.dfUser).then(
+                Response => {
+                  if (Response.status === 200 || Response.status === 204) {
+                    this.$swal.fire({
+                    icon: 'success',
+                    title: 'Nuevo propietario registrado en la comunidad',
+                    }).then(() => {
+                    this.$router.push({ path: `/login` })
+                  })
+                  }
+                },
+                Error => {
+                  console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
+                }
+              )
+            }
+            
           },
           Error => {
             if (Error.response.status === 404) {
@@ -186,6 +191,7 @@ export default {
           }
         )
       })
+      console.log('registradoooo')
     },
     validateState (ref) {
       if (
