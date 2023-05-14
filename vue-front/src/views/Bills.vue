@@ -1,7 +1,7 @@
 <template>
-<div class="screen">
+<div class="screen" v-if="role === 1" id="full">
   <div class="row" id="grid-top-log">
-      <NavBarPresident id="full"></NavBarPresident>
+    <NavBarPresident></NavBarPresident>
   </div>
   <div class="row" id="grid-top">
     <div class="row" id="topR">
@@ -34,7 +34,15 @@ export default {
   components: {
     FooterSocial,
     BillsForm,
-    NavBarPresident
+    NavBarPresident,
+  },
+  data: () => ({
+    role: null,
+    userLogin: {},
+  }),
+  created () {
+    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.userLogin.role_id
   }
 }
 </script>

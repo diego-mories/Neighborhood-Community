@@ -1,7 +1,7 @@
 <template>
     <div class="row" id="NavBar">
         <nav class="navBarP" toggleable="lg" type="dark">
-            <div class="componentsNavBar">
+            <div v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court" class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
                     RESERVA PISTAS
                     <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
@@ -13,7 +13,7 @@
                     <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>
-            <div class="componentsNavBar">
+            <div v-if="confCommunity.has_pool" class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/deliveries" exact>
                     ENVIAR TICKETS
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
@@ -55,22 +55,25 @@
 export default {
   data: () => ({
     name: '',
-    surname: ''
+    surname: '',
+    confCommunity: {}
   }),
   created () {
     let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.name = dataUserLogin.name
     this.surname = dataUserLogin.surname
+    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
   },
   methods: {
     deleteDataUserLogin () {
       console.log('Borramos los datos del usuario logueado')
-      this.$router.push({ path: '/' })
       localStorage.removeItem('userLogin')
-      history.pushState(null, null, location.href)
-      history.back()
-      history.forward()
-      window.onpopstate = function () { history.go(1) }
+      localStorage.removeItem('confCom')
+      this.$router.push({ path: '/' })
+    //   history.pushState(null, null, location.href)
+    //   history.back()
+    //   history.forward()
+    //   window.onpopstate = function () { history.go(1) }
     }
   }
 }

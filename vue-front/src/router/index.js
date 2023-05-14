@@ -34,97 +34,158 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/bookingCourts',
       name: 'BookingCourts',
-      component: BookingCourts
+      component: BookingCourts,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/spills',
       name: 'Spills',
-      component: Spills
+      component: Spills,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/tennisCourt',
       name: 'TennisCourt',
-      component: TennisCourt
+      component: TennisCourt,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/paddleCourt',
       name: 'PaddleCourt',
-      component: PaddleCourt
+      component: PaddleCourt,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/notices',
       name: 'Notices',
-      component: Notices
+      component: Notices,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/deliveries',
       name: 'Deliveries',
-      component: Deliveries
+      component: Deliveries,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/payments',
       name: 'Payments',
-      component: Payments
+      component: Payments,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/forgotPassword',
       name: 'ForgotPassword',
-      component: ForgotPassword
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/changePassword',
       name: 'ChangePassword',
-      component: ChangePassword
+      component: ChangePassword,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/configurationExpenses',
       name: 'ConfigurationExpenses',
-      component: ConfigurationExpenses
+      component: ConfigurationExpenses,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/registerUser',
       name: 'RegisterUser',
-      component: RegisterUser
+      component: RegisterUser,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/newCommunity',
       name: 'NewCommunity',
-      component: NewCommunity
+      component: NewCommunity,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/cameras',
       name: 'Cameras',
-      component: Cameras
+      component: Cameras,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/configurationCommunity',
       name: 'ConfigurationCommunity',
-      component: ConfigurationCommunity
+      component: ConfigurationCommunity,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/activeUser/:tokenActive',
       name: 'ActiveUser',
-      component: ActiveUser
+      component: ActiveUser,
+      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/bills',
       name: 'Bills',
-      component: Bills
+      component: Bills,
+      beforeEnter : guardMyrouteLogin
     }
   ]
 })
+
+function guardMyrouteLogin(to, from, next){
+  var isAuthenticated = false
+  if (localStorage.getItem('userLogin'))
+    isAuthenticated = true;
+  else
+    isAuthenticated = false
+  let user = JSON.parse(localStorage.getItem('userLogin'))
+  if (isAuthenticated) 
+  {
+    console.log(user.role_id)
+    if (user.role_id === 3) {
+      if (to.path === "/") next('/login') 
+      else  next() 
+      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/cameras"|| to.path === "/spills") next('/login') 
+      else  next() 
+    } 
+    if (user.role_id === 1) {
+      if (to.path === "/") next('/login') 
+      else  next() 
+      if (to.path === "/cameras" || to.path === "/newCommunity") next('/login') 
+      else  next() 
+    }
+    if (user.role_id === 2) {
+      if (to.path === "/") next('/login') 
+      else  next() 
+      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
+      else  next() 
+    }
+    if (user.is_admin) {
+      if (to.path === "/") next('/login') 
+      else  next() 
+      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
+      else  next() 
+    }
+  } 
+  else
+  {
+    if (to.path === "/") next() 
+    else  next('/')
+  }
+}
+

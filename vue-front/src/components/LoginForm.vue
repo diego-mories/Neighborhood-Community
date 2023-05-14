@@ -78,9 +78,10 @@ export default {
   data: () => ({
     user: {},
     local: {},
+    localCommunity: {},
     houses: false,
     selected: null,
-    optionss: []
+    optionss: [],
   }),
 
   methods: {
@@ -111,7 +112,7 @@ export default {
                         // BUSCAR NOMBRE COMUNIDAD
                         Services.searchNameCommunity(floorDoor.community_id).then(
                           Response => {
-                            this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door, role: floorDoor.role_id, nameC: Response.data.rowCount[0].name, idC: Response.data.rowCount[0].id}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door + ' (' + this.filterRole(floorDoor.role_id) + ')' + ' COMUNIDAD: ' + Response.data.rowCount[0].name})
+                            this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door, role: floorDoor.role_id, nameC: Response.data.rowCount[0].name, idC: Response.data.rowCount[0].id, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_tennis_court: Response.data.rowCount[0].has_tennis_court, has_building_doorman: Response.data.rowCount[0].has_building_doorman,has_pool: Response.data.rowCount[0].has_pool, has_cameras: Response.data.rowCount[0].has_cameras, nameC: Response.data.rowCount[0].name}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door + ' (' + this.filterRole(floorDoor.role_id) + ')' + ' COMUNIDAD: ' + Response.data.rowCount[0].name})
                           },
                           Error => { console.log(Error) }
                         )
@@ -143,7 +144,14 @@ export default {
           this.local.role_id = this.selected.role
           this.local.floor = this.selected.floor
           this.local.door = this.selected.door
+          this.localCommunity.has_building_doorman = this.selected.has_building_doorman
+          this.localCommunity.has_cameras = this.selected.has_cameras
+          this.localCommunity.has_paddle_court = this.selected.has_paddle_court
+          this.localCommunity.has_pool = this.selected.has_pool
+          this.localCommunity.has_tennis_court = this.selected.has_tennis_court
+          this.localCommunity.name = this.selected.nameC
           localStorage.setItem('userLogin', JSON.stringify(this.local))
+          localStorage.setItem('confCom', JSON.stringify(this.localCommunity))
           this.$router.push({ path: `/login` })
         }
       })

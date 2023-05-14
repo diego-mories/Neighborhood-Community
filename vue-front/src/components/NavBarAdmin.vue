@@ -29,12 +29,12 @@ export default {
   methods: {
     deleteDataUserLogin () {
       console.log('Borramos los datos del usuario logueado')
-      this.$router.push({ path: '/' })
       localStorage.removeItem('userLogin')
-      history.pushState(null, null, location.href)
-      history.back()
-      history.forward()
-      window.onpopstate = function () { history.go(1) }
+      this.$router.push({ path: '/' })
+      // history.pushState(null, null, location.href)
+      // history.back()
+      // history.forward()
+      // window.onpopstate = function () { history.go(1) }
     }
   }
 }

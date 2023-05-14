@@ -9,10 +9,11 @@
           <div class="col-sm-10" id="full"><h4>{{name + ' ' + surname}}</h4>
           <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
         <div class="row justify-content-center" id="grid-bottom-profile full">
-          <div class="col-sm-3"></div>
+          <div v-if="role_id === 1 && !confCommunity.has_building_doorman"  class="col-sm-3"></div>
           <div class="col-sm-2" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">Cambiar contraseña</button></div>
           <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">Designar cargo en otra vivienda</button></div>
           <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">Eliminar propietario de vivienda</button></div>
+          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger"  id="profileButton">Eliminar portero de la comunidad</button></div>
         </div>
       </div>
     </template>
@@ -92,12 +93,15 @@ export default {
     selected1: null,
     deleteO: false,
     options: [],
-    floors_doors: []
+    floors_doors: [],
+    confCommunity: {}
+
 
   }   
 },
   created () {
     this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
     this.name = this.userLogin.name
     this.surname = this.userLogin.surname
     this.role_id = this.userLogin.role_id

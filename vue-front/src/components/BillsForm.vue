@@ -1,7 +1,7 @@
 <template>
     <div>
       <b-form>
-      <span><img class="w-25 h-25 mw-25 mh-25" src="../assets/images/bill.png"></span>
+      <span><img class="w-25 h-25 mw-25 mh-25 mb-5" src="../assets/images/bill.png"></span>
           <b-form-group>
             <div class="input-group mb-3">
               <b-form-select
@@ -68,7 +68,10 @@ export default {
   methods: {
     save () {
       this.dataForm.type = this.selected
-      
+      this.$validator.validateAll(['input-house2','input-dataForm-date','input-dataForm-amount']).then(result => {
+        if (!result) {
+          return
+        }
         servicesDB.createBill(this.dataForm).then(
           Response => {
             if (Response.status === 200) {
@@ -82,6 +85,7 @@ export default {
           },
           Error => {
           })
+      })
     },
     validateState (ref) {
       if (
