@@ -1,7 +1,8 @@
 <template>
     <div class="screen">
         <div class="row" id="grid-top-log">
-            <NavBarPresident id="full"></NavBarPresident>
+          <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+          <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
         </div>
         <div class="row" id="grid-top">
             <div class="row" id="topR">

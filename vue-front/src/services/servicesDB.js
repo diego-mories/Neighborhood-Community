@@ -196,6 +196,9 @@ class Services {
   deleteDP (user) {
     return http.delete(API_URL_PATH + 'deleteDP?community_id=' + user.community_id + '&door=' + user.door + '&floor=' + user.floor )
   }
+  deleteDoorman (communityId) {
+    return http.delete(API_URL_PATH + 'deleteDoorman?community_id=' + communityId)
+  }
   // Find all debs user
   findAllDebs (user) {
     const body = {

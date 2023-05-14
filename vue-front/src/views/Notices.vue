@@ -1,7 +1,7 @@
 <template>
   <div class="screen">
     <div class="row" id="grid-top-log">
-      <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+      <NavBarPresident id="full"></NavBarPresident>
     </div>
     <div class="row" id="grid-top">
       <div class="row" id="topR">
@@ -87,13 +87,12 @@
 <script>
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
-import NavBarOwner from '../components/NavBarOwner.vue'
+
 import servicesDB from '../services/servicesDB'
 export default {
   components: {
     FooterSocialNetwork,
     NavBarPresident,
-    NavBarOwner
   },
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))

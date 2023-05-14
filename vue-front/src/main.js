@@ -12,6 +12,7 @@ import VeeValidate, { Validator } from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
+  faAddressBook,
   faCalendar,
   faArrowUpFromBracket,
   faFileInvoice,
@@ -40,6 +41,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import BootstrapVue from 'bootstrap-vue'
 library.add(
+  faAddressBook,
   faCalendar,
   faArrowUpFromBracket,
   faFileInvoice,

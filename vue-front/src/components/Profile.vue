@@ -13,7 +13,7 @@
           <div class="col-sm-2" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">Cambiar contraseña</button></div>
           <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">Designar cargo en otra vivienda</button></div>
           <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">Eliminar propietario de vivienda</button></div>
-          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger"  id="profileButton">Eliminar portero de la comunidad</button></div>
+          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">Eliminar portero de la comunidad</button></div>
         </div>
       </div>
     </template>
@@ -42,7 +42,7 @@
               {{ veeErrors.first('input-house')?'Elige una opción':'' }}
               </b-form-invalid-feedback>
             </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">Confirmar designar cambio</button></div>
+            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">Designar cargo</button></div>
           </div>
         </div>
       </template>
@@ -70,7 +70,7 @@
               {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
               </b-form-invalid-feedback>
             </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">Confirmar Eliminación de propietario</button></div>
+            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">Eliminar propietario</button></div>
           </div>
         </div>
       </template>
@@ -126,30 +126,38 @@ export default {
         if (!result) {
           return
         }
-        let data = {
-        floorNew: this.selected.f,
-        doorNew: this.selected.d,
-        floorP: this.userLogin.floor,
-        doorP: this.userLogin.door
-      }
-      Services.updatePresident(data).then(
-        Response => {
-          if (Response.status === 200) {
-            this.$swal.fire({
-              icon: 'success',
-              text: 'Sucesión realizada de forma correcta'
-            }).then(() => {
-              this.$router.push({ path: '/' })
-              localStorage.removeItem('userLogin')
-              history.pushState(null, null, location.href)
-              history.back()
-              history.forward()
-              window.onpopstate = function () { history.go(1) }
-            })
+        this.$swal.fire({
+        title: '¿Seguro de asignar el cargo?',
+        showDenyButton: true,
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            let data = {
+            floorNew: this.selected.f,
+            doorNew: this.selected.d,
+            floorP: this.userLogin.floor,
+            doorP: this.userLogin.door
+            }
+          Services.updatePresident(data).then(
+            Response => {
+              if (Response.status === 200) {
+                this.$swal.fire({
+                  icon: 'success',
+                  text: 'Sucesión realizada de forma correcta'
+                }).then(() => {
+                  localStorage.removeItem('userLogin')
+                  this.$router.push({ path: '/' })
+                })
+            }
+          },
+          Error => {
+            console.log('Error en la designación')
+          })
+          } else if (result.isDenied) {
+            this.profile = !this.profile; 
           }
-        },
-        Error => {
-          console.log('Error en la designación')
         })
       })
     },  
@@ -158,59 +166,109 @@ export default {
         if (!result) {
           return
         }
-        var data = {
-        community_id: this.userLogin.community_id,
-        door: this.selected1.d,
-        floor: this.selected1.f
-      }
-      Services.findAllDebs(data).then(
-        Response => {
-          if (Response.data.dataResponse.length > 0) {
-            this.$swal.fire({
-              icon: 'error',
-              text: 'El propietario tiene deudas, no se puede eliminar de la vivienda'
-            }).then(() => {
-              this.$router.push({ path: '/profile' })
-              this.selected1 = null
-              this.$validator.reset()
-            })
-          } else {
-            Services.deleteDP(data).then(
-              Response => {
-                // Services.deleteOHouse(data.floor,data.floor).then()
-                if(Response.status === 200) {
-                  this.$swal.fire({
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false,
-                    title: 'Registros de deudas y pagos eliminados del propietario, desasignando casa...!!'
-                  }).then(() => {
-                    console.log('DELETEOH')
-                    Services.deleteOH(data).then(
-                      Response => {
-                        this.$swal.fire({
-                          icon: 'success',
-                          title: 'Vivienda libre de cargos y de propietario!!',
-                          showConfirmButton: false,
-                          timer: 2500
-                        }).then(()=> {this.$router.push({ path: '/login' })})
-                      },
-                      Error => {
-
-                      }
-                    )
-                  })
-                }
-              },
-              Error=> {
-
-              })
+          this.$swal.fire({
+          title: '¿Seguro de eliminar al propietario de la vivienda?',
+          showDenyButton: true,
+          confirmButtonText: 'Confirmar',
+          denyButtonText: `Cancelar`,
+          }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            var data = {
+            community_id: this.userLogin.community_id,
+            door: this.selected1.d,
+            floor: this.selected1.f
           }
-        },
-        Error => {
-          console.log('Error al buscar datos de deudas')
+          Services.findAllDebs(data).then(
+            Response => {
+              if (Response.data.dataResponse.length > 0) {
+                this.$swal.fire({
+                  icon: 'error',
+                  text: 'El propietario tiene deudas, no se puede eliminar de la vivienda'
+                }).then(() => {
+                  this.$router.push({ path: '/profile' })
+                  this.selected1 = null
+                  this.$validator.reset()
+                })
+              } else {
+                Services.deleteDP(data).then(
+                  Response => {
+                    // Services.deleteOHouse(data.floor,data.floor).then()
+                    if (Response.status === 200) {
+                      this.$swal.fire({
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        title: 'Registros de deudas y pagos eliminados del propietario, desasignando casa...!!'
+                      }).then(() => {
+                        Services.deleteOH(data).then(
+                          Response => {
+                            this.$swal.fire({
+                              icon: 'success',
+                              title: 'Vivienda libre de cargos y de propietario!!',
+                              showConfirmButton: false,
+                              timer: 2500
+                            }).then(()=> {this.$router.push({ path: '/login' })})
+                          },
+                          Error => {
+
+                          }
+                        )
+                      })
+                    }
+                  },
+                  Error=> {
+
+                  })
+              }
+            },
+            Error => {
+              console.log('Error al buscar datos de deudas')
+            })
+          } else if (result.isDenied) {
+            this.$swal.fire('No se ha eliminado el propietario de la comunidad', '', 'info').then(()=> {
+              this.profile = !this.profile 
+              this.deleteO = !this.deleteO
+            })
+          }
+        })
       })
-      })
+    },
+    deleteB () {
+      this.$swal.fire({
+        title: '¿Seguro de eliminar al portero de esta comunidad?',
+        showDenyButton: true,
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Services.deleteDoorman(this.userLogin.community_id).then(
+            Response => {
+              if (Response.data.vacio) {
+                this.$swal.fire({
+                  icon: 'error',
+                  text: 'La comunidad está configurada con portero, pero no tiene a ninguno registrado aún'
+                }).then(() => {
+                  this.$router.push({ path: '/profile' })
+                })
+              } else {
+                  this.$swal.fire({
+                icon: 'success',
+                text: 'Portero dado de baja de manera correcta'
+                }).then(() => {
+                  this.$router.push({ path: '/login' })
+                })
+              }
+            },
+            Error => {
+              console.log('Error al eliminar al portero')
+            }
+          )
+        } else if (result.isDenied) {
+          this.$swal.fire('No se ha eliminado el portero de la comunidad', '', 'info')
+        }
+    })
     },
     validateState (ref) {
       if (

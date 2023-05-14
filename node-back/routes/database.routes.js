@@ -117,6 +117,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/deleteDP',
         controller.deleteDP
     )
+    app.delete(
+        '/api/dataBaseServices/deleteDoorman',
+        controller.deleteDoorman
+    )
     app.post(
         '/api/dataBaseServices/findAllDebsAllIds',
         controller.findAllDebsAllIds

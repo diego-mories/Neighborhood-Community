@@ -39,11 +39,12 @@ export default {
     NavBarOwner
   },
   data: () => ({
-    role: null
+    role: null,
+    dataUserLogin: {},
   }),
   created () {
-    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.role = dataUserLogin.role
+    this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.dataUserLogin.role_id
   }
 }
 </script>

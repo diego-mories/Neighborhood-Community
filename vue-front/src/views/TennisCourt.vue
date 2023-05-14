@@ -66,7 +66,8 @@ export default {
         {Ocupado: '', Hora_inicio: '21:00', Hora_Fin: '22:30'}
       ],
       selectMode: 'single',
-      selected: []
+      selected: [],
+      dataUserLogin: {}
     }
   },
   mounted () {
@@ -75,8 +76,8 @@ export default {
     document.getElementById('msg1').hidden = false
   },
   created () {
-    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.role = dataUserLogin.role
+    this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.dataUserLogin.role_id
   },
   methods: {
     onRowSelected (items) {

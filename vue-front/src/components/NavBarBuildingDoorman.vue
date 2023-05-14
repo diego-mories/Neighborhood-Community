@@ -3,8 +3,14 @@
         <nav class="navBarB" toggleable="lg" type="dark">
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/cameras" exact>
-                    Cámaras
+                    CÁMARAS
                     <!-- ICON VIDEO --> <font-awesome-icon icon="fa-solid fa-video"/>
+                </router-link>
+            </div>
+            <div class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="/contact" exact>
+                    CONTACTAR CON PROPIETARIO
+                  <font-awesome-icon icon="fa-solid fa-address-book"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">

@@ -865,13 +865,47 @@ exports.findAllDebs = (req, res) => {
     } 
   })
 }
+exports.deleteDoorman = (req,res) => {
+  let dataQuery = {
+    community_id: "'" + req.query.community_id + "'",
+    door: "'" + 'PORTERIA' + "'",
+    floor: "'" + 0 + "'",
+  }
+  let query = 'SELECT * FROM doors_floors WHERE community_id= ' + dataQuery.community_id +'AND door=' + dataQuery.door + 'AND floor=' + dataQuery.floor
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      if (rowCount.length === 0) {
+        return res.status(200).send({vacio:true})    
+      } else {
+        let query2 = 'DELETE FROM doors_floors WHERE community_id= ' + dataQuery.community_id +'AND door=' + dataQuery.door + 'AND floor=' + dataQuery.floor
+        conexion.query(query2, function (err, rowCount, rows) {
+          if (err) {
+            throw err
+          } else {
+            
+            let doorman_active = "'" + 0 + "'"
+            let query3 = 'UPDATE community SET doorman_active=' +  doorman_active + 'WHERE id=' + dataQuery.community_id
+            conexion.query(query3, function (err, rowCount, rows) {
+              if (err) {
+                throw err
+              } else {
+                return res.status(200).send({vacio:false})                
+              }
+            })              
+          }
+        })
+      }
+    }
+  })
+}
 exports.deleteDP = (req, res) => {
   let data = {
     community_id: "'" + req.query.community_id + "'" , 
     door: "'" + req.query.door + "'", 
     floor:"'" +  req.query.floor + "'", 
   }
-  console.log(data)
   let query = "SELECT * FROM doors_floors WHERE community_id= " + data.community_id + 'AND door=' + data.door + 'AND floor=' + data.floor
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
@@ -879,14 +913,13 @@ exports.deleteDP = (req, res) => {
     } else {
       var doors_floors_id = "'" + rowCount[0].id + "'"
       let query2 = "SELECT * FROM debs WHERE door_floors_id= " + doors_floors_id
-      console.log(query2)
       conexion.query(query2, function (err, rowCount, rows) {
         if (err) {
           throw err
         } else {
           let arrayDebs = rowCount
           for (let deb of arrayDebs){
-            let query3 = "DELETE  FROM payments WHERE deb_id=" + "'" + deb.id + "'"
+            let query3 = "DELETE FROM payments WHERE deb_id=" + "'" + deb.id + "'"
             console.log(query3)
             conexion.query(query3, function (err, rowCount, rows) {
               if (err) {
@@ -896,7 +929,7 @@ exports.deleteDP = (req, res) => {
               }
             })
           } 
-          let query4 = "DELETE  FROM debs WHERE door_floors_id= " + doors_floors_id
+          let query4 = "DELETE FROM debs WHERE door_floors_id= " + doors_floors_id
           console.log(query4)
           conexion.query(query4, function (err, rowCount, rows) {
             if (err) {

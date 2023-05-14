@@ -1,5 +1,5 @@
 <template>
-<div class="screen" v-if="role === 1" id="full">
+<div class="screen" id="full">
   <div class="row" id="grid-top-log">
     <NavBarPresident></NavBarPresident>
   </div>
@@ -29,21 +29,20 @@
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import BillsForm from '../components/BillsForm.vue'
-import NavBarPresident from '../components/NavBarPresident.vue'
+// import NavBarPresident from '../components/NavBarPresident.vue'
 export default {
   components: {
     FooterSocial,
     BillsForm,
-    NavBarPresident,
-  },
-  data: () => ({
-    role: null,
-    userLogin: {},
-  }),
-  created () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.role = this.userLogin.role_id
-  }
+   },
+  // data: () => ({
+  //   role: null,
+  //   userLogin: {},
+  // }),
+  // created () {
+  //   this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+  //   this.role = this.userLogin.role_id
+  // }
 }
 </script>
 

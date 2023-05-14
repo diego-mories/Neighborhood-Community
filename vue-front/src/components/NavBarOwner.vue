@@ -1,22 +1,22 @@
 <template>
     <div class="row" id="NavBar">
         <nav class="navBarO" toggleable="lg" type="dark">
-            <div class="componentsNavBar">
+            <div v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court" class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
-                    Reservas
+                    RESERVA PISTAS
                     <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
                 </router-link>
             </div>
-            <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/notices" exact>
-                    Avisos
-                    <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
+            <div v-if="confCommunity.has_pool" class="componentsNavBar">
+                <router-link tag="li" active-class="active" to="/deliveries" exact>
+                    ENVIAR TICKETS
+                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/deliveries" exact>
-                    Entregas
-                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-box-open"/>
+                <router-link tag="li" active-class="active" to="/payments" exact>
+                    MIS PAGOS
+                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
@@ -31,12 +31,15 @@
 export default {
   data: () => ({
     name: '',
-    surname: ''
+    surname: '',
+    confCommunity: {}
   }),
   created () {
     let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.name = dataUserLogin.name
     this.surname = dataUserLogin.surname
+    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+
   },
   methods: {
     deleteDataUserLogin () {

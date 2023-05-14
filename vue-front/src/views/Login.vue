@@ -70,7 +70,7 @@
       <ViewsCardsB></ViewsCardsB>
     </div>
     <div class="col-6" id="full">
-      Calendario para revisar las entregas de los propietarios
+      <span><img src="@/assets/images/conserje-profesional-trapeando-piso-aislado-sobre-fondo-blanco_7496-1123.png" class="center-form" id="profileImage"></span>
     </div>
   </div>
   <!-- Vista de propietario -->
