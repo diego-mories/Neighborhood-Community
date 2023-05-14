@@ -6,7 +6,7 @@
           </div>
           <div class="col-sm-7" id="full">
             <div class="center-form">
-                <button type="button" class="btn btn-sm btn-primary" v-on:click="ready"> Activar</button>
+                <button type="button" class="btn btn-sm btn-primary" v-on:click="ready"> ACTIVAR CUENTA</button>
             </div>
           </div>
       </div>

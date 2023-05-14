@@ -21,7 +21,7 @@
                 {{ veeErrors.first('input-email')?'Introduce un email válido':'' }}
             </b-form-invalid-feedback>
       </div>
-        <b-button variant="outline-primary" type="submit">Recuperar contraseña</b-button>
+        <b-button variant="outline-primary" type="submit">RECUPERAR CONTRASEÑA</b-button>
     </b-form-group>
   </b-form>
 </div>

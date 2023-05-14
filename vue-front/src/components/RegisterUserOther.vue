@@ -31,7 +31,7 @@
         {{ veeErrors.first('input-house4')?'Elige una opción':'' }}
         </b-form-invalid-feedback>
       </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar</b-button>
+      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">REGISTRAR</b-button>
     </b-form>
 </template>
 <script>

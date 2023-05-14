@@ -50,7 +50,7 @@
               </b-form-invalid-feedback>
             </div>
           </b-form-group>
-          <b-button variant="outline-primary" type="submit" @click.stop.prevent="save()">Guardar</b-button>
+          <b-button variant="outline-primary" type="submit" @click.stop.prevent="save()">GUARDAR</b-button>
       </b-form>
   </div>
   </template>

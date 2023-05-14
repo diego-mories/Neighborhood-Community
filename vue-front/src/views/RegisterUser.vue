@@ -6,7 +6,7 @@
   <div class="row" id="grid-top">
     <div class="row" id="topR">
       <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">Volver</button>
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
       </div>
       <div class="col-sm-11" id="full">
           <span class="title"><b>Alta Usuario</b></span>
@@ -17,7 +17,7 @@
       </div>
       <div class="col-sm-11" id="full">
         <template v-if="formDoorman">
-          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddDoorman()">Cambiar de formulario</b-button>
+          <b-button class="mt-3" variant="outline-primary" @click.prevent="changeAddDoorman()">CABMIO DE FORMULARIO</b-button>
           <template v-if="addDoormanExist">
             <RegisterDoormanFormExist class="center-form"></RegisterDoormanFormExist>
           </template>
@@ -32,7 +32,7 @@
               </div>
               <div class="col-6">
                 <div class="row">
-                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouse()">Volver al otro formulario</b-button></div>
+                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouse()">VOLVER AL OTRO FORMULARIO</b-button></div>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
               </div>
               <div class="col-6">
                 <div class="row">
-                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouseOtherC()">Volver al otro formulario</b-button></div>
+                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouseOtherC()">VOLVER AL OTRO FORMULARIO</b-button></div>
                 </div>
               </div>
             </div>
@@ -56,8 +56,8 @@
               </div>
               <div class="col-6">
                 <div class="row">
-                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouse()">Registrar vivienda a un usuario existente de esta comunidad</b-button></div>
-                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouseOtherC()">Registrar vivienda a un usuario existente de otra comunidad</b-button></div>
+                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouse()">REGISTRO DE USUARIO DE ESTA COMUNIDAD</b-button></div>
+                  <div class="col"><b-button  variant="outline-primary" @click.prevent="changeAddHouseOtherC()">REGISTRO DE UN USUARIO DE OTRA COMUNIDAD</b-button></div>
                 </div>
               </div>
             </div>

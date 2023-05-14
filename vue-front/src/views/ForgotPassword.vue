@@ -7,7 +7,7 @@
     <div class="col-sm-7" id="full">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/')">Volver</button>
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/')">VOLVER</button>
         </div>
         <div class="col-sm-11" id="full">
           <span class="title"><b>Recuperar contraseña</b></span>

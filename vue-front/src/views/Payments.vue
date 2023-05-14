@@ -7,7 +7,7 @@
         <div class="row" id="grid-top">
             <div class="row" id="topR">
             <div class="col-sm-1" id="full">
-                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">Volver</button>
+                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
             </div>
             <div class="col-sm-11" id="full">
                 <span class="title"><b>Mis Pagos</b></span>
@@ -52,35 +52,6 @@
         </div>
     </div>
 </template>
-
-            <!-- <div class="col-8" id="full">
-                <div class="container">
-                    <h3 class="mt-5 mb-0 pb-0">Pagos</h3>
-                    <b-table
-                    class="m-5 "
-                    style="overflow-y:auto; height: 60vh !important;"
-                    ref="debsTable"
-                    id="debsTable"
-                    :fields="headers"
-                    :items="payments"
-                    responsive="sm">
-                    <template #cell(date_p)="data">
-                        {{ data.item.date_p | formatDate}}
-                    </template>
-                    <template #cell(amount)="data">
-                        {{ data.item.amount | formatAmount}}
-                        </template>
-                    <template #cell(type_bill)="data">
-                        {{ data.item.type_bill | formatBill}}
-                    </template>
-                    <template #cell(options)="data">
-                        <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
-                            <font-awesome-icon icon="fa-solid fa-money-check-alt" />
-                        </b-button>
-                        </template>
-                    </b-table>
-                </div>
-            </div> -->
 <script>
 
 import NavBarPresident from '../components/NavBarPresident.vue'

@@ -66,10 +66,6 @@ module.exports = function (app) {
         controller.sendNotice
     )
     app.put(
-        '/api/dataBaseServices/confCommunity',
-        controller.confCommunity
-    )
-    app.put(
         '/api/dataBaseServices/insertRowsFD',
         controller.insertRowsFD
     )
@@ -104,6 +100,10 @@ module.exports = function (app) {
     app.post(
         '/api/dataBaseServices/createBill',
         controller.createBill
+    )
+    app.post(
+        '/api/dataBaseServices/contact',
+        controller.contact
     )
     app.post(
         '/api/dataBaseServices/updatePresident',

@@ -67,7 +67,7 @@
               </b-form-invalid-feedback>
             </div>
         </b-form-group>
-        <b-button class="mt-3" variant="outline-primary" @click="registerDoorman()">Registrar portero en comunidad</b-button>
+        <b-button class="mt-3" variant="outline-primary" @click="registerDoorman()">REGISTRAR PORTERO</b-button>
     </b-form>
 </template>
 <script>

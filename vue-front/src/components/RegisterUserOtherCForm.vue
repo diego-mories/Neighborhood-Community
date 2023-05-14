@@ -31,7 +31,7 @@
         {{ veeErrors.first('input-owner-email')?'Campo obligatorio':'' }}
         </b-form-invalid-feedback>      
     </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwnerOtherC()">Registrar</b-button>
+      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwnerOtherC()">REGISTRAR</b-button>
     </b-form>
   </template>
 

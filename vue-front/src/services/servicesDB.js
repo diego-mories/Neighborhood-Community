@@ -99,23 +99,6 @@ class Services {
     }
     return http.post(API_URL_PATH + 'newCommunity', body)
   }
-  // Confgure community
-  confCommunity (data) {
-    const body = {
-      id: data.id,
-      community_id: data.community_id,
-      paddle: data.paddle,
-      tennis: data.tennis,
-      pool: data.pool,
-      doorman: data.paddle,
-      cameras: data.cameras,
-      myDoor: data.myDoor,
-      myFloor: data.myFloor,
-      floors: data.floors,
-      doors: data.doors
-    }
-    return http.put(API_URL_PATH + 'confCommunity', body)
-  }
   // Create rows with house
   insertRowsFD (data) {
     const body = {
@@ -181,6 +164,14 @@ class Services {
       amount: data.amount
     }
     return http.post(API_URL_PATH + 'createBill', body)
+  }
+  contact (msg,email) {
+    const body = {
+      msg: msg,
+      email: email
+    }
+    return http.post(API_URL_PATH + 'contact', body)
+
   }
   // Create new Spill
   createSpill (data) {

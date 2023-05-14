@@ -7,7 +7,7 @@
     <div cLass="row" id="grid-top">
         <div class="row" id="topR">
           <div class="col-sm-1" id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">Volver</button>
+              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">VOLVER</button>
           </div>
           <div class="col-sm-11" id="full" >
               <span class="title"><b> Pista de padel</b></span>
@@ -28,7 +28,7 @@
           <div class="col-sm-5" id="full">
           </div>
           <div class="col-sm-7" id="full">
-            <b-button id="myBtn" variant="outline-primary" type="submit">Reservar</b-button>
+            <b-button id="myBtn" variant="outline-primary" type="submit">RESERVAR</b-button>
             <h3><span class="badge badge-danger" id="msg"></span></h3>
           </div>
         </div>

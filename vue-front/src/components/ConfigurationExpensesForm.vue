@@ -13,7 +13,7 @@
           <b-form-input type="number" class="form-control" placeholder="Nuevo gasto mínimo"></b-form-input>
           <b-form-input type="text" class="form-control" placeholder="50€" disabled></b-form-input>
         </div>
-          <b-button variant="outline-primary" type="submit">Guardar</b-button>
+          <b-button variant="outline-primary" type="submit">GUARDAR</b-button>
       </b-form-group>
     </b-form>
   </div>

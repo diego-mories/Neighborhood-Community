@@ -166,7 +166,7 @@
             <span v-if ="letters" class="m-auto">(1=A 2=B 3=C 4=D 5=E)</span>
           </div>
         </b-form-group>
-        <b-button variant="outline-primary" type="submit">Crear comunidad</b-button>
+        <b-button variant="outline-primary" type="submit">CREAR COMUNIDAD</b-button>
     </b-form>
 </div>
 </template>

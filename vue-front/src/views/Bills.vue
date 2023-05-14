@@ -6,7 +6,7 @@
   <div class="row" id="grid-top">
     <div class="row" id="topR">
       <div class="col-sm-1" id="full">
-        <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">Volver</button>
+        <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
       </div>
       <div class="col-sm-11" id="full">
         <span class="title"><b>Cuentas de la comunidad</b></span>
@@ -29,11 +29,12 @@
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import BillsForm from '../components/BillsForm.vue'
-// import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarPresident from '../components/NavBarPresident.vue'
 export default {
   components: {
     FooterSocial,
     BillsForm,
+    NavBarPresident
    },
   // data: () => ({
   //   role: null,

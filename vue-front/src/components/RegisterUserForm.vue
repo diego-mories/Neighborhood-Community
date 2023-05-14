@@ -79,30 +79,11 @@
                 {{ veeErrors.first('input-house')?'Elige una opción':'' }}
               </b-form-invalid-feedback>
           </div>
-        <b-button class="mt-3" variant="outline-primary" @click.prevent="registerUser()">Registrar</b-button>
+        <b-button class="mt-3" variant="outline-primary" @click.prevent="registerUser()">REGISTRAR</b-button>
       </b-form-group>
     </b-form>
     </div>
 </template>
-  <!-- <template v-else-if="addHouse && !addHouseOtherC">
-    <b-form >
-      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
-      <div>
-        <b-button class="mt-3" variant="outline-primary" @click.prevent="cancelChangeAddHouse()">Registrar persona sin cuenta existente</b-button>
-      </div>
-      <div class="input-group mb-3 d-flex justify-content-center">
-        <label class="label-login">Selecciona planta y piso</label>
-        <b-form-select class="ml-3 mr-3 " v-model="selected" :options="options"></b-form-select>
-      </div>
-      <div class="input-group mb-3 d-flex justify-content-center">
-        <label class="label-login">Selecciona el propietario</label>
-        <b-form-select class="ml-3 mr-3 " v-model="selected1" :options="options1"></b-form-select>
-      </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">Registrar</b-button>
-    </b-form>
-  </template> -->
-
-<!-- <b-button v-if="formDoorman" class="mt-3" variant="outline-primary" type="submit">Registrar Portero en comunidad</b-button> -->
 <script>
 import Services from '../services/servicesDB'
 

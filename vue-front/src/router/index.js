@@ -20,6 +20,7 @@ import ActiveUser from '../views/ActiveUser'
 import Bills from '../views/Bills'
 import Spills from '../views/Spills'
 import Payments from '../views/Payments'
+import Contact from '../views/Contact'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -94,6 +95,7 @@ export default new Router({
     {
       path: '/forgotPassword',
       name: 'ForgotPassword',
+      component: ForgotPassword,
       beforeEnter : guardMyrouteLogin
     },
     {
@@ -143,6 +145,12 @@ export default new Router({
       name: 'Bills',
       component: Bills,
       beforeEnter : guardMyrouteLogin
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: Contact,
+      beforeEnter : guardMyrouteLogin
     }
   ]
 })
@@ -154,37 +162,40 @@ function guardMyrouteLogin(to, from, next){
   else
     isAuthenticated = false
   let user = JSON.parse(localStorage.getItem('userLogin'))
+  console.log(isAuthenticated)
   if (isAuthenticated) 
   {
     console.log(user.role_id)
     if (user.role_id === 3) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/cameras"|| to.path === "/spills") next('/login') 
+      if (to.path === "/bills" || to.path === "/contact"  || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/cameras"|| to.path === "/spills") next('/login') 
       else  next() 
     } 
     if (user.role_id === 1) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/cameras" || to.path === "/newCommunity") next('/login') 
+      if (to.path === "/cameras" || to.path === "/contact" || to.path === "/newCommunity") next('/login') 
       else  next() 
     }
     if (user.role_id === 2) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
       else  next() 
     }
     if (user.is_admin) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills"  || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
       else  next() 
     }
   } 
   else
-  {
-    if (to.path === "/") next() 
+  { 
+    // if (to.path === "/") next() 
+    // else  next('/')
+    if (to.path === "/forgotPassword" || to.path === "/") next() 
     else  next('/')
   }
 }

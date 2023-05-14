@@ -20,7 +20,7 @@
               </b-form-invalid-feedback>
             </div>
         </b-form-group>
-        <b-button class="mt-3" variant="outline-primary" type="submit">Registrar portero en comunidad</b-button>
+        <b-button class="mt-3" variant="outline-primary" type="submit">REGISTRAR PORTERO</b-button>
     </b-form>
 </template>
 <script>

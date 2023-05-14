@@ -8,7 +8,7 @@
     <div class="row" id="full">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/Profile')">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/Profile')">VOLVER</button>
         </div>
         <div class="col-sm-11" id="full">
             <span class="title"><b>Configuración gastos</b></span>

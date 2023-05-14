@@ -582,53 +582,6 @@ exports.changePassword = async (req, res) => {
     })
   }
 }
-     
-exports.confCommunity = (req, res) => {
-//   if (req.body.id != undefined && req.body.community_id != undefined &&
-//     req.body.paddle != undefined && req.body.tennis!= undefined &&
-//     req.body.pool != undefined && req.body.doorman != undefined &&
-//     req.body.cameras != undefined && req.body.myDoor != undefined &&
-//     req.body.myFloor != undefined && req.body.floors != undefined &&
-//     req.body.doors != undefined){
-//       let data = {
-//         id: "'" + req.body.id + "'" ,
-//         community_id: "'" + req.body.community_id + "'" ,
-//         paddle: "'" + req.body.paddle + "'" , 
-//         tennis: "'" + req.body.tennis + "'" ,
-//         pool: "'" + req.body.pool + "'" ,
-//         doorman: "'" + req.body.doorman + "'" ,
-//         cameras: "'" + req.body.cameras + "'" , 
-//         myDoor: "'" + req.body.myDoor + "'" ,
-//         myFloor: "'" + req.body.myFloor + "'" , 
-//         floors: "'" + req.body.floors + "'" , 
-//         doors: "'" + req.body.doors + "'"  
-//       }
-//       let newFirtsTime =  "'" + 0 + "'"
-//       // Si todos los datos estan bien, los metemos en la tabla de la comunidad
-//       let query = 'UPDATE community SET has_paddle_court=' + data.paddle + ',has_tennis_court=' +  data.tennis + ',has_pool=' +  data.pool + ',has_cameras=' +  data.cameras + ',has_building_doorman=' +  data.doorman + ',floors=' +  data.floors + ',doors=' +  data.doors + 'WHERE id=' + data.community_id
-//       conexion.query(query, function (err, rowCount, rows) {
-//         if (err) {
-//           throw err
-//         } 
-//         else {
-//           // Actualizamos primera vez en el presidente para no tener que configurar mas veces la comunidad y su planta y puerta
-//           let query2 = 'UPDATE users SET first_time=' + newFirtsTime + ',door=' +  data.myDoor + ',floor=' +  data.myFloor + 'WHERE id=' + data.id
-//           conexion.query(query2, function (err, rowCount, rows) {
-//             if (err) {
-//               throw err
-//             } 
-//             else {
-//               res.status(200).send({message:'Datos de comunidad añadidos, y datos actualizados del presidente de la comunidad'})   
-//             }
-//           })
-//           // res.status(200).send({message:'Actualizacion de first_time OK'})   
-//         }
-//       })
-//   } 
-//   else {
-//     return res.status(400).send ({message: 'Error confCommunity en datos del body'})
-//   }
-}
 
 exports.searchDBCommunities = (req, res) =>{
   let query = 'SELECT * FROM community'
@@ -810,7 +763,6 @@ exports.createSpill = (req, res) => {
         let numPersonas = rowCount.length
         let amountPersona = req.body.amount / numPersonas
           for (let persona of rowCount) {
-            console.log('AQUI' + persona)
           // console.log('Añadimos la fila con el gasto de la persona con id floors de la derrama: ' + persona.id + ' la cantidad de: ' + amountPersona + ' con puerta: ' + persona.door + ' y piso: ' + persona.floor) 
           let dataquery = {
           doors_floors_id: "'" + persona.id + "'" ,
@@ -864,6 +816,24 @@ exports.findAllDebs = (req, res) => {
       })
     } 
   })
+}
+exports.contact = (req,res) => {
+  let mailOptions = {
+    from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+    to: '' + req.body.email,
+    subject: 'Mensaje del portero de la comunidad',
+    text: '¡Hola! El portero de la comunidad queria contactar con usted: ' + req.body.msg
+  }
+  mailTransporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log("Error email sent!", error)
+    } 
+    else {
+      //console.log('Email sent: ')
+    }
+    mailTransporter.close()
+  })
+    res.status(200).send({message: 'Correo enviado correctamente '})
 }
 exports.deleteDoorman = (req,res) => {
   let dataQuery = {

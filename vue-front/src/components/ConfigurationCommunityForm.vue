@@ -32,7 +32,7 @@
       <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
       <b-form-input type="tel" class="form-control" placeholder="XXX-XX-XX-XX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}" v-model="user.phone"></b-form-input>
     </div>
-    <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">Guardar configuración</b-button>
+    <b-button variant="outline-primary" type="submit" @click.prevent="saveConf()">GUARDAR CONFIGURACIÓN</b-button>
     <!-- <span>Checked names: {{ confCommunity }}</span> -->
     </b-form>
 </div>

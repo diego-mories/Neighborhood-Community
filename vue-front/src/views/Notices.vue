@@ -6,7 +6,7 @@
     <div class="row" id="grid-top">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
         </div>
         <div class="col-sm-11" id="full">
           <span class="title"><b>Convocatoria de juntas</b></span>
@@ -71,8 +71,8 @@
           </div>
           <div class="input-group mb-3 d-flex justify-content-center">
             <b-form-group>
-              <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">Enviar acta por correo eletrónico a vecinos</b-button>
-              <b-button class="m-3" variant="outline-primary" type="submit" @click="printDiv()">Imprimir acta</b-button>
+              <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">ENVIAR ACTA POR CORREO ELECTRÓNICO</b-button>
+              <b-button class="m-3" variant="outline-primary" type="submit" @click="printDiv()">IMPRIMIR ACTA</b-button>
             </b-form-group>
           </div>
         </div>

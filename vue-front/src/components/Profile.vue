@@ -4,16 +4,17 @@
       <div class="card p-5 center-form" id="full">
         <div class="row d-flex">
           <div class="col-sm-2 " id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
           </div>
           <div class="col-sm-10" id="full"><h4>{{name + ' ' + surname}}</h4>
           <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
         <div class="row justify-content-center" id="grid-bottom-profile full">
           <div v-if="role_id === 1 && !confCommunity.has_building_doorman"  class="col-sm-3"></div>
-          <div class="col-sm-2" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">Cambiar contraseña</button></div>
-          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">Designar cargo en otra vivienda</button></div>
-          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">Eliminar propietario de vivienda</button></div>
-          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">Eliminar portero de la comunidad</button></div>
+          <div v-if="role_id === 3 || role_id === 2" class="col-sm-2"></div>
+          <div class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button></div>
+          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button></div>
+          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button></div>
+          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">ELIMINAR PORTERO</button></div>
         </div>
       </div>
     </template>
@@ -22,7 +23,7 @@
         <div class="card p-5 center-form" id="full">
           <div class="row d-flex">
             <div class="col-sm-2 " id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">Volver</button>
+              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">VOLVER</button>
             </div>
             <div class="col-sm-10" id="full"><h4>Designación de presidente</h4>
             <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
@@ -42,7 +43,7 @@
               {{ veeErrors.first('input-house')?'Elige una opción':'' }}
               </b-form-invalid-feedback>
             </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">Designar cargo</button></div>
+            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">DESIGNAR CARGO</button></div>
           </div>
         </div>
       </template>
@@ -50,7 +51,7 @@
         <div class="card p-5 center-form" id="full">
           <div class="row d-flex">
             <div class="col-sm-2 " id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null ">Volver</button>
+              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null ">VOLVER</button>
             </div>
             <div class="col-sm-10" id="full"><h4>Eliminación de propietario</h4>
             <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
@@ -70,7 +71,7 @@
               {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
               </b-form-invalid-feedback>
             </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">Eliminar propietario</button></div>
+            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">ELIMINAR PROPIETARIO</button></div>
           </div>
         </div>
       </template>
@@ -129,8 +130,8 @@ export default {
         this.$swal.fire({
         title: '¿Seguro de asignar el cargo?',
         showDenyButton: true,
-        confirmButtonText: 'Confirmar',
-        denyButtonText: `Cancelar`,
+        confirmButtonText: 'CONFIRMAR',
+        denyButtonText: `CANCELAR`,
         }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
@@ -169,8 +170,8 @@ export default {
           this.$swal.fire({
           title: '¿Seguro de eliminar al propietario de la vivienda?',
           showDenyButton: true,
-          confirmButtonText: 'Confirmar',
-          denyButtonText: `Cancelar`,
+          confirmButtonText: 'CONFIRMAR',
+          denyButtonText: `CANCELAR`,
           }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
@@ -238,8 +239,8 @@ export default {
       this.$swal.fire({
         title: '¿Seguro de eliminar al portero de esta comunidad?',
         showDenyButton: true,
-        confirmButtonText: 'Confirmar',
-        denyButtonText: `Cancelar`,
+        confirmButtonText: 'CONFIRMAR',
+        denyButtonText: `CANCELAR`,
         }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {

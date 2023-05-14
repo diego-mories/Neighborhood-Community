@@ -70,7 +70,7 @@
       <ViewsCardsB></ViewsCardsB>
     </div>
     <div class="col-6" id="full">
-      <span><img src="@/assets/images/conserje-profesional-trapeando-piso-aislado-sobre-fondo-blanco_7496-1123.png" class="center-form" id="profileImage"></span>
+      <span><img src="@/assets/images/conserje-profesional-trapeando-piso-aislado-sobre-fondo-blanco_7496-1123.png" class="center-form" id="profileImage m-0"></span>
     </div>
   </div>
   <!-- Vista de propietario -->

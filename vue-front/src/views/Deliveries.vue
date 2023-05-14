@@ -7,7 +7,7 @@
     <div class="row" id="grid-top">
       <div class="row" id="topR">
         <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">Volver</button>
+          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
         </div>
         <div class="col-sm-11" id="full">
           <span class="title"><b>Entregas</b></span>
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="col-sm-6" id="full">
-          <b-button variant="outline-primary" type="submit">Añadir</b-button>
+          <b-button variant="outline-primary" type="submit">AÑADIR</b-button>
         </div>
       </div>
     </div>
