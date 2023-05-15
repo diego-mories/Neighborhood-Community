@@ -21,6 +21,7 @@ import Bills from '../views/Bills'
 import Spills from '../views/Spills'
 import Payments from '../views/Payments'
 import Contact from '../views/Contact'
+import Tickets from '../views/Tickets'
 // >> Boostrap
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -78,6 +79,12 @@ export default new Router({
       path: '/deliveries',
       name: 'Deliveries',
       component: Deliveries,
+      beforeEnter : guardMyrouteLogin
+    },
+    {
+      path: '/tickets',
+      name: 'Tickets',
+      component: Tickets,
       beforeEnter : guardMyrouteLogin
     },
     {
@@ -165,7 +172,6 @@ function guardMyrouteLogin(to, from, next){
   console.log(isAuthenticated)
   if (isAuthenticated) 
   {
-    console.log(user.role_id)
     if (user.role_id === 3) {
       if (to.path === "/") next('/login') 
       else  next() 
@@ -181,13 +187,13 @@ function guardMyrouteLogin(to, from, next){
     if (user.role_id === 2) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills" || to.path === "/tickets" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
       else  next() 
     }
     if (user.is_admin) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills"  || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills" || to.path === "/tickets" || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
       else  next() 
     }
   } 

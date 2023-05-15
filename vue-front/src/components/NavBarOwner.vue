@@ -8,7 +8,7 @@
                 </router-link>
             </div>
             <div v-if="confCommunity.has_pool" class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/deliveries" exact>
+                <router-link tag="li" active-class="active" to="/tickets" exact>
                     ENVIAR TICKETS
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
                 </router-link>

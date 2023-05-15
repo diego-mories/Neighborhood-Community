@@ -22,6 +22,25 @@ class Services {
     }
     return http.post(API_URL_PATH + 'signUp', body)
   }
+  searchTickets (data) {
+    const body = {
+      community_id: data.community_id,
+      door: data.door,
+      floor: data.floor,
+    }
+    return http.post(API_URL_PATH + 'searchTickets', body)
+  }
+  sendTicket (data) {
+    const body = {
+      community_id: data.community_id,
+      door: data.door,
+      floor: data.floor,
+      email: data.email,
+      tickets: data.tickets
+    }
+    return http.post(API_URL_PATH + 'sendTicket', body)
+  }
+  
   // Active user to login
   activeUser (tokenActive) {
     return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)

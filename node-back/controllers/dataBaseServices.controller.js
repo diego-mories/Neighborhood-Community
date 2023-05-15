@@ -321,6 +321,75 @@ exports.searchOwnersDF = (req, res) => {
     } 
   })
 }
+exports.searchTickets = (req,res) => {
+  let dataQuery = {
+    community_id : "'" + req.body.community_id + "'",
+    floor : "'" + req.body.floor + "'",
+    door : "'" + req.body.door + "'",
+  }
+  let query = 'SELECT * FROM doors_floors WHERE community_id=' + dataQuery.community_id + 'AND floor=' + dataQuery.floor + 'AND door=' + dataQuery.door
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let tickets = rowCount[0].tickets
+      res.status(200).send({tickets}) 
+    }
+  })
+} 
+exports.sendTicket = (req,res) => {
+  console.log(req.body)
+  let dataQuery = {
+    community_id : "'" + req.body.community_id + "'",
+    floor : "'" + req.body.floor + "'",
+    door : "'" + req.body.door + "'",
+    tickets : "'" + req.body.tickets + "'",
+  }
+  let date = new Date()
+// console.log(date.toLocaleDateString())
+  let query = 'UPDATE doors_floors SET tickets=' + dataQuery.tickets + 'WHERE community_id=' + dataQuery.community_id + 'AND floor=' + dataQuery.floor + 'AND door=' + dataQuery.door
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let mailOptions = {
+        from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+        to: '' + req.body.email,
+        subject: 'TICKET DE INVITACIÓN A PISCINA: ' + date.toLocaleDateString(),
+        text:  'Hola, espero que puedas disfrutar de los servicios aportados por la piscina de mi comunidad, no olvides tener a mano el ticket adjunto por si alguien te lo solicita, disfruta y que pases un buen dia!',     
+        attachments: [
+          {
+            filename: date.toLocaleDateString() + '-ticket.png',
+            path:  __dirname + '/ticket.png',
+            cid: 'uniq-ticket.png' 
+          }
+        ] 
+      }
+      console.log(mailOptions)
+      mailTransporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log("Error email sent!", error)
+        } 
+        else {
+          console.log('Email sent: ')
+        }
+        mailTransporter.close()
+      })
+      res.status(200).send({msg:'sent'}) 
+    }
+  })
+  
+  // let query = 'SELECT * FROM doors_floors WHERE community_id=' + dataQuery.community_id + 'AND floor=' + dataQuery.floor + 'AND door=' + dataQuery.door
+  // conexion.query (query, function (err, rowCount, rows) {
+  //   if (err) {
+  //     throw err
+  //   } else {
+  //     let tickets = rowCount[0].tickets
+  //     res.status(200).send({tickets}) 
+  //   }
+  // })
+} 
+
 exports.sendNotice = (req, res) => {
   console.log(req.body.user_id)
   let data = {
@@ -335,11 +404,20 @@ exports.sendNotice = (req, res) => {
       throw err
     } else {
       let email = rowCount[0].email
+      let date = new Date()
+      // console.log(date.toLocaleDateString())
       let mailOptions = {
         from: '"Neighborhood Community" ' +  mailConfig.auth.user,
         to: '' + email,
         subject: 'JUNTA DE VECINOS: ' + req.body.date,
-        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', a las: ' + req.body.hour + ' cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo '     
+        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', a las: ' + req.body.hour + ' cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo ',     
+        // attachments: [
+        //   {
+        //     filename: date.toLocaleDateString() + '-ticket.png',
+        //     path:  __dirname + '/ticket.png',
+        //     cid: 'uniq-ticket.png' 
+        //   }
+        // ]
       }
       mailTransporter.sendMail(mailOptions, function (error, info) {
         if (error) {

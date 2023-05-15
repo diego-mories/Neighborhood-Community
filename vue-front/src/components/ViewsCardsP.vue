@@ -14,7 +14,7 @@
             <p> CONVOCATORIAS</p>
         </b-col>
         <b-col v-if="confCommunity.has_pool" class="col-lg-2 col-md-10 col-sm-10 align-items: center" id="full">
-            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/deliveries" exact>
+            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/tickets" exact>
                     <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
             </router-link>
             <p>TICKETS</p>

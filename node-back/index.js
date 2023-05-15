@@ -5,6 +5,7 @@ const bodyParser = require("body-parser")
 const HTTP_PORT = 8082;
 
 app.use(cors())
+
 app.use(bodyParser.json())
 
 require('./routes/database.routes')(app)

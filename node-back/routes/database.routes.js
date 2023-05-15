@@ -17,6 +17,14 @@ module.exports = function (app) {
         '/api/dataBaseServices/createSpill',
         controller.createSpill
     )
+    app.post(
+        '/api/dataBaseServices/searchTickets',
+        controller.searchTickets
+    )
+    app.post(
+        '/api/dataBaseServices/sendTicket',
+        controller.sendTicket
+    )
     app.get(
         '/api/dataBaseServices/activeUser',
         controller.activeUser
