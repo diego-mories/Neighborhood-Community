@@ -223,21 +223,17 @@ export default {
           button: 'OK'
         })
       } else {
-        if (this.confCommunity.paddle) {
-          this.confCommunity.paddle = 1
-        }
-        if (this.confCommunity.tennis) {
-          this.confCommunity.tennis = 1
-        }
-        if (this.confCommunity.pool) {
-          this.confCommunity.pool = 1
-        }
-        if (this.confCommunity.doorman) {
-          this.confCommunity.doorman = 1
-        }
-        if (this.confCommunity.cameras) {
-          this.confCommunity.cameras = 1
-        }
+        if (this.confCommunity.paddle) this.confCommunity.paddle = 1
+        else this.confCommunity.paddle = 0
+        if (this.confCommunity.tennis) this.confCommunity.tennis = 1
+        else this.confCommunity.tennis = 0
+        if (this.confCommunity.pool) this.confCommunity.pool = 1
+        else this.confCommunity.pool = 0
+        if (this.confCommunity.doorman) this.confCommunity.doorman = 1
+        else this.confCommunity.doorman = 0
+        if (this.confCommunity.cameras) this.confCommunity.cameras = 1
+        else this.confCommunity.cameras = 0
+          
         let data = {
           nameC: this.confCommunity.nameC,
           paddle: this.confCommunity.paddle,

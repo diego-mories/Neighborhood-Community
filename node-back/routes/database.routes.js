@@ -81,6 +81,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/uptadeFD',
         controller.uptadeFD
     )
+    app.put(
+        '/api/dataBaseServices/updateCommunity',
+        controller.updateCommunity
+    )
     app.get(
         '/api/dataBaseServices/searchDBCommunities',
         controller.searchDBCommunities

@@ -56,6 +56,25 @@ exports.searchNameCommunity = (req, res) => {
     }
   })
 }
+exports.updateCommunity = (req, res) => {
+  console.log(req.body)
+  let dataQuery = {
+    community_id: "'" + req.body.community_id + "'",
+    paddle: "'" + req.body.paddle + "'",
+    tennis: "'" + req.body.tennis + "'",
+    pool: "'" + req.body.pool + "'",
+    cameras: "'" + req.body.cameras + "'",
+  }
+  let query = 'UPDATE community SET has_paddle_court=' + dataQuery.paddle + ',has_tennis_court=' + dataQuery.tennis  + ',has_pool=' + dataQuery.pool  + ',has_cameras=' + dataQuery.cameras + 'WHERE id=' + dataQuery.community_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } 
+    else {
+      res.status(200).send({msg:'Datos de la comunidad actualizados correctamente'})
+    }
+  })
+}
 // exports.searchDF = (req, res) => {
 //   let user_id = "'" + req.query.user_id + "'"
 //   let query = 'SELECT * FROM doors_floors WHERE user_id=' + user_id

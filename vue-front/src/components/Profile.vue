@@ -1,79 +1,123 @@
 <template>
   <div class="screen" id="full">
-    <template v-if="profile">
+    <template v-if="flagConfCom">
       <div class="card p-5 center-form" id="full">
         <div class="row d-flex">
           <div class="col-sm-2 " id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
+            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); flagConfCom = !flagConfCom ; dataComm()">VOLVER</button>
           </div>
-          <div class="col-sm-10" id="full"><h4>{{name + ' ' + surname}}</h4>
+          <div class="col-sm-10" id="full"><h4>Reconfiguración de comunidad</h4>
           <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
         <div class="row justify-content-center" id="grid-bottom-profile full">
-          <div v-if="role_id === 1 && !confCommunity.has_building_doorman"  class="col-sm-3"></div>
-          <div v-if="role_id === 3 || role_id === 2" class="col-sm-2"></div>
-          <div class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button></div>
-          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button></div>
-          <div v-if="role_id === 1" class="col-sm-3" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button></div>
-          <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-3" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">ELIMINAR PORTERO</button></div>
+          <div class="input-group mb-3 d-flex justify-content-center"  style="margin-left: 147px;">
+            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_paddle_court"/>
+            <span class="d-flex align-items-center">¿Hay pista de padel?</span>
+            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_tennis_court"/>
+            <span class="d-flex align-items-center">¿Hay pista de tenis?</span>
+            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_pool"/>
+            <span class="d-flex align-items-center">¿Hay piscina?</span>
+            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_cameras"/>
+            <span class="d-flex align-items-center">¿Hay cámaras?</span>
+        </div>
+          <div class="col-sm-12" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="saveC()" id="profileButton" style="margin-top: 34px; margin-left: 147px;" >GUARDAR CONFIGURACIÓN</button></div>
         </div>
       </div>
     </template>
     <template v-else>
-      <template v-if="!deleteO">
+      <template v-if="profile">
         <div class="card p-5 center-form" id="full">
           <div class="row d-flex">
             <div class="col-sm-2 " id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">VOLVER</button>
+              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
             </div>
-            <div class="col-sm-10" id="full"><h4>Designación de presidente</h4>
+            <div class="col-sm-10" id="full"><h4>{{name + ' ' + surname}}</h4>
             <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-          <div class="row justify-content-center" id="grid-bottom-profile full">
-            <div class="col-sm-7">
-              <label class="label-login">Selecciona planta y piso</label>
-              <b-form-select
-              v-model="selected"
-              id="input-house"
-              name="input-house"
-              v-validate="{ required: true}"
-              :state="validateState('input-house')"
-              :options="options"
-              aria-describedby="input-house-live-feedback">
-              </b-form-select>
-              <b-form-invalid-feedback id="input-house" class="msgE">
-              {{ veeErrors.first('input-house')?'Elige una opción':'' }}
-              </b-form-invalid-feedback>
-            </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">DESIGNAR CARGO</button></div>
+            <div class="row" id="grid-bottom-profile full">
+              <div v-if="role_id === 1" class="col">
+                <button class="btn btn-sm btn-outline-primary" id="profileButton" @click="$router.push('profile'); flagConfCom = !flagConfCom">RECONFIGURAR CONMUNIDAD</button>
+              </div>
+              <div v-if="role_id === 1" class="col">
+                <button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
+              </div>
+                <!-- <div class="col-sm-2"></div> -->
+              <div v-if="role_id === 3 || role_id === 2 " class="col-sm-12" >
+                <button class="btn btn-sm btn-outline-primary" style="margin-left: 147px;" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
+              </div>
+
+              <div class="col">
+                <button v-if="role_id === 1" class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button>
+              </div>
+              <div v-if="role_id === 1" class="col">
+                <button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button>
+              </div>
+              <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col">
+                <button class="btn btn-sm btn-outline-danger"  @click.prevent="deleteB()" id="profileButton">ELIMINAR PORTERO</button>
+              </div>
+            <!-- <div v-if="role_id === 1" class="col-2"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">RECONFIGURAR CONMUNIDAD</button></div>
+            <div class="col-3" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button></div>
+            <div v-if="role_id === 1" class="col-2" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button></div>
+            <div v-if="role_id === 1" class="col-2" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button></div>
+            <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-2" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">ELIMINAR PORTERO</button></div> -->
           </div>
         </div>
       </template>
       <template v-else>
-        <div class="card p-5 center-form" id="full">
-          <div class="row d-flex">
-            <div class="col-sm-2 " id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null ">VOLVER</button>
+        <template v-if="!deleteO">
+          <div class="card p-5 center-form" id="full">
+            <div class="row d-flex">
+              <div class="col-sm-2 " id="full">
+                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">VOLVER</button>
+              </div>
+              <div class="col-sm-10" id="full"><h4>Designación de presidente</h4>
+              <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
+            <div class="row justify-content-center" id="grid-bottom-profile full">
+              <div class="col-sm-7">
+                <label class="label-login">Selecciona planta y piso</label>
+                <b-form-select
+                v-model="selected"
+                id="input-house"
+                name="input-house"
+                v-validate="{ required: true}"
+                :state="validateState('input-house')"
+                :options="options"
+                aria-describedby="input-house-live-feedback">
+                </b-form-select>
+                <b-form-invalid-feedback id="input-house" class="msgE">
+                {{ veeErrors.first('input-house')?'Elige una opción':'' }}
+                </b-form-invalid-feedback>
+              </div>
+              <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">DESIGNAR CARGO</button></div>
             </div>
-            <div class="col-sm-10" id="full"><h4>Eliminación de propietario</h4>
-            <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-          <div class="row justify-content-center" id="grid-bottom-profile full">
-            <div class="col-sm-7">
-              <label class="label-login">Selecciona planta y piso</label>
-              <b-form-select
-              v-model="selected1"
-              id="input-house2"
-              name="input-house2"
-              v-validate="{ required: true}"
-              :state="validateState('input-house2')"
-              :options="options"
-              aria-describedby="input-house2-live-feedback">
-              </b-form-select>
-              <b-form-invalid-feedback id="input-house2" class="msgE">
-              {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
-              </b-form-invalid-feedback>
-            </div>
-            <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">ELIMINAR PROPIETARIO</button></div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <div class="card p-5 center-form" id="full">
+            <div class="row d-flex">
+              <div class="col-sm-2 " id="full">
+                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null ">VOLVER</button>
+              </div>
+              <div class="col-sm-10" id="full"><h4>Eliminación de propietario</h4>
+              <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
+            <div class="row justify-content-center" id="grid-bottom-profile full">
+              <div class="col-sm-7">
+                <label class="label-login">Selecciona planta y piso</label>
+                <b-form-select
+                v-model="selected1"
+                id="input-house2"
+                name="input-house2"
+                v-validate="{ required: true}"
+                :state="validateState('input-house2')"
+                :options="options"
+                aria-describedby="input-house2-live-feedback">
+                </b-form-select>
+                <b-form-invalid-feedback id="input-house2" class="msgE">
+                {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
+                </b-form-invalid-feedback>
+              </div>
+              <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">ELIMINAR PROPIETARIO</button></div>
+            </div>
+          </div>
+        </template>
       </template>
     </template>
   </div>
@@ -95,20 +139,25 @@ export default {
     deleteO: false,
     options: [],
     floors_doors: [],
-    confCommunity: {}
+    confCommunity: {},
+    flagConfCom: false,
 
 
   }   
 },
   created () {
     this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+    this.dataComm()
     this.name = this.userLogin.name
     this.surname = this.userLogin.surname
     this.role_id = this.userLogin.role_id
+    console.log(this.confCommunity)
     this.searchMyCommunity2()
   },
   methods: {
+    dataComm() {
+      this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+    },
     searchMyCommunity2 () {
       Services.searchMyCommunity2(this.userLogin.community_id, this.userLogin.floor,this.userLogin.door).then(
         Response => {
@@ -255,11 +304,11 @@ export default {
                 })
               } else {
                   this.$swal.fire({
-                icon: 'success',
-                text: 'Portero dado de baja de manera correcta'
-                }).then(() => {
-                  this.$router.push({ path: '/login' })
-                })
+                  icon: 'success',
+                  text: 'Portero dado de baja de manera correcta'
+                  }).then(() => {
+                    this.$router.push({ path: '/login' })
+                  })
               }
             },
             Error => {
@@ -270,6 +319,32 @@ export default {
           this.$swal.fire('No se ha eliminado el portero de la comunidad', '', 'info')
         }
     })
+    },
+    saveC () {
+      if (this.confCommunity.has_paddle_court) this.confCommunity.has_paddle_court = 1
+      else this.confCommunity.has_paddle_court = 0
+      if (this.confCommunity.has_tennis_court) this.confCommunity.has_tennis_court = 1
+      else this.confCommunity.has_tennis_court = 0
+      if (this.confCommunity.has_pool) this.confCommunity.has_pool = 1
+      else this.confCommunity.has_pool = 0
+      if (this.confCommunity.has_cameras) this.confCommunity.has_cameras = 1
+      else this.confCommunity.has_cameras = 0
+      
+      Services.updateCommunity(this.userLogin.community_id,this.confCommunity).then(
+        Response =>{
+          this.$swal.fire({
+            icon: 'success',
+            text: 'Configuración de comunidad guardada con exito!'
+            }).then(() => {
+              localStorage.removeItem('confCom')
+              localStorage.setItem('confCom', JSON.stringify(this.confCommunity))
+              this.$router.push({ path: '/login' })
+            })
+        },
+        Error => {
+
+        }
+      )
     },
     validateState (ref) {
       if (

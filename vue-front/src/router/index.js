@@ -145,7 +145,6 @@ export default new Router({
       path: '/activeUser/:tokenActive',
       name: 'ActiveUser',
       component: ActiveUser,
-      beforeEnter : guardMyrouteLogin
     },
     {
       path: '/bills',

@@ -40,7 +40,17 @@ class Services {
     }
     return http.post(API_URL_PATH + 'sendTicket', body)
   }
-  
+  updateCommunity (communityId, data) {
+    const body = {
+      community_id: communityId,
+      paddle: data.has_paddle_court,
+      tennis: data.has_tennis_court,
+      pool: data.has_tennis_court,
+      cameras: data.has_cameras,
+    }
+    return http.put(API_URL_PATH + 'updateCommunity', body)
+
+  }
   // Active user to login
   activeUser (tokenActive) {
     return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)

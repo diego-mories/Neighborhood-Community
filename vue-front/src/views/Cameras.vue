@@ -28,12 +28,12 @@
               <a href="https://www.skylinewebcams.com/es/webcam/espana/cataluna/gerona/lloret-de-mar-costa-brava.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/631.jpg" alt="【LIVE】 Lloret De Mar | SkylineWebcams"></a>                     
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-sm-12" id="full">
               <a href="https://www.skylinewebcams.com/es/webcam/espana/cataluna/barcelona/catamaran.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/3759.jpg" alt="【LIVE】 Tour en Catamarán Tur Tur - Port Olímpic | SkylineWebcams"></a>         
               <a href="https://www.skylinewebcams.com/es/webcam/kenya/taita-taveta-county/voi/tsavo-east-national-park.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/992.jpg" alt="【LIVE】 Kenia - Tsavo East National Park | SkylineWebcams"></a>        
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
