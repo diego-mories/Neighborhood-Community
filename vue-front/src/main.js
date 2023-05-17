@@ -83,6 +83,9 @@ Vue.filter('formatDateP', function (value) {
     return moment(String(value)).format('MM/DD/YYYY HH:mm')
   }
 })
+Vue.filter('formatBooking', function (value) {
+  if (value === 0) return '🚫 '
+})
 
 Vue.filter('formatBill', function (value) {
   if (value === 1) return '🔥'
