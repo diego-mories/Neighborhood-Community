@@ -100,6 +100,9 @@ class Services {
   findBookingsT(communityId) {
     return http.get(API_URL_PATH + 'findBookingsT?community_id=' + communityId)
   }
+  findBookingsP(communityId) {
+    return http.get(API_URL_PATH + 'findBookingsP?community_id=' + communityId)
+  }
   reserveT (user, data) {
     const body = {
       door: user.door,
@@ -109,8 +112,20 @@ class Services {
     }
     return http.put(API_URL_PATH + 'reserveT', body)
   }
+  reserveP (user, data) {
+    const body = {
+      door: user.door,
+      floor: user.floor,
+      community_id: user.community_id,
+      time_zone: data[0].time_zone
+    }
+    return http.put(API_URL_PATH + 'reserveP', body)
+  }
   findMyBookT (user) {
     return http.get(API_URL_PATH + 'findMyBookT?community_id=' + user.community_id + '&floor=' + user.floor+ '&door=' + user.door)
+  }
+  findMyBookP (user) {
+    return http.get(API_URL_PATH + 'findMyBookP?community_id=' + user.community_id + '&floor=' + user.floor+ '&door=' + user.door)
   }
   cancelBookT (user, data) {
     const body = {
@@ -119,8 +134,16 @@ class Services {
       time_zone: data,
       community_id: user.community_id,
     }
-    console.log(body)
     return http.put(API_URL_PATH + 'cancelBookT', body)
+  }
+  cancelBookP (user, data) {
+    const body = {
+      floor: user.floor,
+      door: user.door,
+      time_zone: data,
+      community_id: user.community_id,
+    }
+    return http.put(API_URL_PATH + 'cancelBookP', body)
   }
   // Register doorman, if exist
   signUpDoorman (user) {

@@ -17,10 +17,19 @@
           <div class="col-sm-1" id="full">
           </div>
           <div class="col-sm-4" id="full">
+            <div class="row">
             <span><img class="center-form" src="../assets/images/paddle.png"></span>
+            <template v-if="has_book">
+              <div>MIS RESERVAS: {{myBook}}</div>
+            <div><b-button class="btn-danger" @click="cancelBookP()">CANCELAR RESERVA</b-button></div>
+            </template>
+          </div>
           </div>
           <div class="col-sm-7 d-block" id="full">
             <b-table class="mr-5 ml-5 mt-2" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
+              <template #cell(is_available)="data">
+                {{ data.item.is_available | formatBooking}}
+              </template>
             </b-table>
             <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
           </div>
@@ -28,7 +37,7 @@
           <div class="col-sm-5" id="full">
           </div>
           <div class="col-sm-7" id="full">
-            <b-button id="myBtn" variant="outline-primary" type="submit">RESERVAR</b-button>
+            <b-button id="myBtn" variant="outline-primary" type="submit" @click="reserve()">RESERVAR</b-button>
             <h3><span class="badge badge-danger" id="msg"></span></h3>
           </div>
         </div>
@@ -44,6 +53,8 @@
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
+import servicesDB from '../services/servicesDB'
+
 export default {
   components: {
     FooterSocial,
@@ -53,21 +64,16 @@ export default {
   data () {
     return {
       role: null,
-      fields: ['Ocupado', 'Hora_inicio', 'Hora_Fin'],
-      items: [
-        {Ocupado: '❌', Hora_inicio: '9:00', Hora_Fin: '10:30'},
-        {Ocupado: '', Hora_inicio: '10:30', Hora_Fin: '12:00'},
-        {Ocupado: '❌', Hora_inicio: '12:00', Hora_Fin: '13:30'},
-        {Ocupado: '', Hora_inicio: '13:30', Hora_Fin: '15:00'},
-        {Ocupado: '❌', Hora_inicio: '15:00', Hora_Fin: '16:30'},
-        {Ocupado: '❌', Hora_inicio: '16:30', Hora_Fin: '18:00'},
-        {Ocupado: '', Hora_inicio: '18:00', Hora_Fin: '19:30'},
-        {Ocupado: '', Hora_inicio: '19:30', Hora_Fin: '21:00'},
-        {Ocupado: '', Hora_inicio: '21:00', Hora_Fin: '22:30'}
+      fields: [
+        {key: 'is_available', label: 'Disponibilidad', tdClass: 'table-title', thClass: 'table-title'},
+        {key: 'time_zone', label: 'Horario', tdClass: 'table-title', thClass: 'table-title'}
       ],
+      items: [],
       selectMode: 'single',
       selected: [],
-      dataUserLogin: {}
+      dataUserLogin: {},
+      has_book: false,
+      myBook: ''
     }
   },
   mounted () {
@@ -78,12 +84,14 @@ export default {
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
+    this.getData()
+    this.has_book = false
   },
   methods: {
     onRowSelected (items) {
       this.selected = items
       console.log(this.selected[0])
-      if (this.selected[0].Ocupado === '❌') {
+      if (this.selected[0].is_available === 0) {
         document.getElementById('msg1').hidden = true // Escondemos mensaje azul
         document.getElementById('myBtn').hidden = true // Escondemos boton
         document.getElementById('msg').textContent = 'Seleccione una hora disponible para reservar'
@@ -93,6 +101,73 @@ export default {
         document.getElementById('myBtn').hidden = false // Aparece boton
         document.getElementById('msg').hidden = true
       }
+    },
+    getData () {
+      servicesDB.findBookingsP(this.dataUserLogin.community_id).then(
+        Response => {
+          this.items = Response.data
+          console.log(Response.data)
+        },
+        Error =>{
+          console.log('Error al buscar las reservas disponibles de la pista de padel')
+        }
+      )
+      servicesDB.findMyBookP(this.dataUserLogin).then(
+        Response => {
+          console.log(Response.data.rowCount)
+          if (Response.data.rowCount.length > 0){
+            this.has_book = true
+            this.myBook = Response.data.rowCount[0].time_zone
+            console.log(this.myBook)
+          }
+        },
+        Error => {
+          console.log('Error al buscar si tengo alguna reserva de padel')
+        }
+      )
+    },
+    reserve () {
+      servicesDB.reserveP(this.dataUserLogin,this.selected).then(
+        Response => {
+          console.log(Response.data)
+          if (Response.data.available) {
+            this.$swal.fire({
+              icon: 'success',
+              title: 'Reserva de pista de padel realizada correctamente!!',
+              showConfirmButton: false,
+              timer: 2500
+            }).then(()=> {this.$router.push({ path: '/login' })})
+          } 
+          else {
+            this.$swal.fire({
+              icon: 'error',
+              title: 'Usted ya ha realizado una reserva a las: ' + Response.data.hour + '\nEspere a mañana para realizar otra reserva',
+              showConfirmButton: false,
+              timer: 2500
+            }).then(()=> {this.$router.push({ path: '/login' })})
+          }
+        }, 
+        Error => {
+          console.log('Error al reservar la pista de padel')
+        }
+      ) 
+    },
+    cancelBookP() {
+      servicesDB.cancelBookP(this.dataUserLogin,this.myBook).then(
+        Response => {
+          this.$swal.fire({
+            icon: 'success',
+            title: 'Reserva de pista de padel cancelada correctamente!!',
+            showConfirmButton: false,
+            timer: 2500
+          }).then(()=> {
+            this.$router.push({ path: '/login' })
+          })
+        }, 
+        Error => {
+          console.log('Error al cancelar la reserva')
+        }
+      )
     }
   }
 }

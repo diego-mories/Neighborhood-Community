@@ -169,6 +169,29 @@ exports.findMyBookT = (req, res) => {
     }
   })
 }
+exports.findMyBookP = (req, res) => {
+  let dataQuery = {
+    community_id: "'" + req.query.community_id + "'",
+    floor: "'" + req.query.floor + "'",
+    door: "'" + req.query.door + "'",
+  }
+  let query = 'SELECT * from doors_floors WHERE door=' + dataQuery.door + 'AND floor=' + dataQuery.floor + 'AND community_id=' + dataQuery.community_id
+  conexion.query(query, function (err, rowCount, rows){
+    if (err) {
+      throw err
+    } else {
+      let doorsFloorsId = "'" + rowCount[0].id + "'"
+      let query2 = 'SELECT * from bookings_p WHERE community_id=' + dataQuery.community_id + 'AND door_floors_id=' + doorsFloorsId 
+      conexion.query(query2, function (err, rowCount, rows){
+        if (err) {
+          throw err
+        } else {
+          res.status(200).send({ rowCount})
+        }
+      })
+    }
+  })
+}
 exports.cancelBookT = (req, res) => {
   let dataQuery = {
     community_id: "'" + req.body.community_id + "'",
@@ -184,6 +207,31 @@ exports.cancelBookT = (req, res) => {
     } else {
       let doorsFloorsId = "'" + rowCount[0].id + "'"
       let query2 = 'UPDATE bookings_t SET is_available=' + is_available + ', door_floors_id=NULL WHERE community_id=' + dataQuery.community_id + 'AND time_zone=' + dataQuery.time_zone
+      conexion.query(query2, function (err, rowCount, rows){
+        if (err) {
+          throw err
+        } else {
+          res.status(200).send({ msg:'Eliiminación de reserva de forma correcta'})          
+        }
+      })
+    }
+  })
+}
+exports.cancelBookP = (req, res) => {
+  let dataQuery = {
+    community_id: "'" + req.body.community_id + "'",
+    time_zone: "'" + req.body.time_zone + "'",
+    floor: "'" + req.body.floor + "'",
+    door: "'" + req.body.door + "'",
+  }
+  let is_available = "'" + 1 + "'"
+  let query = 'SELECT * from doors_floors WHERE door=' + dataQuery.door + 'AND floor=' + dataQuery.floor + 'AND community_id=' + dataQuery.community_id
+  conexion.query(query, function (err, rowCount, rows){
+    if (err) {
+      throw err
+    } else {
+      let doorsFloorsId = "'" + rowCount[0].id + "'"
+      let query2 = 'UPDATE bookings_p SET is_available=' + is_available + ', door_floors_id=NULL WHERE community_id=' + dataQuery.community_id + 'AND time_zone=' + dataQuery.time_zone
       conexion.query(query2, function (err, rowCount, rows){
         if (err) {
           throw err
@@ -217,6 +265,43 @@ exports.reserveT = (req, res) => {
          } else {
           let is_available = "'" + 0 + "'"
           let query3 = 'UPDATE bookings_t SET is_available=' + is_available + ', door_floors_id=' + doorsFloorsId + 'WHERE community_id=' + dataQuery.community_id + 'AND time_zone=' + dataQuery.time_zone
+          conexion.query(query3, (err, result) => {
+            if (err) {
+              throw err
+            } else {
+              res.status(200).send({available:true})
+            }
+          })
+         }
+        }
+      })
+    }
+  })
+
+}
+exports.reserveP = (req, res) => {
+  let dataQuery = {
+    floor: "'" + req.body.floor + "'",
+    door: "'" + req.body.door + "'",
+    community_id: "'" + req.body.community_id + "'",
+    time_zone: "'" + req.body.time_zone + "'",
+  }
+  let query = 'SELECT * from doors_floors WHERE door=' + dataQuery.door + 'AND floor=' + dataQuery.floor + 'AND community_id=' + dataQuery.community_id
+  conexion.query(query, function (err, rowCount, rows){
+    if (err) {
+      throw err
+    } else {
+      let doorsFloorsId = "'" + rowCount[0].id + "'"
+      let query2 = 'SELECT * from bookings_p WHERE community_id=' + dataQuery.community_id + 'AND door_floors_id=' + doorsFloorsId 
+      conexion.query(query2, function (err, rowCount, rows){
+        if (err) {
+          throw err
+        } else {
+         if (rowCount.length > 0) {
+          res.status(200).send({available:false, hour: rowCount[0].time_zone})
+         } else {
+          let is_available = "'" + 0 + "'"
+          let query3 = 'UPDATE bookings_p SET is_available=' + is_available + ', door_floors_id=' + doorsFloorsId + 'WHERE community_id=' + dataQuery.community_id + 'AND time_zone=' + dataQuery.time_zone
           conexion.query(query3, (err, result) => {
             if (err) {
               throw err
@@ -1228,6 +1313,17 @@ exports.findAllBills = (req, res) => {
 exports.findBookingsT = (req, res) => {
   let community_id = "'" + req.query.community_id + "'" 
   const query = `SELECT * FROM bookings_t WHERE community_id= ` + community_id
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send(rowCount)    
+    } 
+  })
+}
+exports.findBookingsP = (req, res) => {
+  let community_id = "'" + req.query.community_id + "'" 
+  const query = `SELECT * FROM bookings_p WHERE community_id= ` + community_id
   conexion.query(query, function (err, rowCount, rows) {
     if (err) {
       throw err

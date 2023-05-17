@@ -46,6 +46,10 @@ module.exports = function (app) {
         controller.findMyBookT
     )
     app.get(
+        '/api/dataBaseServices/findMyBookP',
+        controller.findMyBookP
+    )
+    app.get(
         '/api/dataBaseServices/findOneEmail',
         controller.findOneEmail
     )
@@ -68,6 +72,10 @@ module.exports = function (app) {
     app.get(
         '/api/dataBaseServices/findBookingsT',
         controller.findBookingsT
+    )
+    app.get(
+        '/api/dataBaseServices/findBookingsP',
+        controller.findBookingsP
     )
     app.delete(
         '/api/dataBaseServices/deleteRowsPaddle',
@@ -178,7 +186,15 @@ module.exports = function (app) {
         controller.reserveT
     )
     app.put(
+        '/api/dataBaseServices/reserveP',
+        controller.reserveP
+    )
+    app.put(
         '/api/dataBaseServices/cancelBookT',
         controller.cancelBookT
+    )
+    app.put(
+        '/api/dataBaseServices/cancelBookP',
+        controller.cancelBookP
     )
 }
