@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import servicesDB from '../services/servicesDB'
 import Services from '../services/servicesDB'
 
 export default {
@@ -141,8 +142,8 @@ export default {
     floors_doors: [],
     confCommunity: {},
     flagConfCom: false,
-
-
+    last_tennis: null,
+    last_paddle: null
   }   
 },
   created () {
@@ -151,12 +152,13 @@ export default {
     this.name = this.userLogin.name
     this.surname = this.userLogin.surname
     this.role_id = this.userLogin.role_id
-    console.log(this.confCommunity)
     this.searchMyCommunity2()
   },
   methods: {
     dataComm() {
       this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+      this.last_tennis = this.confCommunity.has_tennis_court
+      this.last_paddle = this.confCommunity.has_paddle_court
     },
     searchMyCommunity2 () {
       Services.searchMyCommunity2(this.userLogin.community_id, this.userLogin.floor,this.userLogin.door).then(
@@ -329,7 +331,46 @@ export default {
       else this.confCommunity.has_pool = 0
       if (this.confCommunity.has_cameras) this.confCommunity.has_cameras = 1
       else this.confCommunity.has_cameras = 0
-      
+      console.log('LAST PADDLE:', this.last_paddle)
+      console.log('LAST TENIS:', this.last_tennis)
+      console.log('Configuracion que dejamos PADEL:', this.confCommunity.has_paddle_court)
+      console.log('Configuracion que dejamos TENIS:', this.confCommunity.has_tennis_court)
+      if (this.last_paddle === 0 && this.confCommunity.has_paddle_court === 1) {
+        servicesDB.createRowsPaddle(this.userLogin.community_id).then(
+          Response=> {
+            console.log('Añadidas las entradas de las pistas de padel a la tabla ')
+          },
+          Error => {
+
+          })
+      } 
+      if (this.last_paddle === 1 && this.confCommunity.has_paddle_court === 0) {
+        servicesDB.deleteRowsPaddle(this.userLogin.community_id).then(
+          Response=> {
+            console.log('Eliminadas las entradas de las pistas de padel a la tabla ')
+          },
+          Error => {
+
+        })
+      }
+      if (this.last_tennis === 0 && this.confCommunity.has_tennis_court === 1) {
+        servicesDB.createRowsTennis(this.userLogin.community_id).then(
+          Response=> {
+            console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
+          },
+          Error => {
+
+          })
+      }
+      if (this.last_tennis === 1 && this.confCommunity.has_tennis_court === 0) {
+        servicesDB.deleteRowsTennis(this.userLogin.community_id).then(
+          Response=> {
+            console.log('Eliminadas las entradas de las pistas de tenis a la tabla ')
+          },
+          Error => {
+
+        })
+      }
       Services.updateCommunity(this.userLogin.community_id,this.confCommunity).then(
         Response =>{
           this.$swal.fire({

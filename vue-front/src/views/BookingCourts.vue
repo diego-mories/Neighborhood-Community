@@ -14,10 +14,12 @@
           </div>
         </div>
         <div class="row" id="bottomR">
-          <div class="col-sm-6" id="full">
+          <div class="col-sm-1" id="full">
+          </div>
+          <div v-if="confCommunity.has_tennis_court" class="col" id="full">
             <router-link to="/tennisCourt"><img class="centerImage" src="../assets/images/tennis.png" id="courts"></router-link>
           </div>
-          <div class="col-sm-6" id ="full">
+          <div v-if="confCommunity.has_paddle_court" class="col" id ="full">
             <router-link to="/paddleCourt"><img class="centerImage" src="../assets/images/paddle.png" id="courts"></router-link>
           </div>
         </div>
@@ -41,10 +43,13 @@ export default {
   data: () => ({
     role: null,
     dataUserLogin: {},
+    confCommunity: {}
   }),
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
+    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+
   }
 }
 </script>

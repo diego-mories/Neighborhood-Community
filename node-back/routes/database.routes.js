@@ -54,6 +54,22 @@ module.exports = function (app) {
         controller.searchNameCommunity
     )
     app.get(
+        '/api/dataBaseServices/createRowsTennis',
+        controller.createRowsTennis
+    )
+    app.get(
+        '/api/dataBaseServices/createRowsPaddle',
+        controller.createRowsPaddle
+    )
+    app.delete(
+        '/api/dataBaseServices/deleteRowsPaddle',
+        controller.deleteRowsPaddle
+    )
+    app.delete(
+        '/api/dataBaseServices/deleteRowsTennis',
+        controller.deleteRowsTennis
+    )
+    app.get(
         '/api/dataBaseServices/resetPassword',
         controller.resetPassword
     )

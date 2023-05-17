@@ -49,7 +49,18 @@ class Services {
       cameras: data.has_cameras,
     }
     return http.put(API_URL_PATH + 'updateCommunity', body)
-
+  }
+  createRowsPaddle (communityId) {
+    return http.get(API_URL_PATH + 'createRowsPaddle?community_id=' + communityId)
+  }
+  createRowsTennis (communityId) {
+    return http.get(API_URL_PATH + 'createRowsTennis?community_id=' + communityId)
+  }
+  deleteRowsPaddle (communityId) {
+    return http.delete(API_URL_PATH + 'deleteRowsPaddle?community_id=' + communityId)
+  }
+  deleteRowsTennis (communityId) {
+    return http.delete(API_URL_PATH + 'deleteRowsTennis?community_id=' + communityId)
   }
   // Active user to login
   activeUser (tokenActive) {

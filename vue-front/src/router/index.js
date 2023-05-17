@@ -186,13 +186,13 @@ function guardMyrouteLogin(to, from, next){
     if (user.role_id === 2) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" || to.path === "/tickets" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills" || to.path === "/tickets" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt" || to.path === "/payments") next('/login') 
       else  next() 
     }
     if (user.is_admin) {
       if (to.path === "/") next('/login') 
       else  next() 
-      if (to.path === "/bills" || to.path === "/tickets" || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt") next('/login') 
+      if (to.path === "/bills" || to.path === "/tickets" || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt"|| to.path === "/payments") next('/login') 
       else  next() 
     }
   } 
@@ -200,7 +200,7 @@ function guardMyrouteLogin(to, from, next){
   { 
     // if (to.path === "/") next() 
     // else  next('/')
-    if (to.path === "/forgotPassword" || to.path === "/") next() 
+    if (to.path === "/forgotPassword" || to.path === "/" ) next() 
     else  next('/')
   }
 }

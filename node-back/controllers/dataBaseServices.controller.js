@@ -57,7 +57,6 @@ exports.searchNameCommunity = (req, res) => {
   })
 }
 exports.updateCommunity = (req, res) => {
-  console.log(req.body)
   let dataQuery = {
     community_id: "'" + req.body.community_id + "'",
     paddle: "'" + req.body.paddle + "'",
@@ -72,6 +71,78 @@ exports.updateCommunity = (req, res) => {
     } 
     else {
       res.status(200).send({msg:'Datos de la comunidad actualizados correctamente'})
+    }
+  })
+}
+exports.createRowsTennis = (req, res) => {
+  const communityId = req.query.community_id;
+  const timeZones = [
+    '09:00-10:30',
+    '10:30-12:00',
+    '12:00-13:30',
+    '13:30-15:00',
+    '15:00-16:30',
+    '16:30-18:00',
+    '18:00-19:30',
+    '19:30-21:00',
+    '21:00-22:30'
+  ];
+  const bookingsValues = timeZones.map((timeZone) => {
+    return `(${communityId}, NULL, '${timeZone}', false)`;
+  }).join(',');
+  const query = `INSERT INTO bookings_t (community_id, door_floors_id, time_zone, is_available) VALUES ${bookingsValues}`;
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err;
+    } else {
+      res.status(200).send({msg:'Reservas creadas correctamente'});
+    }
+  });
+}
+exports.createRowsPaddle = (req, res) => {
+  const communityId = req.query.community_id
+  const timeZones = [
+    '09:00-10:30',
+    '10:30-12:00',
+    '12:00-13:30',
+    '13:30-15:00',
+    '15:00-16:30',
+    '16:30-18:00',
+    '18:00-19:30',
+    '19:30-21:00',
+    '21:00-22:30'
+  ]
+  const bookingsValues = timeZones.map((timeZone) => {
+    return `(${communityId}, NULL, '${timeZone}', false)`
+  }).join(',');
+  const query = `INSERT INTO bookings_p (community_id, door_floors_id, time_zone, is_available) VALUES ${bookingsValues}`
+  conexion.query(query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({msg:'Reservas creadas correctamente'})
+    }
+  })
+}
+exports.deleteRowsPaddle = (req, res) => {
+  const community_id = req.query.community_id;
+  const deleteQuery = `DELETE FROM bookings_p WHERE community_id=${community_id}`
+  conexion.query(deleteQuery, (err, result) => {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({ msg: `Todas las reservas para la comunidad con ID ${community_id} han sido eliminadas.` })
+    }
+  })
+}
+exports.deleteRowsTennis = (req, res) => {
+  const community_id = req.query.community_id;
+  const deleteQuery = `DELETE FROM bookings_t WHERE community_id=${community_id}`
+  conexion.query(deleteQuery, (err, result) => {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({ msg: `Todas las reservas para la comunidad con ID ${community_id} han sido eliminadas.` })
     }
   })
 }

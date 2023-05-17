@@ -216,13 +216,7 @@ export default {
         if (!result) {
           return 
         }
-        if (this.confCommunity.myDoor > this.confCommunity.Doors || this.confCommunity.myFloor > this.confCommunity.floors) {
-        swal({
-          title: 'No puede elegir una puerta o plantas no disponible en el rango de configuración elegido',
-          icon: 'error',
-          button: 'OK'
-        })
-      } else {
+        else {
         if (this.confCommunity.paddle) this.confCommunity.paddle = 1
         else this.confCommunity.paddle = 0
         if (this.confCommunity.tennis) this.confCommunity.tennis = 1
@@ -260,6 +254,7 @@ export default {
                           floor: iteratorF,
                           door: this.formatDoor(iteratorD)
                         }
+                        
                         servicesDB.insertRowsFD(dataFD).then(
                           Response => {
                             console.log('Fila añadida a doors_floors')
@@ -284,6 +279,24 @@ export default {
                         )
                       }
                     }
+                  }
+                  if (this.confCommunity.paddle) {
+                    servicesDB.createRowsPaddle(Response.data.community_id).then(
+                      Response=> {
+                        console.log('Añadidas las entradas de las pistas de padel a la tabla ')
+                      },
+                      Error => {
+
+                      })
+                  }
+                  if (this.confCommunity.tennis) {
+                    servicesDB.createRowsTennis(Response.data.community_id).then(
+                      Response=> {
+                        console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
+                      },
+                      Error => {
+
+                      })
                   }
                   this.user.community_id = Response.data.community_id
                   this.user.role_id = 1 // President
