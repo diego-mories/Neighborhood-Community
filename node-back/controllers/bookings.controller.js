@@ -1,16 +1,5 @@
 var mysql = require('mysql')
-const nodemailer = require('nodemailer')
 const dbConfig = require ('../config/db.config')
-const mailConfig = require ('../config/mail.config')
-// MAIL Config
-var mailTransporter = nodemailer.createTransport({
-  host: mailConfig.host,
-  service: mailConfig.service,
-  auth: {
-    user: mailConfig.auth.user,
-    pass: mailConfig.auth.pass
-  }
-})
 // DB Connection
 var conexion = mysql.createConnection({
   host: dbConfig.host,
