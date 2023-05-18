@@ -57,9 +57,8 @@
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
-import Services from '../services/servicesDB'
+import BillsSpillsServices from '../services/Bills_Spills'
 // eslint-disable-next-line no-unused-vars
-// import hml2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 export default {
@@ -88,10 +87,10 @@ export default {
     async getData () {
       this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.role = this.dataUserLogin.role_id
-      const array = await Services.findAllDebsAllIds(this.dataUserLogin)
+      const array = await BillsSpillsServices.findAllDebsAllIds(this.dataUserLogin)
       const records = array.data.dataResponse
       for (let id of records) {
-        Services.findPayment(id).then(
+        BillsSpillsServices.findPayment(id).then(
           Response => {
             this.payments.push(Response.data[0])
           },

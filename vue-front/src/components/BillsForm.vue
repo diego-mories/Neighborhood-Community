@@ -55,8 +55,9 @@
   </div>
   </template>
 <script>
-import swal from 'sweetalert'
-import servicesDB from '../services/servicesDB'
+
+import BillsSpillsServices from '../services/Bills_Spills'
+
 export default {
   data () {
     return {
@@ -72,7 +73,7 @@ export default {
         if (!result) {
           return
         }
-        servicesDB.createBill(this.dataForm).then(
+        BillsSpillsServices.createBill(this.dataForm).then(
           Response => {
             if (Response.status === 200) {
               this.$swal.fire({

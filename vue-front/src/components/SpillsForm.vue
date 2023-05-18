@@ -56,6 +56,7 @@
   </template>
 <script>
 import servicesDB from '../services/servicesDB'
+import BillsSpillsServices from '../services/Bills_Spills'
 export default {
   data () {
     return {
@@ -70,7 +71,7 @@ export default {
           return 
         }
         console.log(this.dataForm)
-        servicesDB.createSpill(this.dataForm).then(
+        BillsSpillsServices.createSpill(this.dataForm).then(
         Response => {
           if (Response.status === 200) {
             this.$swal.fire({

@@ -129,6 +129,8 @@ import ViewsCardsO from '../components/ViewsCardsO.vue'
 import ViewsCardsB from '../components/ViewsCardsB.vue'
 import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
+import BillsSpillsServices from '../services/Bills_Spills'
+
 export default {
   data: () => ({
     role: null,
@@ -181,7 +183,7 @@ export default {
         showConfirmButton: false,
         title: 'Pago en curso...!!'
       }).then(() => {
-        Services.pay(row).then(
+        BillsSpillsServices.pay(row).then(
           Response => {
             if (Response.status === 200) {
               this.$swal.fire({
@@ -250,9 +252,9 @@ export default {
           floor: this.dataUserLogin.floor
         }
         if (this.role === 1) {
-          Services.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+          BillsSpillsServices.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
         }
-        Services.findAllDebs(data).then(
+        BillsSpillsServices.findAllDebs(data).then(
           Response => {
             this.debs = Response.data.dataResponse
           },

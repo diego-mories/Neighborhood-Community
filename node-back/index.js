@@ -13,6 +13,7 @@ require('./routes/users.routes')(app)
 require('./routes/community.routes')(app)
 require('./routes/doors_floors.routes')(app)
 require('./routes/bookings.routes')(app)
+require('./routes/bills_spills.routes')(app)
 
 app.listen(HTTP_PORT,'127.0.0.1', () => {
   console.log(`Lanzado servidor de Node.js en puerto --> ${HTTP_PORT}.`);
