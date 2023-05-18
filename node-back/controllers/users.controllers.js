@@ -430,7 +430,7 @@ exports.sendTicket = (req,res) => {
         attachments: [
           {
             filename: date.toLocaleDateString() + '-ticket.png',
-            path:  __dirname + '/ticket.png',
+            path:  __dirname + '/img/ticket.png',
             cid: 'uniq-ticket.png' 
           }
         ] 
