@@ -46,13 +46,17 @@ class ServicesCommunity {
   searchMyCommunity (communityId) {
     return http.get(API_URL_PATH + 'searchMyCommunity?community_id=' + communityId)
   }
-  // Search data floors and doors not available
+  // Search data floors and doors not available wihtout user house
   searchMyCommunity2 (communityId,floor,door) {
     return http.get(API_URL_PATH + 'searchMyCommunity2?community_id=' + communityId + '&floor=' + floor + '&door=' + door)
   }
   // Search if community has doorman and not registered
   searchDoorman (communityId) {
     return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)
+  }
+  // Search data floors adn doors  not available
+  searchOwnersDF (communityId) {
+    return http.get(API_URL_PATH + 'searchOwnersDF?community_id=' + communityId)
   }
 }
 export default new ServicesCommunity()

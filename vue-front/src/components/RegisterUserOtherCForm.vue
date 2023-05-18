@@ -39,6 +39,7 @@
 import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
+import DFServices from '../services/Doors_floors'
 export default {
   data () {
     return {
@@ -87,11 +88,11 @@ export default {
           if (Response.data.rowCount.length > 0) {
             data.id = Response.data.rowCount[0].id
             // Buscamos si existe algun usuario con este id en esta misma comunidad
-            Services.searchDFExist(data).then(
+            DFServices.searchDFExist(data).then(
               Response => {
                 if (Response.data.rowCount.length === 0) {
                   // Registramos este id en doors floors en esta misma comunidad.
-                  Services.uptadeFD(data).then(
+                  DFServices.uptadeFD(data).then(
                     Response => {
                       this.$swal.fire({
                         icon: 'success',

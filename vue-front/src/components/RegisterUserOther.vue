@@ -38,6 +38,7 @@
 import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
+import DFServices from '../services/Doors_floors'
 export default {
   data () {
     return {
@@ -80,7 +81,7 @@ export default {
       )
     },
     searchOwners () {
-      Services.searchOwnersDF(this.userLogin.community_id).then(
+      CommunityServices.searchOwnersDF(this.userLogin.community_id).then(
         Response => {
           this.ownersFD = Response.data.rowCount
           for (let owner of this.ownersFD) {
@@ -118,7 +119,7 @@ export default {
               role_id: this.newUser.role_id,
               community_id: this.userLogin.community_id
           }
-          Services.uptadeFD(data).then(
+          DFServices.uptadeFD(data).then(
           Response => {
             if (Response.status === 200 || Response.status === 204) {
               this.$swal.fire({

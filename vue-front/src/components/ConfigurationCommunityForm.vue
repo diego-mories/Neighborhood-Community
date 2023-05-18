@@ -43,6 +43,7 @@ import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 import CommunityServices from '../services/Community'
+import DFServices from '../services/Doors_floors'
 export default{
   data: () => ({
     confCommunity: {
@@ -118,7 +119,7 @@ export default{
                   floor: iteratorF,
                   door: iteratorD
                 }
-                Services.insertRowsFD(dataFD).then(
+                DFServices.insertRowsFD(dataFD).then(
                   Response => {
                     console.log('Fila añadida a doors_floors')
                   },
@@ -135,8 +136,7 @@ export default{
                 this.user.id = Response.data.user_id
                 this.user.myDoor = this.confCommunity.myDoor
                 this.user.myFloor = this.confCommunity.myFloor
-                console.log(this.user)
-                Services.uptadeFD(this.user).then(
+                DFServices.uptadeFD(this.user).then(
                   Response => {
                     console.log('Presidente registrado correctamente')
                   },

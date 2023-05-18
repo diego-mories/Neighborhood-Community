@@ -70,6 +70,7 @@
   import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
   import servicesDB from '../services/servicesDB'
   import UsersServices from '../services/Users'
+  import CommunityServices from '../services/Community'
   export default {
     components: {
       FooterSocialNetwork,
@@ -95,7 +96,7 @@
     },
     methods: {
       getData () {
-        servicesDB.searchOwnersDF(this.dataUserLogin.community_id).then(
+        CommunityServices.searchOwnersDF(this.dataUserLogin.community_id).then(
             Response => {
                 this.ownersFD = Response.data.rowCount
                 for (let owner of this.ownersFD) {

@@ -127,6 +127,7 @@
 import servicesDB from '../services/servicesDB'
 import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
+import DFServices from '../services/Doors_floors'
 export default {
   data () {
     return {
@@ -192,7 +193,7 @@ export default {
             floorP: this.userLogin.floor,
             doorP: this.userLogin.door
             }
-          Services.updatePresident(data).then(
+            DFServices.updatePresident(data).then(
             Response => {
               if (Response.status === 200) {
                 this.$swal.fire({

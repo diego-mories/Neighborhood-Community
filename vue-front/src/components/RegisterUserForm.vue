@@ -88,6 +88,7 @@
 import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
+import DFServices from '../services/Doors_floors'
 export default {
   data () {
     return {
@@ -138,7 +139,7 @@ export default {
               console.log('Ahora')
               this.dfUser.id = Response.data.user_id
               this.dfUser.role_id = 3
-              Services.uptadeFD(this.dfUser).then(
+              DFServices.uptadeFD(this.dfUser).then(
                 Response => {
                   if (Response.status === 200 || Response.status === 204) {
                     this.$swal.fire({

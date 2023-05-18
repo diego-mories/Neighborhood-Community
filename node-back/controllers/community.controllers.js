@@ -182,3 +182,15 @@ exports.searchDoorman = (req, res) =>{
       }
     })
 }
+exports.searchOwnersDF = (req, res) => {
+  let community_id = "'" + req.query.community_id + "'"
+  let is_available = "'" + 0 + "'"
+  let query = 'SELECT * FROM doors_floors WHERE community_id=' + community_id + 'AND is_available= ' + is_available
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      res.status(200).send({rowCount}) 
+    } 
+  })
+}

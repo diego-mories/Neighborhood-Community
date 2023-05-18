@@ -33,5 +33,9 @@ module.exports = function (app) {
         '/api/community/searchDoorman',
         controller.searchDoorman
     )
+    app.get(
+        '/api/community/searchOwnersDF',
+        controller.searchOwnersDF
+    )
     
 }

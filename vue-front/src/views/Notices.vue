@@ -87,7 +87,7 @@
 <script>
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
-
+import CommunityServices from '../services/Community'
 import servicesDB from '../services/servicesDB'
 export default {
   components: {
@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     getData () {
-      servicesDB.searchOwnersDF(this.dataUserLogin.community_id).then(
+      CommunityServices.searchOwnersDF(this.dataUserLogin.community_id).then(
         Response => {
           this.arrayPeople = Response.data.rowCount
           for (let id of this.arrayPeople) {

@@ -26,6 +26,7 @@
 <script>
 import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
+import DFServices from '../services/Doors_floors'
 export default {
   data () {
     return {
@@ -55,7 +56,7 @@ export default {
               community_id: this.newDoorman.community_id,
               role_id: this.newDoorman.role_id
             }
-            Services.updateFDDoorman(data).then(
+            DFServices.updateFDDoorman(data).then(
               Response => {
                 this.$swal.fire({
                   icon: 'success',

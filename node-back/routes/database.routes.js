@@ -1,38 +1,7 @@
 const controller = require("../controllers/dataBaseServices.controller")
 
 module.exports = function (app) { 
-    // app.post(
-    //     '/api/dataBaseServices/signUp',
-    //     controller.signUp
-    // )
-    // app.post(
-    //     '/api/dataBaseServices/signUpDoorman',
-    //     controller.signUpDoorman
-    // )
-    // app.post(
-    //     '/api/dataBaseServices/login',
-    //     controller.login
-    // )
-    // app.get(
-    //     '/api/dataBaseServices/activeUser',
-    //     controller.activeUser
-    // )
-    // app.get(
-    //     '/api/dataBaseServices/findOne',
-    //     controller.findOne
-    // )
-    // app.get(
-    //     '/api/dataBaseServices/findOneEmail',
-    //     controller.findOneEmail
-    // )
-    // app.get(
-    //     '/api/dataBaseServices/resetPassword',
-    //     controller.resetPassword
-    // )
-    // app.post(
-    //     '/api/dataBaseServices/changePassword',
-    //     controller.changePassword
-    // )
+
     app.post(
         '/api/dataBaseServices/createSpill',
         controller.createSpill
@@ -45,15 +14,11 @@ module.exports = function (app) {
         '/api/dataBaseServices/sendTicket',
         controller.sendTicket
     )
-    
+
     // app.get(
-    //     '/api/dataBaseServices/searchCommunity',
-    //     controller.searchCommunity
+    //     '/api/dataBaseServices/searchOwnersDF',
+    //     controller.searchOwnersDF
     // )
-    app.get(
-        '/api/dataBaseServices/searchOwnersDF',
-        controller.searchOwnersDF
-    )
     
     app.get(
         '/api/dataBaseServices/findMyBookT',
@@ -64,14 +29,11 @@ module.exports = function (app) {
         controller.findMyBookP
     )
     
-    app.get(
-        '/api/dataBaseServices/searchDFExist',
-        controller.searchDFExist
-    )
     // app.get(
-    //     '/api/dataBaseServices/searchNameCommunity',
-    //     controller.searchNameCommunity
+    //     '/api/dataBaseServices/searchDFExist',
+    //     controller.searchDFExist
     // )
+
     app.get(
         '/api/dataBaseServices/createRowsTennis',
         controller.createRowsTennis
@@ -96,46 +58,24 @@ module.exports = function (app) {
         '/api/dataBaseServices/deleteRowsTennis',
         controller.deleteRowsTennis
     )
+
     // app.post(
-    //     '/api/dataBaseServices/newCommunity',
-    //     controller.newCommunity
+    //     '/api/dataBaseServices/updateFDDoorman',
+    //     controller.updateFDDoorman
     // )
-    app.post(
-        '/api/dataBaseServices/updateFDDoorman',
-        controller.updateFDDoorman
-    )
     app.post(
         '/api/dataBaseServices/sendNotice',
         controller.sendNotice
     )
-    app.put(
-        '/api/dataBaseServices/insertRowsFD',
-        controller.insertRowsFD
-    )
-    app.put(
-        '/api/dataBaseServices/uptadeFD',
-        controller.uptadeFD
-    )
     // app.put(
-    //     '/api/dataBaseServices/updateCommunity',
-    //     controller.updateCommunity
+    //     '/api/dataBaseServices/insertRowsFD',
+    //     controller.insertRowsFD
     // )
-    // app.get(
-    //     '/api/dataBaseServices/searchDBCommunities',
-    //     controller.searchDBCommunities
+    // app.put(
+    //     '/api/dataBaseServices/uptadeFD',
+    //     controller.uptadeFD
     // )
-    // app.get(
-    //     '/api/dataBaseServices/searchMyCommunity',
-    //     controller.searchMyCommunity
-    // )
-    // app.get(
-    //     '/api/dataBaseServices/searchMyCommunity2',
-    //     controller.searchMyCommunity2
-    // )
-    app.get(
-        '/api/dataBaseServices/searchDoorman',
-        controller.searchDoorman
-    )
+
     app.get(
         '/api/dataBaseServices/findPayment',
         controller.findPayment
@@ -152,10 +92,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/contact',
         controller.contact
     )
-    app.post(
-        '/api/dataBaseServices/updatePresident',
-        controller.updatePresident
-    )
+    // app.post(
+    //     '/api/dataBaseServices/updatePresident',
+    //     controller.updatePresident
+    // )
     app.post(
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs

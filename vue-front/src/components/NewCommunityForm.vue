@@ -172,12 +172,10 @@
 </template>
 
 <script>
-import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
+import DFServices from '../services/Doors_floors'
 import CommunityServices from '../services/Community'
-import swal from 'sweetalert'
 import servicesDB from '../services/servicesDB'
-import Users from '../services/Users'
 export default {
   data: () => ({
     confCommunity: {
@@ -258,7 +256,7 @@ export default {
                           door: this.formatDoor(iteratorD)
                         }
                         
-                        servicesDB.insertRowsFD(dataFD).then(
+                        DFServices.insertRowsFD(dataFD).then(
                           Response => {
                             console.log('Fila añadida a doors_floors')
                           },
@@ -272,7 +270,7 @@ export default {
                           floor: iteratorF,
                           door: iteratorD
                         }
-                        servicesDB.insertRowsFD(dataFD).then(
+                        DFServices.insertRowsFD(dataFD).then(
                           Response => {
                             console.log('Fila añadida a doors_floors')
                           },
@@ -313,7 +311,7 @@ export default {
                         this.user.myDoor = this.confCommunity.myDoor
                         this.user.myFloor = this.confCommunity.myFloor
                       }
-                      servicesDB.uptadeFD(this.user).then(
+                      DFServices.uptadeFD(this.user).then(
                         Response => {
                           this.$swal.fire({
                             icon: 'success',
