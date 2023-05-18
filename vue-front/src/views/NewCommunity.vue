@@ -37,7 +37,6 @@ export default {
     NewCommunityForm,
     NavBarAdmin
   }
-
 }
 </script>
 

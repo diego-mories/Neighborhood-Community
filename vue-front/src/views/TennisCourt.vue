@@ -92,13 +92,13 @@ export default {
       this.selected = items
       console.log(this.selected[0])
       if (this.selected[0].is_available === 0) {
-        document.getElementById('msg1').hidden = true // Escondemos mensaje azul
-        document.getElementById('myBtn').hidden = true // Escondemos boton
+        document.getElementById('msg1').hidden = true 
+        document.getElementById('myBtn').hidden = true 
         document.getElementById('msg').textContent = 'Seleccione una hora disponible para reservar'
         document.getElementById('msg').hidden = false
       } else {
-        document.getElementById('msg1').hidden = true // Escondemos mensaje azul
-        document.getElementById('myBtn').hidden = false // Aparece boton
+        document.getElementById('msg1').hidden = true 
+        document.getElementById('myBtn').hidden = false 
         document.getElementById('msg').hidden = true
       }
     },
@@ -108,20 +108,18 @@ export default {
           this.items = Response.data
         },
         Error =>{
-          console.log('Error al buscar las reservas disponibles de la pista de tenis')
+          console.log('Error al buscar las reservas disponibles de la pista de tenis' + Error)
         }
       )
       BookingsServices.findMyBookT(this.dataUserLogin).then(
         Response => {
-          console.log(Response.data.rowCount)
           if (Response.data.rowCount.length > 0){
             this.has_book = true
             this.myBook = Response.data.rowCount[0].time_zone
-            console.log(this.myBook)
           }
         },
         Error => {
-          console.log('Error al buscar si tengo alguna reserva de tenis')
+          console.log('Error al buscar si tengo alguna reserva de tenis' + Error)
         }
         
       )
@@ -129,7 +127,6 @@ export default {
     reserve () {
       BookingsServices.reserveT(this.dataUserLogin,this.selected).then(
         Response => {
-          console.log(Response.data)
           if (Response.data.available) {
             this.$swal.fire({
               icon: 'success',
@@ -148,7 +145,7 @@ export default {
           }
         }, 
         Error => {
-          console.log('Error al reservar la pista de tenis')
+          console.log('Error al reservar la pista de tenis' + Error)
         }
       ) 
     },
@@ -161,11 +158,12 @@ export default {
             showConfirmButton: false,
             timer: 2500
           }).then(()=> {
+            console.log('Reserva de la pista de tenis cancelada correctamente' + Response)
             this.$router.push({ path: '/login' })
           })
         }, 
         Error => {
-          console.log('Error al cancelar la reserva')
+          console.log('Error al cancelar la reserva' + Error)
         }
       )
     }

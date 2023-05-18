@@ -16,7 +16,7 @@
 <script>
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import swal from 'sweetalert'
-import Services from '../services/servicesDB'
+import UsersServices from '../services/Users'
 export default {
   data: () => ({
     tokenActive: ''
@@ -27,7 +27,7 @@ export default {
   methods: {
     ready () {
       this.tokenActive = this.$route.params.tokenActive
-      Services.activeUser(this.tokenActive).then(
+      UsersServices.activeUser(this.tokenActive).then(
         Response => {
           if (Response.status === 200 && Response.data.active === false) {
             swal({

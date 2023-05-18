@@ -30,7 +30,6 @@
 <script>
 import UsersServices from '../services/Users'
 import DFServices from '../services/Doors_floors'
- 
 export default {
   data () {
     return {
@@ -38,6 +37,10 @@ export default {
       tickets: 0,
       email:'',
     }
+  },
+  created () {
+    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.getData()
   },
   methods: {
     getData() {
@@ -52,7 +55,7 @@ export default {
                 console.log(this.tickets)
             },
             Error => {
-                console.log('Error al recoger el número de tickets disponibles')
+                console.log('Error al recoger el número de tickets disponibles' + Error)
             }
         )
     },
@@ -74,12 +77,13 @@ export default {
                     icon: 'success',
                     text: 'Ticket enviado correctamente'
                     }).then(() => {
-                    this.$router.push({ path: '/login' })
+                      console.log('Ticket enviado correctamente' + Response)
+                      this.$router.push({ path: '/login' })
                     })
                 },
                 Error => {
-
-            })
+                  console.log('Error al enviar el ticket' + Error)
+                })
             }
         })
     },
@@ -92,10 +96,6 @@ export default {
       }
       return null
     }
-  },
-  created () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.getData()
   }
 }
 </script>

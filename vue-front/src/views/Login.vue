@@ -195,7 +195,7 @@ export default {
             }
           },
           Error => {
-            console.log('Error al pagar')
+            console.log('Error al pagar' + Error)
           }
         )
       })
@@ -241,7 +241,7 @@ export default {
             }
           },
           Error => {
-            console.log('Error al obtener informacion sobre la base de datos de las comunidades registradas en la plataforma')
+            console.log('Error al obtener informacion sobre la base de datos de las comunidades registradas en la plataforma' + Error)
           }
         )
       } else {
@@ -251,14 +251,14 @@ export default {
           floor: this.dataUserLogin.floor
         }
         if (this.role === 1) {
-          BillsSpillsServices.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas') })
+          BillsSpillsServices.findAllBills(data.community_id).then(Response => { console.log(Response.data.dataResponse); this.bills = Response.data.dataResponse }, Error => { console.log('Error al obtener los datos de las cuentas' + Error) })
         }
         BillsSpillsServices.findAllDebs(data).then(
           Response => {
             this.debs = Response.data.dataResponse
           },
           Error => {
-            console.log('Error al buscar datos de deudas')
+            console.log('Error al buscar datos de deudas' + Error)
           }
         )
       }

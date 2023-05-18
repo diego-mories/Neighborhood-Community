@@ -64,7 +64,7 @@ export default {
         this.searchOwners()
         this.dfUser.community_id = this.userLogin.community_id
         this.newUser.community_id = this.userLogin.community_id
-        this.newUser.role_id = 3 // Owner por defecto
+        this.newUser.role_id = 3 
     },
      searchMyCommunity () {
       CommunityServices.searchMyCommunity(this.userLogin.community_id).then(
@@ -75,7 +75,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion de los pisos y plantas disponibles')
+          console.log('Error al obtener informacion de los pisos y plantas disponibles' + Error)
         }
       )
     },
@@ -97,11 +97,13 @@ export default {
                 )
               },
               Error => {
+                console.log('Error en busqueda de datos del usuario a traves de su id' + Error)
               }
             )
           }
         },
         Error => {
+          console.log('Error al obtener los datos de los propietarios con casa en la comunidad' + Error)
         }
       )
     },
@@ -110,7 +112,7 @@ export default {
         if (!result) {
           return
         }
-          this.newUser.role_id = 3 // Owner por defecto
+          this.newUser.role_id = 3 
           let data = {
               id: this.selected1.id,
               myFloor: this.selected.f,
@@ -130,7 +132,7 @@ export default {
             }
           },
           Error => {
-          console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
+          console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id + Error)
           })
       })
     },

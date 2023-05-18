@@ -53,7 +53,6 @@
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
-import servicesDB from '../services/servicesDB'
 import BookingsServices from '../services/Bookings'
 export default {
   components: {
@@ -92,13 +91,13 @@ export default {
       this.selected = items
       console.log(this.selected[0])
       if (this.selected[0].is_available === 0) {
-        document.getElementById('msg1').hidden = true // Escondemos mensaje azul
-        document.getElementById('myBtn').hidden = true // Escondemos boton
+        document.getElementById('msg1').hidden = true 
+        document.getElementById('myBtn').hidden = true 
         document.getElementById('msg').textContent = 'Seleccione una hora disponible para reservar'
         document.getElementById('msg').hidden = false
       } else {
-        document.getElementById('msg1').hidden = true // Escondemos mensaje azul
-        document.getElementById('myBtn').hidden = false // Aparece boton
+        document.getElementById('msg1').hidden = true 
+        document.getElementById('myBtn').hidden = false 
         document.getElementById('msg').hidden = true
       }
     },
@@ -109,7 +108,7 @@ export default {
           console.log(Response.data)
         },
         Error =>{
-          console.log('Error al buscar las reservas disponibles de la pista de padel')
+          console.log('Error al buscar las reservas disponibles de la pista de padel' + Error)
         }
       )
       BookingsServices.findMyBookP(this.dataUserLogin).then(
@@ -122,7 +121,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al buscar si tengo alguna reserva de padel')
+          console.log('Error al buscar si tengo alguna reserva de padel' + Error)
         }
       )
     },
@@ -148,7 +147,7 @@ export default {
           }
         }, 
         Error => {
-          console.log('Error al reservar la pista de padel')
+          console.log('Error al reservar la pista de padel' + Error)
         }
       ) 
     },
@@ -161,11 +160,12 @@ export default {
             showConfirmButton: false,
             timer: 2500
           }).then(()=> {
+            console.log('Reserva de pista de padel cancelada correctamente' + Response)
             this.$router.push({ path: '/login' })
           })
         }, 
         Error => {
-          console.log('Error al cancelar la reserva')
+          console.log('Error al cancelar la reserva' + Error)
         }
       )
     }

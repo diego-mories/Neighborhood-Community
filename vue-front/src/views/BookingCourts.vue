@@ -49,7 +49,6 @@ export default {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
     this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
-
   }
 }
 </script>

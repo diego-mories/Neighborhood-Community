@@ -97,50 +97,49 @@
       getData () {
         CommunityServices.searchOwnersDF(this.dataUserLogin.community_id).then(
             Response => {
-                this.ownersFD = Response.data.rowCount
-                for (let owner of this.ownersFD) {
-                    this.arrayIds.push(owner.user_id)
-                }
-                let copyIds = this.arrayIds.filter((item, index) => {
-                    return this.arrayIds.indexOf(item) === index
-                })
-                for (let id of copyIds) {
-                  UsersServices.findOne(id).then(
-                        Response => {
-                            this.options.push(
-                            {value: {id: Response.data.rowCount[0].id, email: Response.data.rowCount[0].email}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'}
-                            )
-                        },
-                        Error => {
-                        }
-                        )
-                }
+              this.ownersFD = Response.data.rowCount
+              for (let owner of this.ownersFD) {
+                this.arrayIds.push(owner.user_id)
+              }
+              let copyIds = this.arrayIds.filter((item, index) => {
+                return this.arrayIds.indexOf(item) === index
+              })
+              for (let id of copyIds) {
+                UsersServices.findOne(id).then(
+                  Response => {
+                    this.options.push({value: {id: Response.data.rowCount[0].id, email: Response.data.rowCount[0].email}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'})
+                  },
+                  Error => {
+                    console.log('Error al obtener los datos del usuario a través del id' + Error)
+                  })
+              }
             },
             Error => {
+             console.log('Error al obtener los datos de los propietarios de la comunidad' + Error)
             })
         },
         contact () {
-            this.$validator.validateAll(['input-msg','input-house']).then(result => {
-                if (!result) {
-                return 
-                } else {
-                  UsersServices.contact(this.msg,this.selected.email).then(
-                        Response => {
-                            if (Response.status === 200) {
-                                this.$swal.fire({
-                                icon: 'success',
-                                text: 'Mensaje de contacto enviado correctamente'
-                                }).then(() => {
-                                this.$router.push({ path: '/login' })
-                                })
-                            }
-                        },
-                        Error => {
-                            console.log('Error al contactar con el propietario')
-                        }
-                    )
+          this.$validator.validateAll(['input-msg','input-house']).then(result => {
+            if (!result) {
+            return 
+            } else {
+              UsersServices.contact(this.msg,this.selected.email).then(
+                Response => {
+                  if (Response.status === 200) {
+                    this.$swal.fire({
+                    icon: 'success',
+                    text: 'Mensaje de contacto enviado correctamente'
+                    }).then(() => {
+                    this.$router.push({ path: '/login' })
+                    })
+                  }
+                },
+                Error => {
+                  console.log('Error al contactar con el propietario' + Error)
                 }
-            })
+              )
+            }
+          })
         },
         validateState (ref) {
         if (

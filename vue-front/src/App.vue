@@ -11,15 +11,5 @@ export default {
 </script>
 
 <style>
-.msgE {
-  text-align: left;
-  margin-top: 0%;
-}
-.msgE2{
-  display: none !important;
-  margin-top: 0%;
-}
-.bootstrap-btn {
-  font-size: 0.8rem;
-}
+
 </style>

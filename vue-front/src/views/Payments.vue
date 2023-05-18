@@ -18,30 +18,31 @@
                 </div>
                 <div class="col-sm-11" id="full">
                     <div class="container">
-                            <b-table
-                            class="m-5 "
-                            style="overflow-y:auto; height: 60vh !important;"
-                            ref="payTable"
-                            id="payTable"
-                            :fields="headers"
-                            :items="payments"
-                            responsive="sm">
-                            <template #cell(d_bill)="data">
-                                {{ data.item.d_bill | formatDate}}
-                            </template>
-                            <template #cell(d_payment)="data">
-                                {{ data.item.d_payment | formatDateP}}
-                            </template>
-                            <template #cell(description)="data">
+                        <b-table
+                          class="m-5 "
+                          style="overflow-y:auto; height: 60vh !important;"
+                          ref="payTable"
+                          id="payTable"
+                          :fields="headers"
+                          :items="payments"
+                          responsive="sm"
+                        >
+                          <template #cell(d_bill)="data">
+                            {{ data.item.d_bill | formatDate}}
+                          </template>
+                          <template #cell(d_payment)="data">
+                            {{ data.item.d_payment | formatDateP}}
+                          </template>
+                          <template #cell(description)="data">
                             {{ data.item.description | formatDescription}}
+                          </template>
+                          <template #cell(amount)="data">
+                            {{ data.item.amount | formatAmount}}
                             </template>
-                            <template #cell(amount)="data">
-                              {{ data.item.amount | formatAmount}}
-                              </template>
-                            <template #cell(type_bill)="data">
-                                {{ data.item.type_bill | formatBillP}}
-                            </template>
-                            </b-table>
+                          <template #cell(type_bill)="data">
+                            {{ data.item.type_bill | formatBillP}}
+                          </template>
+                        </b-table>
                         <b-button @click="downloadPDFWithjsPDF()">IMPRIMIR PAGOS</b-button>
                     </div>
                 </div>
@@ -58,7 +59,6 @@ import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import Footer from '../components/FooterSocialNetwork.vue'
 import BillsSpillsServices from '../services/Bills_Spills'
-// eslint-disable-next-line no-unused-vars
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 export default {
@@ -95,19 +95,16 @@ export default {
             this.payments.push(Response.data[0])
           },
           Error => {
-            console.log('Error al buscar datos de deudas')
+            console.log('Error al buscar datos de deudas' + Error)
           }
         )
       }
     },
     downloadPDFWithjsPDF () {
       const fecha = new Date()
-      // eslint-disable-next-line new-cap
       const doc = new jsPDF()
       const $ = require('jquery')
-      // Lo declaramos globalmente
       window.$ = $
-      // eslint-disable-next-line new-cap
       autoTable(doc, { html: '#payTable' })
       doc.save('Pagos-' + fecha.toLocaleDateString() + '.pdf')
     }

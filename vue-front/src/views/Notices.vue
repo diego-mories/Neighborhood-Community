@@ -124,7 +124,7 @@ export default {
           })
         },
         Error => {
-
+          console.log('Error al obtener los datos de los propietarios de la comunidad' + Error)
         }
       )
     },
@@ -158,13 +158,14 @@ export default {
             Response => {
               this.$swal.fire({
                 icon: 'success',
-                title: 'Emails enviados!!'
+                text: 'Emails enviados con la convocatoria de la junta!!'
               }).then(() => {
+                console.log('Convocatoria de junta enviada' + Response)
                 this.$router.push('/login')
               })
             },
             Error => {
-              console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+              console.log('Error en el envio de junta' + Error)
             })
           }
       })

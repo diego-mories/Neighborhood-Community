@@ -114,7 +114,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion del portero')
+          console.log('Error al obtener informacion del portero' + Error)
         }
       )
     },

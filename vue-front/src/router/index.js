@@ -7,7 +7,6 @@ import BookingCourts from '../views/BookingCourts'
 import TennisCourt from '../views/TennisCourt'
 import PaddleCourt from '../views/PaddleCourt'
 import Notices from '../views/Notices'
-import Deliveries from '../views/Deliveries'
 import Profile from '../views/Profile'
 import ForgotPassword from '../views/ForgotPassword'
 import ChangePassword from '../views/ChangePassword'
@@ -74,12 +73,6 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/deliveries',
-      name: 'Deliveries',
-      component: Deliveries,
-      beforeEnter : guardMyrouteLogin
-    },
-    {
       path: '/tickets',
       name: 'Tickets',
       component: Tickets,
@@ -110,12 +103,6 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/configurationExpenses',
-      name: 'ConfigurationExpenses',
-      component: ConfigurationExpenses,
-      beforeEnter : guardMyrouteLogin
-    },
-    {
       path: '/registerUser',
       name: 'RegisterUser',
       component: RegisterUser,
@@ -131,12 +118,6 @@ export default new Router({
       path: '/cameras',
       name: 'Cameras',
       component: Cameras,
-      beforeEnter : guardMyrouteLogin
-    },
-    {
-      path: '/configurationCommunity',
-      name: 'ConfigurationCommunity',
-      component: ConfigurationCommunity,
       beforeEnter : guardMyrouteLogin
     },
     {
@@ -196,8 +177,6 @@ function guardMyrouteLogin(to, from, next){
   } 
   else
   { 
-    // if (to.path === "/") next() 
-    // else  next('/')
     if (to.path === "/forgotPassword" || to.path === "/" ) next() 
     else  next('/')
   }

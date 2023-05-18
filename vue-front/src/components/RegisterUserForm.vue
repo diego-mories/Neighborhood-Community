@@ -85,7 +85,6 @@
     </div>
 </template>
 <script>
-import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
 import DFServices from '../services/Doors_floors'
@@ -109,9 +108,8 @@ export default {
       this.searchMyCommunity()
       this.dfUser.community_id = this.userLogin.community_id
       this.newUser.community_id = this.userLogin.community_id
-      this.newUser.role_id = 3 // Owner por defecto
+      this.newUser.role_id = 3 
     },
-    // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
       CommunityServices.searchMyCommunity(this.userLogin.community_id).then(
         Response => {
@@ -121,7 +119,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion de los pisos y plantas disponibles')
+          console.log('Error al obtener informacion de los pisos y plantas disponibles' + Error)
         }
       )
     },
@@ -136,7 +134,6 @@ export default {
         UsersServices.signUp(this.newUser).then(
           Response => {
             if (Response.status === 200) {
-              console.log('Ahora')
               this.dfUser.id = Response.data.user_id
               this.dfUser.role_id = 3
               DFServices.uptadeFD(this.dfUser).then(
@@ -151,7 +148,7 @@ export default {
                   }
                 },
                 Error => {
-                  console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id)
+                  console.log('Error al dar de alta al nuevo usuario en la comunidad' + this.dfUser.community_id + Error)
                 }
               )
             }
@@ -174,7 +171,6 @@ export default {
           }
         )
       })
-      console.log('registradoooo')
     },
     validateState (ref) {
       if (

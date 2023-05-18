@@ -2,7 +2,6 @@ import http from '../http-common'
 const API_URL_PATH = 'community/'
 
 class ServicesCommunity {
-    
  // Search community_id by user_id (Search data  of communities to which the user belongs)
   searchCommunity (id) {
     return http.get(API_URL_PATH + 'searchCommunity?user_id=' + id)

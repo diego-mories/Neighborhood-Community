@@ -35,15 +35,7 @@ export default {
     FooterSocial,
     BillsForm,
     NavBarPresident
-   },
-  // data: () => ({
-  //   role: null,
-  //   userLogin: {},
-  // }),
-  // created () {
-  //   this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-  //   this.role = this.userLogin.role_id
-  // }
+   }
 }
 </script>
 

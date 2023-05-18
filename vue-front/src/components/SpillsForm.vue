@@ -63,13 +63,16 @@ export default {
       userLogin: {}
     }
   },
+  mounted () {
+    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.dataForm.community_id = this.userLogin.community_id
+  },
   methods: {
     save () {
       this.$validator.validateAll(['input-dataForm-description','input-dataForm-amount','input-dataForm-date']).then(result => {
         if (!result) {
           return 
         }
-        console.log(this.dataForm)
         BillsSpillsServices.createSpill(this.dataForm).then(
         Response => {
           if (Response.status === 200) {
@@ -82,6 +85,7 @@ export default {
           }
         },
         Error => {
+          console.log('Error al crear nueva derrama' + Error)
         }) 
       })
     },
@@ -94,10 +98,6 @@ export default {
       }
       return null
     }
-  },
-  mounted () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.dataForm.community_id = this.userLogin.community_id
   }
 }
 </script>

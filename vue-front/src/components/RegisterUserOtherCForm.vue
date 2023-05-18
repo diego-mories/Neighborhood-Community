@@ -36,7 +36,6 @@
   </template>
 
 <script>
-import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
 import DFServices from '../services/Doors_floors'
@@ -67,7 +66,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion de los pisos y plantas disponibles')
+          console.log('Error al obtener informacion de los pisos y plantas disponibles' + Error)
         }
       )
     },
@@ -87,21 +86,21 @@ export default {
         Response => {
           if (Response.data.rowCount.length > 0) {
             data.id = Response.data.rowCount[0].id
-            // Buscamos si existe algun usuario con este id en esta misma comunidad
             DFServices.searchDFExist(data).then(
               Response => {
                 if (Response.data.rowCount.length === 0) {
-                  // Registramos este id en doors floors en esta misma comunidad.
                   DFServices.uptadeFD(data).then(
                     Response => {
                       this.$swal.fire({
                         icon: 'success',
                         text: 'Alta de persona de otra comunidad en la nuestra de forma correcta como propietario'
                       }).then(() => {
+                        console.log('Alta de persona de otra comunidad en la nuestra de forma correcta' + Response)
                         this.$router.push({ path: `/login` })
                       })
                     },
                     Error => {
+                      console.log('Fallo en alta de persona de otra comunidad en la nuestra de forma correcta' + Error)
                     }
                   )
                 } else {
@@ -118,8 +117,9 @@ export default {
                   })
                 }
               },
-              Error => {}
-
+              Error => {
+                console.log('Fallo al obtener los datos de las casas que existen' + Error)
+              }
             )
           } else {
             this.$swal.fire({
@@ -136,11 +136,9 @@ export default {
           }
         },
         Error => {
-        }
-      )
-      // Buscamos el email, si esta entre los usuarios devolvemos el id, con el id buscamos si con el id de la comunidad y id hay alguna cuenta, si es asi, sacamos mensaje de que existe una cuenta en esta comunidad con ese correo, vuelva al formulario de registrar a una persona con cuenta en esta comunidad
-      // sino, registramos el id y el role 2, en esta comunidad en doors_floors
+          console.log('Fallo al obtener los datos del usuario a través de su email' + Error)
         })
+     })
     },
     validateState (ref) {
       if (

@@ -1,16 +1,15 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'sweetalert2/dist/sweetalert2.min.css'
+import BootstrapVue from 'bootstrap-vue'
 import moment from 'moment'
 import VeeValidate, { Validator } from 'vee-validate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import {
   faAddressBook,
   faCalendar,
@@ -39,7 +38,6 @@ import {
   faInstagram,
   faFacebook
 } from '@fortawesome/free-brands-svg-icons'
-import BootstrapVue from 'bootstrap-vue'
 library.add(
   faAddressBook,
   faCalendar,
@@ -64,25 +62,25 @@ library.add(
   faEnvelope,
   faKey,
   faMoneyBills,
-  faPhone)
+  faPhone
+)
+
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueSweetalert2)
 Vue.use(BootstrapVue)
-
 Vue.use(VeeValidate, {
-  // This is the default
   inject: true,
-  // Important to name this something other than 'fields'
   fieldsBagName: 'veeFields',
-  // This is not required but avoids possible naming conflicts
   errorBagName: 'veeErrors'
 })
+
 Vue.filter('formatDateP', function (value) {
   if (value) {
     return moment(String(value)).format('MM/DD/YYYY HH:mm')
   }
 })
+
 Vue.filter('formatBooking', function (value) {
   if (value === 0) return '🚫 '
 })
@@ -93,19 +91,23 @@ Vue.filter('formatBill', function (value) {
   if (value === 3) return '💧'
   if (value === 0) return 'DERRAMA'
 })
+
 Vue.filter('formatBillP', function (value) {
   if (value === 1) return 'GAS'
   if (value === 2) return 'LUZ'
   if (value === 3) return 'AGUA'
   if (value === 0) return 'DERRAMA'
 })
+
 Vue.filter('formatDescription', function (value) {
   if (value === '' || value === null) return '-------'
   else return value
 })
+
 Vue.filter('formatAmount', function (value) {
   return value + ' €'
 })
+
 Vue.filter('formatDate', function (value) {
   var fecha = value.split('-')
   var año = fecha[0]
@@ -124,7 +126,7 @@ Vue.filter('formatDate', function (value) {
   if (mes === '12') mes = 'Diciembre'
   return mes + ' (' + año + ')'
 })
-/* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,

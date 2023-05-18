@@ -8,7 +8,6 @@ app.use(cors())
 
 app.use(bodyParser.json())
 
-require('./routes/database.routes')(app)
 require('./routes/users.routes')(app)
 require('./routes/community.routes')(app)
 require('./routes/doors_floors.routes')(app)
