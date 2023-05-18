@@ -1,0 +1,53 @@
+const controller = require("../controllers/bookings.controller")
+
+module.exports = function (app) { 
+    app.get(
+        '/api/bookings/createRowsTennis',
+        controller.createRowsTennis
+    )
+    app.get(
+        '/api/bookings/createRowsPaddle',
+        controller.createRowsPaddle
+    )
+    app.get(
+        '/api/bookings/findMyBookT',
+        controller.findMyBookT
+    )
+    app.get(
+        '/api/bookings/findMyBookP',
+        controller.findMyBookP
+    )
+    app.get(
+        '/api/bookings/findBookingsT',
+        controller.findBookingsT
+    )
+    app.get(
+        '/api/bookings/findBookingsP',
+        controller.findBookingsP
+    )
+    app.delete(
+        '/api/bookings/deleteRowsPaddle',
+        controller.deleteRowsPaddle
+    )
+    app.delete(
+        '/api/bookings/deleteRowsTennis',
+        controller.deleteRowsTennis
+    )
+    app.put(
+        '/api/bookings/reserveT',
+        controller.reserveT
+    )
+    app.put(
+        '/api/bookings/reserveP',
+        controller.reserveP
+    )
+    app.put(
+        '/api/bookings/cancelBookT',
+        controller.cancelBookT
+    )
+    app.put(
+        '/api/bookings/cancelBookP',
+        controller.cancelBookP
+    )
+
+}

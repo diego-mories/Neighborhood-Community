@@ -124,10 +124,10 @@
 </template>
 
 <script>
-import servicesDB from '../services/servicesDB'
 import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
 import DFServices from '../services/Doors_floors'
+import BookingsServices from '../services/Bookings'
 export default {
   data () {
     return {
@@ -337,7 +337,7 @@ export default {
       console.log('Configuracion que dejamos PADEL:', this.confCommunity.has_paddle_court)
       console.log('Configuracion que dejamos TENIS:', this.confCommunity.has_tennis_court)
       if (this.last_paddle === 0 && this.confCommunity.has_paddle_court === 1) {
-        servicesDB.createRowsPaddle(this.userLogin.community_id).then(
+        BookingsServices.createRowsPaddle(this.userLogin.community_id).then(
           Response=> {
             console.log('Añadidas las entradas de las pistas de padel a la tabla ')
           },
@@ -346,7 +346,7 @@ export default {
           })
       } 
       if (this.last_paddle === 1 && this.confCommunity.has_paddle_court === 0) {
-        servicesDB.deleteRowsPaddle(this.userLogin.community_id).then(
+        BookingsServices.deleteRowsPaddle(this.userLogin.community_id).then(
           Response=> {
             console.log('Eliminadas las entradas de las pistas de padel a la tabla ')
           },
@@ -355,7 +355,7 @@ export default {
         })
       }
       if (this.last_tennis === 0 && this.confCommunity.has_tennis_court === 1) {
-        servicesDB.createRowsTennis(this.userLogin.community_id).then(
+        BookingsServices.createRowsTennis(this.userLogin.community_id).then(
           Response=> {
             console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
           },
@@ -364,7 +364,7 @@ export default {
           })
       }
       if (this.last_tennis === 1 && this.confCommunity.has_tennis_court === 0) {
-        servicesDB.deleteRowsTennis(this.userLogin.community_id).then(
+        BookingsServices.deleteRowsTennis(this.userLogin.community_id).then(
           Response=> {
             console.log('Eliminadas las entradas de las pistas de tenis a la tabla ')
           },

@@ -53,7 +53,7 @@
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
-import servicesDB from '../services/servicesDB'
+import BookingsServices from '../services/Bookings'
 import { defaultNameResolver } from 'webpack/lib/NamedChunksPlugin'
 export default {
   components: {
@@ -103,7 +103,7 @@ export default {
       }
     },
     getData() {
-      servicesDB.findBookingsT(this.dataUserLogin.community_id).then(
+      BookingsServices.findBookingsT(this.dataUserLogin.community_id).then(
         Response => {
           this.items = Response.data
         },
@@ -111,7 +111,7 @@ export default {
           console.log('Error al buscar las reservas disponibles de la pista de tenis')
         }
       )
-      servicesDB.findMyBookT(this.dataUserLogin).then(
+      BookingsServices.findMyBookT(this.dataUserLogin).then(
         Response => {
           console.log(Response.data.rowCount)
           if (Response.data.rowCount.length > 0){
@@ -127,7 +127,7 @@ export default {
       )
     },
     reserve () {
-      servicesDB.reserveT(this.dataUserLogin,this.selected).then(
+      BookingsServices.reserveT(this.dataUserLogin,this.selected).then(
         Response => {
           console.log(Response.data)
           if (Response.data.available) {
@@ -153,7 +153,7 @@ export default {
       ) 
     },
     cancelBookT() {
-      servicesDB.cancelBookT(this.dataUserLogin,this.myBook).then(
+      BookingsServices.cancelBookT(this.dataUserLogin,this.myBook).then(
         Response => {
           this.$swal.fire({
             icon: 'success',

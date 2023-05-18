@@ -15,66 +15,47 @@ module.exports = function (app) {
         controller.sendTicket
     )
 
+
     // app.get(
-    //     '/api/dataBaseServices/searchOwnersDF',
-    //     controller.searchOwnersDF
+    //     '/api/dataBaseServices/findMyBookT',
+    //     controller.findMyBookT
     // )
-    
-    app.get(
-        '/api/dataBaseServices/findMyBookT',
-        controller.findMyBookT
-    )
-    app.get(
-        '/api/dataBaseServices/findMyBookP',
-        controller.findMyBookP
-    )
-    
     // app.get(
-    //     '/api/dataBaseServices/searchDFExist',
-    //     controller.searchDFExist
+    //     '/api/dataBaseServices/findMyBookP',
+    //     controller.findMyBookP
     // )
 
-    app.get(
-        '/api/dataBaseServices/createRowsTennis',
-        controller.createRowsTennis
-    )
-    app.get(
-        '/api/dataBaseServices/createRowsPaddle',
-        controller.createRowsPaddle
-    )
-    app.get(
-        '/api/dataBaseServices/findBookingsT',
-        controller.findBookingsT
-    )
-    app.get(
-        '/api/dataBaseServices/findBookingsP',
-        controller.findBookingsP
-    )
-    app.delete(
-        '/api/dataBaseServices/deleteRowsPaddle',
-        controller.deleteRowsPaddle
-    )
-    app.delete(
-        '/api/dataBaseServices/deleteRowsTennis',
-        controller.deleteRowsTennis
-    )
 
-    // app.post(
-    //     '/api/dataBaseServices/updateFDDoorman',
-    //     controller.updateFDDoorman
+    // app.get(
+    //     '/api/dataBaseServices/createRowsTennis',
+    //     controller.createRowsTennis
     // )
+    // app.get(
+    //     '/api/dataBaseServices/createRowsPaddle',
+    //     controller.createRowsPaddle
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/findBookingsT',
+    //     controller.findBookingsT
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/findBookingsP',
+    //     controller.findBookingsP
+    // )
+    // app.delete(
+    //     '/api/dataBaseServices/deleteRowsPaddle',
+    //     controller.deleteRowsPaddle
+    // )
+    // app.delete(
+    //     '/api/dataBaseServices/deleteRowsTennis',
+    //     controller.deleteRowsTennis
+    // )
+
+
     app.post(
         '/api/dataBaseServices/sendNotice',
         controller.sendNotice
     )
-    // app.put(
-    //     '/api/dataBaseServices/insertRowsFD',
-    //     controller.insertRowsFD
-    // )
-    // app.put(
-    //     '/api/dataBaseServices/uptadeFD',
-    //     controller.uptadeFD
-    // )
 
     app.get(
         '/api/dataBaseServices/findPayment',
@@ -92,10 +73,7 @@ module.exports = function (app) {
         '/api/dataBaseServices/contact',
         controller.contact
     )
-    // app.post(
-    //     '/api/dataBaseServices/updatePresident',
-    //     controller.updatePresident
-    // )
+
     app.post(
         '/api/dataBaseServices/findAllDebs',
         controller.findAllDebs
@@ -124,20 +102,20 @@ module.exports = function (app) {
         '/api/dataBaseServices/deleteOH',
         controller.deleteOH
     )
-    app.put(
-        '/api/dataBaseServices/reserveT',
-        controller.reserveT
-    )
-    app.put(
-        '/api/dataBaseServices/reserveP',
-        controller.reserveP
-    )
-    app.put(
-        '/api/dataBaseServices/cancelBookT',
-        controller.cancelBookT
-    )
-    app.put(
-        '/api/dataBaseServices/cancelBookP',
-        controller.cancelBookP
-    )
+    // app.put(
+    //     '/api/dataBaseServices/reserveT',
+    //     controller.reserveT
+    // )
+    // app.put(
+    //     '/api/dataBaseServices/reserveP',
+    //     controller.reserveP
+    // )
+    // app.put(
+    //     '/api/dataBaseServices/cancelBookT',
+    //     controller.cancelBookT
+    // )
+    // app.put(
+    //     '/api/dataBaseServices/cancelBookP',
+    //     controller.cancelBookP
+    // )
 }

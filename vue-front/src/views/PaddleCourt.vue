@@ -54,7 +54,7 @@ import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import servicesDB from '../services/servicesDB'
-
+import BookingsServices from '../services/Bookings'
 export default {
   components: {
     FooterSocial,
@@ -103,7 +103,7 @@ export default {
       }
     },
     getData () {
-      servicesDB.findBookingsP(this.dataUserLogin.community_id).then(
+      BookingsServices.findBookingsP(this.dataUserLogin.community_id).then(
         Response => {
           this.items = Response.data
           console.log(Response.data)
@@ -112,7 +112,7 @@ export default {
           console.log('Error al buscar las reservas disponibles de la pista de padel')
         }
       )
-      servicesDB.findMyBookP(this.dataUserLogin).then(
+      BookingsServices.findMyBookP(this.dataUserLogin).then(
         Response => {
           console.log(Response.data.rowCount)
           if (Response.data.rowCount.length > 0){
@@ -127,7 +127,7 @@ export default {
       )
     },
     reserve () {
-      servicesDB.reserveP(this.dataUserLogin,this.selected).then(
+      BookingsServices.reserveP(this.dataUserLogin,this.selected).then(
         Response => {
           console.log(Response.data)
           if (Response.data.available) {
@@ -153,7 +153,7 @@ export default {
       ) 
     },
     cancelBookP() {
-      servicesDB.cancelBookP(this.dataUserLogin,this.myBook).then(
+      BookingsServices.cancelBookP(this.dataUserLogin,this.myBook).then(
         Response => {
           this.$swal.fire({
             icon: 'success',

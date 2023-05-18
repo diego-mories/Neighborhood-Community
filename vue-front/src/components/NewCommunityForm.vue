@@ -176,6 +176,7 @@ import UsersServices from '../services/Users'
 import DFServices from '../services/Doors_floors'
 import CommunityServices from '../services/Community'
 import servicesDB from '../services/servicesDB'
+import BookingsServices from '../services/Bookings'
 export default {
   data: () => ({
     confCommunity: {
@@ -282,7 +283,7 @@ export default {
                     }
                   }
                   if (this.confCommunity.paddle) {
-                    servicesDB.createRowsPaddle(Response.data.community_id).then(
+                    BookingsServices.createRowsPaddle(Response.data.community_id).then(
                       Response=> {
                         console.log('Añadidas las entradas de las pistas de padel a la tabla ')
                       },
@@ -291,7 +292,7 @@ export default {
                       })
                   }
                   if (this.confCommunity.tennis) {
-                    servicesDB.createRowsTennis(Response.data.community_id).then(
+                    BookingsServices.createRowsTennis(Response.data.community_id).then(
                       Response=> {
                         console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
                       },
