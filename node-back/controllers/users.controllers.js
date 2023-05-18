@@ -352,4 +352,100 @@ exports.activeUser = (req, res) => {
       })
     }
 }
+
+// Send mail with msg from doorman to other user
+exports.contact = (req,res) => {
+  let mailOptions = {
+    from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+    to: '' + req.body.email,
+    subject: 'Mensaje del portero de la comunidad',
+    text: '¡Hola! El portero de la comunidad queria contactar con usted: ' + req.body.msg
+  }
+  mailTransporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log("Error email sent!", error)
+    } 
+    else {
+      console.log('Email sent: ')
+    }
+    mailTransporter.close()
+  })
+    res.status(200).send({message: 'Correo enviado correctamente '})
+}
+
+// Send notice about new neighborhood council
+exports.sendNotice = (req, res) => {
+  let data = {
+    user_id: "'" + req.body.user_id + "'",
+    date: "'" + req.body.date + "'",
+    hour: "'" + req.body.hour + "'",
+    orderDay: "'" + req.body.orderDay + "'",
+  }
+  let query = 'SELECT * FROM users WHERE id=' + data.user_id
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let email = rowCount[0].email
+      let mailOptions = {
+        from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+        to: '' + email,
+        subject: 'JUNTA DE VECINOS: ' + req.body.date,
+        text:  'Muy Sr. mío: \n De conformidad con lo dispuesto en la Ley de Propiedad Horizontal, me permito convocarle a la Junta General Ordinaria de esta comunidad, que tendrá lugar el próximo día ' + req.body.date + ', a las: ' + req.body.hour + ' cuya orden del dia es: ' + req.body.orderDay + ', esperamos su asistencia \n Un saludo ',     
+      }
+      mailTransporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log("Error email sent!", error)
+        } 
+        else {
+          console.log('Email sent: ')
+        }
+        mailTransporter.close()
+      })
+      return res.status(200).send({user_id: rowCount.insertId})
+    } 
+  })
+
+}
+
+// Send ticket
+exports.sendTicket = (req,res) => {
+  let dataQuery = {
+    community_id : "'" + req.body.community_id + "'",
+    floor : "'" + req.body.floor + "'",
+    door : "'" + req.body.door + "'",
+    tickets : "'" + req.body.tickets + "'",
+  }
+  let date = new Date()
+  let query = 'UPDATE doors_floors SET tickets=' + dataQuery.tickets + 'WHERE community_id=' + dataQuery.community_id + 'AND floor=' + dataQuery.floor + 'AND door=' + dataQuery.door
+  conexion.query (query, function (err, rowCount, rows) {
+    if (err) {
+      throw err
+    } else {
+      let mailOptions = {
+        from: '"Neighborhood Community" ' +  mailConfig.auth.user,
+        to: '' + req.body.email,
+        subject: 'TICKET DE INVITACIÓN A PISCINA: ' + date.toLocaleDateString(),
+        text:  'Hola, espero que puedas disfrutar de los servicios aportados por la piscina de mi comunidad, no olvides tener a mano el ticket adjunto por si alguien te lo solicita, disfruta y que pases un buen dia!',     
+        attachments: [
+          {
+            filename: date.toLocaleDateString() + '-ticket.png',
+            path:  __dirname + '/ticket.png',
+            cid: 'uniq-ticket.png' 
+          }
+        ] 
+      }
+      mailTransporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log("Error email sent!", error)
+        } 
+        else {
+          console.log('Email sent: ')
+        }
+        mailTransporter.close()
+      })
+      res.status(200).send({msg:'sent'}) 
+    }
+  })
+} 
   

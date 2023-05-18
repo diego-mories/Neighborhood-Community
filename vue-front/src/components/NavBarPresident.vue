@@ -4,43 +4,43 @@
             <div v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court" class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bookingCourts" exact>
                     RESERVA PISTAS
-                    <!-- ICON COURTS --> <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
+                    <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/notices" exact>
                     CONVOCATORIAS
-                    <!-- ICON NOTICES --> <font-awesome-icon icon="fa-solid fa-thumbtack"/>
+                    <font-awesome-icon icon="fa-solid fa-thumbtack"/>
                 </router-link>
             </div>
             <div v-if="confCommunity.has_pool" class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/tickets" exact>
                     ENVIAR TICKETS
-                    <!-- ICON DELIVERIES --> <font-awesome-icon icon="fa-solid fa-ticket"/>
+                    <font-awesome-icon icon="fa-solid fa-ticket"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/registerUser" exact>
                     ALTA USUARIOS
-                    <!-- ICON NEW USER --> <font-awesome-icon icon="fa-solid fa-user-alt"/>
+                    <font-awesome-icon icon="fa-solid fa-user-alt"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/bills" exact>
                     SUBIR CUENTAS
-                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket"/>
+                    <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/spills" exact>
                     SUBIR DERRAMAS
-                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-invoice"/>
+                    <font-awesome-icon icon="fa-solid fa-file-invoice"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/payments" exact>
                     MIS PAGOS
-                    <!-- ICON BILLS --> <font-awesome-icon icon="fa-solid fa-file-zipper"/>
+                    <font-awesome-icon icon="fa-solid fa-file-zipper"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
@@ -70,10 +70,6 @@ export default {
       localStorage.removeItem('userLogin')
       localStorage.removeItem('confCom')
       this.$router.push({ path: '/' })
-    //   history.pushState(null, null, location.href)
-    //   history.back()
-    //   history.forward()
-    //   window.onpopstate = function () { history.go(1) }
     }
   }
 }

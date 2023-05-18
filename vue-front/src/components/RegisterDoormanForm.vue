@@ -71,7 +71,6 @@
     </b-form>
 </template>
 <script>
-import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import CommunityServices from '../services/Community'
 export default {
@@ -89,7 +88,7 @@ export default {
       this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.searchDoorman()
       this.newDoorman.community_id = this.userLogin.community_id
-      this.newDoorman.role_id = 2 // Doorman
+      this.newDoorman.role_id = 2 
     },
     searchDoorman () {
       CommunityServices.searchDoorman(this.userLogin.community_id).then(
@@ -99,7 +98,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion del portero')
+          console.log('Error al obtener informacion del portero' + Error)
         }
       )
     },
@@ -115,6 +114,7 @@ export default {
             title: 'OK.',
             text: 'Nuevo portero dado de alta en la comunidad correctamente'
           }).then(() => {
+            console.log('Nuevo portero dado de alta en la comunidad' + Response)
             this.$router.push({ path: `/login` })
           })
         },

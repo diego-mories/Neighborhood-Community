@@ -4,7 +4,7 @@
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/cameras" exact>
                     CÁMARAS
-                    <!-- ICON VIDEO --> <font-awesome-icon icon="fa-solid fa-video"/>
+                    <font-awesome-icon icon="fa-solid fa-video"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
@@ -14,7 +14,7 @@
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')">{{name + ' ' + surname}} (BD)</button>
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')">{{name + ' ' + surname}}</button>
                 <button type="button" class="bootstrap-btn" @click="deleteDataUserLogin()"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></button>
             </div>
         </nav>
@@ -38,10 +38,6 @@ export default {
       localStorage.removeItem('userLogin')
       localStorage.removeItem('confCom')
       this.$router.push({ path: '/' })
-      // history.pushState(null, null, location.href)
-      // history.back()
-      // history.forward()
-      // window.onpopstate = function () { history.go(1) }
     }
   }
 }

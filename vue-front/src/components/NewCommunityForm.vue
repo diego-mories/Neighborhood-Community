@@ -175,7 +175,6 @@
 import UsersServices from '../services/Users'
 import DFServices from '../services/Doors_floors'
 import CommunityServices from '../services/Community'
-import servicesDB from '../services/servicesDB'
 import BookingsServices from '../services/Bookings'
 export default {
   data: () => ({
@@ -249,7 +248,6 @@ export default {
                 Response => {
                   for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
                     for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
-                      // Creamos una fila en la tabla doors y floors con los datos de id_community y los iteradores
                       if (this.letters) {
                         let dataFD = {
                           community_id: Response.data.community_id,
@@ -259,10 +257,10 @@ export default {
                         
                         DFServices.insertRowsFD(dataFD).then(
                           Response => {
-                            console.log('Fila añadida a doors_floors')
+                            console.log('Fila añadida a doors_floors' + Response)
                           },
                           Error => {
-                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors' + Error)
                           }
                         )
                       } else {
@@ -273,10 +271,10 @@ export default {
                         }
                         DFServices.insertRowsFD(dataFD).then(
                           Response => {
-                            console.log('Fila añadida a doors_floors')
+                            console.log('Fila añadida a doors_floors' + Response)
                           },
                           Error => {
-                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors')
+                            console.log('Error en cambio desde FRONT de insertarFilas en doors and floors' + Error)
                           }
                         )
                       }
@@ -285,23 +283,23 @@ export default {
                   if (this.confCommunity.paddle) {
                     BookingsServices.createRowsPaddle(Response.data.community_id).then(
                       Response=> {
-                        console.log('Añadidas las entradas de las pistas de padel a la tabla ')
+                        console.log('Añadidas las entradas de las pistas de padel a la tabla ' + Response)
                       },
                       Error => {
-
+                        console.log('Error al crear filas en pista de padel' + Error)
                       })
                   }
                   if (this.confCommunity.tennis) {
                     BookingsServices.createRowsTennis(Response.data.community_id).then(
                       Response=> {
-                        console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
+                        console.log('Añadidas las entradas de las pistas de tenis a la tabla ' + Response)
                       },
                       Error => {
-
+                        console.log('Error al crear filas en pista de tenis' + Error)
                       })
                   }
                   this.user.community_id = Response.data.community_id
-                  this.user.role_id = 1 // President
+                  this.user.role_id = 1 
                   UsersServices.signUp(this.user).then(
                     Response => {
                       this.user.id = Response.data.user_id
@@ -318,15 +316,17 @@ export default {
                             icon: 'success',
                             title: 'Nueva comunidad creada correctamente!!'
                           }).then(() => {
+                            console.log('Nueva comunidad creada correctamente' + Response)
                             this.$router.push('/login')
                           })
                         },
                         Error => {
-                          console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración')
+                          console.log('Error en insercion desde FRONT de filas y columnas del presidente creado tras la configuración' + Error)
                         }
                       )
                     },
                     Error => {
+                      console.log('Error al dar de alta al usuario' + Error)
                     }
                   )
                 },
@@ -346,11 +346,6 @@ export default {
           }
         )
       } 
-
-    
-    
-    
-    
     })
     }
   }

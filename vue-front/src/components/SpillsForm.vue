@@ -55,7 +55,6 @@
   </div>
   </template>
 <script>
-import servicesDB from '../services/servicesDB'
 import BillsSpillsServices from '../services/Bills_Spills'
 export default {
   data () {

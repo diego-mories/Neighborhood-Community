@@ -2,23 +2,39 @@ const controller = require("../controllers/doors_floors.controllers")
 
 module.exports = function (app) { 
     app.get(
-        '/api/dataBaseServices/searchDFExist',
+        '/api/doors_floors/searchDFExist',
         controller.searchDFExist
     )
     app.post(
-        '/api/dataBaseServices/updateFDDoorman',
+        '/api/doors_floors/updateFDDoorman',
         controller.updateFDDoorman
     )
     app.put(
-        '/api/dataBaseServices/insertRowsFD',
+        '/api/doors_floors/insertRowsFD',
         controller.insertRowsFD
     )
     app.put(
-        '/api/dataBaseServices/uptadeFD',
+        '/api/doors_floors/uptadeFD',
         controller.uptadeFD
     )
     app.post(
-        '/api/dataBaseServices/updatePresident',
+        '/api/doors_floors/updatePresident',
         controller.updatePresident
+    )
+    app.post(
+        '/api/doors_floors/searchTickets',
+        controller.searchTickets
+    )
+    app.delete(
+        '/api/doors_floors/deleteDP',
+        controller.deleteDP
+    )
+    app.delete(
+        '/api/doors_floors/deleteDoorman',
+        controller.deleteDoorman
+    )
+    app.put(
+        '/api/doors_floors/deleteOH',
+        controller.deleteOH
     )
 }

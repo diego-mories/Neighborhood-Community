@@ -68,7 +68,6 @@
   <script>
   import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
   import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
-  import servicesDB from '../services/servicesDB'
   import UsersServices from '../services/Users'
   import CommunityServices from '../services/Community'
   export default {
@@ -125,7 +124,7 @@
                 if (!result) {
                 return 
                 } else {
-                    servicesDB.contact(this.msg,this.selected.email).then(
+                  UsersServices.contact(this.msg,this.selected.email).then(
                         Response => {
                             if (Response.status === 200) {
                                 this.$swal.fire({

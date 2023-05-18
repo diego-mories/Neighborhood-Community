@@ -32,4 +32,16 @@ module.exports = function (app) {
         '/api/users/activeUser',
         controller.activeUser
     )
+    app.post(
+        '/api/users/contact',
+        controller.contact
+    )
+    app.post(
+        '/api/users/sendNotice',
+        controller.sendNotice
+    )
+    app.post(
+        '/api/users/sendTicket',
+        controller.sendTicket
+    )
 }

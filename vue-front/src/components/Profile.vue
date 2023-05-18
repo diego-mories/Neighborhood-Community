@@ -39,7 +39,6 @@
               <div v-if="role_id === 1" class="col">
                 <button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
               </div>
-                <!-- <div class="col-sm-2"></div> -->
               <div v-if="role_id === 3 || role_id === 2 " class="col-sm-12" >
                 <button class="btn btn-sm btn-outline-primary" style="margin-left: 147px;" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
               </div>
@@ -53,11 +52,6 @@
               <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col">
                 <button class="btn btn-sm btn-outline-danger"  @click.prevent="deleteB()" id="profileButton">ELIMINAR PORTERO</button>
               </div>
-            <!-- <div v-if="role_id === 1" class="col-2"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">RECONFIGURAR CONMUNIDAD</button></div>
-            <div class="col-3" id="full"><button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button></div>
-            <div v-if="role_id === 1" class="col-2" id="full"><button class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button></div>
-            <div v-if="role_id === 1" class="col-2" id="full"><button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button></div>
-            <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col-sm-2" id="full" @click.prevent="deleteB()"><button class="btn btn-sm btn-outline-danger"  id="profileButton">ELIMINAR PORTERO</button></div> -->
           </div>
         </div>
       </template>
@@ -124,10 +118,10 @@
 </template>
 
 <script>
-import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
 import DFServices from '../services/Doors_floors'
 import BookingsServices from '../services/Bookings'
+import BillsSpillsServices from '../services/Bills_Spills'
 export default {
   data () {
     return {
@@ -170,7 +164,7 @@ export default {
           }
         },
         Error => {
-          console.log('Error al obtener informacion de los pisos y plantas ocupadas para la designación')
+          console.log('Error al obtener informacion de los pisos y plantas ocupadas para la designación' + Error)
         }
       )
     },
@@ -185,7 +179,6 @@ export default {
         confirmButtonText: 'CONFIRMAR',
         denyButtonText: `CANCELAR`,
         }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             let data = {
             floorNew: this.selected.f,
@@ -206,7 +199,7 @@ export default {
             }
           },
           Error => {
-            console.log('Error en la designación')
+            console.log('Error en la designación' + Error)
           })
           } else if (result.isDenied) {
             this.profile = !this.profile; 
@@ -225,14 +218,13 @@ export default {
           confirmButtonText: 'CONFIRMAR',
           denyButtonText: `CANCELAR`,
           }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
             var data = {
             community_id: this.userLogin.community_id,
             door: this.selected1.d,
             floor: this.selected1.f
           }
-          Services.findAllDebs(data).then(
+          BillsSpillsServices.findAllDebs(data).then(
             Response => {
               if (Response.data.dataResponse.length > 0) {
                 this.$swal.fire({
@@ -244,9 +236,8 @@ export default {
                   this.$validator.reset()
                 })
               } else {
-                Services.deleteDP(data).then(
+                DFServices.deleteDP(data).then(
                   Response => {
-                    // Services.deleteOHouse(data.floor,data.floor).then()
                     if (Response.status === 200) {
                       this.$swal.fire({
                         icon: 'success',
@@ -254,29 +245,33 @@ export default {
                         showConfirmButton: false,
                         title: 'Registros de deudas y pagos eliminados del propietario, desasignando casa...!!'
                       }).then(() => {
-                        Services.deleteOH(data).then(
+                        DFServices.deleteOH(data).then(
                           Response => {
                             this.$swal.fire({
                               icon: 'success',
                               title: 'Vivienda libre de cargos y de propietario!!',
                               showConfirmButton: false,
                               timer: 2500
-                            }).then(()=> {this.$router.push({ path: '/login' })})
+                            }).then(()=> {
+                              console.log('Usuario desasignado correctamente de la casa' + Response)
+                              this.$router.push({ path: '/login' }
+                              )
+                            })
                           },
                           Error => {
-
+                            console.log('Fallo al desasignar usuario de la casa' + Error)
                           }
                         )
                       })
                     }
                   },
                   Error=> {
-
+                    console.log('Error al eliminar los datos de las deudas y los pagos del usuario' + Error)
                   })
               }
             },
             Error => {
-              console.log('Error al buscar datos de deudas')
+              console.log('Error al buscar datos de deudas' + Error)
             })
           } else if (result.isDenied) {
             this.$swal.fire('No se ha eliminado el propietario de la comunidad', '', 'info').then(()=> {
@@ -294,9 +289,8 @@ export default {
         confirmButtonText: 'CONFIRMAR',
         denyButtonText: `CANCELAR`,
         }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Services.deleteDoorman(this.userLogin.community_id).then(
+          DFServices.deleteDoorman(this.userLogin.community_id).then(
             Response => {
               if (Response.data.vacio) {
                 this.$swal.fire({
@@ -315,7 +309,7 @@ export default {
               }
             },
             Error => {
-              console.log('Error al eliminar al portero')
+              console.log('Error al eliminar al portero' + Error)
             }
           )
         } else if (result.isDenied) {
@@ -332,32 +326,29 @@ export default {
       else this.confCommunity.has_pool = 0
       if (this.confCommunity.has_cameras) this.confCommunity.has_cameras = 1
       else this.confCommunity.has_cameras = 0
-      console.log('LAST PADDLE:', this.last_paddle)
-      console.log('LAST TENIS:', this.last_tennis)
-      console.log('Configuracion que dejamos PADEL:', this.confCommunity.has_paddle_court)
-      console.log('Configuracion que dejamos TENIS:', this.confCommunity.has_tennis_court)
+
       if (this.last_paddle === 0 && this.confCommunity.has_paddle_court === 1) {
         BookingsServices.createRowsPaddle(this.userLogin.community_id).then(
-          Response=> {
-            console.log('Añadidas las entradas de las pistas de padel a la tabla ')
+          Response => {
+            console.log('Añadidas las entradas de las pistas de padel a la tabla ' + Response)
           },
           Error => {
-
+            console.log('Error al añadir las entradas de las pistas de padel a la tabla ' + Error)
           })
       } 
       if (this.last_paddle === 1 && this.confCommunity.has_paddle_court === 0) {
         BookingsServices.deleteRowsPaddle(this.userLogin.community_id).then(
-          Response=> {
-            console.log('Eliminadas las entradas de las pistas de padel a la tabla ')
+          Response => {
+            console.log('Eliminadas las entradas de las pistas de padel a la tabla ' + Response)
           },
           Error => {
-
+            console.log('Error al eliminar las entradas de las pistas de tenis a la tabla ' + Error)
         })
       }
       if (this.last_tennis === 0 && this.confCommunity.has_tennis_court === 1) {
         BookingsServices.createRowsTennis(this.userLogin.community_id).then(
           Response=> {
-            console.log('Añadidas las entradas de las pistas de tenis a la tabla ')
+            console.log('Añadidas las entradas de las pistas de tenis a la tabla ' + Response)
           },
           Error => {
 
@@ -366,10 +357,10 @@ export default {
       if (this.last_tennis === 1 && this.confCommunity.has_tennis_court === 0) {
         BookingsServices.deleteRowsTennis(this.userLogin.community_id).then(
           Response=> {
-            console.log('Eliminadas las entradas de las pistas de tenis a la tabla ')
+            console.log('Eliminadas las entradas de las pistas de tenis a la tabla ' + Response)
           },
           Error => {
-
+            console.log('Error al eliminar las entradas de las pistas de tenis a la tabla ' + Error)
         })
       }
       CommunityServices.updateCommunity(this.userLogin.community_id,this.confCommunity).then(
@@ -378,13 +369,14 @@ export default {
             icon: 'success',
             text: 'Configuración de comunidad guardada con exito!'
             }).then(() => {
+              console.log('Datos de la comunidad actualizados correctamente' + Response)
               localStorage.removeItem('confCom')
               localStorage.setItem('confCom', JSON.stringify(this.confCommunity))
               this.$router.push({ path: '/login' })
             })
         },
         Error => {
-
+          console.log('Error al actualizar los datos de la comunidad' + Error)
         }
       )
     },

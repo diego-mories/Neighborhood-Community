@@ -28,7 +28,9 @@
   </div>
   </template>
 <script>
-import servicesDB from '../services/servicesDB'
+import UsersServices from '../services/Users'
+import DFServices from '../services/Doors_floors'
+ 
 export default {
   data () {
     return {
@@ -44,7 +46,7 @@ export default {
             door: this.userLogin.door,
             floor: this.userLogin.floor,
         }
-        servicesDB.searchTickets(data).then(
+        DFServices.searchTickets(data).then(
             Response => {
                 this.tickets = Response.data.tickets
                 console.log(this.tickets)
@@ -66,7 +68,7 @@ export default {
                 email: this.email,
                 tickets: this.tickets - 1
             }
-            servicesDB.sendTicket(data).then(
+            UsersServices.sendTicket(data).then(
                 Response => {
                 this.$swal.fire({
                     icon: 'success',

@@ -4,11 +4,11 @@
             <div class="componentsNavBar">
                 <router-link tag="li" active-class="active" to="/newCommunity" exact>
                     Crear Comunidad
-                    <!-- ICON COMMUNITY --> <font-awesome-icon icon="fa-solid fa-group-arrows-rotate"/>
+                    <font-awesome-icon icon="fa-solid fa-group-arrows-rotate"/>
                 </router-link>
             </div>
             <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"> {{name + ' ' + surname}} (A)</button>
+                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"> {{name + ' ' + surname}}</button>
                 <button type="button" class="bootstrap-btn" @click="deleteDataUserLogin()"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></button>
             </div>
         </nav>
@@ -31,10 +31,6 @@ export default {
       console.log('Borramos los datos del usuario logueado')
       localStorage.removeItem('userLogin')
       this.$router.push({ path: '/' })
-      // history.pushState(null, null, location.href)
-      // history.back()
-      // history.forward()
-      // window.onpopstate = function () { history.go(1) }
     }
   }
 }

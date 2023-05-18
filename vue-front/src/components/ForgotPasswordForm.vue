@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Services from '../services/servicesDB'
 import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 export default {

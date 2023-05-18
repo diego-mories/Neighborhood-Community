@@ -1,5 +1,5 @@
 import http from '../http-common'
-const API_URL_PATH = 'dataBaseServices/'
+const API_URL_PATH = 'doors_floors/'
 
 class ServicesDoorsFloors {
   // We search if there is any user with this id in this same community
@@ -46,6 +46,32 @@ class ServicesDoorsFloors {
       doorP: data.doorP
     }
     return http.post(API_URL_PATH + 'updatePresident', body)
+  }
+  // Search my tickets
+  searchTickets (data) {
+    const body = {
+      community_id: data.community_id,
+      door: data.door,
+      floor: data.floor
+    }
+    return http.post(API_URL_PATH + 'searchTickets', body)
+  }
+  // Remove Debs and payments of user if amount is correctly
+  deleteDP (user) {
+    return http.delete(API_URL_PATH + 'deleteDP?community_id=' + user.community_id + '&door=' + user.door + '&floor=' + user.floor)
+  }
+  // Remove doorman of community
+  deleteDoorman (communityId) {
+    return http.delete(API_URL_PATH + 'deleteDoorman?community_id=' + communityId)
+  }
+  // Remove a user of a house
+  deleteOH (data) {
+    const body = {
+      community_id: data.community_id,
+      door: data.door,
+      floor: data.floor
+    }
+    return http.put(API_URL_PATH + 'deleteOH', body)
   }
 }
 export default new ServicesDoorsFloors()

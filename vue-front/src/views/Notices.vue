@@ -88,7 +88,7 @@
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import CommunityServices from '../services/Community'
-import servicesDB from '../services/servicesDB'
+import UsersServices from '../services/Users'
 export default {
   components: {
     FooterSocialNetwork,
@@ -154,7 +154,7 @@ export default {
           return 
         }
         for (let id of this.copyArrayIds) {
-          servicesDB.sendNotice(id, this.date, this.hour, this.orderDay).then(
+          UsersServices.sendNotice(id, this.date, this.hour, this.orderDay).then(
             Response => {
               this.$swal.fire({
                 icon: 'success',

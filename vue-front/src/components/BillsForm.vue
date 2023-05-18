@@ -55,9 +55,7 @@
   </div>
   </template>
 <script>
-
 import BillsSpillsServices from '../services/Bills_Spills'
-
 export default {
   data () {
     return {
@@ -65,6 +63,10 @@ export default {
       dataForm: {amount: null, date: null},
       userLogin: {}
     }
+  },
+  created () {
+    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.dataForm.community_id = this.userLogin.community_id
   },
   methods: {
     save () {
@@ -85,6 +87,7 @@ export default {
             }
           },
           Error => {
+            console.log('Error al añadir una cuenta nueva')
           })
       })
     },
@@ -97,10 +100,6 @@ export default {
       }
       return null
     }
-  },
-  created () {
-    this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.dataForm.community_id = this.userLogin.community_id
   }
 }
 </script>

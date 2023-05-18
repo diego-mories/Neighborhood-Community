@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import Services from '@/services/servicesDB'
 import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 export default {
@@ -54,6 +53,11 @@ export default {
     tokenPass: '',
     userPass: ''
   }),
+  created () {
+    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.tokenPass = dataUserLogin.tokenPass
+    this.userPass = dataUserLogin.password
+  },
   methods: {
     changePass () {
       this.$validator.validateAll().then(result => {
@@ -102,13 +106,7 @@ export default {
       }
       return null
     }
-  },
-  created () {
-    let dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
-    this.tokenPass = dataUserLogin.tokenPass
-    this.userPass = dataUserLogin.password
   }
-
 }
 </script>
 

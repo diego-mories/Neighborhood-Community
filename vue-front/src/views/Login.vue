@@ -127,7 +127,6 @@ import Footer from '../components/FooterSocialNetwork.vue'
 import ViewsCardsP from '../components/ViewsCardsP.vue'
 import ViewsCardsO from '../components/ViewsCardsO.vue'
 import ViewsCardsB from '../components/ViewsCardsB.vue'
-import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
 import BillsSpillsServices from '../services/Bills_Spills'
 

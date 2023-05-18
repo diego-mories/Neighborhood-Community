@@ -21,7 +21,6 @@
           <b-form-invalid-feedback id="input-user-email" class="msgE">
             {{ veeErrors.first('input-user-email')?'Introduce un email válido':'' }}
           </b-form-invalid-feedback>
-            <!-- <b-form-invalid-feedback id="input-user-email-live-feedback">{{ veeErrors.first('input-user-email-live-feedback') }}</b-form-invalid-feedback> -->
           <label class="label-login">Contraseña</label>
           <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-key" /></span>
           <b-form-input
@@ -72,7 +71,6 @@
 </template>
 
 <script>
-import Services from '../services/servicesDB'
 import CommunityServices from '../services/Community'
 import UsersServices from '../services/Users'
 import swal from 'sweetalert'
@@ -99,7 +97,6 @@ export default {
         } else {
           UsersServices.login(this.user).then(
             Response => {
-              // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
               if (Response.data.OK) {
                 this.local = Response.data.userLogin
                 if (this.local.is_admin) {
@@ -111,7 +108,6 @@ export default {
                       this.houses = true
                       this.floors_doors = Response.data.rowCount
                       for (let floorDoor of this.floors_doors) {
-                        // BUSCAR NOMBRE COMUNIDAD
                         CommunityServices.searchNameCommunity(floorDoor.community_id).then(
                           Response => {
                             this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door, role: floorDoor.role_id, nameC: Response.data.rowCount[0].name, idC: Response.data.rowCount[0].id, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_tennis_court: Response.data.rowCount[0].has_tennis_court, has_building_doorman: Response.data.rowCount[0].has_building_doorman,has_pool: Response.data.rowCount[0].has_pool, has_cameras: Response.data.rowCount[0].has_cameras, nameC: Response.data.rowCount[0].name}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door + ' (' + this.filterRole(floorDoor.role_id) + ')' + ' COMUNIDAD: ' + Response.data.rowCount[0].name})
