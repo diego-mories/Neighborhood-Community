@@ -81,7 +81,7 @@ import RegisterDoormanForm from '../components/RegisterDoormanForm.vue'
 import RegisterDoormanFormExist from '../components/RegisterDoormanFormExist.vue'
 import FooterSocial from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
-import servicesDB from '../services/servicesDB'
+import CommunityServices from '../services/Community'
 export default {
   components: {
     RegisterUserForm,
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     searchDoorman () {
-      servicesDB.searchDoorman(this.userLogin.community_id).then(
+      CommunityServices.searchDoorman(this.userLogin.community_id).then(
         Response => {
           if (Response.data.exist) {
             this.formDoorman = true

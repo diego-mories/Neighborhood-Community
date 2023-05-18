@@ -126,7 +126,7 @@
 <script>
 import servicesDB from '../services/servicesDB'
 import Services from '../services/servicesDB'
-
+import CommunityServices from '../services/Community'
 export default {
   data () {
     return {
@@ -161,7 +161,7 @@ export default {
       this.last_paddle = this.confCommunity.has_paddle_court
     },
     searchMyCommunity2 () {
-      Services.searchMyCommunity2(this.userLogin.community_id, this.userLogin.floor,this.userLogin.door).then(
+      CommunityServices.searchMyCommunity2(this.userLogin.community_id, this.userLogin.floor,this.userLogin.door).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
           for (let floorDoor of this.floors_doors) {
@@ -371,7 +371,7 @@ export default {
 
         })
       }
-      Services.updateCommunity(this.userLogin.community_id,this.confCommunity).then(
+      CommunityServices.updateCommunity(this.userLogin.community_id,this.confCommunity).then(
         Response =>{
           this.$swal.fire({
             icon: 'success',

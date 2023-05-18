@@ -638,16 +638,7 @@ exports.sendTicket = (req,res) => {
       res.status(200).send({msg:'sent'}) 
     }
   })
-  
-  // let query = 'SELECT * FROM doors_floors WHERE community_id=' + dataQuery.community_id + 'AND floor=' + dataQuery.floor + 'AND door=' + dataQuery.door
-  // conexion.query (query, function (err, rowCount, rows) {
-  //   if (err) {
-  //     throw err
-  //   } else {
-  //     let tickets = rowCount[0].tickets
-  //     res.status(200).send({tickets}) 
-  //   }
-  // })
+
 } 
 
 exports.sendNotice = (req, res) => {

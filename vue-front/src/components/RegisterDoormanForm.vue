@@ -72,6 +72,8 @@
 </template>
 <script>
 import Services from '../services/servicesDB'
+import UsersServices from '../services/Users'
+import CommunityServices from '../services/Community'
 export default {
   data () {
     return {
@@ -90,7 +92,7 @@ export default {
       this.newDoorman.role_id = 2 // Doorman
     },
     searchDoorman () {
-      Services.searchDoorman(this.userLogin.community_id).then(
+      CommunityServices.searchDoorman(this.userLogin.community_id).then(
         Response => {
           if (Response.data.exist) {
             this.formDoorman = true
@@ -106,7 +108,7 @@ export default {
         if (!result) {
           return
         } 
-        Services.signUpDoorman(this.newDoorman).then(
+        UsersServices.signUpDoorman(this.newDoorman).then(
         Response => {
           this.$swal.fire({
             icon: 'success',

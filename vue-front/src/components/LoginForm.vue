@@ -73,6 +73,8 @@
 
 <script>
 import Services from '../services/servicesDB'
+import CommunityServices from '../services/Community'
+import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 export default {
   data: () => ({
@@ -95,7 +97,7 @@ export default {
         if (!result) {
           return
         } else {
-          Services.login(this.user).then(
+          UsersServices.login(this.user).then(
             Response => {
               // Si la respuesta es OK es true, iniciamos sesion pasando el token a la sesion
               if (Response.data.OK) {
@@ -104,13 +106,13 @@ export default {
                   localStorage.setItem('userLogin', JSON.stringify(this.local))
                   this.$router.push({ path: `/login` })
                 } else {
-                  Services.searchCommunity(Response.data.userLogin.id).then(
+                  CommunityServices.searchCommunity(Response.data.userLogin.id).then(
                     Response => {
                       this.houses = true
                       this.floors_doors = Response.data.rowCount
                       for (let floorDoor of this.floors_doors) {
                         // BUSCAR NOMBRE COMUNIDAD
-                        Services.searchNameCommunity(floorDoor.community_id).then(
+                        CommunityServices.searchNameCommunity(floorDoor.community_id).then(
                           Response => {
                             this.optionss.push({value: {floor: floorDoor.floor, door: floorDoor.door, role: floorDoor.role_id, nameC: Response.data.rowCount[0].name, idC: Response.data.rowCount[0].id, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_paddle_court: Response.data.rowCount[0].has_paddle_court, has_tennis_court: Response.data.rowCount[0].has_tennis_court, has_building_doorman: Response.data.rowCount[0].has_building_doorman,has_pool: Response.data.rowCount[0].has_pool, has_cameras: Response.data.rowCount[0].has_cameras, nameC: Response.data.rowCount[0].name}, text: 'Planta ' + floorDoor.floor + ' Puerta ' + floorDoor.door + ' (' + this.filterRole(floorDoor.role_id) + ')' + ' COMUNIDAD: ' + Response.data.rowCount[0].name})
                           },

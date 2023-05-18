@@ -45,6 +45,7 @@
 
 <script>
 import Services from '@/services/servicesDB'
+import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 export default {
   data: () => ({
@@ -66,7 +67,7 @@ export default {
           button: 'OK'
         })
       } else {
-        Services.changePassword(this.tokenPass, this.password, this.userPass).then(
+        UsersServices.changePassword(this.tokenPass, this.password, this.userPass).then(
           Response => {
             if (Response.data.OK) {
               swal({

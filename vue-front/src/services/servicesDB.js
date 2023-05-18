@@ -2,26 +2,7 @@ import http from '../http-common'
 const API_URL_PATH = 'dataBaseServices/'
 
 class Services {
-  // Login
-  login (user) {
-    const body = {
-      email: user.email,
-      password: user.password
-    }
-    return http.post(API_URL_PATH + 'login', body)
-  }
-  // Register new user
-  signUp (user) {
-    const body = {
-      name: user.name,
-      surname: user.surname,
-      community_id: user.community_id,
-      email: user.email,
-      phone: user.phone,
-      role: user.role
-    }
-    return http.post(API_URL_PATH + 'signUp', body)
-  }
+
   searchTickets (data) {
     const body = {
       community_id: data.community_id,
@@ -40,6 +21,7 @@ class Services {
     }
     return http.post(API_URL_PATH + 'sendTicket', body)
   }
+
   updateCommunity (communityId, data) {
     const body = {
       community_id: communityId,
@@ -62,10 +44,7 @@ class Services {
   deleteRowsTennis (communityId) {
     return http.delete(API_URL_PATH + 'deleteRowsTennis?community_id=' + communityId)
   }
-  // Active user to login
-  activeUser (tokenActive) {
-    return http.get(API_URL_PATH + 'activeUser?tokenActive=' + tokenActive)
-  }
+
   // Search community_id
   searchCommunity (id) {
     return http.get(API_URL_PATH + 'searchCommunity?user_id=' + id)
@@ -91,12 +70,7 @@ class Services {
     let communityId = data.community_id
     return http.get(API_URL_PATH + 'searchDFExist?community_id=' + communityId + '&user_id=' + userId)
   }
-  findOne (id) {
-    return http.get(API_URL_PATH + 'findOne?user_id=' + id)
-  }
-  findOneEmail (email) {
-    return http.get(API_URL_PATH + 'findOneEmail?email=' + email)
-  }
+
   findBookingsT(communityId) {
     return http.get(API_URL_PATH + 'findBookingsT?community_id=' + communityId)
   }
@@ -145,31 +119,7 @@ class Services {
     }
     return http.put(API_URL_PATH + 'cancelBookP', body)
   }
-  // Register doorman, if exist
-  signUpDoorman (user) {
-    const body = {
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      phone: user.phone,
-      role_id: user.role_id,
-      community_id: user.community_id
-    }
-    return http.post(API_URL_PATH + 'signUpDoorman', body)
-  }
-  // Reset password user
-  resetPassword (email) {
-    return http.get(API_URL_PATH + 'resetPassword?email=' + email)
-  }
-  // Change password user
-  changePassword (tokenPass, password, userPass) {
-    const body = {
-      tokenPass: tokenPass,
-      password: password,
-      userPass: userPass
-    }
-    return http.post(API_URL_PATH + 'changePassword', body)
-  }
+
   // Regsiter new comminity
   newCommunity (data) {
     const body = {
@@ -225,9 +175,7 @@ class Services {
   searchMyCommunity2 (communityId,floor,door) {
     return http.get(API_URL_PATH + 'searchMyCommunity2?community_id=' + communityId + '&floor=' + floor + '&door=' + door)
   }
-  // searchDF (userId) {
-  //   return http.get(API_URL_PATH + 'searchMyCommunity?user_id=' + userId)
-  // }
+
   // Search if community has doorman and not registered
   searchDoorman (communityId) {
     return http.get(API_URL_PATH + 'searchDoorman?community_id=' + communityId)

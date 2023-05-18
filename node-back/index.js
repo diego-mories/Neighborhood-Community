@@ -9,6 +9,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 require('./routes/database.routes')(app)
+require('./routes/users.routes')(app)
+require('./routes/community.routes')(app)
 
 app.listen(HTTP_PORT,'127.0.0.1', () => {
   console.log(`Lanzado servidor de Node.js en puerto --> ${HTTP_PORT}.`);

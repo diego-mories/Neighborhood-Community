@@ -128,6 +128,7 @@ import ViewsCardsP from '../components/ViewsCardsP.vue'
 import ViewsCardsO from '../components/ViewsCardsO.vue'
 import ViewsCardsB from '../components/ViewsCardsB.vue'
 import Services from '../services/servicesDB'
+import CommunityServices from '../services/Community'
 export default {
   data: () => ({
     role: null,
@@ -202,7 +203,7 @@ export default {
       this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
       this.role = this.dataUserLogin.role_id
       if (this.dataUserLogin.is_admin) {
-        Services.searchDBCommunities().then(
+        CommunityServices.searchDBCommunities().then(
           Response => {
             this.communities = Response.data.communities
             for (let community of this.communities) {

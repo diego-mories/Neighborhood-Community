@@ -172,9 +172,12 @@
 </template>
 
 <script>
-// import Services from '../services/servicesDB'
+import Services from '../services/servicesDB'
+import UsersServices from '../services/Users'
+import CommunityServices from '../services/Community'
 import swal from 'sweetalert'
 import servicesDB from '../services/servicesDB'
+import Users from '../services/Users'
 export default {
   data: () => ({
     confCommunity: {
@@ -240,10 +243,10 @@ export default {
           floors: this.confCommunity.floors,
           doors: this.confCommunity.doors
         }
-        servicesDB.findOneEmail(this.user.email).then(
+        UsersServices.findOneEmail(this.user.email).then(
           Response => {
             if (Response.data.rowCount.length === 0) {
-              servicesDB.newCommunity(data).then(
+              CommunityServices.newCommunity(data).then(
                 Response => {
                   for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
                     for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
@@ -300,7 +303,7 @@ export default {
                   }
                   this.user.community_id = Response.data.community_id
                   this.user.role_id = 1 // President
-                  servicesDB.signUp(this.user).then(
+                  UsersServices.signUp(this.user).then(
                     Response => {
                       this.user.id = Response.data.user_id
                       if (this.letters) {

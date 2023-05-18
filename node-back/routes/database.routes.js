@@ -1,18 +1,38 @@
 const controller = require("../controllers/dataBaseServices.controller")
 
 module.exports = function (app) { 
-    app.post(
-        '/api/dataBaseServices/signUp',
-        controller.signUp
-    )
-    app.post(
-        '/api/dataBaseServices/signUpDoorman',
-        controller.signUpDoorman
-    )
-    app.post(
-        '/api/dataBaseServices/login',
-        controller.login
-    )
+    // app.post(
+    //     '/api/dataBaseServices/signUp',
+    //     controller.signUp
+    // )
+    // app.post(
+    //     '/api/dataBaseServices/signUpDoorman',
+    //     controller.signUpDoorman
+    // )
+    // app.post(
+    //     '/api/dataBaseServices/login',
+    //     controller.login
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/activeUser',
+    //     controller.activeUser
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/findOne',
+    //     controller.findOne
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/findOneEmail',
+    //     controller.findOneEmail
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/resetPassword',
+    //     controller.resetPassword
+    // )
+    // app.post(
+    //     '/api/dataBaseServices/changePassword',
+    //     controller.changePassword
+    // )
     app.post(
         '/api/dataBaseServices/createSpill',
         controller.createSpill
@@ -25,22 +45,16 @@ module.exports = function (app) {
         '/api/dataBaseServices/sendTicket',
         controller.sendTicket
     )
-    app.get(
-        '/api/dataBaseServices/activeUser',
-        controller.activeUser
-    )
-    app.get(
-        '/api/dataBaseServices/searchCommunity',
-        controller.searchCommunity
-    )
+    
+    // app.get(
+    //     '/api/dataBaseServices/searchCommunity',
+    //     controller.searchCommunity
+    // )
     app.get(
         '/api/dataBaseServices/searchOwnersDF',
         controller.searchOwnersDF
     )
-    app.get(
-        '/api/dataBaseServices/findOne',
-        controller.findOne
-    )
+    
     app.get(
         '/api/dataBaseServices/findMyBookT',
         controller.findMyBookT
@@ -49,18 +63,15 @@ module.exports = function (app) {
         '/api/dataBaseServices/findMyBookP',
         controller.findMyBookP
     )
-    app.get(
-        '/api/dataBaseServices/findOneEmail',
-        controller.findOneEmail
-    )
+    
     app.get(
         '/api/dataBaseServices/searchDFExist',
         controller.searchDFExist
     )
-    app.get(
-        '/api/dataBaseServices/searchNameCommunity',
-        controller.searchNameCommunity
-    )
+    // app.get(
+    //     '/api/dataBaseServices/searchNameCommunity',
+    //     controller.searchNameCommunity
+    // )
     app.get(
         '/api/dataBaseServices/createRowsTennis',
         controller.createRowsTennis
@@ -85,18 +96,10 @@ module.exports = function (app) {
         '/api/dataBaseServices/deleteRowsTennis',
         controller.deleteRowsTennis
     )
-    app.get(
-        '/api/dataBaseServices/resetPassword',
-        controller.resetPassword
-    )
-    app.post(
-        '/api/dataBaseServices/changePassword',
-        controller.changePassword
-    )
-    app.post(
-        '/api/dataBaseServices/newCommunity',
-        controller.newCommunity
-    )
+    // app.post(
+    //     '/api/dataBaseServices/newCommunity',
+    //     controller.newCommunity
+    // )
     app.post(
         '/api/dataBaseServices/updateFDDoorman',
         controller.updateFDDoorman
@@ -113,22 +116,22 @@ module.exports = function (app) {
         '/api/dataBaseServices/uptadeFD',
         controller.uptadeFD
     )
-    app.put(
-        '/api/dataBaseServices/updateCommunity',
-        controller.updateCommunity
-    )
-    app.get(
-        '/api/dataBaseServices/searchDBCommunities',
-        controller.searchDBCommunities
-    )
-    app.get(
-        '/api/dataBaseServices/searchMyCommunity',
-        controller.searchMyCommunity
-    )
-    app.get(
-        '/api/dataBaseServices/searchMyCommunity2',
-        controller.searchMyCommunity2
-    )
+    // app.put(
+    //     '/api/dataBaseServices/updateCommunity',
+    //     controller.updateCommunity
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/searchDBCommunities',
+    //     controller.searchDBCommunities
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/searchMyCommunity',
+    //     controller.searchMyCommunity
+    // )
+    // app.get(
+    //     '/api/dataBaseServices/searchMyCommunity2',
+    //     controller.searchMyCommunity2
+    // )
     app.get(
         '/api/dataBaseServices/searchDoorman',
         controller.searchDoorman

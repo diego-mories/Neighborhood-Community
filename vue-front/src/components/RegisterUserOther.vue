@@ -36,7 +36,8 @@
 </template>
 <script>
 import Services from '../services/servicesDB'
-
+import UsersServices from '../services/Users'
+import CommunityServices from '../services/Community'
 export default {
   data () {
     return {
@@ -66,7 +67,7 @@ export default {
         this.newUser.role_id = 3 // Owner por defecto
     },
      searchMyCommunity () {
-      Services.searchMyCommunity(this.userLogin.community_id).then(
+      CommunityServices.searchMyCommunity(this.userLogin.community_id).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
           for (let floorDoor of this.floors_doors) {
@@ -89,7 +90,7 @@ export default {
             return this.arrayIds.indexOf(item) === index
           })
           for (let id of copyIds) {
-            Services.findOne(id).then(
+            UsersServices.findOne(id).then(
               Response => {
                 this.options1.push(
                   {value: {id: Response.data.rowCount[0].id}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'}

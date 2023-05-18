@@ -29,6 +29,7 @@
 
 <script>
 import Services from '../services/servicesDB'
+import UsersServices from '../services/Users'
 import swal from 'sweetalert'
 export default {
   data: () => ({
@@ -40,7 +41,7 @@ export default {
         if (!result) {
           return 
         }
-        Services.resetPassword(this.email).then(
+        UsersServices.resetPassword(this.email).then(
           Response => {
             if (Response.status === 200 && Response.data.exist === false) {
               swal({

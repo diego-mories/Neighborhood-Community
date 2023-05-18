@@ -86,7 +86,8 @@
 </template>
 <script>
 import Services from '../services/servicesDB'
-
+import UsersServices from '../services/Users'
+import CommunityServices from '../services/Community'
 export default {
   data () {
     return {
@@ -111,7 +112,7 @@ export default {
     },
     // Metodo para buscar la información sobre las puertas y plantas vacias de la comunidad de este presidente:
     searchMyCommunity () {
-      Services.searchMyCommunity(this.userLogin.community_id).then(
+      CommunityServices.searchMyCommunity(this.userLogin.community_id).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
           for (let floorDoor of this.floors_doors) {
@@ -131,7 +132,7 @@ export default {
         this.dfUser.myFloor = this.selected.f
         this.dfUser.myDoor = this.selected.d
         this.newUser.phone = this.newUser.phone
-        Services.signUp(this.newUser).then(
+        UsersServices.signUp(this.newUser).then(
           Response => {
             if (Response.status === 200) {
               console.log('Ahora')

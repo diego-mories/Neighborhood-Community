@@ -25,7 +25,7 @@
 </template>
 <script>
 import Services from '../services/servicesDB'
-
+import UsersServices from '../services/Users'
 export default {
   data () {
     return {
@@ -47,7 +47,7 @@ export default {
         if (!result) {
           return
         } 
-        Services.findOneEmail(this.newDoorman.email).then(
+        UsersServices.findOneEmail(this.newDoorman.email).then(
         Response => {
           if (Response.data.rowCount.length > 0) {
             let data = {

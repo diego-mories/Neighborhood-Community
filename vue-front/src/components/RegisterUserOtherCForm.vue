@@ -37,7 +37,8 @@
 
 <script>
 import Services from '../services/servicesDB'
-
+import UsersServices from '../services/Users'
+import CommunityServices from '../services/Community'
 export default {
   data () {
     return {
@@ -57,7 +58,7 @@ export default {
        this.searchMyCommunity()
     },
     searchMyCommunity () {
-      Services.searchMyCommunity(this.userLogin.community_id).then(
+      CommunityServices.searchMyCommunity(this.userLogin.community_id).then(
         Response => {
           this.floors_doors = Response.data.floors_doors
           for (let floorDoor of this.floors_doors) {
@@ -81,7 +82,7 @@ export default {
         community_id: this.userLogin.community_id,
         role_id: 3
       }
-      Services.findOneEmail(data.email).then(
+      UsersServices.findOneEmail(data.email).then(
         Response => {
           if (Response.data.rowCount.length > 0) {
             data.id = Response.data.rowCount[0].id

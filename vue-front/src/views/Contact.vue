@@ -69,6 +69,7 @@
   import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
   import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
   import servicesDB from '../services/servicesDB'
+  import UsersServices from '../services/Users'
   export default {
     components: {
       FooterSocialNetwork,
@@ -104,7 +105,7 @@
                     return this.arrayIds.indexOf(item) === index
                 })
                 for (let id of copyIds) {
-                    servicesDB.findOne(id).then(
+                  UsersServices.findOne(id).then(
                         Response => {
                             this.options.push(
                             {value: {id: Response.data.rowCount[0].id, email: Response.data.rowCount[0].email}, text: Response.data.rowCount[0].name + ' ' + Response.data.rowCount[0].surname + ' (' + Response.data.rowCount[0].email + ')'}

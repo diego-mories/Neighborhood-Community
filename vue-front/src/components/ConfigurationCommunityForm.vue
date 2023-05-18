@@ -40,8 +40,9 @@
 
 <script>
 import Services from '../services/servicesDB'
+import UsersServices from '../services/Users'
 import swal from 'sweetalert'
-
+import CommunityServices from '../services/Community'
 export default{
   data: () => ({
     confCommunity: {
@@ -107,7 +108,7 @@ export default{
           doors: this.confCommunity.doors
         }
         // Damos de alta una nueva comunidad, registramos las viviendas que existen
-        Services.newCommunity(data).then(
+        CommunityServices.newCommunity(data).then(
           Response => {
             for (let iteratorF = 1; iteratorF <= data.floors; iteratorF++) {
               for (let iteratorD = 1; iteratorD <= data.doors; iteratorD++) {
@@ -129,7 +130,7 @@ export default{
             }
             this.user.community_id = Response.data.community_id
             this.user.role = 1
-            Services.signUp(this.user).then(
+            UsersServices.signUp(this.user).then(
               Response => {
                 this.user.id = Response.data.user_id
                 this.user.myDoor = this.confCommunity.myDoor
