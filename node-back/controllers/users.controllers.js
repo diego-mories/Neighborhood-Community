@@ -117,7 +117,7 @@ exports.signUp = async (req, res) => {
                   to: '' + data.email,
                   subject: 'Bienvenido',
                   text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-                  ', tu contraseña inicial de inicio de sesión es: ' + password + '\nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+                  ', tu contraseña inicial de inicio de sesión es: ' + password + '\nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/activeUser/' + tokenActive
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {
@@ -174,7 +174,7 @@ exports.resetPassword = (req, res) => {
                     to: '' + req.query.email,
                     subject: 'Recuperación de contraseña',
                     text: '¡Hola! ' + nameUser + ', hemos generado una contraseña aleatoria para iniciar sesión, una vez acceda a su perfil puede cambiarla, la contraseña es: ' + newPass 
-                    + ' \n Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://localhost:8080' 
+                    + ' \n Intente iniciar sesión con la nueva contraseña en el siguiente enlace: http://212.128.144.150' 
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
@@ -279,7 +279,7 @@ exports.signUpDoorman = async (req, res) => {
                   to: '' + data.email,
                   subject: 'Bienvenido',
                   text: '¡Qué alegría tenerte con nosotros eres el nuevo portero de la comunidad! ' + data.name + 
-                  ', tu contraseña inicial de inicio de sesión es: ' + password + ' \nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://localhost:8080/activeUser/' + tokenActive
+                  ', tu contraseña inicial de inicio de sesión es: ' + password + ' \nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/activeUser/' + tokenActive
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {

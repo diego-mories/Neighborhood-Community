@@ -22,6 +22,7 @@ exports.createSpill = (req, res) => {
       date_p: "'" + req.body.date_p + "'" ,
       amount: "'" + req.body.amount + "'",
     }
+
     let query = 'INSERT INTO spill_of_money (id, community_id,amount,description) VALUES (NULL,' + data.community_id + ',' + data.amount + ',' + data.description + ')'  
     conexion.query(query, function (err, rowCount, rows) {
         if (err) {
@@ -42,17 +43,18 @@ exports.createSpill = (req, res) => {
                     for (let persona of rowCount) {
                         let dataquery = {
                             doors_floors_id: "'" + persona.id + "'" ,
-                            type_bill: "'" + 'NULL' + "'" ,
+                           // type_bill: "'" + NULL + "'" ,
                             is_spill:"'" +  1 + "'" ,
                             amount:"'" + amountPersona + "'" 
                         }
-                        let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount, description) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount + ',' + data.description +')'  
-                        conexion.query(query3, function (err, rowCount, rows) {
+                        let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount, description) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ',NULL,' + dataquery.is_spill + ',' + dataquery.amount + ',' + data.description + ')'  
+                       conexion.query(query3, function (err, rowCount, rows) {
                             if (err) {
                                 throw err
                             } else {
-                                let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount, description, d_deb) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + "'" + 0 + "'" + ',' + data.description  + ',' + data.date_p +')'
-                                conexion.query(query4, function (err, rowCount, rows) {
+                                let query4 = 'INSERT INTO payments (id, deb_id,type_bill,is_spill,amount, description,d_deb) VALUES (NULL,' + "'" + rowCount.insertId + "'" + ', NULL,' + dataquery.is_spill + ',' + "'" + 0 + "'" +  ',' + data.description + ',' + data.date_p +')'
+                               console.log(query4)
+				 conexion.query(query4, function (err, rowCount, rows) {
                                 if (err) {
                                     throw err
                                 } else {
@@ -71,11 +73,14 @@ exports.createSpill = (req, res) => {
 
 // Create new Bill
 exports.createBill = (req, res) => {
+	console.log(req.body)
+	console.log('BODY DEL CREATE BILL')
     // Insertamos la fila en la tabla bills
     var data = {
       community_id: "'" + req.body.community_id + "'" ,
       date_p: "'" + req.body.date_p + "'" ,
       amount: "'" + req.body.amount + "'",
+
       type_id:"'" + req.body.type + "'"
     }
     let query = 'INSERT INTO bills (id, community_id,date_p,type_id,amount) VALUES (NULL,' + data.community_id + ',' + data.date_p + ',' + data.type_id + ',' + data.amount + ')'  
@@ -106,8 +111,10 @@ exports.createBill = (req, res) => {
                         is_spill:"'" +  0 + "'" ,
                         amount:"'" + amountPersona + "'" 
                     }
-                    let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ','+ dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount +')'  
-                    conexion.query(query3, function (err, rowCount, rows) {
+                    let query3 = 'INSERT INTO debs (id, door_floors_id,date_p,type_bill,is_spill,amount) VALUES (NULL,' + dataquery.doors_floors_id + ',' + data.date_p + ',' + dataquery.type_bill + ',' + dataquery.is_spill + ',' + dataquery.amount  +')'
+                    console.log(query3)
+                        console.log('QUERY DE NEW BILL')
+			conexion.query(query3, function (err, rowCount, rows) {
                         if (err) {
                             throw err
                         } else {

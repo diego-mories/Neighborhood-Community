@@ -89,14 +89,14 @@ Vue.filter('formatBill', function (value) {
   if (value === 1) return '🔥'
   if (value === 2) return '💡'
   if (value === 3) return '💧'
-  if (value === 0) return 'DERRAMA'
+  if (value === null) return 'DERRAMA'
 })
 
 Vue.filter('formatBillP', function (value) {
   if (value === 1) return 'GAS'
   if (value === 2) return 'LUZ'
   if (value === 3) return 'AGUA'
-  if (value === 0) return 'DERRAMA'
+  if (value === null) return 'DERRAMA'
 })
 
 Vue.filter('formatDescription', function (value) {

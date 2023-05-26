@@ -32,7 +32,7 @@
               {{ data.item.amount | formatAmount}}
             </template>
             <template #cell(type_bill)="data">
-              {{ data.item.type_bill | formatBill}}
+		{{data.item.type_bill | formatBill}}
             </template>
             <template #cell(options)="data">
               <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
@@ -96,7 +96,7 @@
               {{ data.item.amount | formatAmount}}
             </template>
           <template #cell(type_bill)="data">
-              {{ data.item.type_bill | formatBill}}
+              {{ data.item.type_id | formatBill}}
           </template>
           <template #cell(options)="data">
               <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
@@ -256,6 +256,7 @@ export default {
         BillsSpillsServices.findAllDebs(data).then(
           Response => {
             this.debs = Response.data.dataResponse
+console.log(this.debs)
           },
           Error => {
             console.log('Error al buscar datos de deudas' + Error)

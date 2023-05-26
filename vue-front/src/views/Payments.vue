@@ -93,6 +93,7 @@ export default {
         BillsSpillsServices.findPayment(id).then(
           Response => {
             this.payments.push(Response.data[0])
+		console.log(this.payments)
           },
           Error => {
             console.log('Error al buscar datos de deudas' + Error)
