@@ -24,14 +24,14 @@ nav {
 
 li {list-style:none; vertical-align: middle;}
 /* Extra */
-.msgE {
+/* .msgE {
   text-align: left;
   margin-top: 0%;
 }
 .msgE2{
   display: none !important;
   margin-top: 0%;
-}
+} */
 .bootstrap-btn {
   font-size: 0.8rem;
 }
@@ -77,21 +77,15 @@ li {list-style:none; vertical-align: middle;}
 }
 
 /* FOOTER */
-#footer-networks{
+.footer-networks{
+  height: 5vh;
   box-shadow: 0px 9px 31px 0px rgba(140,140,140,1);
   text-shadow: 0.1em 0.1em 0.05em #333;
   color: white;
   align-content: center;
   align-items: center;
-  max-height: 100%;
-  max-width: 100%;
-  height: 100%;
-  width: 100%;
   background: rgb(1,30,41);
   background: linear-gradient(222deg, rgba(1,30,41,1) 0%, rgba(83,148,172,1) 100%);
-  margin: 0;
-  padding: 0;
-  background-attachment: local;
 }
 #network{
   height: 100%;
@@ -105,9 +99,7 @@ li {list-style:none; vertical-align: middle;}
   padding: 5px;
   margin: auto;
 }
-#forgot-password:hover{
-  cursor:pointer;
-}
+
 
 /* NAV BAR */
 /* Owner */

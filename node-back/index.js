@@ -2,8 +2,8 @@ var express = require('express')
 var app = express()
 const cors = require('cors')
 const bodyParser = require("body-parser")
-const HTTP_PORT = 3333;
-const IP = '212.128.144.150'
+const HTTP_PORT = 8082;
+const IP = 'localhost'
 app.use(cors())
 
 app.use(bodyParser.json())

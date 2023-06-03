@@ -3,7 +3,7 @@
   <b-form @submit.prevent="resetPassword">
     <span><img src="../assets/logo.png"></span>
     <b-form-group>
-      <div class="input-group mb-3">
+      <div class="input-group mb-5">
         <label class="label-login">Email</label>
         <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
         <b-form-input
@@ -12,17 +12,18 @@
               name="input-email"
               v-validate="{ required: true, email: true}"
               type="email"
-              class="form-control"
+              style="max-width: 275px;"
               aria-describedby="input-email-live-feedback"
               placeholder="your-email@"
               :state="validateState('input-email')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-email" class="msgE">
+            <b-form-invalid-feedback id="input-email" class="msgE2">
                 {{ veeErrors.first('input-email')?'Introduce un email válido':'' }}
             </b-form-invalid-feedback>
       </div>
         <b-button variant="outline-primary" type="submit">RECUPERAR CONTRASEÑA</b-button>
     </b-form-group>
+    <div class="input-group m-1"><router-link id="forgot-password" to="/"><label><u>Volver a iniciar sesión</u></label></router-link></div>
   </b-form>
 </div>
 </template>
@@ -79,5 +80,14 @@ export default {
 </script>
 
 <style>
-
+#forgot-password:hover{
+  cursor:pointer;
+}
+#forgot-password{
+  margin:auto
+}
+.msgE2{
+  display: none !important;
+  margin-top: 0%;
+}
 </style>

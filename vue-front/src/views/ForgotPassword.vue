@@ -1,53 +1,54 @@
 <template>
-<div class="screen">
-  <div class="row" id="grid-top-home">
-    <div class="col-sm-5" id="full">
-      <div id="img-container-home"></div>
-    </div>
-    <div class="col-sm-7" id="full">
-      <div class="row" id="topR">
-        <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/')">VOLVER</button>
+  <div class="container-fluid">
+    <b-row class ="py-5 my-5 py-lg-0 my-lg-0">
+      <b-col lg="6" class="image-column d-none d-lg-block" :style="{ 'background-image': `url(${imageURL})` }">
+      </b-col>
+      <b-col lg="6" class="d-flex" >
+        <div class="form-container m-auto">
+          <ForgotPassword></ForgotPassword>
         </div>
-        <div class="col-sm-11" id="full">
-          <span class="title"><b>Recuperar contraseña</b></span>
-        </div>
-      </div>
-      <div class="row" id="bottomR">
-        <div class="col-sm-1" id="full">
-        </div>
-        <div class="col-sm-11" id="full">
-          <ForgotPasswordForm class="center-form"></ForgotPasswordForm>
-        </div>
-        </div>
-      </div>
-    </div>
-  <div class="row" id="grid-bottom-home">
-    <FooterSocial id="full"></FooterSocial>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </b-row>
   </div>
-</div>
 </template>
 
 <script>
-import ForgotPasswordForm from '../components/ForgotPasswordForm.vue'
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue';
+import ForgotPassword from '../components/ForgotPasswordForm.vue';
 export default {
   components: {
-    ForgotPasswordForm,
-    FooterSocial
-  }
-}
+    FooterSocialNetwork,
+    ForgotPassword
+  },
+  data() {
+    return {
+      imageURL: require('../assets/images/comunidad.jpg'),
+    };
+  },
+};
 </script>
 
 <style>
-#img-container-home{
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/images/comunidad.jpg');
-    background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-    opacity: 75%;
+.container-fluid {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
+
+.image-column {
+  background-size: cover;
+  background-position: center;
+  opacity: 80%;
+  height: 95vh;
+}
+
+.form-container {
+  padding: 20px;
+}
+
 </style>

@@ -4,7 +4,7 @@
     <b-form @submit.prevent="login">
       <span><img src="../assets/logo.png"></span>
       <b-form-group>
-        <div class="input-group mb-3">
+        <div class="input-group mb-5">
           <label class="label-login">Email</label>
           <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
           <b-form-input
@@ -18,7 +18,7 @@
               placeholder="your-email@"
               :state="validateState('input-user-email')"
           ></b-form-input>
-          <b-form-invalid-feedback id="input-user-email" class="msgE">
+          <b-form-invalid-feedback id="input-user-email" class="msgE2">
             {{ veeErrors.first('input-user-email')?'Introduce un email válido':'' }}
           </b-form-invalid-feedback>
           <label class="label-login">Contraseña</label>
@@ -34,7 +34,7 @@
               placeholder="Contraseña"
               :state="validateState('input-user-password')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-user-password" class="msgE">
+            <b-form-invalid-feedback id="input-user-password" class="msgE2">
                 {{ veeErrors.first('input-user-password')?'Contraseña no puede estar vacía':'' }}
             </b-form-invalid-feedback>
         </div>
@@ -47,7 +47,7 @@
     <b-form @submit.prevent="goLogin">
       <span><img src="../assets/logo.png"></span>
       <b-form-group>
-        <div class="input-group mb-3 d-flex justify-content-center">
+        <div class="input-group mb-5 d-flex justify-content-center">
           <label class="label-login">Selecciona planta y piso</label>
           <b-form-select
               class="ml-3 mr-3 "
