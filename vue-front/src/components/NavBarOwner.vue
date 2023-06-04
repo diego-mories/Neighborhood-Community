@@ -1,30 +1,37 @@
 <template>
-    <div class="row" id="NavBar">
-        <nav class="navBarO" toggleable="lg" type="dark">
-            <div v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court" class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/bookingCourts" exact>
-                    RESERVA PISTAS
-                    <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
-                </router-link>
-            </div>
-            <div v-if="confCommunity.has_pool" class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/tickets" exact>
-                    ENVIAR TICKETS
-                    <font-awesome-icon icon="fa-solid fa-ticket"/>
-                </router-link>
-            </div>
-            <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/payments" exact>
-                    MIS PAGOS
-                    <font-awesome-icon icon="fa-solid fa-file-zipper"/>
-                </router-link>
-            </div>
-            <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')">{{name + ' ' + surname}}</button>
-                <button type="button" class="bootstrap-btn" @click="deleteDataUserLogin()"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></button>
-            </div>
-        </nav>
-    </div>
+    <div>
+    <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" class="navbar-style">
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <router-link tag="span" active-class="active" to="/profile" exact style="cursor: pointer;">
+    <b-navbar-brand class="ml-3"> 
+        <img src="../assets/images/perfil.png" class="profile-img" >{{ name }}
+    </b-navbar-brand>
+    </router-link>
+    <font-awesome-icon icon="fa-solid fa-power-off" class="log-out" @click="deleteDataUserLogin"/>
+    <b-collapse is-nav id="nav-collapse">
+    <b-navbar-nav class="ml-auto">
+        <b-nav-item v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court">
+            <router-link tag="span" active-class="active" to="/bookingCourts" exact>
+            RESERVA PISTAS
+            <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball" />
+            </router-link>
+        </b-nav-item>
+        <b-nav-item v-if="confCommunity.has_pool">
+            <router-link tag="span" active-class="active" to="/tickets" exact>
+            ENVIAR TICKETS
+            <font-awesome-icon icon="fa-solid fa-ticket" />
+            </router-link>
+        </b-nav-item>
+        <b-nav-item>
+            <router-link tag="span" active-class="active" to="/payments" exact>
+            MIS PAGOS
+            <font-awesome-icon icon="fa-solid fa-file-zipper" />
+            </router-link>
+        </b-nav-item>
+    </b-navbar-nav>
+    </b-collapse>
+</b-navbar>
+</div>
 </template>
 
 <script>

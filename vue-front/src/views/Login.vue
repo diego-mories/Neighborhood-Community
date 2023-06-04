@@ -76,45 +76,53 @@
     <div class="d-none d-lg-flex" style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
       <ViewsCardsP></ViewsCardsP>
     </div>
-  </div>
+  </div>  
   <!-- Vista de portero -->
-    <div class="row flex-grow-1"  v-if="role === 2">
-      <div style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
-        <ViewsCardsB></ViewsCardsB>
-      </div>
+  <div class="row flex-grow-1"  v-if="role === 2">
+    <div style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
+      <ViewsCardsB></ViewsCardsB>
     </div>
+  </div>
   <!-- Vista de propietario -->
-  <div class="row" v-if="role === 3">
-    <div class="col-6">
-      <ViewsCardsO></ViewsCardsO>
-    </div>
-    <div class="col-6" >
-      <div class="container">
-          <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
+  <div class="row" style="margin-top:123px" v-if="role === 3">
+    <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+        <div class="container">
+          <h2>DEUDAS</h2>
+          <div class="table-container mx-auto">
           <b-table
-          class="m-5 "
-          style="overflow-y:auto; height: 60vh !important;"
-          ref="debsTable"
-          id="debsTable"
-          :fields="headers"
-          :items="debs"
-          responsive="sm">
-          <template #cell(date_p)="data">
+            style="overflow-y: auto; max-height: 350px;"
+            ref="debsTable"
+            id="debsTable"
+            :fields="headers"
+            :items="debs"
+            responsive="sm"
+            head-variant="dark"
+          >
+            <template #cell(date_p)="data">
               {{ data.item.date_p | formatDate}}
-          </template>
-          <template #cell(amount)="data">
+            </template>
+            <template #cell(description)="data">
+              {{ data.item.description | formatDescription}}
+            </template>
+            <template #cell(amount)="data">
               {{ data.item.amount | formatAmount}}
             </template>
-          <template #cell(type_bill)="data">
-              {{ data.item.type_id | formatBill}}
-          </template>
-          <template #cell(options)="data">
+            <template #cell(type_bill)="data">
+		          {{data.item.type_bill | formatBill}}
+            </template>
+            <template #cell(options)="data">
               <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
                 <font-awesome-icon icon="fa-solid fa-money-check-alt" />
               </b-button>
             </template>
           </b-table>
-      </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row flex-grow-1"  v-if="role === 3">
+    <div class="d-none d-lg-flex" style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
+      <ViewsCardsO></ViewsCardsO>
     </div>
   </div>
     <!-- Vista de admin -->
