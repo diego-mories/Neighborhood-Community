@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import {
+  faPowerOff,
   faAddressBook,
   faCalendar,
   faArrowUpFromBracket,
@@ -40,6 +41,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 library.add(
   faAddressBook,
+  faPowerOff,
   faCalendar,
   faArrowUpFromBracket,
   faFileInvoice,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid d-flex flex-column">
     <b-row class ="py-5 my-5 py-lg-0 my-lg-0">
       <b-col lg="6" class="image-column d-none d-lg-block" :style="{ 'background-image': `url(${imageURL})` }">
       </b-col>
@@ -34,11 +34,7 @@ export default {
 </script>
 
 <style >
-.container-fluid {
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
+
 
 .image-column {
   background-size: cover;

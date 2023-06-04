@@ -1,17 +1,73 @@
 <template>
-<div class="screen">
+<div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
   <div class="row" id="grid-top-log">
-    <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
+    <NavBarPresident v-if="role === 1"></NavBarPresident>
     <NavBarBuildingDoorman v-if="role === 2" id="full"></NavBarBuildingDoorman>
     <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
     <NavBarAdmin v-if="this.dataUserLogin.is_admin" id="full"></NavBarAdmin>
   </div>
   <!-- Vista de Presidente -->
-  <div class="row" id="grid-bottom-log" v-if="role === 1">
-    <div class="col-6" id="full">
-      <ViewsCardsP></ViewsCardsP>
+  <div class="row" style="margin-top:123px">
+    <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+        <div class="container">
+          <h2>DEUDAS</h2>
+          <b-table
+          style="overflow-y:auto; overflow-x:auto; height: 25vh !important;"
+          ref="debsTable"
+          id="debsTable"
+          :fields="headers"
+          :items="debs"
+            responsive="sm">
+            <template #cell(date_p)="data">
+              {{ data.item.date_p | formatDate}}
+            </template>
+            <template #cell(description)="data">
+              {{ data.item.description | formatDescription}}
+            </template>
+            <template #cell(amount)="data">
+              {{ data.item.amount | formatAmount}}
+            </template>
+            <template #cell(type_bill)="data">
+		          {{data.item.type_bill | formatBill}}
+            </template>
+            <template #cell(options)="data">
+              <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
+                <font-awesome-icon icon="fa-solid fa-money-check-alt" />
+              </b-button>
+            </template>
+          </b-table>
+        </div>
     </div>
-    <div class="col-6" id="full">
+  </div>
+  <div class="row" style="margin-top:23px">
+    <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+        <div class="container">
+          <h2>GASTOS ORDINARIOS</h2>
+          <b-table
+          style="overflow-y:auto;overflow-x:auto;height: 25vh !important;"
+          ref="debsTable"
+          id="debsTable"
+          :fields="headers2"
+          :items="bills"
+          responsive="sm">
+          <template #cell(date_p)="data">
+              {{ data.item.date_p | formatDate}}
+          </template>
+          <template #cell(amount)="data">
+              {{ data.item.amount | formatAmount}}
+          </template>
+          <template #cell(type_id)="data">
+            {{ data.item.type_id  | formatBill}}
+          </template>
+          </b-table>
+        </div>
+    </div>
+  </div>
+  <div class="row flex-grow-1"  v-if="role === 1">
+    <div class="d-none d-lg-flex" style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
+      <ViewsCardsP></ViewsCardsP>
+  </div>
+    <!-- <div class="col-6">
       <div class="container">
           <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
           <b-table
@@ -62,8 +118,13 @@
           </template>
           </b-table>
         </div>
-    </div>
+    </div> -->
   </div>
+  <!-- <div class="row">
+    <div class="col-6  d-none d-lg-flex" style="margin-top: 69px;margin-left: 15px;">
+      <ViewsCardsP></ViewsCardsP>
+    </div>
+  </div> -->
   <!-- Vista de portero -->
   <div class="row" id="grid-bottom-log" v-if="role === 2">
     <div class="col-6" id="full">
@@ -112,8 +173,10 @@
     <b-table class="container m-0" :items="items" :fields="fields">
     </b-table>
   </div>
-  <div class="row" id="grid-bottom">
+  <div class="row">
+    <b-col>
       <Footer></Footer>
+    </b-col>
   </div>
 </div>
 </template>
@@ -137,7 +200,7 @@ export default {
     debs: [],
     headers: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
-      { key: 'type_bill', label: 'Tipo de gasto' },
+      { key: 'type_bill', label: 'Tipo' },
       { key: 'description', label: 'Descripción' },
       { key: 'date_p', sortable: true, label: 'Fecha' },
       { key: 'options', label: 'Pagar' }
@@ -145,7 +208,7 @@ export default {
     bills: [],
     headers2: [
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
-      { key: 'type_id', label: 'Tipo de gasto' },
+      { key: 'type_id', label: 'Tipo' },
       { key: 'date_p', sortable: true, label: 'Fecha' }
     ],
     fields: [
@@ -256,7 +319,7 @@ export default {
         BillsSpillsServices.findAllDebs(data).then(
           Response => {
             this.debs = Response.data.dataResponse
-console.log(this.debs)
+            console.log(this.debs)
           },
           Error => {
             console.log('Error al buscar datos de deudas' + Error)
@@ -269,5 +332,9 @@ console.log(this.debs)
 </script>
 
 <style>
-
+.bg-svg {
+  background-image: url('../assets/subtle-prism3.png'); /* Ruta del archivo SVG */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>
