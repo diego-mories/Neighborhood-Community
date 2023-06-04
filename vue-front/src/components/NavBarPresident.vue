@@ -8,7 +8,6 @@
         </b-navbar-brand>
       </router-link>
       <font-awesome-icon icon="fa-solid fa-power-off" class="log-out" @click="deleteDataUserLogin"/>
-
       <b-collapse is-nav id="nav-collapse">
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court">

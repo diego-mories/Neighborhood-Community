@@ -126,9 +126,24 @@
     </div>
   </div>
     <!-- Vista de admin -->
-  <div class="row" v-if="this.dataUserLogin.is_admin">
-    <b-table class="container m-0" :items="items" :fields="fields">
-    </b-table>
+  <div class="row flex-grow-1" style="margin-top:123px" v-if="this.dataUserLogin.is_admin">
+    <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+        <div class="container">
+          <h1>COMUNIDADES</h1>
+          <div class="table-container mx-auto">
+          
+          <b-table 
+          style="overflow-y: auto; overflow-x: auto;max-height: 350px;"
+            ref="debsTable"
+            id="debsTable"
+            :items="items" 
+            :fields="fields"
+            responsive="sm"
+            head-variant="dark">
+            </b-table>
+          </div>
+        </div>
+    </div>
   </div>
   <div class="row">
     <b-col>
@@ -178,7 +193,7 @@ export default {
       {key: 'tennis', label: 'Pista de Tenis'},
       {key: 'pool', label: 'Piscina'},
       {key: 'doorman', label: 'Portero'},
-      {key: 'cameras', label: 'Camaras'}
+      {key: 'cameras', label: 'Cámaras'}
     ],
     items: [],
     communities: []
