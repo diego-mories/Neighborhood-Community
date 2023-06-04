@@ -11,13 +11,16 @@
     <div class="col-lg-8 col-md-9 mr-auto ml-auto">
         <div class="container">
           <h2>DEUDAS</h2>
+          <div class="table-container mx-auto">
           <b-table
-          style="overflow-y:auto; overflow-x:auto; height: 25vh !important;"
-          ref="debsTable"
-          id="debsTable"
-          :fields="headers"
-          :items="debs"
-            responsive="sm">
+            style="overflow-y: auto; max-height: 350px;"
+            ref="debsTable"
+            id="debsTable"
+            :fields="headers"
+            :items="debs"
+            responsive="sm"
+            head-variant="dark"
+          >
             <template #cell(date_p)="data">
               {{ data.item.date_p | formatDate}}
             </template>
@@ -36,6 +39,7 @@
               </b-button>
             </template>
           </b-table>
+          </div>
         </div>
     </div>
   </div>
@@ -43,88 +47,36 @@
     <div class="col-lg-8 col-md-9 mr-auto ml-auto">
         <div class="container">
           <h2>GASTOS ORDINARIOS</h2>
-          <b-table
-          style="overflow-y:auto;overflow-x:auto;height: 25vh !important;"
-          ref="debsTable"
-          id="debsTable"
-          :fields="headers2"
-          :items="bills"
-          responsive="sm">
-          <template #cell(date_p)="data">
-              {{ data.item.date_p | formatDate}}
-          </template>
-          <template #cell(amount)="data">
-              {{ data.item.amount | formatAmount}}
-          </template>
-          <template #cell(type_id)="data">
-            {{ data.item.type_id  | formatBill}}
-          </template>
-          </b-table>
+          <div class="table-container mx-auto">
+            <b-table
+            style="overflow-y: auto;max-height: 350px;"
+            ref="debsTable"
+            id="debsTable"
+            :fields="headers2"
+            :items="bills"
+            responsive="sm"
+            head-variant="dark"
+            :td-class="'text-center align-middle custom-cell'"
+            >
+            <template #cell(date_p)="data">
+                {{ data.item.date_p | formatDate}}
+            </template>
+            <template #cell(amount)="data">
+                {{ data.item.amount | formatAmount}}
+            </template>
+            <template #cell(type_id)="data">
+              {{ data.item.type_id  | formatBill}}
+            </template>
+            </b-table>          
+          </div>
         </div>
     </div>
   </div>
   <div class="row flex-grow-1"  v-if="role === 1">
     <div class="d-none d-lg-flex" style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
       <ViewsCardsP></ViewsCardsP>
-  </div>
-    <!-- <div class="col-6">
-      <div class="container">
-          <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
-          <b-table
-          class="m-5 "
-          style="overflow-y:auto; height: 25vh !important;"
-          ref="debsTable"
-          id="debsTable"
-          :fields="headers"
-          :items="debs"
-            responsive="sm">
-            <template #cell(date_p)="data">
-              {{ data.item.date_p | formatDate}}
-            </template>
-            <template #cell(description)="data">
-              {{ data.item.description | formatDescription}}
-            </template>
-            <template #cell(amount)="data">
-              {{ data.item.amount | formatAmount}}
-            </template>
-            <template #cell(type_bill)="data">
-		{{data.item.type_bill | formatBill}}
-            </template>
-            <template #cell(options)="data">
-              <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
-                <font-awesome-icon icon="fa-solid fa-money-check-alt" />
-              </b-button>
-            </template>
-          </b-table>
-        </div>
-        <div class="container">
-          <h3 class=" mb-0 pb-0">GASTOS ORDINARIOS COMUNIDAD</h3>
-          <b-table
-          class="m-5 "
-          style="overflow-y:auto;height: 25vh !important;"
-          ref="debsTable"
-          id="debsTable"
-          :fields="headers2"
-          :items="bills"
-          responsive="sm">
-          <template #cell(date_p)="data">
-              {{ data.item.date_p | formatDate}}
-          </template>
-          <template #cell(amount)="data">
-              {{ data.item.amount | formatAmount}}
-          </template>
-          <template #cell(type_id)="data">
-            {{ data.item.type_id  | formatBill}}
-          </template>
-          </b-table>
-        </div>
-    </div> -->
-  </div>
-  <!-- <div class="row">
-    <div class="col-6  d-none d-lg-flex" style="margin-top: 69px;margin-left: 15px;">
-      <ViewsCardsP></ViewsCardsP>
     </div>
-  </div> -->
+  </div>
   <!-- Vista de portero -->
   <div class="row" id="grid-bottom-log" v-if="role === 2">
     <div class="col-6" id="full">
@@ -199,17 +151,19 @@ export default {
     dataUserLogin: {},
     debs: [],
     headers: [
-      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
-      { key: 'type_bill', label: 'Tipo' },
-      { key: 'description', label: 'Descripción' },
-      { key: 'date_p', sortable: true, label: 'Fecha' },
-      { key: 'options', label: 'Pagar' }
+    { key: 'type_bill', label: 'Tipo', thClass: 'position-sticky' },
+    { key: 'date_p', sortable: true, label: 'Fecha',thClass: 'position-sticky'  },
+
+      { key: 'description', label: 'Descripción',thClass: 'position-sticky'  },
+      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title position-sticky'},
+
+      { key: 'options', label: 'Pagar',thClass: 'position-sticky'  }
     ],
     bills: [],
     headers2: [
-      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
       { key: 'type_id', label: 'Tipo' },
-      { key: 'date_p', sortable: true, label: 'Fecha' }
+      { key: 'date_p', sortable: true, label: 'Fecha' },
+      { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title'},
     ],
     fields: [
       {key: 'name', label: 'Nombre'},
@@ -337,4 +291,11 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.table-container table thead {
+  position: sticky;
+  top: 0;
+  background-color: #05506b !important;
+  z-index: 1;
+}
+
 </style>
