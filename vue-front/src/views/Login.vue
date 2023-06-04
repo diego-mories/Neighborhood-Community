@@ -20,6 +20,7 @@
             :items="debs"
             responsive="sm"
             head-variant="dark"
+            :td-class="'text-center align-middle custom-cell'"
           >
             <template #cell(date_p)="data">
               {{ data.item.date_p | formatDate}}
