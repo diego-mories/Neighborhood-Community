@@ -1,18 +1,4 @@
 <template>
-    <!-- <div class="row" id="NavBar">
-        <nav class="navBarA" toggleable="lg" type="dark">
-            <div class="componentsNavBar">
-                <router-link tag="li" active-class="active" to="/newCommunity" exact>
-                    Crear Comunidad
-                    <font-awesome-icon icon="fa-solid fa-group-arrows-rotate"/>
-                </router-link>
-            </div>
-            <div class="componentsNavBar">
-                <button type="button" class="bootstrap-btn" @click="$router.push('/profile')"> {{name + ' ' + surname}}</button>
-                <button type="button" class="bootstrap-btn" @click="deleteDataUserLogin()"><font-awesome-icon icon="fa-solid fa-sign-out-alt"/></button>
-            </div>
-        </nav>
-    </div> -->
     <div>
     <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" class="navbar-style">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import {
+  faTentArrowTurnLeft,
   faPowerOff,
   faAddressBook,
   faCalendar,
@@ -40,6 +41,7 @@ import {
   faFacebook
 } from '@fortawesome/free-brands-svg-icons'
 library.add(
+  faTentArrowTurnLeft,
   faAddressBook,
   faPowerOff,
   faCalendar,

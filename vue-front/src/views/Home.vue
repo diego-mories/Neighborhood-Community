@@ -34,8 +34,6 @@ export default {
 </script>
 
 <style >
-
-
 .image-column {
   background-size: cover;
   background-position: center;
@@ -46,16 +44,5 @@ export default {
 .form-container {
   padding: 20px;
 }
-/* 
-.footer-row {
-  width: 100%;
-  box-shadow: 0px 9px 31px 0px rgba(140,140,140,1);
-  text-shadow: 0.1em 0.1em 0.05em #333;
-  color: white;
-  align-content: center;
-  align-items: center;
-  background: rgb(1,30,41);
-  background: linear-gradient(222deg, rgba(1,30,41,1) 0%, rgba(83,148,172,1) 100%);
-} */
 
 </style>
