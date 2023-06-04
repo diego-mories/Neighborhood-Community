@@ -1,13 +1,13 @@
 <template>
 <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
-  <div class="row" id="grid-top-log">
+  <div class="row">
     <NavBarPresident v-if="role === 1"></NavBarPresident>
-    <NavBarBuildingDoorman v-if="role === 2" id="full"></NavBarBuildingDoorman>
-    <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
-    <NavBarAdmin v-if="this.dataUserLogin.is_admin" id="full"></NavBarAdmin>
+    <NavBarBuildingDoorman v-if="role === 2"></NavBarBuildingDoorman>
+    <NavBarOwner v-if="role === 3"></NavBarOwner>
+    <NavBarAdmin v-if="this.dataUserLogin.is_admin"></NavBarAdmin>
   </div>
   <!-- Vista de Presidente -->
-  <div class="row" style="margin-top:123px">
+  <div class="row" style="margin-top:123px" v-if="role === 1">
     <div class="col-lg-8 col-md-9 mr-auto ml-auto">
         <div class="container">
           <h2>DEUDAS</h2>
@@ -43,7 +43,7 @@
         </div>
     </div>
   </div>
-  <div class="row" style="margin-top:23px">
+  <div class="row" style="margin-top:23px" v-if="role === 1">
     <div class="col-lg-8 col-md-9 mr-auto ml-auto">
         <div class="container">
           <h2>GASTOS ORDINARIOS</h2>
@@ -78,20 +78,17 @@
     </div>
   </div>
   <!-- Vista de portero -->
-  <div class="row" id="grid-bottom-log" v-if="role === 2">
-    <div class="col-6" id="full">
-      <ViewsCardsB></ViewsCardsB>
+    <div class="row flex-grow-1"  v-if="role === 2">
+      <div style="margin-top: 30px;margin-left: 15px; margin-bottom:50px">
+        <ViewsCardsB></ViewsCardsB>
+      </div>
     </div>
-    <div class="col-6" id="full">
-      <span><img src="@/assets/images/conserje-profesional-trapeando-piso-aislado-sobre-fondo-blanco_7496-1123.png" class="center-form" id="profileImage m-0"></span>
-    </div>
-  </div>
   <!-- Vista de propietario -->
-  <div class="row" id="grid-bottom-log" v-if="role === 3">
-    <div class="col-6" id="full">
+  <div class="row" v-if="role === 3">
+    <div class="col-6">
       <ViewsCardsO></ViewsCardsO>
     </div>
-    <div class="col-6" id="full">
+    <div class="col-6" >
       <div class="container">
           <h3 class="mt-5 mb-0 pb-0">DEUDAS</h3>
           <b-table
@@ -121,7 +118,7 @@
     </div>
   </div>
     <!-- Vista de admin -->
-  <div class="row" id="grid-bottom-log" v-if="this.dataUserLogin.is_admin">
+  <div class="row" v-if="this.dataUserLogin.is_admin">
     <b-table class="container m-0" :items="items" :fields="fields">
     </b-table>
   </div>
