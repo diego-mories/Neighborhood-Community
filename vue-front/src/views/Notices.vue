@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
       <div class="row">
         <NavBarPresident></NavBarPresident>
       </div>
@@ -84,87 +84,6 @@
       </b-col>
     </div>
   </div>
-    
-  <!-- <div class="screen">
-    <div class="row" id="grid-top-log">
-      <NavBarPresident id="full"></NavBarPresident>
-    </div>
-    <div class="row" id="grid-top">
-      <div class="row" id="topR">
-        <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
-        </div>
-        <div class="col-sm-11" id="full">
-          <span class="title"><b>Convocatoria de juntas</b></span>
-        </div>
-      </div>
-      <div class="row" id="bottomR">
-        <div class="col-1" id="full">
-        </div>
-        <div class="col-3 m-auto" id="full">
-          <span><img class="w-50 h-50 mw-50 mh-50 mb-5" src="../assets/images/18-Tablon-de-Anuncios.png"></span>
-          <div class="input-group mb-3 d-flex justify-content-center">
-            <b-form-group>
-                <div class="input-group">
-                  <label class="label-login">Orden del día</label>
-                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-                  <b-form-input
-                      v-model="orderDay"
-                      id="input-orderDay"
-                      name="input-orderDay"
-                      v-validate="{ required: true}"
-                      type="text"
-                      class="form-control"
-                      aria-describedby="input-orderDay-live-feedback"
-                      placeholder="Orden del día"
-                      :state="validateState('input-orderDay')"
-                  ></b-form-input>
-                  <b-form-invalid-feedback id="input-orderDay" class="msgE2">
-                    {{ veeErrors.first('input-orderDay')?'Campo obligatorio':'' }}
-                  </b-form-invalid-feedback>
-                  <label class="label-login">Fecha</label>
-                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
-                  <b-form-input
-                    v-model="date"
-                    id="input-date"
-                    name="input-date"
-                    v-validate="{ required: true }"
-                    type="date"
-                    class="form-control"
-                    aria-describedby="input-date-live-feedback"
-                    :state="validateState('input-date')"
-                  ></b-form-input>
-                  <b-form-invalid-feedback id="input-date" class="msgE2">
-                    {{ veeErrors.first('input-date')?'Campo obligatorio':'' }}
-                  </b-form-invalid-feedback>
-                  <label class="label-login">Hora</label>
-                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
-                  <b-form-input
-                    v-model="hour"
-                    id="input-hour"
-                    name="input-hour"
-                    v-validate="{ required: true }"
-                    type="time"
-                    class="form-control"
-                    aria-describedby="input-hour-live-feedback"
-                    :state="validateState('input-hour')"
-                  ></b-form-input>
-                  <b-form-invalid-feedback id="input-hour" class="msgE2">
-                    {{ veeErrors.first('input-hour')?'Campo obligatorio':'' }}
-                  </b-form-invalid-feedback>
-                </div>
-            </b-form-group>
-          </div>
-          <div class="input-group mb-3 d-flex justify-content-center">
-            
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" id="grid-bottom">
-      <footer-social-network></footer-social-network>
-    </div>
-  </div> -->
 </template>
 
 <script>

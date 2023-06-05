@@ -1,5 +1,5 @@
 <template>
-<div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
+<div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
   <div class="row">
     <NavBarPresident v-if="role === 1"></NavBarPresident>
     <NavBarBuildingDoorman v-if="role === 2"></NavBarBuildingDoorman>

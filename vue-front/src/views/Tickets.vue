@@ -1,38 +1,49 @@
 <template>
-    <div class="screen">
-      <div class="row" id="grid-top-log">
-          <NavBarPresident id="full"></NavBarPresident>
+    <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
+      <div class="row">
+        <NavBarPresident></NavBarPresident>
       </div>
-      <div class="row" id="grid-top">
-        <div class="row" id="topR">
-          <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
+    <div class="row" style="margin-top: 120px;">
+      <b-col>
+        <router-link to="/login">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
           </div>
-          <div class="col-sm-11" id="full">
-            <span class="title"><b>Tickets</b></span>
-          </div>
-        </div>
-        <div class="row" id="bottomR">
-          <div class="col-sm-1" id="full">
-          </div>
-          <div class="col-sm-11" id="full">
-            <TicketsForm class="center-form"></TicketsForm>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="grid-bottom-home">
-        <FooterSocial id="full"></FooterSocial>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>ENVIAR TICKETS</b></span>
+      </b-col>
+    </div>
+    <div class="row d-flex">
+      <div>
+        <span><img height="175" width="350" src="../assets/images/ticket.png"></span>
       </div>
     </div>
-    </template>
+    <div class="row flex-grow-1 d-flex">
+      <div class="col-8 ml-auto mr-auto mb-auto" style="margin-top: 180px;">
+        <TicketsForm></TicketsForm>
+      </div>
+    </div>
+    <div class="row">
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </div>
+  </div>
+
+</template>
 
 <script>
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import TicketsForm from '../components/TicketsForm.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 export default {
   components: {
-    FooterSocial,
+    FooterSocialNetwork,
     TicketsForm,
     NavBarPresident
   }
@@ -41,4 +52,7 @@ export default {
 
 <style>
 
+.form-container {
+  padding: 20px;
+}
 </style>

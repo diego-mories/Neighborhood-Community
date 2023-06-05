@@ -1,11 +1,11 @@
 <template>
-    <div>
-      <b-form>
-          <b-form-group>
-            <span><img class="w-50 h-50 mw-50 mh-50 mb-5" src="../assets/images/ticket.png"></span>
-            <h2 v-if="tickets > 0">TICKETS DISPONIBLES HOY: {{ tickets }}</h2>
-            <h2 v-else>NO QUEDAN TICKETS DISPONIBLES HOY, ESPERE A MAÑANA</h2>
-            <div class="input-group mb-3 align-items-center">
+  <div>
+    <h2 v-if="tickets > 0">TICKETS DISPONIBLES HOY: {{ tickets }}</h2>
+      <h2 v-else>NO QUEDAN TICKETS DISPONIBLES HOY, ESPERE A MAÑANA</h2>
+    <div class="input-group d-flex justify-content-center">
+      <b-form-group>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope"/></span>
               <b-form-input
                 v-model="email"
                 id="input-email"
@@ -18,15 +18,18 @@
                 :state="validateState('input-email')"
                 :disabled="tickets === 0"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-email" class="msgE">
-                {{ veeErrors.first('input-email')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-            </div>
-          </b-form-group>
-          <b-button variant="outline-primary" type="submit" @click.stop.prevent="send() " :disabled="tickets === 0">ENVIAR TICKET</b-button>
-      </b-form>
+        </div>
+      </b-form-group>
   </div>
-  </template>
+  <div class="row d-flex flex-grow-1">
+      <div class="col-8 m-auto mt-0">
+        <b-form-group>
+          <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click.stop.prevent="send() " :disabled="tickets === 0">ENVIAR TICKET</b-button>
+        </b-form-group>
+      </div>
+  </div>  
+  </div>
+</template>
 <script>
 import UsersServices from '../services/Users'
 import DFServices from '../services/Doors_floors'
