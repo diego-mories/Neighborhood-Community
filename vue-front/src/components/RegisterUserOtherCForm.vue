@@ -1,7 +1,7 @@
 <template>
-    <b-form >
-      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
-      <div class="input-group mb-3 d-flex justify-content-center">
+  <div>
+    <b-form-group>
+      <div class="input-group d-flex justify-content-center">
         <label class="label-login">Selecciona planta y piso</label>
         <b-form-select
         v-model="selected"
@@ -30,10 +30,17 @@
         <b-form-invalid-feedback id="input-owner-email" class="msgE2">
         {{ veeErrors.first('input-owner-email')?'Campo obligatorio':'' }}
         </b-form-invalid-feedback>      
+      </div>
+    </b-form-group>
+    <div class="row d-flex flex-grow-1">
+      <div class="col-8 m-auto mt-0">
+        <b-form-group>
+          <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click.prevent="addHouseOwnerOtherC()">REGISTRAR</b-button>
+        </b-form-group>
+      </div>
     </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwnerOtherC()">REGISTRAR</b-button>
-    </b-form>
-  </template>
+  </div>
+</template>
 
 <script>
 import UsersServices from '../services/Users'

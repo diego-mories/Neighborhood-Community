@@ -1,7 +1,7 @@
 <template>
-    <b-form>
-      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
-      <div class="input-group mb-3 d-flex justify-content-center">
+  <div>
+    <b-form-group>
+      <div class="input-group d-flex justify-content-center">
         <label class="label-login">Selecciona planta y piso</label>
         <b-form-select
         v-model="selected"
@@ -31,8 +31,15 @@
         {{ veeErrors.first('input-house4')?'Elige una opción':'' }}
         </b-form-invalid-feedback>
       </div>
-      <b-button class="mt-3" variant="outline-primary" type="submit" @click.prevent="addHouseOwner()">REGISTRAR</b-button>
-    </b-form>
+    </b-form-group>
+    <div class="row d-flex flex-grow-1">
+      <div class="col-8 m-auto mt-0">
+        <b-form-group>
+          <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click.stop.prevent="addHouseOwner() " :disabled="tickets === 0">REGISTRAR</b-button>
+        </b-form-group>
+      </div>
+    </div> 
+  </div>
 </template>
 <script>
 import UsersServices from '../services/Users'

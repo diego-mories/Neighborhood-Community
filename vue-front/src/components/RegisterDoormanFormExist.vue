@@ -2,20 +2,20 @@
   <div>
     <div class="input-group d-flex justify-content-center">
       <b-form-group>
-            <div class="input-group">
-              <label class="label-login">Email portero</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
-              <b-form-input
-                v-model="newDoorman.email"
-                id="input-newDoorman-email2"
-                name="input-newDoorman-email2"
-                v-validate="{required: true, email: true}"
-                class="form-control"
-                aria-describedby="input-newDoorman-email2-live-feedback"
-                placeholder="Email"
-                :state="validateState('input-newDoorman-email2')"
-              ></b-form-input>
-            </div>
+          <div class="input-group">
+            <label class="label-login">Email portero</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+            <b-form-input
+              v-model="newDoorman.email"
+              id="input-newDoorman-email2"
+              name="input-newDoorman-email2"
+              v-validate="{required: true, email: true}"
+              class="form-control"
+              aria-describedby="input-newDoorman-email2-live-feedback"
+              placeholder="Email"
+              :state="validateState('input-newDoorman-email2')"
+            ></b-form-input>
+          </div>
         </b-form-group>
     </div>
     <div class="row d-flex flex-grow-1">

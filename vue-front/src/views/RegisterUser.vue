@@ -45,7 +45,54 @@
     </template>
     <!-- DAMOS DE ALTA A PROPIETARIOS -->
     <template v-else>
-
+      <div class="row d-flex">
+        <div>
+          <span><img height="185" width="200" src="../assets/images/newuser.png"></span>
+        </div>
+      </div>
+      <template v-if="addHouse">
+        <div class="row d-flex">
+          <div class="col-8 m-auto">
+            <b-form-group>
+              <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouse()">VOLVER AL OTRO FORMULARIO</b-button>
+            </b-form-group>
+          </div>
+        </div> 
+        <div class="row flex-grow-1 d-flex">
+          <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
+            <RegisterUserOther></RegisterUserOther>
+          </div>
+        </div> 
+      </template>
+      <template v-if="addHouseOtherC">
+        <div class="row d-flex">
+          <div class="col-8 m-auto">
+            <b-form-group>
+              <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouseOtherC()">VOLVER AL OTRO FORMULARIO</b-button>
+            </b-form-group>
+          </div>
+        </div> 
+        <div class="row flex-grow-1 d-flex">
+          <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
+            <RegisterUserOtherCForm></RegisterUserOtherCForm>
+          </div>
+        </div> 
+      </template>
+      <template v-if="!addHouse && !addHouseOtherC">
+        <div class="row d-flex">
+          <div class="col-8 m-auto">
+            <b-form-group>
+              <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouse()">REGISTRO DE USUARIO DE ESTA COMUNIDAD</b-button>
+              <b-button  class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouseOtherC()">REGISTRO DE UN USUARIO DE OTRA COMUNIDAD</b-button>
+            </b-form-group>
+          </div>
+        </div> 
+        <div class="row flex-grow-1 d-flex">
+          <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
+            <RegisterUserForm></RegisterUserForm>
+          </div>
+        </div> 
+      </template>
     </template>
     <div class="row">
       <b-col>
