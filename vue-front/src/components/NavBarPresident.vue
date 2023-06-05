@@ -40,7 +40,7 @@
 
           <b-nav-item>
             <router-link tag="span" active-class="active" to="/bills" exact>
-              SUBIR CUENTAS
+              SUBIR FACTURAS
               <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket" />
             </router-link>
           </b-nav-item>

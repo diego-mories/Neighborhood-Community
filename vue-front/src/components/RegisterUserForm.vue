@@ -15,9 +15,6 @@
               placeholder="Nombre"
               :state="validateState('input-newUser-name')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-newUser-name" class="msgE2">
-              {{ veeErrors.first('input-newUser-name')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
             <label class="label-login">Apellidos</label>
             <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
             <b-form-input
@@ -30,9 +27,6 @@
               placeholder="Apellidos"
               :state="validateState('input-newUser-surname')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-newUser-surname" class="msgE2">
-              {{ veeErrors.first('input-newUser-surname')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
             <label class="label-login">Email</label>
             <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
             <b-form-input
@@ -45,9 +39,6 @@
               placeholder="Email"
               :state="validateState('input-newUser-email')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-newUser-email" class="msgE2">
-              {{ veeErrors.first('input-newUser-email')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
             <label class="label-login">Teléfono</label>
             <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
             <b-form-input
@@ -61,9 +52,6 @@
               placeholder="Teléfono (9 dígitos)"
               :state="validateState('input-newUser-phone')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-newUser-phone" class="msgE2">
-              {{ veeErrors.first('input-newUser-phone')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
             <label class="label-login">Selecciona planta y piso</label>
             <b-form-select
               v-model="selected"
@@ -74,9 +62,6 @@
               :options="options"
               aria-describedby="input-house-live-feedback">
             </b-form-select>
-            <b-form-invalid-feedback id="input-house" class="msgE">
-              {{ veeErrors.first('input-house')?'Elige una opción':'' }}
-            </b-form-invalid-feedback>
         </div>
       </b-form-group>
     </div>

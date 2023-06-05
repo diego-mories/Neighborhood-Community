@@ -29,7 +29,7 @@
             <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/bills" exact>
                 <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket"/>
             </router-link>
-            <p>SUBIR CUENTAS</p>
+            <p>SUBIR FACTURAS</p>
         </b-col>
         <b-col>
             <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/spills" exact>
@@ -49,12 +49,12 @@
 
 <script>
 export default {
-  data: () => ({
-    confCommunity: {}
-  }),
-  created () {
-    this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
-  }
+    data: () => ({
+        confCommunity: {}
+    }),
+    created () {
+        this.confCommunity = JSON.parse(localStorage.getItem('confCom'))
+    }
 }
 </script>
 

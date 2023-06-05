@@ -12,9 +12,6 @@
         :options="options"
         aria-describedby="input-house2-live-feedback">
         </b-form-select>
-        <b-form-invalid-feedback id="input-house2" class="msgE">
-        {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
-        </b-form-invalid-feedback>
         <label class="label-login">Email</label>
         <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
         <b-form-input
@@ -26,10 +23,7 @@
         aria-describedby="input-owner-email-live-feedback"
         placeholder="Email"
         :state="validateState('input-owner-email')"
-        ></b-form-input>
-        <b-form-invalid-feedback id="input-owner-email" class="msgE2">
-        {{ veeErrors.first('input-owner-email')?'Campo obligatorio':'' }}
-        </b-form-invalid-feedback>      
+        ></b-form-input>     
       </div>
     </b-form-group>
     <div class="row d-flex flex-grow-1">

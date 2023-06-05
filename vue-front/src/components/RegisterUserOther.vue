@@ -12,9 +12,6 @@
         :options="options"
         aria-describedby="input-house3-live-feedback">
         </b-form-select>
-        <b-form-invalid-feedback id="input-house3" class="msgE">
-        {{ veeErrors.first('input-house3')?'Elige una opción':'' }}
-        </b-form-invalid-feedback>
       </div>
       <div class="input-group mb-3 d-flex justify-content-center">
         <label class="label-login">Selecciona el propietario</label>
@@ -27,9 +24,6 @@
         :options="options1"
         aria-describedby="input-house4-live-feedback">
         </b-form-select>
-        <b-form-invalid-feedback id="input-house4" class="msgE">
-        {{ veeErrors.first('input-house4')?'Elige una opción':'' }}
-        </b-form-invalid-feedback>
       </div>
     </b-form-group>
     <div class="row d-flex flex-grow-1">
