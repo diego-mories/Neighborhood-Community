@@ -1,5 +1,91 @@
 <template>
-  <div class="screen">
+    <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
+      <div class="row">
+        <NavBarPresident></NavBarPresident>
+      </div>
+    <div class="row" style="margin-top: 120px;">
+      <b-col>
+        <router-link to="/login">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+          </div>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>CONVOCATORIA DE JUNTAS</b></span>
+      </b-col>
+    </div>
+    <div class="row d-flex">
+      <b-col>
+        <span><img height="250" width="350" src="../assets/images/18-Tablon-de-Anuncios.png"></span>
+      </b-col>
+    </div>
+    <div class="row flex-grow-1 d-flex">
+      <div class="col-8 m-auto">
+        <div class="input-group d-flex justify-content-center">
+          <b-form-group>
+                <div class="input-group">
+                  <label class="label-login">Orden del día</label>
+                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+                  <b-form-input
+                      v-model="orderDay"
+                      id="input-orderDay"
+                      name="input-orderDay"
+                      v-validate="{ required: true}"
+                      type="text"
+                      class="form-control"
+                      aria-describedby="input-orderDay-live-feedback"
+                      placeholder="Orden del día"
+                      :state="validateState('input-orderDay')"
+                  ></b-form-input>
+                  <label class="label-login">Fecha</label>
+                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
+                  <b-form-input
+                    v-model="date"
+                    id="input-date"
+                    name="input-date"
+                    v-validate="{ required: true }"
+                    type="date"
+                    class="form-control"
+                    aria-describedby="input-date-live-feedback"
+                    :state="validateState('input-date')"
+                  ></b-form-input>
+                  <label class="label-login">Hora</label>
+                  <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-calendar"/></span>
+                  <b-form-input
+                    v-model="hour"
+                    id="input-hour"
+                    name="input-hour"
+                    v-validate="{ required: true }"
+                    type="time"
+                    class="form-control"
+                    aria-describedby="input-hour-live-feedback"
+                    :state="validateState('input-hour')"
+                  ></b-form-input>
+                </div>
+            </b-form-group>
+        </div>
+      </div>
+      <div class="row d-flex flex-grow-1">
+        <div class="col-8 m-auto mt-0">
+          <b-form-group>
+            <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click="sendNotice()">ENVIAR ACTA POR CORREO ELECTRÓNICO</b-button>
+            <b-button class="m-1 custom-button"  variant="outline-primary" type="submit" @click="printDiv()">IMPRIMIR ACTA</b-button>
+          </b-form-group>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </div>
+  </div>
+    
+  <!-- <div class="screen">
     <div class="row" id="grid-top-log">
       <NavBarPresident id="full"></NavBarPresident>
     </div>
@@ -70,10 +156,7 @@
             </b-form-group>
           </div>
           <div class="input-group mb-3 d-flex justify-content-center">
-            <b-form-group>
-              <b-button class="m-3" variant="outline-primary" type="submit" @click="sendNotice()">ENVIAR ACTA POR CORREO ELECTRÓNICO</b-button>
-              <b-button class="m-3" variant="outline-primary" type="submit" @click="printDiv()">IMPRIMIR ACTA</b-button>
-            </b-form-group>
+            
           </div>
         </div>
       </div>
@@ -81,7 +164,7 @@
     <div class="row" id="grid-bottom">
       <footer-social-network></footer-social-network>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

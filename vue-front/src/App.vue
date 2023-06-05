@@ -30,7 +30,7 @@ export default {
 }
 
 .navbar-style .active {
-  color: #05506b;
+  color: #c7b9af;
 }
 
 .bootstrap-btn {

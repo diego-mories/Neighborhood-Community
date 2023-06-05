@@ -4,7 +4,7 @@
       <NavBarPresident v-if="role === 1"></NavBarPresident>
       <NavBarOwner v-if="role === 3"></NavBarOwner>
     </div>
-    <div class="row" style="margin-top: 80px; ">
+    <div class="row" style="margin-top: 120px; ">
       <b-col>
         <router-link to="/login">
           <div class="back">
