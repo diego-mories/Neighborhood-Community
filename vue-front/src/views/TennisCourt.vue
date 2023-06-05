@@ -1,52 +1,4 @@
 <template>
-  <!-- <div class="screen">
-    <div class="row" id="grid-top-log">
-      <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
-      <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
-    </div>
-    <div class="row" id="grid-top">
-      <div class="row" id="topR">
-        <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/bookingCourts')">VOVLER</button>
-        </div>
-        <div class="col-sm-11" id="full" >
-            <span class="title"><b> Pista de tenis</b></span>
-        </div>
-      </div>
-      <div class="row" id="bottomR-middle">
-        <div class="col-sm-1" id="full">
-        </div>
-        <div class="col-sm-4" id="full">
-          <div class="row">
-            <span><img class="center-form" src="../assets/images/tennis.png"></span>
-            <template v-if="has_book">
-              <div>MIS RESERVAS: {{myBook}}</div>
-            <div><b-button class="btn-danger" @click="cancelBookT()">CANCELAR RESERVA</b-button></div>
-            </template>
-          </div>
-        </div>
-        <div class="col-sm-7 d-block" id="full">
-          <b-table class="mr-5 ml-5 mt-2" :items="items" :fields="fields" :select-mode="'single'" responsive="sm" ref="selectableTable" selectable @row-selected="onRowSelected">
-            <template #cell(is_available)="data">
-                {{ data.item.is_available | formatBooking}}
-            </template>
-          </b-table>
-          <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
-        </div>
-      </div>
-      <div class="row" id="bottomR-bottom">
-        <div class="col-sm-5" id="full">
-        </div>
-        <div class="col-sm-7" id="full">
-          <b-button id="myBtn" variant="outline-primary" type="submit" @click="reserve()">RESERVAR</b-button>
-          <h3><span class="badge badge-danger" id="msg"></span></h3>
-        </div>
-      </div>
-    </div>
-    <div class="row" id="grid-bottom-home">
-      <FooterSocial id="full"></FooterSocial>
-    </div>
-  </div> -->
   <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
     <div class="row">
       <NavBarPresident v-if="role === 1"></NavBarPresident>
@@ -54,7 +6,7 @@
     </div>
     <div class="row" style="margin-top: 80px; ">
       <b-col>
-        <router-link to="/login">
+        <router-link to="/bookingCourts">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
             <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
@@ -67,58 +19,57 @@
         <span class="title"><b>PISTA DE TENIS</b></span>
       </b-col>
     </div>
-    
-  <template v-if="!has_book">
-    <div class="row flex-grow-1 d-flex" style="margin-top:50px">
-      <div class="col-lg-8 col-md-9 mr-auto ml-auto">
-          <div class="container">
-            <div class="table-container mx-auto">
-              <b-table
-              :items="items" 
-              :fields="fields" 
-              :select-mode="'single'" 
-              responsive="sm" 
-              ref="selectableTable" 
-              selectable
-              @row-selected="onRowSelected"
-              head-variant="dark">
-              <template #cell(is_available)="data">
+    <template v-if="!has_book">
+      <div class="row flex-grow-1 d-flex" style="margin-top:50px">
+        <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+            <div class="container">
+              <div class="table-container mx-auto">
+                <b-table
+                :items="items" 
+                :fields="fields" 
+                :select-mode="'single'" 
+                responsive="sm" 
+                ref="selectableTable" 
+                selectable
+                @row-selected="onRowSelected"
+                head-variant="dark">
+                <template #cell(is_available)="data">
                   {{ data.item.is_available | formatBooking}}
-              </template>
-            </b-table>
+                </template>
+              </b-table>
+              </div>
+              <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
+              <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
+              <h3><span class="badge badge-danger" id="msg"></span></h3>        
             </div>
-            <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
-            <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
-            <h3><span class="badge badge-danger" id="msg"></span></h3>        
-          </div>
+        </div>
       </div>
-    </div>
-  </template>
+    </template>
     <template v-else>
       <div class="row" style="margin-top:50px">
-      <div class="col-lg-8 col-md-9 mr-auto ml-auto">
-          <div class="container">
-            <div class="table-container mx-auto">
-              <b-table
-              :items="items" 
-              :fields="fields" 
-              :select-mode="'single'" 
-              responsive="sm" 
-              ref="selectableTable" 
-              selectable
-              @row-selected="onRowSelected"
-              head-variant="dark">
-              <template #cell(is_available)="data">
-                  {{ data.item.is_available | formatBooking}}
-              </template>
-            </b-table>
+        <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+            <div class="container">
+              <div class="table-container mx-auto">
+                <b-table
+                :items="items" 
+                :fields="fields" 
+                :select-mode="'single'" 
+                responsive="sm" 
+                ref="selectableTable" 
+                selectable
+                @row-selected="onRowSelected"
+                head-variant="dark">
+                <template #cell(is_available)="data">
+                    {{ data.item.is_available | formatBooking}}
+                </template>
+              </b-table>
+              </div>
+              <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
+              <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
+              <h3><span class="badge badge-danger" id="msg"></span></h3>        
             </div>
-            <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
-            <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
-            <h3><span class="badge badge-danger" id="msg"></span></h3>        
-          </div>
+        </div>
       </div>
-    </div>
       <div class="row flex-grow-1 d-flex">
         <div class="col ml-auto mr-auto">
           <div>MIS RESERVAS: {{myBook}}</div><b-button class="btn-danger" @click="cancelBookT()">CANCELAR RESERVA</b-button>   
@@ -131,7 +82,7 @@
       </b-col>
     </div>
   </div>
-  </template>
+</template>
 
 <script>
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
@@ -173,7 +124,6 @@ export default {
   methods: {
     onRowSelected (items) {
       this.selected = items
-      console.log(this.selected[0])
       if (this.selected[0].is_available === 0) {
         document.getElementById('msg1').hidden = true 
         document.getElementById('myBtn').hidden = true 
@@ -241,7 +191,6 @@ export default {
             showConfirmButton: false,
             timer: 2500
           }).then(()=> {
-            console.log('Reserva de la pista de tenis cancelada correctamente' + Response)
             this.$router.push({ path: '/login' })
           })
         }, 
@@ -255,32 +204,5 @@ export default {
 </script>
 
 <style>
-.bg-svg {
-  background-image: url('../assets/subtle-prism3.png'); /* Ruta del archivo SVG */
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.back {
-  float: left; 
-  margin-left: 10px ; 
-  cursor: pointer;
-  color: #494440;
-}
-.back:hover {
-  color: #82766d;
-}
-.custom-button {
-  background-color: #05506b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
 
-.custom-button:hover {
-  background-color: #237b9b;
-}
-.msg-info-book {
-  background-color: #05506b;
-}
 </style>

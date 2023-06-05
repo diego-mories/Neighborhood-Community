@@ -1,5 +1,88 @@
 <template>
-  <div class="screen">
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1297px">
+    <div class="row">
+      <NavBarPresident v-if="role === 1"></NavBarPresident>
+      <NavBarOwner v-if="role === 3"></NavBarOwner>
+    </div>
+    <div class="row" style="margin-top: 80px; ">
+      <b-col>
+        <router-link to="/bookingCourts">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+          </div>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>PISTA DE PADEL</b></span>
+      </b-col>
+    </div>
+    <template v-if="!has_book">
+      <div class="row flex-grow-1 d-flex" style="margin-top:50px">
+        <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+            <div class="container">
+              <div class="table-container mx-auto">
+                <b-table
+                :items="items" 
+                :fields="fields" 
+                :select-mode="'single'" 
+                responsive="sm" 
+                ref="selectableTable" 
+                selectable
+                @row-selected="onRowSelected"
+                head-variant="dark">
+                <template #cell(is_available)="data">
+                  {{ data.item.is_available | formatBooking}}
+                </template>
+              </b-table>
+              </div>
+              <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
+              <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
+              <h3><span class="badge badge-danger" id="msg"></span></h3>        
+            </div>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="row" style="margin-top:50px">
+        <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+            <div class="container">
+              <div class="table-container mx-auto">
+                <b-table
+                :items="items" 
+                :fields="fields" 
+                :select-mode="'single'" 
+                responsive="sm" 
+                ref="selectableTable" 
+                selectable
+                @row-selected="onRowSelected"
+                head-variant="dark">
+                <template #cell(is_available)="data">
+                    {{ data.item.is_available | formatBooking}}
+                </template>
+              </b-table>
+              </div>
+              <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
+              <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
+              <h3><span class="badge badge-danger" id="msg"></span></h3>        
+            </div>
+        </div>
+      </div>
+      <div class="row flex-grow-1 d-flex">
+        <div class="col ml-auto mr-auto">
+          <div>MIS RESERVAS: {{myBook}}</div><b-button class="btn-danger" @click="cancelBookP()">CANCELAR RESERVA</b-button>   
+        </div>
+      </div>
+    </template>
+    <div class="row">
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </div>
+  </div>
+  <!-- <div class="screen">
     <div class="row" id="grid-top-log">
       <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
       <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
@@ -31,7 +114,7 @@
                 {{ data.item.is_available | formatBooking}}
               </template>
             </b-table>
-            <h3><span class="badge badge-info" id="msg1">Seleccione una hora de reserva</span></h3>
+            <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
           </div>
         <div class="row" id="bottomR-bottom">
           <div class="col-sm-5" id="full">
@@ -46,17 +129,18 @@
     <div class="row" id="grid-bottom-home">
       <FooterSocial id="full"></FooterSocial>
     </div>
-  </div>
+  </div> -->
+
   </template>
 
 <script>
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'
 import BookingsServices from '../services/Bookings'
 export default {
   components: {
-    FooterSocial,
+    FooterSocialNetwork,
     NavBarPresident,
     NavBarOwner
   },
@@ -89,7 +173,6 @@ export default {
   methods: {
     onRowSelected (items) {
       this.selected = items
-      console.log(this.selected[0])
       if (this.selected[0].is_available === 0) {
         document.getElementById('msg1').hidden = true 
         document.getElementById('myBtn').hidden = true 
@@ -105,7 +188,6 @@ export default {
       BookingsServices.findBookingsP(this.dataUserLogin.community_id).then(
         Response => {
           this.items = Response.data
-          console.log(Response.data)
         },
         Error =>{
           console.log('Error al buscar las reservas disponibles de la pista de padel' + Error)
@@ -117,7 +199,6 @@ export default {
           if (Response.data.rowCount.length > 0){
             this.has_book = true
             this.myBook = Response.data.rowCount[0].time_zone
-            console.log(this.myBook)
           }
         },
         Error => {
@@ -160,7 +241,6 @@ export default {
             showConfirmButton: false,
             timer: 2500
           }).then(()=> {
-            console.log('Reserva de pista de padel cancelada correctamente' + Response)
             this.$router.push({ path: '/login' })
           })
         }, 
@@ -174,14 +254,5 @@ export default {
 </script>
 
 <style>
-#img-container-home{
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/images/comunidad.jpg');
-    background-size: cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-    opacity: 75%;
-}
+
 </style>

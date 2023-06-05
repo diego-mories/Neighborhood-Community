@@ -41,16 +41,43 @@ export default {
   border-radius: 4px;
   cursor: pointer;
 }
+.bg-svg {
+  background-image: url('./assets/subtle-prism3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.back {
+  float: left; 
+  margin-left: 10px ; 
+  cursor: pointer;
+  color: #494440;
+}
+.back:hover {
+  color: #82766d;
+}
+.custom-button {
+  background-color: #05506b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
 
+.custom-button:hover {
+  background-color: #237b9b;
+}
+.msg-info-book {
+  background-color: #05506b;
+}
 .bootstrap-btn:hover {
   background-color: rgb(34, 72, 86);
 }
 
 .profile-img {
   margin-bottom: 3px;
-  height: 1.5em; /* Ajusta la altura de la imagen al tamaño del texto */
-  width: auto; /* Permite que el ancho de la imagen se ajuste proporcionalmente */
-  margin-right: 0.5em; /* Agrega un margen derecho para separar la imagen del texto */
+  height: 1.5em; 
+  width: auto;
+  margin-right: 0.5em;
 }
 .nav-link{
   color: rgba(255, 255, 255, 1) !important;
