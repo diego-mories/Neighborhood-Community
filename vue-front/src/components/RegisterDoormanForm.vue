@@ -1,74 +1,68 @@
 <template>
-    <b-form>
-        <span><img src="../assets/images/doorman.png" class="w-25 h-25 mw-25 mh-25"></span>
-        <b-form-group>
-            <div class="input-group">
-              <label class="label-login">Nombre portero</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-              <b-form-input
-                  v-model="newDoorman.name"
-                  id="input-newDoorman-name"
-                  name="input-newDoorman-name"
-                  v-validate="{required: true, alpha_spaces: true}"
-                  class="form-control"
-                  aria-describedby="input-newDoorman-name-live-feedback"
-                  placeholder="Nombre"
-                  :state="validateState('input-newDoorman-name')"
-                ></b-form-input>
-              <b-form-invalid-feedback id="input-newDoorman-name" class="msgE2">
-                {{ veeErrors.first('input-newDoorman-name')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Apellidos portero</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-              <b-form-input
-                v-model="newDoorman.surname"
-                id="input-newDoorman-surname"
-                name="input-newDoorman-surname"
+  <div>
+    <div class="input-group d-flex justify-content-center">
+      <b-form-group>
+          <div class="input-group">
+            <label class="label-login">Nombre portero</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+            <b-form-input
+                v-model="newDoorman.name"
+                id="input-newDoorman-name"
+                name="input-newDoorman-name"
                 v-validate="{required: true, alpha_spaces: true}"
                 class="form-control"
-                aria-describedby="input-newDoorman-surname-live-feedback"
-                placeholder="Apellidos"
-                :state="validateState('input-newDoorman-surname')"
+                aria-describedby="input-newDoorman-name-live-feedback"
+                placeholder="Nombre"
+                :state="validateState('input-newDoorman-name')"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-newDoorman-surname" class="msgE2">
-                {{ veeErrors.first('input-newDoorman-surname')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              
-              <label class="label-login">Email portero</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
-              <b-form-input
-                v-model="newDoorman.email"
-                id="input-newDoorman-email"
-                name="input-newDoorman-email"
-                v-validate="{required: true, email: true}"
-                class="form-control"
-                aria-describedby="input-newDoorman-email-live-feedback"
-                placeholder="Email"
-                :state="validateState('input-newDoorman-email')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newDoorman-email" class="msgE2">
-                {{ veeErrors.first('input-newDoorman-email')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Teléfono</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
-              <b-form-input
-                v-model="newDoorman.phone"
-                id="input-newDoorman-phone"
-                name="input-newDoorman-phone"
-                v-validate="{ required: true, digits:9}"
-                type="number"
-                class="form-control"
-                aria-describedby="input-newDoorman-phone-live-feedback"
-                placeholder="Teléfono (9 dígitos)"
-                :state="validateState('input-newDoorman-phone')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newDoorman-phone" class="msgE2">
-                {{ veeErrors.first('input-newDoorman-phone')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-            </div>
+            <label class="label-login">Apellidos portero</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+            <b-form-input
+              v-model="newDoorman.surname"
+              id="input-newDoorman-surname"
+              name="input-newDoorman-surname"
+              v-validate="{required: true, alpha_spaces: true}"
+              class="form-control"
+              aria-describedby="input-newDoorman-surname-live-feedback"
+              placeholder="Apellidos"
+              :state="validateState('input-newDoorman-surname')"
+            ></b-form-input>
+            <label class="label-login">Email portero</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+            <b-form-input
+              v-model="newDoorman.email"
+              id="input-newDoorman-email"
+              name="input-newDoorman-email"
+              v-validate="{required: true, email: true}"
+              class="form-control"
+              aria-describedby="input-newDoorman-email-live-feedback"
+              placeholder="Email"
+              :state="validateState('input-newDoorman-email')"
+            ></b-form-input>
+            <label class="label-login">Teléfono</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+            <b-form-input
+              v-model="newDoorman.phone"
+              id="input-newDoorman-phone"
+              name="input-newDoorman-phone"
+              v-validate="{ required: true, digits:9}"
+              type="number"
+              class="form-control"
+              aria-describedby="input-newDoorman-phone-live-feedback"
+              placeholder="Teléfono (9 dígitos)"
+              :state="validateState('input-newDoorman-phone')"
+            ></b-form-input>
+          </div>
         </b-form-group>
-        <b-button class="mt-3" variant="outline-primary" @click="registerDoorman()">REGISTRAR PORTERO</b-button>
-    </b-form>
+    </div>
+    <div class="row d-flex flex-grow-1">
+        <div class="col-8 m-auto mt-0">
+          <b-form-group>
+            <b-button class="mt-1 custom-button" variant="outline-primary" type="submit" @click.stop.prevent="registerDoorman() ">REGISTRAR PORTERO</b-button>
+          </b-form-group>
+        </div>
+    </div>
+  </div>
 </template>
 <script>
 import UsersServices from '../services/Users'

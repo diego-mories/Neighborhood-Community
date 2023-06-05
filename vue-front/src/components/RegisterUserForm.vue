@@ -1,88 +1,93 @@
 <template>
-<div>
-  <b-form>
-      <span><img src="../assets/images/newuser.png" class="w-25 h-25 mw-25 mh-25"></span>
+  <div>
+    <div class="input-group d-flex justify-content-center">
       <b-form-group>
-          <div class="input-group">
-              <label class="label-login">Nombre</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-              <b-form-input
-                v-model="newUser.name"
-                id="input-newUser-name"
-                name="input-newUser-name"
-                v-validate="{required: true, alpha_spaces: true}"
-                class="form-control"
-                aria-describedby="input-newUser-name-live-feedback"
-                placeholder="Nombre"
-                :state="validateState('input-newUser-name')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newUser-name" class="msgE2">
-                {{ veeErrors.first('input-newUser-name')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Apellidos</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-              <b-form-input
-                v-model="newUser.surname"
-                id="input-newUser-surname"
-                name="input-newUser-surname"
-                v-validate="{required: true, alpha_spaces: true}"
-                class="form-control"
-                aria-describedby="input-newUser-surname-live-feedback"
-                placeholder="Apellidos"
-                :state="validateState('input-newUser-surname')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newUser-surname" class="msgE2">
-                {{ veeErrors.first('input-newUser-surname')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Email</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
-              <b-form-input
-                v-model="newUser.email"
-                id="input-newUser-email"
-                name="input-newUser-email"
-                v-validate="{required: true, email: true}"
-                class="form-control"
-                aria-describedby="input-newUser-email-live-feedback"
-                placeholder="Email"
-                :state="validateState('input-newUser-email')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newUser-email" class="msgE2">
-                {{ veeErrors.first('input-newUser-email')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Teléfono</label>
-              <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
-              <b-form-input
-                v-model="newUser.phone"
-                id="input-newUser-phone"
-                name="input-newUser-phone"
-                v-validate="{ required: true, digits:9}"
-                type="number"
-                class="form-control"
-                aria-describedby="input-newUser-phone-live-feedback"
-                placeholder="Teléfono (9 dígitos)"
-                :state="validateState('input-newUser-phone')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-newUser-phone" class="msgE2">
-                {{ veeErrors.first('input-newUser-phone')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
-              <label class="label-login">Selecciona planta y piso</label>
-              <b-form-select
-                v-model="selected"
-                id="input-house"
-                name="input-house"
-                v-validate="{ required: true}"
-                :state="validateState('input-house')"
-                :options="options"
-                aria-describedby="input-house-live-feedback">
-              </b-form-select>
-              <b-form-invalid-feedback id="input-house" class="msgE">
-                {{ veeErrors.first('input-house')?'Elige una opción':'' }}
-              </b-form-invalid-feedback>
-          </div>
-        <b-button class="mt-3" variant="outline-primary" @click.prevent="registerUser()">REGISTRAR</b-button>
+        <div class="input-group">
+            <label class="label-login">Nombre</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+            <b-form-input
+              v-model="newUser.name"
+              id="input-newUser-name"
+              name="input-newUser-name"
+              v-validate="{required: true, alpha_spaces: true}"
+              class="form-control"
+              aria-describedby="input-newUser-name-live-feedback"
+              placeholder="Nombre"
+              :state="validateState('input-newUser-name')"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-newUser-name" class="msgE2">
+              {{ veeErrors.first('input-newUser-name')?'Campo obligatorio':'' }}
+            </b-form-invalid-feedback>
+            <label class="label-login">Apellidos</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+            <b-form-input
+              v-model="newUser.surname"
+              id="input-newUser-surname"
+              name="input-newUser-surname"
+              v-validate="{required: true, alpha_spaces: true}"
+              class="form-control"
+              aria-describedby="input-newUser-surname-live-feedback"
+              placeholder="Apellidos"
+              :state="validateState('input-newUser-surname')"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-newUser-surname" class="msgE2">
+              {{ veeErrors.first('input-newUser-surname')?'Campo obligatorio':'' }}
+            </b-form-invalid-feedback>
+            <label class="label-login">Email</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+            <b-form-input
+              v-model="newUser.email"
+              id="input-newUser-email"
+              name="input-newUser-email"
+              v-validate="{required: true, email: true}"
+              class="form-control"
+              aria-describedby="input-newUser-email-live-feedback"
+              placeholder="Email"
+              :state="validateState('input-newUser-email')"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-newUser-email" class="msgE2">
+              {{ veeErrors.first('input-newUser-email')?'Campo obligatorio':'' }}
+            </b-form-invalid-feedback>
+            <label class="label-login">Teléfono</label>
+            <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+            <b-form-input
+              v-model="newUser.phone"
+              id="input-newUser-phone"
+              name="input-newUser-phone"
+              v-validate="{ required: true, digits:9}"
+              type="number"
+              class="form-control"
+              aria-describedby="input-newUser-phone-live-feedback"
+              placeholder="Teléfono (9 dígitos)"
+              :state="validateState('input-newUser-phone')"
+            ></b-form-input>
+            <b-form-invalid-feedback id="input-newUser-phone" class="msgE2">
+              {{ veeErrors.first('input-newUser-phone')?'Campo obligatorio':'' }}
+            </b-form-invalid-feedback>
+            <label class="label-login">Selecciona planta y piso</label>
+            <b-form-select
+              v-model="selected"
+              id="input-house"
+              name="input-house"
+              v-validate="{ required: true}"
+              :state="validateState('input-house')"
+              :options="options"
+              aria-describedby="input-house-live-feedback">
+            </b-form-select>
+            <b-form-invalid-feedback id="input-house" class="msgE">
+              {{ veeErrors.first('input-house')?'Elige una opción':'' }}
+            </b-form-invalid-feedback>
+        </div>
       </b-form-group>
-    </b-form>
     </div>
+    <div class="row d-flex flex-grow-1">
+      <div class="col-8 m-auto mt-0">
+        <b-form-group>
+          <b-button class="m-1 custom-button" variant="outline-primary" @click.prevent="registerUser()">REGISTRAR</b-button>
+        </b-form-group>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import UsersServices from '../services/Users'

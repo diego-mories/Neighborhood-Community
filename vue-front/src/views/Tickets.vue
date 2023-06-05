@@ -1,8 +1,9 @@
 <template>
-    <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
-      <div class="row">
-        <NavBarPresident></NavBarPresident>
-      </div>
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
+    <div class="row">
+      <NavBarPresident v-if="role === 1"></NavBarPresident>
+      <NavBarOwner v-if="role === 3"></NavBarOwner>     
+    </div>
     <div class="row" style="margin-top: 120px;">
       <b-col>
         <router-link to="/login">
@@ -46,6 +47,15 @@ export default {
     FooterSocialNetwork,
     TicketsForm,
     NavBarPresident
+  },
+  data () {
+    return {
+      role: null
+    }
+  },
+  created () {
+    this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
+    this.role = this.dataUserLogin.role_id
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
-    <b-form  @submit.prevent="registerDoormanOtherC">
-        <span><img src="../assets/images/doorman.png" class="w-25 h-25 mw-25 mh-25"></span>
-        <b-form-group>
+  <div>
+    <div class="input-group d-flex justify-content-center">
+      <b-form-group>
             <div class="input-group">
               <label class="label-login">Email portero</label>
               <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
@@ -15,13 +15,17 @@
                 placeholder="Email"
                 :state="validateState('input-newDoorman-email2')"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-newDoorman-emai2l" class="msgE2">
-                {{ veeErrors.first('input-newDoorman-email2')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
             </div>
         </b-form-group>
-        <b-button class="mt-3" variant="outline-primary" type="submit">REGISTRAR PORTERO</b-button>
-    </b-form>
+    </div>
+    <div class="row d-flex flex-grow-1">
+        <div class="col-8 m-auto mt-0">
+          <b-form-group>
+            <b-button class="mt-1 custom-button" variant="outline-primary" type="submit" @click.stop.prevent="registerDoormanOtherC() ">REGISTRAR PORTERO</b-button>
+          </b-form-group>
+        </div>
+    </div> 
+  </div>
 </template>
 <script>
 import UsersServices from '../services/Users'

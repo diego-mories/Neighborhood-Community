@@ -1,5 +1,60 @@
 <template>
-<div class="screen">
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
+    <div class="row">
+      <NavBarPresident></NavBarPresident>
+    </div>
+    <div class="row" style="margin-top: 120px;">
+      <b-col>
+        <router-link to="/login">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+          </div>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>ALTA USUARIO</b></span>
+      </b-col>
+    </div>
+    <!-- EXISTE PORTERO EN LA COMUNIDAD Y LE DAMOS DE ALTA -->
+    <template v-if="formDoorman">
+      <div class="row d-flex">
+        <div>
+          <span><img height="185" width="200" src="../assets/images/doorman.png"></span>
+        </div>
+      </div>
+      <div class="row d-flex">
+        <div class="col-8 m-auto">
+          <b-form-group>
+            <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddDoorman()">CABMIO DE FORMULARIO</b-button>
+          </b-form-group>
+        </div>
+      </div>  
+      <div class="row flex-grow-1 d-flex">
+        <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
+            <template v-if="addDoormanExist">
+              <RegisterDoormanFormExist></RegisterDoormanFormExist>
+            </template>
+            <template v-else>
+              <RegisterDoormanForm></RegisterDoormanForm>
+            </template>
+        </div>
+      </div>
+    </template>
+    <!-- DAMOS DE ALTA A PROPIETARIOS -->
+    <template v-else>
+
+    </template>
+    <div class="row">
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </div>
+  </div>
+  
+<!-- <div class="screen">
   <div class="row" id="grid-top-log">
       <NavBarPresident id="full"></NavBarPresident>
   </div>
@@ -26,7 +81,7 @@
           </template>
         </template>
         <template v-else>
-           <template v-if="addHouse">
+          <template v-if="addHouse">
             <div class="row">
               <div class="col-3">
               </div>
@@ -70,7 +125,7 @@
   <div class="row" id="grid-bottom-home">
     <FooterSocial id="full"></FooterSocial>
   </div>
-</div>
+</div> -->
 </template>
 
 <script>
@@ -79,7 +134,7 @@ import RegisterUserOtherCForm from '../components/RegisterUserOtherCForm.vue'
 import RegisterUserOther from '../components/RegisterUserOther.vue'
 import RegisterDoormanForm from '../components/RegisterDoormanForm.vue'
 import RegisterDoormanFormExist from '../components/RegisterDoormanFormExist.vue'
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import CommunityServices from '../services/Community'
 export default {
@@ -89,7 +144,7 @@ export default {
     RegisterUserOtherCForm,
     RegisterUserOther,
     RegisterDoormanForm,
-    FooterSocial,
+    FooterSocialNetwork,
     NavBarPresident
   },
   data () {
