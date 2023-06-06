@@ -32,7 +32,7 @@
               {{ data.item.amount | formatAmount}}
             </template>
             <template #cell(type_bill)="data">
-		          {{data.item.type_bill | formatBill}}
+              {{data.item.type_bill | formatBill}}
             </template>
             <template #cell(options)="data">
               <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">

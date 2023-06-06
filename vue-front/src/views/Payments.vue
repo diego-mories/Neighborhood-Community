@@ -1,57 +1,61 @@
 <template>
-    <div class="screen">
-        <div class="row" id="grid-top-log">
-          <NavBarPresident v-if="role === 1" id="full"></NavBarPresident>
-          <NavBarOwner v-if="role === 3" id="full"></NavBarOwner>
-        </div>
-        <div class="row" id="grid-top">
-            <div class="row" id="topR">
-            <div class="col-sm-1" id="full">
-                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
-            </div>
-            <div class="col-sm-11" id="full">
-                <span class="title"><b>Mis Pagos</b></span>
-            </div>
-            </div>
-            <div class="row" id="bottomR">
-                <div class="col-sm-1" id="full">
-                </div>
-                <div class="col-sm-11" id="full">
-                    <div class="container">
-                        <b-table
-                          class="m-5 "
-                          style="overflow-y:auto; height: 60vh !important;"
-                          ref="payTable"
-                          id="payTable"
-                          :fields="headers"
-                          :items="payments"
-                          responsive="sm"
-                        >
-                          <template #cell(d_bill)="data">
-                            {{ data.item.d_bill | formatDate}}
-                          </template>
-                          <template #cell(d_payment)="data">
-                            {{ data.item.d_payment | formatDateP}}
-                          </template>
-                          <template #cell(description)="data">
-                            {{ data.item.description | formatDescription}}
-                          </template>
-                          <template #cell(amount)="data">
-                            {{ data.item.amount | formatAmount}}
-                            </template>
-                          <template #cell(type_bill)="data">
-                            {{ data.item.type_bill | formatBillP}}
-                          </template>
-                        </b-table>
-                        <b-button @click="downloadPDFWithjsPDF()">IMPRIMIR PAGOS</b-button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="grid-bottom-home">
-            <Footer id="full"></Footer>
-        </div>
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
+    <div class="row">
+      <NavBarPresident v-if="role === 1"></NavBarPresident>
+      <NavBarOwner v-if="role === 3"></NavBarOwner>
     </div>
+    <div class="row" style="margin-top: 120px;">
+      <b-col>
+        <router-link to="/login">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+          </div>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>MIS PAGOS</b></span>
+      </b-col>
+    </div>
+    <div class="row flex-grow-1" style="margin-top:123px" v-if="role === 1">
+      <div class="col-lg-8 col-11 mr-auto ml-auto  mr-auto ml-auto">
+        <div class="table-container ">
+            <b-table
+              style="overflow:auto; max-height: 615px;"
+              ref="payTable"
+              id="payTable"
+              :fields="headers"
+              :items="payments"
+              responsive="sm"
+            >
+              <template #cell(d_bill)="data">
+                {{ data.item.d_bill | formatDate}}
+              </template>
+              <template #cell(d_payment)="data">
+                {{ data.item.d_payment | formatDateP}}
+              </template>
+              <template #cell(description)="data">
+                {{ data.item.description | formatDescription}}
+              </template>
+              <template #cell(amount)="data">
+                {{ data.item.amount | formatAmount}}
+                </template>
+              <template #cell(type_bill)="data">
+                {{ data.item.type_bill | formatBillP}}
+              </template>
+            </b-table>
+            <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click.prevent="downloadPDFWithjsPDF()">IMPRIMIR PAGOS</b-button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <b-col>
+        <Footer></Footer>
+      </b-col>
+    </div>
+  </div>
 </template>
 <script>
 
@@ -69,10 +73,10 @@ export default {
     payments: [],
     headers: [
       { key: 'amount', label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title' },
-      { key: 'type_bill', label: 'Tipo de gasto' },
+      { key: 'type_bill', label: 'Tipo' },
       { key: 'description', label: 'Descripción' },
-      { key: 'd_payment', label: 'Fecha de pago' },
-      { key: 'd_deb', label: 'Fecha de deuda' }
+      { key: 'd_payment', label: 'Fecha pago' },
+      { key: 'd_deb', label: 'Fecha deuda' }
     ]
   }),
   components: {
@@ -113,3 +117,16 @@ export default {
 }
 
 </script>
+<style >
+.table-container table thead {
+  position: sticky;
+  top: 0;
+  background-color: #05506b !important;
+  z-index: 1;
+}
+@media (max-width: 768px) { 
+  .table-container {
+    font-size: 12px;
+  }
+}
+</style>

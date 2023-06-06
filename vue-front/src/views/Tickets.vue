@@ -42,11 +42,13 @@
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import TicketsForm from '../components/TicketsForm.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
+import NavBarOwner from '../components/NavBarOwner.vue'
 export default {
   components: {
     FooterSocialNetwork,
     TicketsForm,
-    NavBarPresident
+    NavBarPresident,
+    NavBarOwner
   },
   data () {
     return {
@@ -56,6 +58,7 @@ export default {
   created () {
     this.dataUserLogin = JSON.parse(localStorage.getItem('userLogin'))
     this.role = this.dataUserLogin.role_id
+    console.log(this.role)
   }
 }
 </script>
