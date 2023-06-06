@@ -1,120 +1,43 @@
 <template>
-  <div class="screen" id="full">
-    <template v-if="flagConfCom">
-      <div class="card p-5 center-form" id="full">
-        <div class="row d-flex">
-          <div class="col-sm-2 " id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); flagConfCom = !flagConfCom ; dataComm()">VOLVER</button>
-          </div>
-          <div class="col-sm-10" id="full"><h4>Reconfiguración de comunidad</h4>
-          <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-        <div class="row justify-content-center" id="grid-bottom-profile full">
-          <div class="input-group mb-3 d-flex justify-content-center"  style="margin-left: 147px;">
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_paddle_court"/>
-            <span class="d-flex align-items-center">¿Hay pista de padel?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_tennis_court"/>
-            <span class="d-flex align-items-center">¿Hay pista de tenis?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_pool"/>
-            <span class="d-flex align-items-center">¿Hay piscina?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.has_cameras"/>
-            <span class="d-flex align-items-center">¿Hay cámaras?</span>
+    <b-card class="profile-card m-auto">
+    <template v-if="!flagConfCom">
+      <div class="row">
+        <div class="col-2">
+          <font-awesome-icon icon="fa-solid fa-arrow-alt-circle-left" class="back-profile" @click="$router.push('profile'); flagConfCom = !flagConfCom ; dataComm()"></font-awesome-icon>
         </div>
-          <div class="col-sm-12" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="saveC()" id="profileButton" style="margin-top: 34px; margin-left: 147px;" >GUARDAR CONFIGURACIÓN</button></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <img class="card-img-top profile-image" src="../assets/images/community.png" alt="Foto de perfil">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
         </div>
       </div>
     </template>
-    <template v-else>
-      <template v-if="profile">
-        <div class="card p-5 center-form" id="full">
-          <div class="row d-flex">
-            <div class="col-sm-2 " id="full">
-              <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
-            </div>
-            <div class="col-sm-10" id="full"><h4>{{name + ' ' + surname}}</h4>
-            <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-            <div class="row" id="grid-bottom-profile full">
-              <div v-if="role_id === 1" class="col">
-                <button class="btn btn-sm btn-outline-primary" id="profileButton" @click="$router.push('profile'); flagConfCom = !flagConfCom">RECONFIGURAR CONMUNIDAD</button>
-              </div>
-              <div v-if="role_id === 1" class="col">
-                <button class="btn btn-sm btn-outline-primary" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
-              </div>
-              <div v-if="role_id === 3 || role_id === 2 " class="col-sm-12" >
-                <button class="btn btn-sm btn-outline-primary" style="margin-left: 147px;" @click="$router.push('changePassword')" id="profileButton">CAMBIAR CONTRASEÑA</button>
-              </div>
-
-              <div class="col">
-                <button v-if="role_id === 1" class="btn btn-sm btn-outline-success" @click="profile = !profile" id="profileButton">DESIGNAR CARGO</button>
-              </div>
-              <div v-if="role_id === 1" class="col">
-                <button class="btn btn-sm btn-outline-danger" @click="profile = !profile; deleteO = !deleteO ;" id="profileButton">ELIMINAR PROPIETARIO</button>
-              </div>
-              <div v-if="role_id === 1 && confCommunity.has_building_doorman" class="col">
-                <button class="btn btn-sm btn-outline-danger"  @click.prevent="deleteB()" id="profileButton">ELIMINAR PORTERO</button>
-              </div>
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        <template v-if="!deleteO">
-          <div class="card p-5 center-form" id="full">
-            <div class="row d-flex">
-              <div class="col-sm-2 " id="full">
-                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; selected = null ">VOLVER</button>
-              </div>
-              <div class="col-sm-10" id="full"><h4>Designación de presidente</h4>
-              <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-            <div class="row justify-content-center" id="grid-bottom-profile full">
-              <div class="col-sm-7">
-                <label class="label-login">Selecciona planta y piso</label>
-                <b-form-select
-                v-model="selected"
-                id="input-house"
-                name="input-house"
-                v-validate="{ required: true}"
-                :state="validateState('input-house')"
-                :options="options"
-                aria-describedby="input-house-live-feedback">
-                </b-form-select>
-                <b-form-invalid-feedback id="input-house" class="msgE">
-                {{ veeErrors.first('input-house')?'Elige una opción':'' }}
-                </b-form-invalid-feedback>
-              </div>
-              <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="changePresident()" id="profileButton" style="margin-top: 34px ;">DESIGNAR CARGO</button></div>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="card p-5 center-form" id="full">
-            <div class="row d-flex">
-              <div class="col-sm-2 " id="full">
-                <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null ">VOLVER</button>
-              </div>
-              <div class="col-sm-10" id="full"><h4>Eliminación de propietario</h4>
-              <img src="../assets/images/perfil.png" class="rounded" id="profileImage"></div></div>
-            <div class="row justify-content-center" id="grid-bottom-profile full">
-              <div class="col-sm-7">
-                <label class="label-login">Selecciona planta y piso</label>
-                <b-form-select
-                v-model="selected1"
-                id="input-house2"
-                name="input-house2"
-                v-validate="{ required: true}"
-                :state="validateState('input-house2')"
-                :options="options"
-                aria-describedby="input-house2-live-feedback">
-                </b-form-select>
-                <b-form-invalid-feedback id="input-house2" class="msgE">
-                {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
-                </b-form-invalid-feedback>
-              </div>
-              <div class="col-sm-5" id="full"><button class="btn btn-sm btn-outline-primary" @click.prevent="deleteOwner()" id="profileButton" style="margin-top: 34px ;">ELIMINAR PROPIETARIO</button></div>
-            </div>
-          </div>
-        </template>
-      </template>
-    </template>
-  </div>
+    <!-- <div class="row">
+      <div class="col">
+        <b-card-text>
+          <h5 class="profile-name mt-3">{{ name  + '  ' +  surname }}</h5>
+        </b-card-text>
+      </div>
+    <div class="row">
+      <div class="col">
+        <b-button class="m-1">HOLA</b-button>
+      </div>
+      <div class="col">
+        <b-button class="m-1">HOLA</b-button>
+      </div>
+      <div class="col">
+        <b-button class="m-1">HOLA</b-button>
+      </div>
+      <div class="col">
+        <b-button class="m-1">HOLA</b-button>
+      </div>
+    </div>
+    </div> -->
+  </b-card>
 </template>
 
 <script>
@@ -394,8 +317,39 @@ export default {
 </script>
 
 <style>
-#profileImage{
-    margin: 8%;
-    width: 25%;
+.profile-card {
+  padding: 20px;
+  text-align: center;
+  background-color: #05506b;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+.profile-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile-description {
+  font-size: 16px;
+}
+
+.profile-image {
+  width: 150px; /* Establece el ancho deseado */
+  height: auto; /* Mantiene la proporción de aspecto */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  border-radius: 114px;
+}
+.back-profile {
+  font-size: 23px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out; /* Aplica una transición de 0.3 segundos con una función de aceleración suave */
+}
+.back-profile:hover {
+  color: #c7b9af;
+  transform: scale(1.5); /* Aumenta el tamaño del icono al 150% al hacer hover */
+
 }
 </style>

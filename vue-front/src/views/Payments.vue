@@ -21,7 +21,7 @@
     </div>
     <div class="row flex-grow-1" style="margin-top:123px" v-if="role === 1">
       <div class="col-lg-8 col-11 mr-auto ml-auto  mr-auto ml-auto">
-        <div class="table-container ">
+        <div class="table-container">
             <b-table
               style="overflow:auto; max-height: 615px;"
               ref="payTable"

@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     getData () {
-       this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
-       this.searchMyCommunity()
+      this.userLogin = JSON.parse(localStorage.getItem('userLogin'))
+      this.searchMyCommunity()
     },
     searchMyCommunity () {
       CommunityServices.searchMyCommunity(this.userLogin.community_id).then(

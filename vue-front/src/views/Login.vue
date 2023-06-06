@@ -109,7 +109,7 @@
               {{ data.item.amount | formatAmount}}
             </template>
             <template #cell(type_bill)="data">
-		          {{data.item.type_bill | formatBill}}
+              {{data.item.type_bill | formatBill}}
             </template>
             <template #cell(options)="data">
               <b-button class="btn btn-success" v-b-tooltip.hover title="Pagar" @click="openPay(data.item)">
@@ -172,12 +172,10 @@ export default {
     dataUserLogin: {},
     debs: [],
     headers: [
-    { key: 'type_bill', label: 'Tipo', thClass: 'position-sticky' },
-    { key: 'date_p', sortable: true, label: 'Fecha',thClass: 'position-sticky'  },
-
+      { key: 'type_bill', label: 'Tipo', thClass: 'position-sticky' },
+      { key: 'date_p', sortable: true, label: 'Fecha',thClass: 'position-sticky'  },
       { key: 'description', label: 'Descripción',thClass: 'position-sticky'  },
       { key: 'amount', sortable: true, label: 'Cantidad', tdClass: 'table-title', thClass: 'table-title position-sticky'},
-
       { key: 'options', label: 'Pagar',thClass: 'position-sticky'  }
     ],
     bills: [],
