@@ -1,6 +1,7 @@
 <template>
     <b-card class="profile-card m-auto">
-    <template v-if="!flagConfCom">
+      <!-- Pagina principal del perfil -->
+    <template v-if="flagConfCom">
       <div class="row">
         <div class="col-2">
           <font-awesome-icon icon="fa-solid fa-arrow-alt-circle-left" class="back-profile" @click="$router.push('profile'); flagConfCom = !flagConfCom ; dataComm()"></font-awesome-icon>
@@ -11,32 +12,134 @@
           <img class="card-img-top profile-image" src="../assets/images/community.png" alt="Foto de perfil">
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-5">
         <div class="col">
+          <input type="checkbox" value="1" v-model="confCommunity.has_paddle_court"/>
+          <span >Pista de padel</span>
+        </div>
+        <div class="col">
+          <input  type="checkbox"  value="1" v-model="confCommunity.has_tennis_court"/>
+          <span >Pista de tenis</span>
+        </div>
+        <div class="col">
+          <input type="checkbox"  value="1" v-model="confCommunity.has_pool"/>
+          <span>Piscina</span>
+        </div>
+        <div class="col">
+          <input  type="checkbox"   value="1" v-model="confCommunity.has_cameras"/>
+          <span >Cámaras</span>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <b-button class="m-3 custom-button-s" variant="outline-primary" type="submit" @click.prevent="saveC()">GUARDAR CONFIGURACIÓN</b-button>
         </div>
       </div>
     </template>
-    <!-- <div class="row">
-      <div class="col">
-        <b-card-text>
-          <h5 class="profile-name mt-3">{{ name  + '  ' +  surname }}</h5>
-        </b-card-text>
-      </div>
-    <div class="row">
-      <div class="col">
-        <b-button class="m-1">HOLA</b-button>
-      </div>
-      <div class="col">
-        <b-button class="m-1">HOLA</b-button>
-      </div>
-      <div class="col">
-        <b-button class="m-1">HOLA</b-button>
-      </div>
-      <div class="col">
-        <b-button class="m-1">HOLA</b-button>
-      </div>
-    </div>
-    </div> -->
+    <template v-else>
+      <template v-if="profile">
+        <div class="row">
+          <div class="col">
+            <img class="card-img-top profile-image" src="../assets/images/perfil.png" alt="Foto de perfil">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <b-card-text>
+              <h5 class="profile-name mt-3">{{ name  + '  ' +  surname }}</h5>
+            </b-card-text>
+          </div>
+        </div>
+        <div class="row">
+          <div v-if="role_id === 1" class="col">            
+            <b-button class="m-1 custom-button-s" @click="$router.push('profile'); flagConfCom = !flagConfCom">RECONFIGURAR CONMUNIDAD</b-button>
+          </div>
+          <div v-if="role_id === 3 || role_id === 2 || role_id === 1" class="col">
+            <b-button class="m-1 custom-button-s" @click="$router.push('changePassword')">CAMBIAR CONTRASEÑA</b-button>
+          </div>
+          <div v-if="role_id === 1" class="col">
+            <b-button class="m-1 custom-button-s" @click="profile = !profile">DESIGNAR CARGO</b-button>
+          </div>
+          <div  v-if="role_id === 1" class="col">
+            <b-button class="m-1 custom-button-s" @click="profile = !profile; deleteO = !deleteO ;">ELIMINAR PROPIETARIO</b-button>
+          </div>
+          <div  v-if="role_id === 1 && confCommunity.has_building_doorman" class="col">
+            <b-button class="m-1 custom-button-s" @click.prevent="deleteB()">ELIMINAR PORTERO</b-button>
+          </div>
+        </div>
+      </template>
+    <template v-else>
+        <template v-if="!deleteO">
+          <div class="row">
+            <div class="col-2">
+              <font-awesome-icon icon="fa-solid fa-arrow-alt-circle-left" class="back-profile" @click="$router.push('profile'); profile = !profile; selected = null"></font-awesome-icon>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h2>Designación de presidente</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mr-auto ml-auto mt-5">
+                <label style="float: left;">Selecciona planta y piso</label>
+                <b-form-select
+                v-model="selected"
+                id="input-house"
+                name="input-house"
+                v-validate="{ required: true}"
+                :state="validateState('input-house')"
+                :options="options"
+                aria-describedby="input-house-live-feedback">
+                </b-form-select>
+                <b-form-invalid-feedback id="input-house" class="msgE">
+                </b-form-invalid-feedback>
+            </div>
+            <div class="row">
+              <div class="col">
+                <b-button class="mt-5 custom-button-s" @click.prevent="changePresident()">DESIGNAR CARGO</b-button>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="row">
+            <div class="col-2">
+              <font-awesome-icon icon="fa-solid fa-arrow-alt-circle-left" class="back-profile" @click="$router.push('profile'); profile = !profile; deleteO = !deleteO; selected1 = null "></font-awesome-icon>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h2>Eliminar propietario</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mr-auto ml-auto mt-5">
+                <label style="float: left;">Selecciona planta y piso</label>
+                <b-form-select
+                v-model="selected1"
+                id="input-house2"
+                name="input-house2"
+                v-validate="{ required: true}"
+                :state="validateState('input-house2')"
+                :options="options"
+                aria-describedby="input-house2-live-feedback">
+                </b-form-select>
+                <b-form-invalid-feedback id="input-house2" class="msgE">
+                {{ veeErrors.first('input-house2')?'Elige una opción':'' }}
+                </b-form-invalid-feedback>
+                <b-form-invalid-feedback id="input-house2" class="msgE">
+                </b-form-invalid-feedback>
+            </div>
+            <div class="row">
+              <div class="col">
+                <b-button class="mt-5 custom-button-s" @click.prevent="deleteOwner()">ELIMINAR PROPIETARIO</b-button>
+              </div>
+            </div>
+          </div>
+        </template>
+    </template>
+  </template>
   </b-card>
 </template>
 
@@ -320,10 +423,10 @@ export default {
 .profile-card {
   padding: 20px;
   text-align: center;
-  background-color: #05506b;
-  color: #fff;
+  background-color: hwb(194 9% 54%);
+  color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  max-width: 1000px;
 }
 
 .profile-name {
@@ -350,6 +453,8 @@ export default {
 .back-profile:hover {
   color: #c7b9af;
   transform: scale(1.5); /* Aumenta el tamaño del icono al 150% al hacer hover */
-
+}
+input[type='checkbox'] {
+    accent-color: rgb(255, 255, 255);
 }
 </style>

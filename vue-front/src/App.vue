@@ -62,7 +62,16 @@ export default {
   padding: 10px 20px;
   cursor: pointer;
 }
-
+.custom-button-s{
+  background-color: #067559;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer
+}
+.custom-button-s:hover{
+  background-color: #148f70;
+}
 .custom-button:hover {
   background-color: #237b9b;
 }

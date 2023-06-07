@@ -22,7 +22,7 @@
       </b-col>
     </div>
     <div class="row  flex-grow-1" style="margin-top: 123px ;">
-      <div class="col-7 mr-auto ml-auto">
+      <div class="col-11 mr-auto ml-auto">
         <Profile></Profile>
       </div>
     </div>
