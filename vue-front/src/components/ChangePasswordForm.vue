@@ -37,7 +37,7 @@
             {{ veeErrors.first('input-passwordRepeat')?'Contraseña no puede estar vacía':'' }}
         </b-form-invalid-feedback>
       </div>
-        <b-button variant="outline-primary" type="submit">CABMIAR CONTRASEÑA</b-button>
+      <b-button class="m-1 custom-button" variant="outline-primary" type="submit">CABMIAR CONTRASEÑA</b-button>
     </b-form-group>
   </b-form>
 </div>
