@@ -127,8 +127,8 @@
     </div>
   </div>
     <!-- Vista de admin -->
-  <div class="row flex-grow-1" style="margin-top:123px" v-if="this.dataUserLogin.is_admin">
-    <div class="col-lg-8 col-md-9 mr-auto ml-auto">
+  <div class="row d-flex flex-grow-1" style="margin-top:123px" v-if="this.dataUserLogin.is_admin">
+    <div class="col-lg-8 col-md-8 col-sm-8 ml-auto mr-auto">
         <div class="container">
           <h1>COMUNIDADES</h1>
           <div class="table-container mx-auto">

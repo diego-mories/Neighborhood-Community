@@ -1,25 +1,31 @@
 <template>
-  <div id="full">
-    <b-form @submit.prevent="newCommunity">
-    <span><img class="w-25 h-25 mw-25 mh-25 mb-0" src="../assets/images/community.png"></span>
-        <b-form-group class="mb-0">
-            <div class="input-group mb-3">
+  <div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Nombre de la comunidad</label>
               <span class="input-group-text" id="basic-addon1">🏡</span>
-              <b-form-input
-              v-model="confCommunity.nameC"
-              id="input-community-nameC"
-              name="input-community-nameC"
-              v-validate="{ required: true}"
-              class="form-control"
-              aria-describedby="input-community-nameC-live-feedback"
-              placeholder="Nombre Comunidad"
-              :state="validateState('input-community-nameC')"
-              ></b-form-input>
-              <b-form-invalid-feedback id="input-community-nameC" class="msgE2">
-                {{ veeErrors.first('input-community-nameC')?'Campo obligatorio':'' }}
-              </b-form-invalid-feedback>
+                <b-form-input
+                v-model="confCommunity.nameC"
+                id="input-community-nameC"
+                name="input-community-nameC"
+                v-validate="{ required: true}"
+                class="form-control"
+                aria-describedby="input-community-nameC-live-feedback"
+                placeholder="Nombre Comunidad"
+                :state="validateState('input-community-nameC')"
+                ></b-form-input>
             </div>
-            <div class="input-group mb-3 d-flex">
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Plantas</label>
+              <span class="input-group-text" id="basic-addon1">🏡</span>
               <b-form-input
               v-model="confCommunity.floors"
               id="input-community-floors"
@@ -32,44 +38,64 @@
               placeholder="Plantas (min:1 max:10)"
               :state="validateState('input-community-floors')"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-community-floors" class="msgE2">
-                {{ veeErrors.first('input-community-floors')?'Campo obligatorio(min:1,max:10)':'' }}
-              </b-form-invalid-feedback>
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Puertas por planta</label>
+              <span class="input-group-text" id="basic-addon1">🏡</span>
               <b-form-input
-              v-model="confCommunity.doors"
-              id="input-community-doors"
-              name="input-community-doors"
+              v-model="confCommunity.floors"
+              id="input-community-floors"
+              name="input-community-floors"
               v-validate="{ required: true, min_value:1,max_value:10}"
               type="number"
+              min="1" max="10"
               class="form-control w-5 mr-1"
-              aria-describedby="input-community-doors-live-feedback"
-              placeholder="Puertas por planta (min:1 max:10)"
-              :state="validateState('input-community-doors')"
+              aria-describedby="input-community-floors-live-feedback"
+              placeholder="Plantas (min:1 max:10)"
+              :state="validateState('input-community-floors')"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-community-doors" class="msgE2">
-                {{ veeErrors.first('input-community-doors')?'Campo obligatorio(min:1,max:10)':'' }}
-              </b-form-invalid-feedback>
-              <input class="m-2" type="checkbox" id="cameras" value="1" v-model="letters"/>
-              <span class="d-flex align-items-center">¿Puertas con letras?</span>
             </div>
-        </b-form-group>
-        <b-form-group class="mb-0">
-          <div class="input-group  mb-3 d-flex justify-content-center">
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.paddle"/>
-            <span class="d-flex align-items-center">¿Hay pista de padel?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.tennis"/>
-            <span class="d-flex align-items-center">¿Hay pista de tenis?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.pool"/>
-            <span class="d-flex align-items-center">¿Hay piscina?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.doorman"/>
-            <span class="d-flex align-items-center">¿Hay portero?</span>
-            <input class="m-2" type="checkbox" id="cameras" value="1" v-model="confCommunity.cameras"/>
-            <span class="d-flex align-items-center">¿Hay cámaras?</span>
-          </div>
-        </b-form-group>
-        <b-form-group class="mb-0">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+          </b-form-group>
+      </div>
+      <div class="col-2">
+        <div style="margin-top: 43px; display: flex;">
+          <input type="checkbox" value="1" v-model="letters"/>
+          <span class="ml-2">Letra</span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        <input type="checkbox" value="1" v-model="confCommunity.has_paddle_court"/>
+        <span >Pista de padel</span>
+      </div>
+      <div class="col">
+        <input  type="checkbox"  value="1" v-model="confCommunity.has_tennis_court"/>
+        <span >Pista de tenis</span>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+          <input type="checkbox"  value="1" v-model="confCommunity.has_pool"/>
+          <span>Piscina</span>
+        </div>
+        <div class="col">
+          <input  type="checkbox"   value="1" v-model="confCommunity.has_cameras"/>
+          <span >Cámaras</span>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Nombre del presidente</label>
+              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
             <b-form-input
               v-model="user.name"
               id="input-user-name"
@@ -80,60 +106,79 @@
               placeholder="Nombre Presidente"
               :state="validateState('input-user-name')"
               ></b-form-input>
-            <b-form-invalid-feedback id="input-user-name" class="msgE2">
-              {{ veeErrors.first('input-user-name')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
-            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
-            <b-form-input
-              v-model="user.surname"
-              id="input-user-surname"
-              name="input-user-surname"
-              v-validate="{ required: true, alpha_spaces:true}"
-              class="form-control"
-              aria-describedby="input-user-surname-live-feedback"
-              placeholder="Apellidos Presidente"
-              :state="validateState('input-user-surname')"
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Apellidos del presidente</label>
+              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-user-alt"/></span>
+              <b-form-input
+                v-model="user.surname"
+                id="input-user-surname"
+                name="input-user-surname"
+                v-validate="{ required: true, alpha_spaces:true}"
+                class="form-control"
+                aria-describedby="input-user-surname-live-feedback"
+                placeholder="Apellidos Presidente"
+                :state="validateState('input-user-surname')"
+                ></b-form-input>
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Email del presidente</label>
+              <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
+              <b-form-input
+                v-model="user.email"
+                id="input-user-email"
+                name="input-user-email"
+                v-validate="{ required: true, email: true}"
+                type="email"
+                class="form-control"
+                aria-describedby="input-user-email-live-feedback"
+                placeholder="your-email@"
+                :state="validateState('input-user-email')"
               ></b-form-input>
-            <b-form-invalid-feedback id="input-user-surname" class="msgE2">
-              {{ veeErrors.first('input-user-surname')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
-          </div>
-        </b-form-group>
-        <b-form-group>
-          <div class="input-group mb-3 d-flex">
-            <span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-envelope" /></span>
-            <b-form-input
-              v-model="user.email"
-              id="input-user-email"
-              name="input-user-email"
-              v-validate="{ required: true, email: true}"
-              type="email"
-              class="form-control"
-              aria-describedby="input-user-email-live-feedback"
-              placeholder="your-email@"
-              :state="validateState('input-user-email')"
-            ></b-form-input>
-            <b-form-invalid-feedback id="input-user-email" class="msgE2">
-              {{ veeErrors.first('input-user-email')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
-            <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
-            <b-form-input
-              v-model="user.phone"
-              id="input-user-phone"
-              name="input-user-phone"
-              v-validate="{ required: true, digits:9}"
-              type="number"              
-              class="form-control"
-              aria-describedby="input-user-phone-live-feedback"
-              placeholder="Teléfono (9 dígitos)"
-              :state="validateState('input-user-phone')"
-            ></b-form-input>
-            <b-form-invalid-feedback id="input-user-phone" class="msgE2">
-              {{ veeErrors.first('input-user-phone')?'Campo obligatorio':'' }}
-            </b-form-invalid-feedback>
-          </div>
-          <div class="input-group mb-3 d-flex">
-            <b-form-input
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Teléfono del presidente</label>
+              <span class="input-group-text" id="basic-addon1"><font-awesome-icon class="mr-1" icon="fa-solid fa-phone" />(+34)</span>
+              <b-form-input
+                v-model="user.phone"
+                id="input-user-phone"
+                name="input-user-phone"
+                v-validate="{ required: true, digits:9}"
+                type="number"              
+                class="form-control"
+                aria-describedby="input-user-phone-live-feedback"
+                placeholder="Teléfono (9 dígitos)"
+                :state="validateState('input-user-phone')"
+              ></b-form-input>
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Planta de vivienda de presidente</label>
+              <span class="input-group-text" id="basic-addon1">🏡</span>
+              <b-form-input
               v-model="confCommunity.myFloor"
               id="input-community-myFloor"
               name="input-community-myFloor"
@@ -145,10 +190,17 @@
               placeholder="Mi planta"
               :state="validateState('input-community-myFloor')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-community-myFloor" class="msgE2">
-              {{ veeErrors.first('input-community-myFloor')?'Campo obligatorio(min:1,max:10)':'' }}
-            </b-form-invalid-feedback>
-            <b-form-input
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <b-form-group>
+            <div class="input-group">
+              <label class="label-login">Puerta de vivienda de presidente</label>
+              <span class="input-group-text" id="basic-addon1">🏡</span>
+              <b-form-input
               v-model="confCommunity.myDoor"
               id="input-community-myDoor"
               name="input-community-myDoor"
@@ -160,14 +212,20 @@
               placeholder="Mi planta"
               :state="validateState('input-community-myDoor')"
             ></b-form-input>
-            <b-form-invalid-feedback id="input-community-myDoor" class="msgE2">
-              {{ veeErrors.first('input-community-myDoor')?'Campo obligatorio(min:1,max:10)':'' }}
-            </b-form-invalid-feedback>
-            <span v-if ="letters" class="m-auto">(1=A 2=B 3=C 4=D 5=E)</span>
-          </div>
-        </b-form-group>
-        <b-button variant="outline-primary" type="submit">CREAR COMUNIDAD</b-button>
-    </b-form>
+            </div>
+          </b-form-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span v-if ="letters" class="m-auto">(1=A 2=B 3=C 4=D 5=E)</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b-button class="m-1 custom-button" variant="outline-primary" @click.prevent="newCommunity()">CREAR COMUNIDAD</b-button>
+      </div>
+    </div>
 </div>
 </template>
 
