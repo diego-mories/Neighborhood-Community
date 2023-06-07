@@ -35,17 +35,7 @@ li {list-style:none; vertical-align: middle;}
 .bootstrap-btn {
   font-size: 0.8rem;
 }
-.centerImage{
-  position: absolute;
-  height:auto;
-  width: auto;
-  max-width: 70%;
-  max-height: 70%;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
+
 /* -> Components <- */
 /* VIEWS CARDS */
 .cards{
@@ -53,7 +43,7 @@ li {list-style:none; vertical-align: middle;}
   align-items: center;
   justify-content: center;
   width: 100%;
-  }
+}
 .buttonHomeMenu {
   border: none;           
   width: 100px;
