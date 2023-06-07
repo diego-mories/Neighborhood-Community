@@ -1,20 +1,23 @@
 <template>
-    <div class="screen">
-      <div class="row" id="grid-top-home">
-          <div class="col-sm-5" id="full">
-            <div id="img-container-home"></div>
-          </div>
-          <div class="col-sm-7" id="full">
-            <div class="center-form">
-                <button type="button" class="btn btn-sm btn-primary" v-on:click="ready"> ACTIVAR CUENTA</button>
-            </div>
-          </div>
-      </div>
-      <div class="row" id="grid-bottom-home"><FooterSocial id="full"></FooterSocial></div>
-    </div>
+  <div class="container-fluid d-flex flex-column">
+    <b-row class ="py-5 my-5 py-lg-0 my-lg-0">
+      <b-col lg="6" class="image-column d-none d-lg-block" :style="{ 'background-image': `url(${imageURL})` }">
+      </b-col>
+      <b-col lg="6" class="d-flex" >
+        <div class="form-container m-auto">
+          <button type="button" class="btn btn-sm btn-primary" v-on:click="ready"> ACTIVAR CUENTA</button>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <FooterSocialNetwork></FooterSocialNetwork>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 <script>
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import swal from 'sweetalert'
 import UsersServices from '../services/Users'
 export default {
@@ -22,7 +25,7 @@ export default {
     tokenActive: ''
   }),
   components: {
-    FooterSocial
+    FooterSocialNetwork
   },
   methods: {
     ready () {

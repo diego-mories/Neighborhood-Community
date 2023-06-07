@@ -11,15 +11,15 @@
       <b-collapse is-nav id="nav-collapse">
         <b-navbar-nav class="ml-auto">
           <b-nav-item>
-            <router-link tag="span" active-class="active" to="/contact" exact>
-              CONTACTAR CON PROPIETARIO
-              <font-awesome-icon icon="fa-solid fa-address-book"/>
-            </router-link>
-          </b-nav-item>
-          <b-nav-item>
             <router-link tag="span" active-class="active" to="/cameras" exact>
               CÁMARAS
               <font-awesome-icon icon="fa-solid fa-video"/>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <router-link tag="span" active-class="active" to="/contact" exact>
+              CONTACTAR CON PROPIETARIO
+              <font-awesome-icon icon="fa-solid fa-address-book"/>
             </router-link>
           </b-nav-item>
         </b-navbar-nav>

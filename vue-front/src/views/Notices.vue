@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
-      <div class="row">
-        <NavBarPresident></NavBarPresident>
-      </div>
+    <div class="row">
+      <NavBarPresident></NavBarPresident>
+    </div>
     <div class="row" style="margin-top: 120px;">
       <b-col>
         <router-link to="/login">
