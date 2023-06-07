@@ -1,68 +1,4 @@
 <template>
-    <!-- <div class="screen">
-      <div class="row" id="grid-top-log">
-        <NavBarBuildingDoorman  id="full"></NavBarBuildingDoorman>
-      </div>
-      <div class="row" id="grid-top">
-        <div class="row" id="topR">
-          <div class="col-sm-1" id="full">
-            <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('login')">VOLVER</button>
-          </div>
-          <div class="col-sm-11" id="full">
-            <span class="title"><b>Contactar con propietario</b></span>
-          </div>
-        </div>
-        <div class="row" id="bottomR">
-          <div class="col-1" id="full">
-          </div>
-          <div class="col-3 m-auto" id="full">
-            <span><img class="w-25 h-25 mw-25 mh-25 mb-5" src="../assets/images/.png"></span>
-            <div class="input-group mb-3 d-flex justify-content-center">
-              <b-form-group>
-                  <div class="input-group">
-                    <label class="label-login">Selecciona el propietario</label>
-                    <b-form-select
-                    v-model="selected"
-                    id="input-house"
-                    name="input-house"
-                    v-validate="{ required: true}"
-                    :state="validateState('input-house')"
-                    :options="options"
-                    aria-describedby="input-house-live-feedback">
-                    </b-form-select>
-                    <b-form-invalid-feedback id="input-house" class="msgE">
-                    {{ veeErrors.first('input-house')?'Elige una opción':'' }}
-                    </b-form-invalid-feedback>
-                    <label class="label-login">Descripción</label>
-                    <b-form-textarea
-                        v-model="msg"
-                        id="input-msg"
-                        name="input-msg"
-                        v-validate="{ required: true }"
-                        type="text"
-                        rows="7"
-                        class="form-control"
-                        aria-describedby="input-msg-live-feedback"
-                        :state="validateState('input-msg')"
-                    ></b-form-textarea>
-                    <b-form-invalid-feedback id="input-msg" class="msgE2">
-                        {{ veeErrors.first('input-msg')?'Campo obligatorio':'' }}
-                    </b-form-invalid-feedback>
-                  </div>
-              </b-form-group>
-            </div>
-            <div class="input-group mb-3 d-flex justify-content-center">
-              <b-form-group>
-                <b-button class="m-3" variant="outline-primary" type="submit" @click="contact()">CONTACTAR</b-button>
-              </b-form-group>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="grid-bottom">
-        <footer-social-network></footer-social-network>
-      </div>
-    </div> -->
     <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
       <div class="row">
         <NavBarBuildingDoorman></NavBarBuildingDoorman>
@@ -133,10 +69,10 @@
       </div>
       </div>
       <div class="row">
-      <b-col>
-        <FooterSocialNetwork></FooterSocialNetwork>
-      </b-col>
-    </div>
+        <b-col>
+          <FooterSocialNetwork></FooterSocialNetwork>
+        </b-col>
+      </div>
     </div>
 </template>
   

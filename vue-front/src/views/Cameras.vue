@@ -1,47 +1,78 @@
 <template>
-  <div class="screen">
-    <div class="row" id="grid-top-log">
-      <NavBarBuildingDoorman id="full"></NavBarBuildingDoorman>
+  <div class="container-fluid bg-svg d-flex flex-column" style="min-height:1329px">
+    <div class="row">
+      <NavBarBuildingDoorman></NavBarBuildingDoorman>
     </div>
-    <div class="row" id="grid-top">
-      <div class="row" id="topR">
-        <div class="col-sm-1" id="full">
-          <button class="btn btn-sm btn-primary" id="profileButton" @click="$router.push('/login')">VOLVER</button>
-        </div>
-        <div class="col-sm-11" id="full">
-          <span class="title"><b>Cámaras</b></span>
-        </div>
-      </div>
-      <div class="row" id="bottomR">
-        <div class="col-sm-1" id="full">
-        </div>
-        <div class="col-sm-11" id="full">
-          <div class="row">
-            <div class="col-sm-12" id="full">
-              <a href="https://www.skylinewebcams.com/es/webcam/espana/canarias/santa-cruz-de-tenerife/catamarano-royal-delfin.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/670.jpg" alt="【LIVE】 Catamarán Royal Delfin - Tenerife | SkylineWebcams"></a>         
-              <a href="https://www.skylinewebcams.com/es/webcam/espana/canarias/santa-cruz-de-tenerife/punta-brava.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/1276.jpg" alt="【LIVE】 Puerto de la Cruz - Punta Brava | SkylineWebcams"></a>        
-            </div>
+    <div class="row" style="margin-top: 120px;">
+      <b-col>
+        <router-link to="/login">
+          <div class="back">
+            <span class="d-none d-lg-block">VOLVER</span>
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
           </div>
-          <div class="row">
-            <div class="col-sm-12" id="full">
-              <a href="https://www.skylinewebcams.com/es/webcam/espana/comunidad-valenciana/alicante/benidorm-playa-alicante.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/592.jpg" alt="【LIVE】 Benidorm - Playa de Levante - Alicante | SkylineWebcams"></a>
-              <a href="https://www.skylinewebcams.com/es/webcam/espana/cataluna/gerona/lloret-de-mar-costa-brava.html" target="_blank"><img src="https://embed.skylinewebcams.com/img/631.jpg" alt="【LIVE】 Lloret De Mar | SkylineWebcams"></a>                     
-            </div>
-          </div>
-        </div>
+        </router-link>
+      </b-col>
+    </div>
+    <div class="row">
+      <b-col>
+        <span class="title"><b>CÁMARAS</b></span>
+      </b-col>
+    </div>
+    <div class="row mt-3">
+      <b-col>
+        <video style="height: 200px; float:right; margin-right: 20px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad1.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+      <b-col>
+        <video style="height: 200px;float:left; margin-left: 16px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad2.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+    </div>
+    <div class="row mt-3">
+      <b-col>
+        <video style="height: 200px; float:right; margin-right: 20px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad2.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+      <b-col>
+        <video style="height: 200px;float:left; margin-left: 16px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad1.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+    </div>
+    <div class="row mt-3 flex-grow-1 d-flex mb-5">
+      <b-col>
+        <video style="height: 200px; float:right; margin-right: 20px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad1.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+      <b-col>
+        <video style="height: 200px;float:left; margin-left: 16px;" controls autoplay loop>
+          <source src="../assets/video/Seguridad2.mp4" type="video/mp4">
+          Tu navegador no admite la reproducción de videos.
+        </video>
+      </b-col>
+    </div>
+    <div class="row">
+        <b-col>
+          <FooterSocialNetwork></FooterSocialNetwork>
+        </b-col>
       </div>
-    </div>
-    <div class="row" id="grid-bottom-home">
-      <FooterSocial id="full"></FooterSocial>
-    </div>
   </div>
 </template>
 <script>
-import FooterSocial from '../components/FooterSocialNetwork.vue'
+import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarBuildingDoorman from '../components/NavBarBuildingDoorman.vue'
 export default {
   components: {
-    FooterSocial,
+    FooterSocialNetwork,
     NavBarBuildingDoorman
   }
 }
