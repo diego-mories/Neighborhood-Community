@@ -2,7 +2,7 @@
     <div class="m-auto">
     <b-row>
         <b-col v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court" >
-            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/bookingCourts" exact>
+            <router-link class="btn btn-dark buttonHomeMenu" tag="li" active-class="active" to="/booking-courts" exact>
                 <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball"/>
             </router-link>
             <p>RESERVAS</p>

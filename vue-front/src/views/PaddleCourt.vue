@@ -6,7 +6,7 @@
     </div>
     <div class="row" style="margin-top: 80px; ">
       <b-col>
-        <router-link to="/bookingCourts">
+        <router-link to="/booking-courts">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
             <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 

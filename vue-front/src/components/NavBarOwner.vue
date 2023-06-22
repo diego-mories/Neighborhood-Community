@@ -11,7 +11,7 @@
     <b-collapse is-nav id="nav-collapse">
     <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court">
-            <router-link tag="span" active-class="active" to="/bookingCourts" exact>
+            <router-link tag="span" active-class="active" to="/booking-courts" exact>
             RESERVA PISTAS
             <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball" />
             </router-link>

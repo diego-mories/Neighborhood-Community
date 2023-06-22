@@ -39,7 +39,7 @@
             </b-form-invalid-feedback>
         </div>
           <b-button variant="outline-primary" type="submit">INICIAR SESIÓN</b-button>
-          <div class="input-group m-1"><router-link to="/forgotPassword"><label id="forgot-password"><u>¿Recuperar Contraseña?</u></label></router-link></div>
+          <div class="input-group m-1"><router-link to="/forgot-password"><label id="forgot-password"><u>¿Recuperar Contraseña?</u></label></router-link></div>
       </b-form-group>
     </b-form>
   </template>

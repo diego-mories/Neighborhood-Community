@@ -21,7 +21,8 @@
     </div>
     <div class="row flex-grow-1" style="margin-top:123px" v-if="role === 1">
       <div class="col-lg-8 col-11 mr-auto ml-auto">
-        <div class="table-container">
+        <div class="container">
+          <div class="table-container mx-auto">
             <b-table
               style="overflow:auto; max-height: 615px;"
               ref="payTable"
@@ -46,6 +47,7 @@
                 {{ data.item.type_bill | formatBillP}}
               </template>
             </b-table>
+          </div>
             <b-button class="m-1 custom-button" variant="outline-primary" type="submit" @click.prevent="downloadPDFWithjsPDF()">IMPRIMIR PAGOS</b-button>
         </div>
       </div>

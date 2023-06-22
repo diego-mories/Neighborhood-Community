@@ -55,7 +55,7 @@
             <b-button class="m-1 custom-button-s" @click="$router.push('profile'); flagConfCom = !flagConfCom">RECONFIGURAR CONMUNIDAD</b-button>
           </div>
           <div v-if="role_id === 3 || role_id === 2 || role_id === 1" class="col">
-            <b-button class="m-1 custom-button-s" @click="$router.push('changePassword')">CAMBIAR CONTRASEÑA</b-button>
+            <b-button class="m-1 custom-button-s" @click="$router.push('change-password')">CAMBIAR CONTRASEÑA</b-button>
           </div>
           <div v-if="role_id === 1" class="col">
             <b-button class="m-1 custom-button-s" @click="profile = !profile">DESIGNAR CARGO</b-button>

@@ -11,7 +11,7 @@
       <b-collapse is-nav id="nav-collapse">
         <b-navbar-nav class="ml-auto">
           <b-nav-item>
-            <router-link tag="span" active-class="active" to="/newCommunity" exact>
+            <router-link tag="span" active-class="active" to="/new-community" exact>
               CREAR COMUNIDAD
               <font-awesome-icon icon="fa-solid fa-group-arrows-rotate"/>           
             </router-link>
