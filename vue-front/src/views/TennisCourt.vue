@@ -6,10 +6,10 @@
     </div>
     <div class="row" style="margin-top: 80px; ">
       <b-col>
-        <router-link to="/bookingCourts">
+        <router-link to="/booking-courts">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
-            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon>
           </div>
         </router-link>
       </b-col>
@@ -25,11 +25,11 @@
             <div class="container">
               <div class="table-container mx-auto">
                 <b-table
-                :items="items" 
-                :fields="fields" 
-                :select-mode="'single'" 
-                responsive="sm" 
-                ref="selectableTable" 
+                :items="items"
+                :fields="fields"
+                :select-mode="'single'"
+                responsive="sm"
+                ref="selectableTable"
                 selectable
                 @row-selected="onRowSelected"
                 head-variant="dark">
@@ -40,7 +40,7 @@
               </div>
               <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
               <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
-              <h3><span class="badge badge-danger" id="msg"></span></h3>        
+              <h3><span class="badge badge-danger" id="msg"></span></h3>
             </div>
         </div>
       </div>
@@ -51,11 +51,11 @@
             <div class="container">
               <div class="table-container mx-auto">
                 <b-table
-                :items="items" 
-                :fields="fields" 
-                :select-mode="'single'" 
-                responsive="sm" 
-                ref="selectableTable" 
+                :items="items"
+                :fields="fields"
+                :select-mode="'single'"
+                responsive="sm"
+                ref="selectableTable"
                 selectable
                 @row-selected="onRowSelected"
                 head-variant="dark">
@@ -66,13 +66,13 @@
               </div>
               <h3><span class="badge msg-info-book" id="msg1">Seleccione una hora de reserva</span></h3>
               <b-button id="myBtn" variant="outline-primary" type="submit" class="custom-button" @click="reserve()">RESERVAR</b-button>
-              <h3><span class="badge badge-danger" id="msg"></span></h3>        
+              <h3><span class="badge badge-danger" id="msg"></span></h3>
             </div>
         </div>
       </div>
       <div class="row flex-grow-1 d-flex">
         <div class="col ml-auto mr-auto">
-          <div>MIS RESERVAS: {{myBook}}</div><b-button class="btn-danger" @click="cancelBookT()">CANCELAR RESERVA</b-button>   
+          <div>MIS RESERVAS: {{myBook}}</div><b-button class="btn-danger" @click="cancelBookT()">CANCELAR RESERVA</b-button>
         </div>
       </div>
     </template>
@@ -99,7 +99,7 @@ export default {
     return {
       role: null,
       fields: [
-        {key: 'is_available', label: 'Disponibilidad', tdClass: 'table-title', thClass: 'table-title'}, 
+        {key: 'is_available', label: 'Disponibilidad', tdClass: 'table-title', thClass: 'table-title'},
         {key: 'time_zone', label: 'Horario', tdClass: 'table-title', thClass: 'table-title'}
       ],
       items: [],
@@ -125,13 +125,13 @@ export default {
     onRowSelected (items) {
       this.selected = items
       if (this.selected[0].is_available === 0) {
-        document.getElementById('msg1').hidden = true 
-        document.getElementById('myBtn').hidden = true 
+        document.getElementById('msg1').hidden = true
+        document.getElementById('myBtn').hidden = true
         document.getElementById('msg').textContent = 'Seleccione una hora disponible para reservar'
         document.getElementById('msg').hidden = false
       } else {
-        document.getElementById('msg1').hidden = true 
-        document.getElementById('myBtn').hidden = false 
+        document.getElementById('msg1').hidden = true
+        document.getElementById('myBtn').hidden = false
         document.getElementById('msg').hidden = true
       }
     },
@@ -154,7 +154,7 @@ export default {
         Error => {
           console.log('Error al buscar si tengo alguna reserva de tenis' + Error)
         }
-        
+
       )
     },
     reserve () {
@@ -167,7 +167,7 @@ export default {
               showConfirmButton: false,
               timer: 2500
             }).then(()=> {this.$router.push({ path: '/login' })})
-          } 
+          }
           else {
             this.$swal.fire({
               icon: 'error',
@@ -176,11 +176,11 @@ export default {
               timer: 2500
             }).then(()=> {this.$router.push({ path: '/login' })})
           }
-        }, 
+        },
         Error => {
           console.log('Error al reservar la pista de tenis' + Error)
         }
-      ) 
+      )
     },
     cancelBookT() {
       BookingsServices.cancelBookT(this.dataUserLogin,this.myBook).then(
@@ -193,7 +193,7 @@ export default {
           }).then(()=> {
             this.$router.push({ path: '/login' })
           })
-        }, 
+        },
         Error => {
           console.log('Error al cancelar la reserva' + Error)
         }

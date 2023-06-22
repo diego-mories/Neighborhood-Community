@@ -11,7 +11,7 @@
         <router-link to="/profile">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
-            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon>
           </div>
         </router-link>
       </b-col>
@@ -23,17 +23,17 @@
     </div>
     <div class="row  flex-grow-1" style="margin-top: 123px ;">
       <div class="col-8 col-lg-5 mr-auto ml-auto">
-        <ChangePasswordForm></ChangePasswordForm>
+        <ChangePasswordForm></change-passwordForm>
       </div>
     </div>
     <div class="row">
       <FooterSocialNetwork></FooterSocialNetwork>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
-import ChangePasswordForm from '../components/ChangePasswordForm.vue'
+import ChangePasswordForm from '../components/change-passwordForm.vue'
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
 import NavBarPresident from '../components/NavBarPresident.vue'
 import NavBarOwner from '../components/NavBarOwner.vue'

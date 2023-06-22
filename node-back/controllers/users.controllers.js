@@ -117,7 +117,7 @@ exports.signUp = async (req, res) => {
                   to: '' + data.email,
                   subject: 'Bienvenido',
                   text: '¡Qué alegría tenerte con nosotros! ' + data.name + 
-                  ', tu contraseña inicial de inicio de sesión es: ' + password + '\nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/activeUser/' + tokenActive
+                  ', tu contraseña inicial de inicio de sesión es: ' + password + '\nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/active-user/' + tokenActive
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {
@@ -279,7 +279,7 @@ exports.signUpDoorman = async (req, res) => {
                   to: '' + data.email,
                   subject: 'Bienvenido',
                   text: '¡Qué alegría tenerte con nosotros eres el nuevo portero de la comunidad! ' + data.name + 
-                  ', tu contraseña inicial de inicio de sesión es: ' + password + ' \nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/activeUser/' + tokenActive
+                  ', tu contraseña inicial de inicio de sesión es: ' + password + ' \nnuestros servicios estarán listos para su uso una vez confirmes la activación de la cuenta a través de este enlace: http://212.128.144.150/active-user/' + tokenActive
                 }
                 mailTransporter.sendMail(mailOptions, function (error, info) {
                   if (error) {

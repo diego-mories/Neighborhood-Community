@@ -5,7 +5,7 @@
       </b-col>
       <b-col lg="6" class="d-flex" >
         <div class="form-container m-auto">
-          <ForgotPassword></ForgotPassword>
+          <ForgotPassword></forgot-password>
         </div>
       </b-col>
     </b-row>
@@ -19,7 +19,7 @@
 
 <script>
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue';
-import ForgotPassword from '../components/ForgotPasswordForm.vue';
+import ForgotPassword from '../components/forgot-passwordForm.vue';
 export default {
   components: {
     FooterSocialNetwork,

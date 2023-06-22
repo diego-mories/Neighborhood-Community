@@ -3,7 +3,7 @@
     <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" class="navbar-style">
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <router-link tag="span" active-class="active" to="/profile" exact style="cursor: pointer;">
-        <b-navbar-brand class="ml-3"> 
+        <b-navbar-brand class="ml-3">
           <img src="../assets/images/perfil.png" class="profile-img" >{{ name }}
         </b-navbar-brand>
       </router-link>
@@ -11,7 +11,7 @@
       <b-collapse is-nav id="nav-collapse">
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-if="confCommunity.has_paddle_court || confCommunity.has_tennis_court">
-            <router-link tag="span" active-class="active" to="/bookingCourts" exact>
+            <router-link tag="span" active-class="active" to="/booking-courts" exact>
               RESERVA PISTAS
               <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball" />
             </router-link>
@@ -32,7 +32,7 @@
           </b-nav-item>
 
           <b-nav-item>
-            <router-link tag="span" active-class="active" to="/registerUser" exact>
+            <router-link tag="span" active-class="active" to="/register-user" exact>
               ALTA USUARIOS
               <font-awesome-icon icon="fa-solid fa-user-alt" />
             </router-link>

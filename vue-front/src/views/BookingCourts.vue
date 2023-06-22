@@ -9,7 +9,7 @@
         <router-link to="/login">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
-            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon>
           </div>
         </router-link>
       </b-col>
@@ -21,10 +21,10 @@
     </div>
     <div class="row flex-grow-1 d-flex">
       <div v-if="confCommunity.has_tennis_court" class="col mr-auto mt-auto mb-auto">
-        <router-link to="/tennisCourt"><img src="../assets/images/tennis.png" id="courts"></router-link>
+        <router-link to="/tennis-court"><img src="../assets/images/tennis.png" id="courts"></router-link>
       </div>
       <div v-if="confCommunity.has_paddle_court" class="col ml-auto mt-auto mb-auto" >
-        <router-link to="/paddleCourt"><img  src="../assets/images/paddle.png" id="courts"></router-link>
+        <router-link to="/paddle-court"><img  src="../assets/images/paddle.png" id="courts"></router-link>
       </div>
     </div>
     <div class="row">
@@ -65,8 +65,8 @@ export default {
   background-size: cover;
 }
 .back {
-  float: left; 
-  margin-left: 10px ; 
+  float: left;
+  margin-left: 10px ;
   cursor: pointer;
   color: #494440;
 }

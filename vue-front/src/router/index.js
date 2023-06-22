@@ -3,17 +3,17 @@ import Router from 'vue-router'
 // >> Views
 import Home from '../views/Home'
 import Login from '../views/Login'
-import BookingCourts from '../views/BookingCourts'
-import TennisCourt from '../views/TennisCourt'
-import PaddleCourt from '../views/PaddleCourt'
+import BookingCourts from '../views/booking-courts'
+import TennisCourt from '../views/tennis-court'
+import PaddleCourt from '../views/paddle-court'
 import Notices from '../views/Notices'
 import Profile from '../views/Profile'
-import ForgotPassword from '../views/ForgotPassword'
-import ChangePassword from '../views/ChangePassword'
-import RegisterUser from '../views/RegisterUser'
+import ForgotPassword from '../views/forgot-password'
+import ChangePassword from '../views/change-password'
+import RegisterUser from '../views/register-user'
 import NewCommunity from '../views/NewCommunity'
 import Cameras from '../views/Cameras'
-import ActiveUser from '../views/ActiveUser'
+import ActiveUser from '../views/active-user'
 import Bills from '../views/Bills'
 import Spills from '../views/Spills'
 import Payments from '../views/Payments'
@@ -43,7 +43,7 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/bookingCourts',
+      path: '/booking-courts',
       name: 'BookingCourts',
       component: BookingCourts,
       beforeEnter : guardMyrouteLogin
@@ -55,13 +55,13 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/tennisCourt',
+      path: '/tennis-court',
       name: 'TennisCourt',
       component: TennisCourt,
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/paddleCourt',
+      path: '/paddle-court',
       name: 'PaddleCourt',
       component: PaddleCourt,
       beforeEnter : guardMyrouteLogin
@@ -91,19 +91,19 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/forgotPassword',
+      path: '/forgot-password',
       name: 'ForgotPassword',
       component: ForgotPassword,
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/changePassword',
+      path: '/change-password',
       name: 'ChangePassword',
       component: ChangePassword,
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/registerUser',
+      path: '/register-user',
       name: 'RegisterUser',
       component: RegisterUser,
       beforeEnter : guardMyrouteLogin
@@ -121,7 +121,7 @@ export default new Router({
       beforeEnter : guardMyrouteLogin
     },
     {
-      path: '/activeUser/:tokenActive',
+      path: '/active-user/:tokenActive',
       name: 'ActiveUser',
       component: ActiveUser,
     },
@@ -148,36 +148,36 @@ function guardMyrouteLogin(to, from, next){
     isAuthenticated = false
   let user = JSON.parse(localStorage.getItem('userLogin'))
   console.log(isAuthenticated)
-  if (isAuthenticated) 
+  if (isAuthenticated)
   {
     if (user.role_id === 3) {
-      if (to.path === "/") next('/login') 
-      else  next() 
-      if (to.path === "/bills" || to.path === "/contact"  || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/cameras"|| to.path === "/spills") next('/login') 
-      else  next() 
-    } 
+      if (to.path === "/") next('/login')
+      else  next()
+      if (to.path === "/bills" || to.path === "/contact"  || to.path === "/register-user"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/cameras"|| to.path === "/spills") next('/login')
+      else  next()
+    }
     if (user.role_id === 1) {
-      if (to.path === "/") next('/login') 
-      else  next() 
-      if (to.path === "/cameras" || to.path === "/contact" || to.path === "/newCommunity") next('/login') 
-      else  next() 
+      if (to.path === "/") next('/login')
+      else  next()
+      if (to.path === "/cameras" || to.path === "/contact" || to.path === "/newCommunity") next('/login')
+      else  next()
     }
     if (user.role_id === 2) {
-      if (to.path === "/") next('/login') 
-      else  next() 
-      if (to.path === "/bills" || to.path === "/tickets" ||  to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt" || to.path === "/payments") next('/login') 
-      else  next() 
+      if (to.path === "/") next('/login')
+      else  next()
+      if (to.path === "/bills" || to.path === "/tickets" ||  to.path === "/register-user"|| to.path === "/notices"|| to.path === "/newCommunity"|| to.path === "/booking-courts"|| to.path === "/spills"|| to.path === "/tennis-court"|| to.path === "/paddle-court" || to.path === "/payments") next('/login')
+      else  next()
     }
     if (user.is_admin) {
-      if (to.path === "/") next('/login') 
-      else  next() 
-      if (to.path === "/bills" || to.path === "/tickets" || to.path === "/contact" || to.path === "/registerUser"|| to.path === "/notices"|| to.path === "/bookingCourts"|| to.path === "/spills"|| to.path === "/tennisCourt"|| to.path === "/paddleCourt"|| to.path === "/cameras"|| to.path === "/paddleCourt"|| to.path === "/payments") next('/login') 
-      else  next() 
+      if (to.path === "/") next('/login')
+      else  next()
+      if (to.path === "/bills" || to.path === "/tickets" || to.path === "/contact" || to.path === "/register-user"|| to.path === "/notices"|| to.path === "/booking-courts"|| to.path === "/spills"|| to.path === "/tennis-court"|| to.path === "/paddle-court"|| to.path === "/cameras"|| to.path === "/paddle-court"|| to.path === "/payments") next('/login')
+      else  next()
     }
-  } 
+  }
   else
-  { 
-    if (to.path === "/forgotPassword" || to.path === "/" ) next() 
+  {
+    if (to.path === "/forgot-password" || to.path === "/" ) next()
     else  next('/')
   }
 }

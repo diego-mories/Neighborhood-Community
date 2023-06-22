@@ -13,7 +13,7 @@ module.exports = function (app) {
         controller.resetPassword
     )
     app.post(
-        '/api/users/changePassword',
+        '/api/users/change-password',
         controller.changePassword
     )
     app.get(
@@ -29,7 +29,7 @@ module.exports = function (app) {
         controller.signUpDoorman
     )
     app.get(
-        '/api/users/activeUser',
+        '/api/users/active-user',
         controller.activeUser
     )
     app.post(

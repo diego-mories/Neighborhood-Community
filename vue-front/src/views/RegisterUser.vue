@@ -8,7 +8,7 @@
         <router-link to="/login">
           <div class="back">
             <span class="d-none d-lg-block">VOLVER</span>
-            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon> 
+            <font-awesome-icon icon="fa-solid fa-tent-arrow-turn-left" style="font-size: 30px; "></font-awesome-icon>
           </div>
         </router-link>
       </b-col>
@@ -31,7 +31,7 @@
             <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddDoorman()">CABMIO DE FORMULARIO</b-button>
           </b-form-group>
         </div>
-      </div>  
+      </div>
       <div class="row flex-grow-1 d-flex">
         <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
             <template v-if="addDoormanExist">
@@ -57,12 +57,12 @@
               <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouse()">VOLVER AL OTRO FORMULARIO</b-button>
             </b-form-group>
           </div>
-        </div> 
+        </div>
         <div class="row flex-grow-1 d-flex">
           <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
-            <RegisterUserOther></RegisterUserOther>
+            <RegisterUserOther></register-userOther>
           </div>
-        </div> 
+        </div>
       </template>
       <template v-if="addHouseOtherC">
         <div class="row d-flex">
@@ -71,12 +71,12 @@
               <b-button class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouseOtherC()">VOLVER AL OTRO FORMULARIO</b-button>
             </b-form-group>
           </div>
-        </div> 
+        </div>
         <div class="row flex-grow-1 d-flex">
           <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
-            <RegisterUserOtherCForm></RegisterUserOtherCForm>
+            <RegisterUserOtherCForm></register-userOtherCForm>
           </div>
-        </div> 
+        </div>
       </template>
       <template v-if="!addHouse && !addHouseOtherC">
         <div class="row d-flex">
@@ -86,12 +86,12 @@
               <b-button  class="m-3 custom-button" variant="outline-primary" @click.prevent="changeAddHouseOtherC()">REGISTRO DE UN USUARIO DE OTRA COMUNIDAD</b-button>
             </b-form-group>
           </div>
-        </div> 
+        </div>
         <div class="row flex-grow-1 d-flex">
           <div class="col-8 col-lg-4 ml-auto mr-auto mb-auto">
-            <RegisterUserForm></RegisterUserForm>
+            <RegisterUserForm></register-userForm>
           </div>
-        </div> 
+        </div>
       </template>
     </template>
     <div class="row">
@@ -100,7 +100,7 @@
       </b-col>
     </div>
   </div>
-  
+
 <!-- <div class="screen">
   <div class="row" id="grid-top-log">
       <NavBarPresident id="full"></NavBarPresident>
@@ -138,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <RegisterUserOther class="center-form"></RegisterUserOther>
+            <RegisterUserOther class="center-form"></register-userOther>
           </template>
           <template v-if="addHouseOtherC">
             <div class="row">
@@ -150,8 +150,8 @@
                 </div>
               </div>
             </div>
-            <RegisterUserOtherCForm class="center-form"></RegisterUserOtherCForm>
-          </template> 
+            <RegisterUserOtherCForm class="center-form"></register-userOtherCForm>
+          </template>
           <template v-if="!addHouse && !addHouseOtherC">
             <div class="row">
               <div class="col-3">
@@ -163,7 +163,7 @@
                 </div>
               </div>
             </div>
-            <RegisterUserForm class="center-form"></RegisterUserForm>
+            <RegisterUserForm class="center-form"></register-userForm>
           </template>
         </template>
       </div>
@@ -176,9 +176,9 @@
 </template>
 
 <script>
-import RegisterUserForm from '../components/RegisterUserForm.vue'
-import RegisterUserOtherCForm from '../components/RegisterUserOtherCForm.vue'
-import RegisterUserOther from '../components/RegisterUserOther.vue'
+import RegisterUserForm from '../components/register-userForm.vue'
+import RegisterUserOtherCForm from '../components/register-userOtherCForm.vue'
+import RegisterUserOther from '../components/register-userOther.vue'
 import RegisterDoormanForm from '../components/RegisterDoormanForm.vue'
 import RegisterDoormanFormExist from '../components/RegisterDoormanFormExist.vue'
 import FooterSocialNetwork from '../components/FooterSocialNetwork.vue'
